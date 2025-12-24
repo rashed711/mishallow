@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: "0px 0px -100px 0px"
+      rootMargin: "0px 0px -50px 0px"
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
       });
     }, observerOptions);
 
-    const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+    const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
     return () => observer.disconnect();
@@ -30,19 +30,19 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col">
       <Hero />
-      <div className="reveal scroll-mt-24" id="about-summary">
+      <div className="reveal scroll-mt-24">
         <About />
       </div>
-      <div className="reveal scroll-mt-24" id="methodology">
+      <div className="reveal scroll-mt-24">
         <HowWeWork />
       </div>
-      <div className="reveal scroll-mt-24" id="why-choose-us">
+      <div className="reveal scroll-mt-24">
         <WhyUs />
       </div>
-      <div className="reveal scroll-mt-24" id="news">
+      <div className="reveal scroll-mt-24">
         <LatestArticles />
       </div>
-      <div className="reveal scroll-mt-24" id="services-summary">
+      <div className="reveal scroll-mt-24">
         <Services />
       </div>
     </div>

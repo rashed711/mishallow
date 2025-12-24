@@ -6,7 +6,7 @@
     <title>مكتب مشعل بادغيش للمحاماة والاستشارات القانونية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
       
       :root {
         --gold-primary: #B89544;
@@ -16,34 +16,30 @@
       }
 
       body {
-        font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+        font-family: 'Tajawal', sans-serif; /* توحيد الخط في كامل الموقع */
         background-color: var(--slate-bg);
         color: #1E293B;
         overflow-x: hidden;
         line-height: 1.6;
-      }
-
-      h1, h2, h3, h4, .font-bold {
-        font-family: 'Tajawal', sans-serif;
-      }
-
-      p, span:not(.font-bold) {
-        font-family: 'IBM Plex Sans Arabic', sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
 
       html {
         scroll-behavior: smooth;
       }
 
-      /* Fluid Typography - Optimized for better mobile scales */
+      /* Fluid Typography */
       .fluid-h1 {
-        font-size: clamp(1.8rem, 8vw, 4.5rem);
+        font-size: clamp(2rem, 8vw, 4.5rem);
       }
       .fluid-h2 {
-        font-size: clamp(1.5rem, 6vw, 3.25rem);
+        font-size: clamp(1.75rem, 6vw, 3.25rem);
+      }
+      .fluid-p {
+        font-size: clamp(0.95rem, 2vw, 1.125rem);
       }
 
-      /* Advanced Reveal Animation */
+      /* Reveal Animation */
       .reveal {
         opacity: 0;
         transform: translateY(20px);
@@ -55,9 +51,25 @@
         transform: translateY(0);
       }
 
+      /* Article Entry Animation */
+      @keyframes articleEntry {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-article-entry {
+        animation: articleEntry 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
       }
       ::-webkit-scrollbar-track {
         background: #F1F5F9;
@@ -67,24 +79,28 @@
         border-radius: 10px;
       }
 
-      /* Glass Cards */
+      /* Glass Effects */
       .glass-card {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
 
-      .section-padding {
-        padding-top: clamp(3rem, 8vh, 8rem);
-        padding-bottom: clamp(3rem, 8vh, 8rem);
+      .mobile-menu-glass {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
       }
 
-      /* Mobile Safe Areas */
-      @supports(padding: env(safe-area-inset-bottom)) {
-        .mobile-nav-safe {
-          padding-bottom: env(safe-area-inset-bottom);
-        }
+      .section-padding {
+        padding-top: clamp(4rem, 10vh, 10rem);
+        padding-bottom: clamp(4rem, 10vh, 10rem);
+      }
+
+      /* Transitions */
+      .drawer-transition {
+        transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
       }
     </style>
   <script type="importmap">
