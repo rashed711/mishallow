@@ -22,7 +22,6 @@ const ScrollToTop = () => {
   return null;
 };
 
-
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,7 +33,7 @@ const App: React.FC = () => {
       <ScrollToTop />
       <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800">
         <Header onOpenModal={handleOpenModal} />
-        <main className="pt-[80px]">
+        <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutPage />} />

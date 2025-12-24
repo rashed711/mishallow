@@ -37,7 +37,7 @@ const WhyUs: React.FC = () => {
           <div className="relative h-96">
             <img 
               className="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl"
-              src="https://picsum.photos/800/600?grayscale&blur=2" 
+              src="https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=800" 
               alt="Professional legal team meeting" />
              <div className="absolute inset-0 bg-[#0A2A5A] opacity-60 rounded-lg"></div>
              <div className="absolute inset-0 flex items-center justify-center">

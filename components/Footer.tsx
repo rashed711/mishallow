@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ScaleIcon } from './icons/ServiceIcons';
 
 interface FooterProps {
   onOpenModal: () => void;
@@ -10,7 +11,7 @@ const SocialIcon: React.FC<{ children: React.ReactNode; href: string }> = ({ chi
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-blue-200 hover:bg-[#D4AF37] hover:text-[#0A2A5A] hover:border-[#D4AF37] transition-all duration-300"
+    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-[#B89544] hover:text-[#0F172A] hover:border-[#B89544] transition-all duration-300"
   >
     {children}
   </a>
@@ -26,14 +27,13 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
   ];
 
   return (
-    <footer className="relative bg-[#0A2A5A] text-white pt-24 pb-12 overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+    <footer className="relative bg-[#0F172A] text-white pt-24 pb-12 overflow-hidden">
+      <div className="absolute inset-0 text-white opacity-[0.02] pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <pattern id="saudi-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-            <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="none" stroke="currentColor" strokeWidth="1" />
-            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" strokeWidth="1" />
+          <pattern id="diamond-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M10 0 L20 10 L10 20 L0 10 Z" fill="currentColor" />
           </pattern>
-          <rect width="100%" height="100%" fill="url(#saudi-pattern)" />
+          <rect width="100%" height="100%" fill="url(#diamond-pattern)" />
         </svg>
       </div>
 
@@ -41,19 +41,16 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           
           <div className="space-y-6">
-            <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className="bg-[#D4AF37] p-2 rounded-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A2A5A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9 5z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.12-3.06M12 14L5.88 10.94M6 10l6-3 6 3M6 10V18L12 21L18 18V10" />
-                </svg>
+             <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                <div className="bg-gradient-to-br from-[#B89544] to-[#D4AF37] p-2 rounded-xl shadow-lg">
+                  <ScaleIcon className="h-6 w-6 text-[#0F172A]" />
+                </div>
+                <div className="flex flex-col items-start leading-none">
+                  <span className="text-xl font-bold text-white">مشعل بادغيش</span>
+                  <span className="text-[10px] tracking-[0.2em] text-[#B89544] font-semibold uppercase">للمحاماة والاستشارات</span>
+                </div>
               </div>
-              <div className="flex flex-col items-start leading-none">
-                <span className="text-xl font-bold text-white">مشعل بادغيش</span>
-                <span className="text-[10px] tracking-[0.2em] text-[#D4AF37] font-semibold uppercase">للمحاماة والاستشارات</span>
-              </div>
-            </div>
-            <p className="text-blue-100/70 text-sm leading-relaxed max-w-xs">
+            <p className="text-slate-300 text-sm leading-relaxed max-w-xs">
               نلتزم بتقديم حلول قانونية استراتيجية تتوافق مع تطلعات النهضة الاقتصادية للمملكة، ونضع خبراتنا بين يدي عملائنا لتحقيق أعلى معايير الأمان النظامي.
             </p>
             <div className="flex items-center space-x-3 rtl:space-x-reverse pt-2">
@@ -66,16 +63,16 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
           <div>
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               روابط سريعة
-              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
+              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
             </h4>
             <ul className="space-y-4">
               {quickLinks.map(link => (
                 <li key={link.to}>
                   <Link 
                     to={link.to} 
-                    className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
+                    className="text-slate-300 hover:text-[#B89544] hover:pr-2 transition-all duration-300 block"
                   >
-                    <span className="ml-2">{link.text}</span>
+                    {link.text}
                   </Link>
                 </li>
               ))}
@@ -85,25 +82,25 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
           <div>
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               معلومات الاتصال
-              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
+              <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
             </h4>
             <ul className="space-y-6">
               <li className="flex items-start group">
-                <div className="bg-white/5 p-2 rounded-lg ml-4 group-hover:bg-[#D4AF37]/20 transition-colors">
-                  <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <div className="bg-white/5 p-2 rounded-lg ml-4 group-hover:bg-[#B89544]/20 transition-colors">
+                  <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <div>
                   <p className="text-white font-medium mb-1">المقر الرئيسي</p>
-                  <p className="text-blue-100/70 text-sm">طريق الأمير سلطان، حي الروضة، جدة، المملكة العربية السعودية</p>
+                  <p className="text-slate-300 text-sm">طريق الأمير سلطان، حي الروضة، جدة، المملكة العربية السعودية</p>
                 </div>
               </li>
               <li className="flex items-start group">
-                <div className="bg-white/5 p-2 rounded-lg ml-4 group-hover:bg-[#D4AF37]/20 transition-colors">
-                  <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <div className="bg-white/5 p-2 rounded-lg ml-4 group-hover:bg-[#B89544]/20 transition-colors">
+                  <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
                   <p className="text-white font-medium mb-1">البريد الإلكتروني</p>
-                  <p className="text-blue-100/70 text-sm">info@badgheish.law</p>
+                  <p className="text-slate-300 text-sm">info@badgheish.law</p>
                 </div>
               </li>
             </ul>
@@ -111,10 +108,10 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
 
           <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
             <h4 className="text-white font-bold text-lg mb-4">هل لديك استفسار؟</h4>
-            <p className="text-blue-100/70 text-sm mb-6">فريقنا القانوني متاح لتقديم الدعم اللازم لك على مدار الأسبوع.</p>
+            <p className="text-slate-300 text-sm mb-6">فريقنا القانوني متاح لتقديم الدعم اللازم لك على مدار الأسبوع.</p>
             <button 
               onClick={onOpenModal}
-              className="w-full bg-[#D4AF37] text-[#0A2A5A] font-bold py-3 px-4 rounded-xl hover:bg-white transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+              className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-bold py-3 px-4 rounded-xl hover:brightness-110 transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse"
             >
               <span>احجز موعد الآن</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -125,18 +122,16 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
 
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-blue-100/50 text-xs text-center md:text-right">
+            <p className="text-slate-400 text-xs text-center md:text-right">
               &copy; {new Date().getFullYear()} مكتب مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة. ترخيص رقم (12345/67)
             </p>
-            <div className="flex space-x-6 rtl:space-x-reverse text-blue-100/50 text-xs">
-              <Link to="/privacy" className="hover:text-[#D4AF37] transition-colors">سياسة الخصوصية</Link>
-              <Link to="/terms" className="hover:text-[#D4AF37] transition-colors">اتفاقية الاستخدام</Link>
+            <div className="flex space-x-6 rtl:space-x-reverse text-slate-400 text-xs">
+              <Link to="/privacy" className="hover:text-[#B89544] transition-colors">سياسة الخصوصية</Link>
+              <Link to="/terms" className="hover:text-[#B89544] transition-colors">اتفاقية الاستخدام</Link>
             </div>
           </div>
         </div>
       </div>
-      
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-l from-[#D4AF37] via-[#0A2A5A] to-[#D4AF37]"></div>
     </footer>
   );
 };

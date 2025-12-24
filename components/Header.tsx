@@ -43,13 +43,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-20 ${
       scrolled 
-      ? 'bg-[#0F172A]/95 backdrop-blur-md shadow-2xl py-3 border-b border-white/5' 
-      : 'bg-[#0F172A] py-6'
+      ? 'bg-[#0F172A]/95 backdrop-blur-md shadow-2xl border-b border-white/5' 
+      : 'bg-[#0F172A]'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full">
           <div className="flex-shrink-0">
             <Logo />
           </div>
@@ -61,13 +61,11 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                   key={link.to}
                   to={link.to}
                   onClick={closeMenu}
-                  // FIX: Added 'is-active' class when link is active to style the child span
                   className={({ isActive }) => `text-sm font-bold transition-all relative py-2 group ${
                     isActive ? 'text-[#B89544] is-active' : 'text-slate-300 hover:text-white'
                   }`}
                 >
                   {link.text}
-                  {/* FIX: Replaced incorrect function in className with Tailwind group variant for active state */}
                   <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#B89544] transform origin-right transition-transform duration-300 scale-x-0 group-hover:scale-x-100 group-[.is-active]:scale-x-100"></span>
                 </NavLink>
               ))}
