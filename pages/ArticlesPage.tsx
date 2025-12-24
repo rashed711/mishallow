@@ -1,11 +1,11 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface Article {
   id: number;
   title: string;
   excerpt: string;
-  content: string[]; // Added full content array
+  content: string[];
   category: string;
   date: string;
   image: string;
@@ -71,21 +71,21 @@ export const articles: Article[] = [
   }
 ];
 
-interface ArticlesPageProps {
-  onSelectArticle: (articleId: number) => void;
-}
-
-const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
+const ArticlesPage: React.FC = () => {
   const [filter, setFilter] = useState('الكل');
+  const navigate = useNavigate();
   const categories = ['الكل', 'رؤية 2030', 'قانون العمل', 'الملكية الفكرية', 'استثمار أجنبي'];
 
   const filteredArticles = filter === 'الكل' 
     ? articles 
     : articles.filter(a => a.category === filter);
+    
+  const handleSelectArticle = (articleId: number) => {
+    navigate(`/articles/${articleId}`);
+  };
 
   return (
     <div className="bg-white">
-      {/* Dark Hero Header */}
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
@@ -104,8 +104,7 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
         </div>
       </div>
 
-      {/* Filter Bar */}
-      <div className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-20 z-40">
+      <div className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-20 md:top-[92px] z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-x-auto">
           <div className="flex space-x-4 rtl:space-x-reverse min-w-max justify-center">
             {categories.map(cat => (
@@ -125,7 +124,6 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
         </div>
       </div>
 
-      {/* Articles Grid */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -134,7 +132,7 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
                 key={article.id} 
                 className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100 flex flex-col h-full"
               >
-                <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => onSelectArticle(article.id)}>
+                <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => handleSelectArticle(article.id)}>
                   <img 
                     src={article.image} 
                     alt={article.title} 
@@ -157,7 +155,7 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
                   </div>
                   <h3 
                     className="text-2xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight cursor-pointer"
-                    onClick={() => onSelectArticle(article.id)}
+                    onClick={() => handleSelectArticle(article.id)}
                   >
                     {article.title}
                   </h3>
@@ -166,7 +164,7 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({ onSelectArticle }) => {
                   </p>
                   <div className="mt-auto">
                     <button 
-                      onClick={() => onSelectArticle(article.id)}
+                      onClick={() => handleSelectArticle(article.id)}
                       className="text-[#0F172A] font-black text-sm inline-flex items-center gap-3 group/btn"
                     >
                       <span>اقرأ المقال كاملاً</span>

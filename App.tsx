@@ -1,62 +1,57 @@
-
 import React, { useState, useEffect } from 'react';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
+import ArticlesPage from './pages/ArticlesPage';
+import ArticleDetailPage from './pages/ArticleDetailPage';
 import ContactPage from './pages/ContactPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
-import ArticlesPage from './pages/ArticlesPage';
-import ArticleDetailPage from './pages/ArticleDetailPage';
-import Footer from './components/Footer';
+import { ServiceRequestModal } from './components/ServiceRequestModal';
 
-export type PageType = 'home' | 'about' | 'services' | 'contact' | 'privacy' | 'terms' | 'articles' | 'article-detail';
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
 
-const App: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<PageType>('home');
-  const [selectedArticleId, setSelectedArticleId] = useState<number | null>(null);
-
-  // Scroll to top when page changes
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentPage, selectedArticleId]);
+  }, [pathname]);
 
-  const handleSelectArticle = (id: number) => {
-    setSelectedArticleId(id);
-    setCurrentPage('article-detail');
-  };
+  return null;
+};
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home': return <Home onNavigate={setCurrentPage} />;
-      case 'about': return <AboutPage />;
-      case 'services': return <ServicesPage onNavigate={setCurrentPage} />;
-      case 'contact': return <ContactPage />;
-      case 'privacy': return <PrivacyPage />;
-      case 'terms': return <TermsPage />;
-      case 'articles': return <ArticlesPage onSelectArticle={handleSelectArticle} />;
-      case 'article-detail': 
-        return selectedArticleId ? (
-          <ArticleDetailPage 
-            articleId={selectedArticleId} 
-            onBack={() => setCurrentPage('articles')} 
-            onSelectArticle={handleSelectArticle}
-          />
-        ) : <ArticlesPage onSelectArticle={handleSelectArticle} />;
-      default: return <Home onNavigate={setCurrentPage} />;
-    }
-  };
+
+const App: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className="bg-[#F8FAFC] text-slate-900 min-h-screen flex flex-col antialiased">
-      <Header currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main className="flex-grow">
-        {renderPage()}
-      </main>
-      <Footer onNavigate={setCurrentPage} />
-    </div>
+    <HashRouter>
+      <ScrollToTop />
+      <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800">
+        <Header onOpenModal={handleOpenModal} />
+        <main className="pt-[80px]">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage onOpenModal={handleOpenModal} />} />
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/articles/:id" element={<ArticleDetailPage onOpenModal={handleOpenModal} />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </main>
+        <Footer onOpenModal={handleOpenModal} />
+        <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      </div>
+    </HashRouter>
   );
-};
+}
 
 export default App;

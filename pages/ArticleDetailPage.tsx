@@ -1,23 +1,30 @@
-
 import React from 'react';
-import { articles, Article } from './ArticlesPage';
+import { useParams, useNavigate } from 'react-router-dom';
+import { articles } from './ArticlesPage';
 
 interface ArticleDetailPageProps {
-  articleId: number;
-  onBack: () => void;
-  onSelectArticle: (id: number) => void;
+  onOpenModal: () => void;
 }
 
-const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack, onSelectArticle }) => {
-  const article = articles.find(a => a.id === articleId);
+const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const article = articles.find(a => a.id === Number(id));
 
-  if (!article) return <div className="pt-40 text-center">المقال غير موجود</div>;
+  if (!article) {
+    return <div className="pt-40 text-center text-xl font-bold">عذراً، هذا المقال غير موجود.</div>;
+  }
 
-  const relatedArticles = articles.filter(a => a.id !== articleId).slice(0, 3);
+  const relatedArticles = articles.filter(a => a.id !== article.id).slice(0, 3);
+
+  const handleSelectArticle = (selectedId: number) => {
+    navigate(`/articles/${selectedId}`);
+  };
+  
+  const handleBack = () => navigate('/articles');
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Hero Section */}
       <div className="relative pt-40 pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">
           <img src={article.image} alt="" className="w-full h-full object-cover" />
@@ -26,7 +33,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <button 
-            onClick={onBack}
+            onClick={handleBack}
             className="inline-flex items-center gap-2 text-[#B89544] font-bold text-sm mb-10 hover:text-white transition-colors"
           >
             <span>→</span>
@@ -53,11 +60,9 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="grid lg:grid-cols-12 gap-20">
           
-          {/* Article Body */}
           <div className="lg:col-span-8">
             <div className="prose prose-lg prose-slate max-w-none text-right">
                <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-16">
@@ -72,7 +77,6 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
                  ))}
                </div>
 
-               {/* Share Buttons */}
                <div className="mt-20 pt-10 border-t border-slate-100 flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <span className="text-slate-900 font-black text-sm">مشاركة المقال:</span>
@@ -84,12 +88,11 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
                       ))}
                     </div>
                   </div>
-                  <button onClick={onBack} className="text-slate-500 font-bold hover:text-[#0F172A] transition-colors">إغلاق المقال</button>
+                  <button onClick={handleBack} className="text-slate-500 font-bold hover:text-[#0F172A] transition-colors">إغلاق المقال</button>
                </div>
             </div>
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-4 space-y-12">
             <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
                <h3 className="text-xl font-black text-[#0F172A] mb-8 relative inline-block">
@@ -101,7 +104,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
                     <div 
                       key={rel.id} 
                       className="group cursor-pointer flex gap-4 items-start"
-                      onClick={() => onSelectArticle(rel.id)}
+                      onClick={() => handleSelectArticle(rel.id)}
                     >
                       <div className="w-24 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
                         <img src={rel.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
@@ -122,7 +125,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ articleId, onBack
                  <div className="w-16 h-1 bg-[#B89544] mx-auto mb-6 rounded-full"></div>
                  <h3 className="text-2xl font-black mb-4">احمِ أعمالك اليوم</h3>
                  <p className="text-slate-400 text-sm mb-8 leading-relaxed">فريقنا القانوني جاهز لتقديم المشورة المخصصة لاحتياجاتك.</p>
-                 <button className="w-full bg-[#B89544] text-[#0F172A] font-black py-4 rounded-2xl shadow-xl shadow-[#B89544]/10">احجز استشارتك</button>
+                 <button onClick={onOpenModal} className="w-full bg-[#B89544] text-[#0F172A] font-black py-4 rounded-2xl shadow-xl shadow-[#B89544]/10">احجز استشارتك</button>
                </div>
                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                   <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0 0 L100 0 L100 100 Z" fill="white" fillOpacity="0.1"/></svg>

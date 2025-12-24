@@ -1,8 +1,8 @@
-
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
-  onNavigate: (page: any) => void;
+  onOpenModal: () => void;
 }
 
 const SocialIcon: React.FC<{ children: React.ReactNode; href: string }> = ({ children, href }) => (
@@ -16,10 +16,17 @@ const SocialIcon: React.FC<{ children: React.ReactNode; href: string }> = ({ chi
   </a>
 );
 
-const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
+  const quickLinks = [
+    { to: '/', text: 'الرئيسية' },
+    { to: '/about', text: 'من نحن' },
+    { to: '/services', text: 'خدماتنا القانونية' },
+    { to: '/articles', text: 'المقالات القانونية' },
+    { to: '/contact', text: 'تواصل معنا' },
+  ];
+
   return (
     <footer className="relative bg-[#0A2A5A] text-white pt-24 pb-12 overflow-hidden">
-      {/* Subtle Saudi/Islamic Pattern Overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <pattern id="saudi-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -33,7 +40,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           
-          {/* Brand Identity Column */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3 rtl:space-x-reverse">
               <div className="bg-[#D4AF37] p-2 rounded-lg">
@@ -57,57 +63,25 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Quick Links Column */}
           <div>
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               روابط سريعة
               <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#D4AF37] rounded-full"></span>
             </h4>
             <ul className="space-y-4">
-              <li>
-                <button 
-                  onClick={() => onNavigate('home')} 
-                  className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
-                >
-                  <span className="ml-2">الرئيسية</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => onNavigate('about')} 
-                  className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
-                >
-                  <span className="ml-2">من نحن</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => onNavigate('services')} 
-                  className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
-                >
-                  <span className="ml-2">خدماتنا القانونية</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => onNavigate('articles')} 
-                  className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
-                >
-                  <span className="ml-2">المقالات القانونية</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => onNavigate('contact')} 
-                  className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
-                >
-                  <span className="ml-2">تواصل معنا</span>
-                </button>
-              </li>
+              {quickLinks.map(link => (
+                <li key={link.to}>
+                  <Link 
+                    to={link.to} 
+                    className="text-blue-100/70 hover:text-[#D4AF37] hover:translate-x-[-8px] transition-all duration-300 flex items-center"
+                  >
+                    <span className="ml-2">{link.text}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Info Column */}
           <div>
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               معلومات الاتصال
@@ -135,12 +109,11 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          {/* Call to Action Column */}
           <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
             <h4 className="text-white font-bold text-lg mb-4">هل لديك استفسار؟</h4>
             <p className="text-blue-100/70 text-sm mb-6">فريقنا القانوني متاح لتقديم الدعم اللازم لك على مدار الأسبوع.</p>
             <button 
-              onClick={() => onNavigate('contact')}
+              onClick={onOpenModal}
               className="w-full bg-[#D4AF37] text-[#0A2A5A] font-bold py-3 px-4 rounded-xl hover:bg-white transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse"
             >
               <span>احجز موعد الآن</span>
@@ -150,21 +123,19 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         </div>
 
-        {/* Footer Bottom */}
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-blue-100/50 text-xs text-center md:text-right">
               &copy; {new Date().getFullYear()} مكتب مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة. ترخيص رقم (12345/67)
             </p>
             <div className="flex space-x-6 rtl:space-x-reverse text-blue-100/50 text-xs">
-              <button onClick={() => onNavigate('privacy')} className="hover:text-[#D4AF37] transition-colors">سياسة الخصوصية</button>
-              <button onClick={() => onNavigate('terms')} className="hover:text-[#D4AF37] transition-colors">اتفاقية الاستخدام</button>
+              <Link to="/privacy" className="hover:text-[#D4AF37] transition-colors">سياسة الخصوصية</Link>
+              <Link to="/terms" className="hover:text-[#D4AF37] transition-colors">اتفاقية الاستخدام</Link>
             </div>
           </div>
         </div>
       </div>
       
-      {/* Decorative Gradient Bar */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-l from-[#D4AF37] via-[#0A2A5A] to-[#D4AF37]"></div>
     </footer>
   );

@@ -1,9 +1,9 @@
-
 import React from 'react';
+
 import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon } from '../components/icons/ServiceIcons';
 
 interface ServicesPageProps {
-  onNavigate: (page: any) => void;
+  onOpenModal: () => void;
 }
 
 const serviceList = [
@@ -15,10 +15,9 @@ const serviceList = [
   { icon: UsersIcon, title: 'النزاعات العمالية والموارد البشرية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
 ];
 
-const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
+const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
   return (
     <div className="bg-[#F8FAFC]">
-      {/* Premium Dark Hero */}
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -52,7 +51,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                   </p>
                   <div className="mt-auto">
                     <button 
-                      onClick={() => onNavigate('contact')}
+                      onClick={onOpenModal}
                       className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
                     >
                       <span>اطلب الخدمة الآن</span>
@@ -66,13 +65,12 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-slate-50 border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-[#0F172A] mb-6">هل تحتاج لاستشارة خاصة؟</h2>
           <p className="text-slate-500 mb-10 text-lg">فريقنا جاهز لدراسة قضيتك وتقديم الحلول القانونية الأنسب لك.</p>
           <button 
-            onClick={() => onNavigate('contact')}
+            onClick={onOpenModal}
             className="bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1"
           >
             تحدث مع مستشار قانوني

@@ -1,14 +1,9 @@
-
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-interface HeroProps {
-  onNavigate: (page: any) => void;
-}
-
-const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+const Hero: React.FC = () => {
   return (
     <section id="home" className="relative bg-[#0F172A] pt-40 lg:pt-56 pb-24 lg:pb-40 overflow-hidden">
-      {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-full h-full opacity-30 pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#B89544]/10 rounded-full blur-[120px]"></div>
         <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px]"></div>
@@ -17,7 +12,6 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
-          {/* Text Content */}
           <div className="text-center lg:text-right">
             <div className="inline-flex items-center px-4 py-2 bg-white/5 border border-white/10 backdrop-blur-sm text-[#B89544] rounded-full text-xs font-black tracking-widest uppercase mb-8">
               <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 animate-pulse"></span>
@@ -31,22 +25,21 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               في مكتب مشعل بادغيش، نقدم استشارات قانونية استراتيجية تتجاوز المألوف، لنكون الشريك الموثوق في رحلة نجاحكم واستدامة أعمالكم.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
-              <button
-                onClick={() => onNavigate('contact')}
-                className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-5 rounded-2xl shadow-2xl shadow-[#B89544]/20 hover:scale-105 transition-all active:scale-95"
+              <Link
+                to="/contact"
+                className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-5 rounded-2xl shadow-2xl shadow-[#B89544]/20 hover:scale-105 transition-all active:scale-95 text-center"
               >
                 تواصل معنا الآن
-              </button>
-              <button
-                onClick={() => onNavigate('services')}
-                className="w-full sm:w-auto bg-white/5 text-white font-bold px-12 py-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all backdrop-blur-sm"
+              </Link>
+              <Link
+                to="/services"
+                className="w-full sm:w-auto bg-white/5 text-white font-bold px-12 py-5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all backdrop-blur-sm text-center"
               >
                 استكشف خدماتنا
-              </button>
+              </Link>
             </div>
           </div>
 
-          {/* Visual Content */}
           <div className="hidden lg:block relative">
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#B89544]/20 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
