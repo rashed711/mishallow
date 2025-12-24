@@ -1,5 +1,25 @@
-
 import React from 'react';
+
+const teamMembers = [
+  {
+    name: "مشعل بادغيش",
+    role: "المؤسس والمدير العام",
+    bio: "محامٍ ومستشار قانوني بخبرة تمتد لأكثر من 15 عاماً في القضايا التجارية والأنظمة السعودية، متخصص في صياغة الاستراتيجيات القانونية المعقدة.",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400"
+  },
+  {
+    name: "د. عبد العزيز العتيبي",
+    role: "شريك قانوني - قسم الشركات",
+    bio: "خبير في حوكمة الشركات والاندماج والاستحواذ، حاصل على الدكتوراه في القانون التجاري الدولي.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400"
+  },
+  {
+    name: "أ. نورة الشهري",
+    role: "مستشار أول - الملكية الفكرية",
+    bio: "متخصصة في حماية الأصول الفكرية والعلامات التجارية، وعضو معتمد في العديد من الجمعيات القانونية الدولية.",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400"
+  }
+];
 
 const AboutPage: React.FC = () => {
   return (
@@ -106,6 +126,37 @@ const AboutPage: React.FC = () => {
                 alt="Lawyer working"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">فريقنا القانوني</span>
+          <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-20">نخبة من المستشارين والخبراء</h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="group flex flex-col items-center">
+                <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden mb-8 shadow-xl">
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-right translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <div className="w-10 h-1 bg-[#B89544] mb-4"></div>
+                  </div>
+                </div>
+                <h3 className="text-2xl font-black text-[#0F172A] mb-1 group-hover:text-[#B89544] transition-colors">{member.name}</h3>
+                <span className="text-[#B89544] font-bold text-sm mb-4 uppercase tracking-wider">{member.role}</span>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed px-4">
+                  {member.bio}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

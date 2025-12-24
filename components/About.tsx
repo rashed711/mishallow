@@ -6,7 +6,7 @@ const About: React.FC = () => {
     <section className="py-28 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-20">
-          <div className="lg:w-1/2 relative">
+          <div className="lg:w-1/2 relative reveal">
              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#B89544]/5 rounded-full blur-3xl"></div>
              <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-slate-50">
                <img 
@@ -20,7 +20,7 @@ const About: React.FC = () => {
                <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">نسبة رضا الموكلين</span>
              </div>
           </div>
-          <div className="lg:w-1/2 text-right">
+          <div className="lg:w-1/2 text-right reveal" style={{ transitionDelay: '0.2s' }}>
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">شريكك القانوني الاستراتيجي</span>
             <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-8 leading-[1.2]">
               نلتزم بصيانة حقوقكم <br /> وصناعة الأمان لأعمالكم
