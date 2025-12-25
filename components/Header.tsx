@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -106,8 +107,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
 
       {/* Advanced Drawer Mobile Menu - Animated */}
       <AnimatePresence>
-        {isOpen && (
-          <div className="fixed inset-0 z-[110] lg:hidden">
+        {isOpen && createPortal(
+          <div className="fixed inset-0 z-[9999] lg:hidden" dir="rtl">
             {/* Backdrop overlay */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -124,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-white/10 flex flex-col z-[120]"
+              className="absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-white/10 flex flex-col z-[10000]"
             >
               <div className="p-6 flex items-center justify-between border-b border-white/5 bg-white/2">
                 <Logo />
@@ -179,7 +180,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 </div>
               </div>
             </motion.div>
-          </div>
+          </div>,
+          document.body
         )}
       </AnimatePresence>
     </header>
