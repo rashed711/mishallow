@@ -7,7 +7,7 @@ interface HeaderProps {
 
 const Logo: React.FC<{ light?: boolean }> = ({ light = true }) => (
   <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none group">
-    <div className="bg-white p-1 rounded-xl shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105">
+    <div className="bg-white p-0.5 rounded-xl shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105">
       <img
         src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
         alt="شعار مكتب مشعل بادغيش"
