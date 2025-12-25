@@ -97,11 +97,13 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.7, duration: 0.5 }}
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
               >
-                <Link to="/contact">
+                <Link to="/contact" className="relative group w-full sm:w-auto inline-block">
+                  <span className="absolute top-0 left-0 w-full h-full bg-[#B89544] rounded-2xl opacity-40 animate-ping"></span>
+                  <span className="absolute top-0 left-0 w-full h-full bg-[#B89544] rounded-2xl opacity-20 animate-pulse"></span>
                   <motion.button
                     whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(184, 149, 68, 0.5)" }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden group"
+                    className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden z-10"
                   >
                     <span className="relative z-10">احصل على استشارة قانونية أولية مجانية</span>
                     <motion.div
