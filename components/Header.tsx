@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
   onOpenModal: () => void;
@@ -102,57 +103,83 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
         </div>
       </div>
 
-      {/* Advanced Drawer Mobile Menu */}
-      <div className={`fixed inset-0 z-[110] lg:hidden transition-all duration-300 ${isOpen ? 'visible' : 'invisible'}`}>
-        {/* Backdrop overlay */}
-        <div
-          className={`absolute inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-          onClick={closeMenu}
-        ></div>
-
-        {/* Sidebar Drawer */}
-        <div className={`absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] drawer-transition border-l border-white/10 flex flex-col z-[120] ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="p-6 flex items-center justify-between border-b border-white/5 bg-white/2">
-            <Logo />
-            <button
+      {/* Advanced Drawer Mobile Menu - Animated */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="fixed inset-0 z-[110] lg:hidden">
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
               onClick={closeMenu}
-              className="p-2 text-slate-400 hover:text-white bg-white/5 rounded-xl border border-white/10"
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
+            ></motion.div>
 
-          <nav className="flex-grow py-8 px-4 overflow-y-auto">
-            <div className="space-y-1">
-              {navLinks.map((link, idx) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
+            {/* Sidebar Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-white/10 flex flex-col z-[120]"
+            >
+              <div className="p-6 flex items-center justify-between border-b border-white/5 bg-white/2">
+                <Logo />
+                <button
                   onClick={closeMenu}
-                  className={({ isActive }) => `flex items-center px-6 py-4.5 rounded-2xl text-[17px] font-bold transition-all duration-300 ${isActive ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20' : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                    }`}
+                  className="p-2 text-slate-400 hover:text-white bg-white/5 rounded-xl border border-white/10"
                 >
-                  {link.text}
-                </NavLink>
-              ))}
-            </div>
-          </nav>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
 
-          <div className="p-6 border-t border-white/5 bg-white/2 pb-10">
-            <button
-              onClick={() => { onOpenModal(); closeMenu(); }}
-              className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
-            >
-              طلب استشارة فورية
-            </button>
-            <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
-              <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
-            </div>
+              <nav className="flex-grow py-8 px-4 overflow-y-auto">
+                <div className="space-y-1">
+                  {navLinks.map((link, idx) => (
+                    <motion.div
+                      key={link.to}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
+                    >
+                      <NavLink
+                        to={link.to}
+                        onClick={closeMenu}
+                        className={({ isActive }) => `flex items-center px-6 py-4.5 rounded-2xl text-[17px] font-bold transition-all duration-300 ${isActive ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                          }`}
+                      >
+                        {link.text}
+                      </NavLink>
+                    </motion.div>
+                  ))}
+                </div>
+              </nav>
+
+              <div className="p-6 border-t border-white/5 bg-white/2 pb-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                >
+                  <button
+                    onClick={() => { onOpenModal(); closeMenu(); }}
+                    className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
+                  >
+                    طلب استشارة فورية
+                  </button>
+                </motion.div>
+                <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
+                  <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

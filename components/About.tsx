@@ -28,8 +28,8 @@ const About: React.FC = () => {
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              animate={{ y: [0, -10, 0] }}
+              transition={{ delay: 0.4, duration: 4, repeat: Infinity, ease: "easeInOut" }}
               viewport={{ once: true }}
               className="absolute -bottom-8 -left-8 bg-[#0F172A] p-10 rounded-[2rem] shadow-2xl border border-white/5 hidden md:block"
             >

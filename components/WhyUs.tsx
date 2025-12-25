@@ -53,12 +53,12 @@ const WhyUs: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            className="relative h-[500px]"
+            className="relative h-[300px] lg:h-[500px]"
           >
-            <div className="absolute -inset-4 bg-[#B89544]/5 rounded-[3rem] blur-2xl"></div>
+            <div className="absolute -inset-4 bg-[#B89544]/5 rounded-[2rem] lg:rounded-[3rem] blur-2xl"></div>
             <img
-              className="absolute inset-0 w-full h-full object-cover rounded-[3rem] shadow-2xl z-10"
-              src="https://mishallow.vercel.app/assets/img/hero-carousel/hero-carousel-2-mobile.webp"
+              className="absolute inset-0 w-full h-full object-cover rounded-[2rem] lg:rounded-[3rem] shadow-2xl z-10"
+              src="http://mishal-lawfirm.com/assets/img/hero-carousel/hero-carousel-2-mobile.webp"
               alt="Professional legal team meeting" />
             <div className="absolute inset-0 bg-[#0F172A]/40 rounded-[3rem] z-20"></div>
             <div className="absolute inset-0 flex items-center justify-center z-30 p-12 text-center">
