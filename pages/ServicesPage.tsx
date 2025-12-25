@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon, BuildingLibraryIcon, ClipboardDocumentCheckIcon } from '../components/icons/ServiceIcons';
@@ -9,18 +10,19 @@ interface ServicesPageProps {
 }
 
 const serviceList = [
-  { icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600' },
-  { icon: UsersIcon, title: 'القضايا العمالية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
-  { icon: UsersIcon, title: 'قضايا الأحوال الشخصية', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=600' },
-  { icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
-  { icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600' },
-  { icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600' },
-  { icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
-  { icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://images.unsplash.com/photo-1585829365291-1782bd043d70?q=80&w=600' },
-  { icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=600' },
-  { icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=600' },
-  { icon: ScaleIcon, title: 'الخدمات القانونية', img: 'https://images.unsplash.com/photo-1454165833767-0266b19677c8?q=80&w=600' },
-  { icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=600' },
+  { slug: 'commercial-lawyer-makkah', icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600' },
+  { slug: 'labor-lawyer-makkah', icon: UsersIcon, title: 'القضايا العمالية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
+  { slug: 'family-lawyer-makkah', icon: UsersIcon, title: 'قضايا الأحوال الشخصية والأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
+  { slug: 'criminal-lawyer-makkah', icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600' },
+  // These below don't have specific pages yet, so we'll keep them without slugs or handle them gracefully
+  { slug: '', icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
+  { slug: '', icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600' },
+  { slug: '', icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
+  { slug: '', icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://images.unsplash.com/photo-1585829365291-1782bd043d70?q=80&w=600' },
+  { slug: '', icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=600' },
+  { slug: '', icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=600' },
+  { slug: '', icon: ScaleIcon, title: 'الخدمات القانونية', img: 'https://images.unsplash.com/photo-1454165833767-0266b19677c8?q=80&w=600' },
+  { slug: '', icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=600' },
 ];
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
@@ -74,13 +76,23 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                     حلول قانونية مبتكرة مدعومة بخبرة عملية واسعة في الأنظمة السعودية، نضمن لك الحماية والامتثال التام.
                   </p>
                   <div className="mt-auto">
-                    <button
-                      onClick={onOpenModal}
-                      className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
-                    >
-                      <span>اطلب الخدمة الآن</span>
-                      <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
-                    </button>
+                    {service.slug ? (
+                      <Link
+                        to={`/${service.slug}`}
+                        className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
+                      >
+                        <span>تفاصيل الخدمة</span>
+                        <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={onOpenModal}
+                        className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
+                      >
+                        <span>اطلب الخدمة الآن</span>
+                        <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               </motion.div>

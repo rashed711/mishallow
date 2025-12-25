@@ -200,10 +200,14 @@ const ArticlesPage: React.FC = () => {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-12"
           >
             {processedArticles.map((article, index) => (
-              <article
+              <motion.article
                 key={article.id}
-                className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100 flex flex-col h-full animate-article-entry"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -10 }}
+                className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100 flex flex-col h-full"
               >
                 <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => handleSelectArticle(article.id)}>
                   <img

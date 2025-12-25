@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import ContactPage from './pages/ContactPage';
@@ -41,10 +42,11 @@ const App: React.FC = () => {
         <Header onOpenModal={handleOpenModal} />
         <main className="relative z-10">
           <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
+            <Routes location={location}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
               <Route path="/services" element={<PageTransition><ServicesPage onOpenModal={handleOpenModal} /></PageTransition>} />
+              <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/articles" element={<PageTransition><ArticlesPage /></PageTransition>} />
               <Route path="/articles/:id" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
