@@ -1,27 +1,33 @@
 import React from 'react';
 import SEO from '../components/SEO';
 
-import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon } from '../components/icons/ServiceIcons';
+import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon, BuildingLibraryIcon, ClipboardDocumentCheckIcon } from '../components/icons/ServiceIcons';
 
 interface ServicesPageProps {
   onOpenModal: () => void;
 }
 
 const serviceList = [
-  { icon: ScaleIcon, title: 'الاستشارات القانونية الاستراتيجية', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
-  { icon: BriefcaseIcon, title: 'قانون الشركات والاستثمار', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600' },
-  { icon: GavelIcon, title: 'التقاضي والمرافعات القضائية', img: 'https://images.unsplash.com/photo-1585829365291-1782bd043d70?q=80&w=600' },
-  { icon: DocumentTextIcon, title: 'صياغة العقود والاتفاقيات الدولية', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600' },
-  { icon: ShieldCheckIcon, title: 'التحكيم والوساطة التجارية', img: 'https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=600' },
-  { icon: UsersIcon, title: 'النزاعات العمالية والموارد البشرية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
+  { icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600' },
+  { icon: UsersIcon, title: 'القضايا العمالية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
+  { icon: UsersIcon, title: 'قضايا الأحوال الشخصية', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=600' },
+  { icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
+  { icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600' },
+  { icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600' },
+  { icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
+  { icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://images.unsplash.com/photo-1585829365291-1782bd043d70?q=80&w=600' },
+  { icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=600' },
+  { icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=600' },
+  { icon: ScaleIcon, title: 'الخدمات القانونية', img: 'https://images.unsplash.com/photo-1454165833767-0266b19677c8?q=80&w=600' },
+  { icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=600' },
 ];
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
   return (
     <div className="bg-[#F8FAFC]">
       <SEO
-        title="خدماتنا | مكتب مشعل بادغيش للمحاماة"
-        description="استشارات قانونية، صياغة عقود، ترافع، وتأسيس شركات. خدمات قانونية شاملة لقطاع الأعمال والأفراد."
+        title="خدمات قانونية متكاملة في مكة | مكتب محاماة واستشارات قانونية"
+        description="نقدم خدمات قانونية شاملة في مكة للأفراد والشركات تشمل القضايا التجارية، العمالية، الأسرية، الجنائية، والعقود، بإشراف فريق قانوني متخصص."
         url="https://mishallow.vercel.app/services"
       />
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">

@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
                 className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-md text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-6 md:mb-10 shadow-lg"
               >
                 <span className="w-2.5 h-2.5 bg-[#B89544] rounded-full ml-3 animate-pulse shadow-[0_0_15px_#B89544]"></span>
-                نخبة الخبرات القانونية في المملكة
+                مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
               </motion.div>
 
               <motion.h1
@@ -78,8 +78,8 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.3, duration: 0.8 }}
                 className="fluid-h1 font-black text-white leading-[1.1] mb-8 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
               >
-                نسخّر القانون <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37]">لحماية طموحاتكم</span>
+                مكتب محاماة <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37]">واستشارات قانونية في مكة</span>
               </motion.h1>
 
               <motion.p
@@ -88,7 +88,7 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="text-white text-base md:text-xl leading-relaxed font-bold mb-10 md:mb-14 max-w-2xl mx-auto lg:mx-0 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
               >
-                في مكتب مشعل بادغيش، نقدم استشارات قانونية استراتيجية تتجاوز المألوف، لنكون الشريك الموثوق في رحلة نجاحكم واستدامة أعمالكم.
+                مكتب مشعل بادغيش للمحاماة والاستشارات القانونية نقدّم خدمات قانونية متكاملة في مكة للأفراد والشركات، من خلال فريق قانوني متخصص يعمل وفق الأنظمة المعتمدة في المملكة العربية السعودية، مع التزام كامل بالسرية والدقة وتحقيق أفضل النتائج القانونية الممكنة.
               </motion.p>
 
               <motion.div
@@ -103,7 +103,7 @@ const Hero: React.FC = () => {
                     whileTap={{ scale: 0.95 }}
                     className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all"
                   >
-                    تواصل معنا الآن
+                    احصل على استشارة قانونية أولية مجانية
                   </motion.button>
                 </Link>
                 <Link to="/services">
