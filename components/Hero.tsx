@@ -101,21 +101,26 @@ const Hero: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_10px_40px_-10px_rgba(184,149,68,0.6)] hover:shadow-[0_20px_50px_-10px_rgba(184,149,68,0.8)] transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{ boxShadow: ["0 10px 40px -10px rgba(184,149,68,0.6)", "0 10px 50px -5px rgba(184,149,68,0.9)", "0 10px 40px -10px rgba(184,149,68,0.6)"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
                   >
                     <span className="relative z-10 text-lg tracking-wide">احصل على استشارة قانونية أولية مجانية</span>
 
-                    {/* Premium Sheen Effect */}
+                    {/* Premium Sheen Effect - Intensified */}
                     <motion.div
                       initial={{ x: '-100%', skewX: -15, opacity: 0 }}
-                      animate={{ x: '200%', skewX: -15, opacity: [0, 1, 0] }}
+                      animate={{ x: '150%', skewX: -15, opacity: [0, 0.9, 0] }}
                       transition={{
                         repeat: Infinity,
-                        duration: 2.5,
+                        duration: 1.5,
                         ease: "easeInOut",
-                        repeatDelay: 4
+                        repeatDelay: 2
                       }}
-                      className="absolute inset-0 w-3/4 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                      className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/80 to-transparent"
                     />
                   </motion.button>
                 </Link>
