@@ -23,7 +23,9 @@ const WhatsAppButton: React.FC = () => {
                 {/* Inner ring pulse */}
                 <span className="absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-20 animate-pulse duration-2000"></span>
 
-                <WhatsAppIcon className="w-7 h-7 md:w-9 md:h-9 text-white relative z-10" />
+                <div className="relative z-10 flex items-center justify-center w-full h-full">
+                    <WhatsAppIcon className="w-8 h-8 md:w-10 md:h-10 text-white fill-current" />
+                </div>
 
                 {/* Tooltip */}
                 <div className="absolute left-full ml-4 px-3 py-1.5 bg-white text-slate-800 text-sm font-bold rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0 pointer-events-none whitespace-nowrap hidden md:block">

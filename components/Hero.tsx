@@ -98,24 +98,24 @@ const Hero: React.FC = () => {
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
               >
                 <Link to="/contact" className="relative group w-full sm:w-auto inline-block">
-                  <span className="absolute top-0 left-0 w-full h-full bg-[#B89544] rounded-2xl opacity-40 animate-ping"></span>
-                  <span className="absolute top-0 left-0 w-full h-full bg-[#B89544] rounded-2xl opacity-20 animate-pulse"></span>
                   <motion.button
-                    whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(184, 149, 68, 0.5)" }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden z-10"
+                    className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_10px_40px_-10px_rgba(184,149,68,0.6)] hover:shadow-[0_20px_50px_-10px_rgba(184,149,68,0.8)] transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
                   >
-                    <span className="relative z-10">احصل على استشارة قانونية أولية مجانية</span>
+                    <span className="relative z-10 text-lg tracking-wide">احصل على استشارة قانونية أولية مجانية</span>
+
+                    {/* Premium Sheen Effect */}
                     <motion.div
-                      initial={{ x: '-100%', opacity: 0 }}
-                      animate={{ x: '200%', opacity: 1 }}
+                      initial={{ x: '-100%', skewX: -15, opacity: 0 }}
+                      animate={{ x: '200%', skewX: -15, opacity: [0, 1, 0] }}
                       transition={{
                         repeat: Infinity,
-                        duration: 3,
+                        duration: 2.5,
                         ease: "easeInOut",
-                        repeatDelay: 3
+                        repeatDelay: 4
                       }}
-                      className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -skew-x-12"
+                      className="absolute inset-0 w-3/4 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent"
                     />
                   </motion.button>
                 </Link>
