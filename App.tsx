@@ -42,7 +42,8 @@ const App: React.FC = () => {
         <Header onOpenModal={handleOpenModal} />
         <main className="relative z-10">
           <AnimatePresence mode="wait">
-            <Routes location={location}>
+            {/* @ts-ignore */}
+            <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
               <Route path="/services" element={<PageTransition><ServicesPage onOpenModal={handleOpenModal} /></PageTransition>} />
