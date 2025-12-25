@@ -81,9 +81,10 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
               ))}
               <Link
                 to="/contact"
-                className="bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] px-7 py-3 rounded-xl text-xs font-black hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg active:scale-95"
+                className="relative overflow-hidden bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] px-7 py-3 rounded-xl text-xs font-black hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg active:scale-95 group"
               >
-                طلب استشارة
+                <span className="relative z-10">طلب استشارة</span>
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer" style={{ animationDuration: '2s' }}></span>
               </Link>
             </div>
           </nav>

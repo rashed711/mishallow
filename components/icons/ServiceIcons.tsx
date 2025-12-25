@@ -48,19 +48,26 @@ export const BuildingLibraryIcon: React.FC<IconProps> = (props) => (
 );
 
 export const ClipboardDocumentCheckIcon: React.FC<IconProps> = (props) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" />
-    </svg>
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12" />
+  </svg>
 );
 
 export const CheckCircleIcon: React.FC<IconProps> = (props) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
 );
 
 export const PhoneIcon: React.FC<IconProps> = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+  </svg>
+);
+
+export const WhatsAppIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+    <path d="M16 2.5C8.558 2.5 2.5 8.558 2.5 16s6.058 13.5 13.5 13.5S29.5 23.442 29.5 16 23.442 2.5 16 2.5zm0 24.531c-6.075 0-11.031-4.956-11.031-11.031S9.925 4.969 16 4.969s11.031 4.956 11.031 11.031-4.956 11.031-11.031 11.031z" />
+    <path d="M21.656 19.581c-.273-.125-.992-.494-1.148-.553-.156-.059-.273-.088-.39.088-.118.176-.438.553-.532.67-.093.117-.187.147-.333.058-.147-.088-.633-.225-1.203-.742-.445-.402-.742-.897-.836-1.043-.094-.147-.01-.225.078-.304.078-.068.176-.176.255-.264.078-.088.107-.147.166-.255.059-.107.029-.195-.01-.273-.04-.078-.39-.94-.532-1.281-.137-.321-.282-.273-.39-.273-.107 0-.225 0-.342.009-.118.009-.304.049-.469.244-.165.195-.633.622-.633 1.516s.642 1.758.736 1.875c.093.117 1.27 1.93 3.078 2.71.42.185.742.292.992.37.43.125.828.107.1.088.332-.019.992-.399 1.129-.785.137-.386.137-.718.098-.785-.04-.068-.156-.107-.273-.234z" />
   </svg>
 );

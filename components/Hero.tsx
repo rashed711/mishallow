@@ -101,16 +101,27 @@ const Hero: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(184, 149, 68, 0.5)" }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden group"
                   >
-                    احصل على استشارة قانونية أولية مجانية
+                    <span className="relative z-10">احصل على استشارة قانونية أولية مجانية</span>
+                    <motion.div
+                      initial={{ x: '-100%', opacity: 0 }}
+                      animate={{ x: '200%', opacity: 1 }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 3,
+                        ease: "easeInOut",
+                        repeatDelay: 3
+                      }}
+                      className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -skew-x-12"
+                    />
                   </motion.button>
                 </Link>
                 <Link to="/services">
                   <motion.button
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto bg-white/5 backdrop-blur-md text-white font-bold px-12 py-4.5 rounded-2xl border border-white/20 hover:bg-white/15 transition-all"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden group"
                   >
                     استكشف خدماتنا
                   </motion.button>
@@ -178,7 +189,7 @@ const Hero: React.FC = () => {
           />
         ))}
       </div>
-    </section>
+    </section >
   );
 };
 

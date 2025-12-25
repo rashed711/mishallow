@@ -5,6 +5,7 @@ import PageTransition from './components/PageTransition';
 import FloatingShapes from './components/FloatingShapes';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
   return (
     <>
       <ScrollToTop />
+      <WhatsAppButton />
       <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800 relative">
         <FloatingShapes />
         <Header onOpenModal={handleOpenModal} />

@@ -107,9 +107,10 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
           <p className="text-slate-500 mb-10 text-lg">فريقنا جاهز لدراسة قضيتك وتقديم الحلول القانونية الأنسب لك.</p>
           <Link
             to="/contact"
-            className="inline-block bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1"
+            className="relative overflow-hidden inline-block bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1 group"
           >
-            تحدث مع مستشار قانوني
+            <span className="relative z-10">تحدث مع مستشار قانوني</span>
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
           </Link>
         </div>
       </section>
