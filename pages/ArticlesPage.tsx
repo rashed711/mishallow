@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
@@ -111,15 +112,21 @@ const ArticlesPage: React.FC = () => {
     <div className="bg-white">
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
-          <SEO
-            title="استشارات قانونية في مكة | أسئلة شائعة – مكتب محاماة"
-            description="إجابات قانونية موثوقة على أكثر الأسئلة شيوعًا حول القضايا والاستشارات القانونية في مكة، مع إمكانية الحصول على استشارة أولية مجانية."
-          />
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6">رؤى ودراسات قانونية</h1>
-          <p className="text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed font-medium">
-            نحن نؤمن بنشر الوعي النظامي ومواكبة آخر التطورات التشريعية في المملكة العربية السعودية لتعزيز بيئة الأعمال.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
+            <SEO
+              title="استشارات قانونية في مكة | أسئلة شائعة – مكتب محاماة"
+              description="إجابات قانونية موثوقة على أكثر الأسئلة شيوعًا حول القضايا والاستشارات القانونية في مكة، مع إمكانية الحصول على استشارة أولية مجانية."
+            />
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">رؤى ودراسات قانونية</h1>
+            <p className="text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed font-medium">
+              نحن نؤمن بنشر الوعي النظامي ومواكبة آخر التطورات التشريعية في المملكة العربية السعودية لتعزيز بيئة الأعمال.
+            </p>
+          </motion.div>
         </div>
         <div className="absolute inset-0 opacity-5">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +252,7 @@ const ArticlesPage: React.FC = () => {
                     </button>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
 

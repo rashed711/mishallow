@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 
 const teamMembers = [
@@ -41,30 +42,48 @@ const AboutPage: React.FC = () => {
           </svg>
         </div>
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
-          <span className="text-[#B89544] font-black tracking-[0.2em] uppercase text-[10px] md:text-xs mb-4 block">إرث من الثقة</span>
-          <h1 className="text-3xl md:text-6xl font-black text-white mb-6">من نحن</h1>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-transparent via-[#B89544] to-transparent mx-auto rounded-full"></div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-[#B89544] font-black tracking-[0.2em] uppercase text-[10px] md:text-xs mb-4 block">إرث من الثقة</span>
+            <h1 className="text-3xl md:text-6xl font-black text-white mb-6">من نحن</h1>
+            <div className="h-1.5 w-24 bg-gradient-to-r from-transparent via-[#B89544] to-transparent mx-auto rounded-full"></div>
+          </motion.div>
         </div>
       </div>
 
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
-            <div className="order-2 lg:order-1 text-center lg:text-right">
+            <motion.div
+              className="order-2 lg:order-1 text-center lg:text-right"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <h2 className="text-2xl md:text-4xl font-black text-[#0F172A] mb-8 leading-tight">عراقة الممارسة <br /><span className="text-[#B89544]">وحداثة الحلول</span></h2>
               <div className="space-y-6 text-slate-600 text-base md:text-lg leading-relaxed font-bold">
                 <p>تأسس مكتب مشعل بادغيش للمحاماة والاستشارات القانونية ليكون صرحاً مهنياً يقدم خدمات قانونية نوعية تتماشى مع رؤية المملكة 2030.</p>
                 <p>نحن نعتز بفريقنا الذي يضم كفاءات قانونية متميزة، تسعى دائماً لتحقيق العدالة وحماية مصالح موكلينا من خلال فهم دقيق للواقع القضائي والنظامي.</p>
               </div>
-            </div>
-            <div className="order-1 lg:order-2 relative">
+            </motion.div>
+            <motion.div
+              className="order-1 lg:order-2 relative"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <div className="absolute -inset-4 bg-[#B89544]/10 rounded-[2.5rem] md:rounded-[3rem] blur-2xl"></div>
               <img
                 src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800"
                 alt="Justice"
                 className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl w-full"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -78,10 +97,18 @@ const AboutPage: React.FC = () => {
               { title: "رسالتنا", desc: "تقديم خدمات قانونية واستشارية بمهنية فائقة ومعايير أخلاقية صارمة تضمن حماية حقوق الموكلين." },
               { title: "أهدافنا", desc: "تحقيق أعلى معدلات النجاح، وبناء شراكات استراتيجية، وتطوير الكوادر الوطنية الشابة." }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white/5 p-10 rounded-[2rem] border border-white/10 hover:border-[#B89544]/40 transition-all text-center group">
+              <motion.div
+                key={idx}
+                className="bg-white/5 p-10 rounded-[2rem] border border-white/10 hover:border-[#B89544]/40 transition-all text-center group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2, duration: 0.6 }}
+                whileHover={{ y: -10 }}
+              >
                 <h3 className="text-2xl font-black text-[#B89544] mb-4">{item.title}</h3>
                 <p className="text-slate-300 leading-relaxed font-bold">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

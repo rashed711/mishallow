@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import Contact from '../components/Contact';
 import SEO from '../components/SEO';
 
@@ -18,11 +19,17 @@ const ContactPage: React.FC = () => {
           <img src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?q=80&w=1600" alt="Riyadh" className="w-full h-full object-cover" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">تواصل معنا</span>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-6">قنوات الاتصال المباشر</h1>
-          <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
-            مستشارونا القانونيون متاحون للرد على استفساراتكم وتقديم الدعم اللازم في أي وقت.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">تواصل معنا</span>
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">قنوات الاتصال المباشر</h1>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
+              مستشارونا القانونيون متاحون للرد على استفساراتكم وتقديم الدعم اللازم في أي وقت.
+            </p>
+          </motion.div>
         </div>
       </div>
 
@@ -31,30 +38,48 @@ const ContactPage: React.FC = () => {
           <div className="grid lg:grid-cols-3 gap-16 items-start">
 
             <div className="lg:col-span-1 space-y-8 order-2 lg:order-1">
-              <div className="bg-white/5 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 shadow-2xl">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-white/5 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 shadow-2xl hover:border-[#B89544]/50 transition-colors"
+              >
                 <div className="w-12 h-12 bg-[#B89544]/20 rounded-xl flex items-center justify-center mb-8">
                   <span className="text-2xl">📍</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-4">المقر الرئيسي</h3>
                 <p className="text-slate-400 font-medium">شارع عبدالله بن عباس</p>
                 <p className="text-slate-400 font-medium mt-1">بجوار نادي ستار تراك</p>
-              </div>
+              </motion.div>
 
-              <div className="bg-white/5 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 shadow-2xl">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="bg-white/5 backdrop-blur-md p-10 rounded-[2.5rem] border border-white/10 shadow-2xl hover:border-[#B89544]/50 transition-colors"
+              >
                 <div className="w-12 h-12 bg-[#B89544]/20 rounded-xl flex items-center justify-center mb-8">
                   <span className="text-2xl">⏰</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-4">ساعات العمل</h3>
                 <p className="text-slate-400 font-medium">الأحد - الخميس: 9:00 ص - 5:00 م</p>
                 <p className="text-slate-400 font-medium mt-1">0568000085</p>
-              </div>
+              </motion.div>
             </div>
 
-            <div className="lg:col-span-2 order-1 lg:order-2">
+            <motion.div
+              className="lg:col-span-2 order-1 lg:order-2"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
               <div className="bg-white/5 backdrop-blur-md rounded-[3rem] p-1 border border-white/10 shadow-2xl">
                 <Contact />
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
