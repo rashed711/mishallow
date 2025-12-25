@@ -113,13 +113,13 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
           <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
             <h4 className="text-white font-bold text-lg mb-4">هل لديك استفسار؟</h4>
             <p className="text-slate-300 text-sm mb-6">فريقنا القانوني متاح لتقديم الدعم اللازم لك على مدار الأسبوع.</p>
-            <button
-              onClick={onOpenModal}
+            <Link
+              to="/contact"
               className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-bold py-3 px-4 rounded-xl hover:brightness-110 transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse"
             >
               <span>احجز موعد الآن</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            </button>
+            </Link>
           </div>
 
         </div>

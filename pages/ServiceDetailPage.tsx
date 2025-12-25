@@ -120,12 +120,12 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                         <div className="bg-[#0F172A] rounded-[2.5rem] p-8 text-center sticky top-24">
                             <h3 className="text-2xl font-black text-white mb-4">هل تحتاج لمساعدة في هذه القضية؟</h3>
                             <p className="text-slate-400 mb-8 font-medium">تواصل معنا الآن للحصول على استشارة أولية مجانية وتقييم شامل لوضعك القانوني.</p>
-                            <button
-                                onClick={onOpenModal}
-                                className="w-full py-4 bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black rounded-xl hover:shadow-[0_0_20px_rgba(184,149,68,0.4)] transition-all transform hover:-translate-y-1"
+                            <Link
+                                to="/contact"
+                                className="block w-full py-4 bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black rounded-xl hover:shadow-[0_0_20px_rgba(184,149,68,0.4)] transition-all transform hover:-translate-y-1"
                             >
                                 طلب استشارة مجانية
-                            </button>
+                            </Link>
                             <div className="mt-6 pt-6 border-t border-white/10 flex justify-center gap-6">
                                 <Link to="/contact" className="text-white font-bold text-sm hover:text-[#B89544] transition-colors">اتصل بنا</Link>
                                 <span className="text-slate-600">|</span>

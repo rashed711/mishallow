@@ -85,13 +85,13 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                         <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
                       </Link>
                     ) : (
-                      <button
-                        onClick={onOpenModal}
+                      <Link
+                        to="/contact"
                         className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
                       >
                         <span>اطلب الخدمة الآن</span>
                         <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
-                      </button>
+                      </Link>
                     )}
                   </div>
                 </div>
@@ -105,12 +105,12 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-[#0F172A] mb-6">هل تحتاج لاستشارة خاصة؟</h2>
           <p className="text-slate-500 mb-10 text-lg">فريقنا جاهز لدراسة قضيتك وتقديم الحلول القانونية الأنسب لك.</p>
-          <button
-            onClick={onOpenModal}
-            className="bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1"
+          <Link
+            to="/contact"
+            className="inline-block bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1"
           >
             تحدث مع مستشار قانوني
-          </button>
+          </Link>
         </div>
       </section>
     </div>

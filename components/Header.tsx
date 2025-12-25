@@ -79,12 +79,12 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                   <span className={`absolute bottom-0 right-0 w-full h-0.5 bg-[#B89544] transform origin-right transition-transform duration-300 ${link.to === window.location.hash.slice(1) || (link.to === '/' && window.location.hash === '') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
                 </NavLink>
               ))}
-              <button
-                onClick={onOpenModal}
+              <Link
+                to="/contact"
                 className="bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] px-7 py-3 rounded-xl text-xs font-black hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg active:scale-95"
               >
                 طلب استشارة
-              </button>
+              </Link>
             </div>
           </nav>
 
@@ -165,12 +165,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
-                  <button
-                    onClick={() => { onOpenModal(); closeMenu(); }}
-                    className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
+                  <Link
+                    to="/contact"
+                    onClick={closeMenu}
+                    className="w-full block bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
                   >
                     طلب استشارة فورية
-                  </button>
+                  </Link>
                 </motion.div>
                 <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
                   <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
