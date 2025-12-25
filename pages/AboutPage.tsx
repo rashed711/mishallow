@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 const teamMembers = [
   {
@@ -24,6 +25,11 @@ const teamMembers = [
 const AboutPage: React.FC = () => {
   return (
     <div className="bg-white">
+      <SEO
+        title="من نحن | مكتب مشعل بادغيش للمحاماة"
+        description="تعرف على فريقنا ورؤيتنا في مكتب مشعل بادغيش للمحاماة. نقدم خدمات قانونية بمعايير عالمية تحمي مصالحك."
+        url="https://mishal-lawfirm.com/about"
+      />
       {/* Dark Luxury Hero */}
       <div className="relative pt-32 pb-16 md:pt-48 md:pb-28 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -45,7 +51,7 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
             <div className="order-2 lg:order-1 text-center lg:text-right">
-              <h2 className="text-2xl md:text-4xl font-black text-[#0F172A] mb-8 leading-tight">عراقة الممارسة <br/><span className="text-[#B89544]">وحداثة الحلول</span></h2>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0F172A] mb-8 leading-tight">عراقة الممارسة <br /><span className="text-[#B89544]">وحداثة الحلول</span></h2>
               <div className="space-y-6 text-slate-600 text-base md:text-lg leading-relaxed font-bold">
                 <p>تأسس مكتب مشعل بادغيش للمحاماة والاستشارات القانونية ليكون صرحاً مهنياً يقدم خدمات قانونية نوعية تتماشى مع رؤية المملكة 2030.</p>
                 <p>نحن نعتز بفريقنا الذي يضم كفاءات قانونية متميزة، تسعى دائماً لتحقيق العدالة وحماية مصالح موكلينا من خلال فهم دقيق للواقع القضائي والنظامي.</p>
@@ -53,9 +59,9 @@ const AboutPage: React.FC = () => {
             </div>
             <div className="order-1 lg:order-2 relative">
               <div className="absolute -inset-4 bg-[#B89544]/10 rounded-[2.5rem] md:rounded-[3rem] blur-2xl"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800" 
-                alt="Justice" 
+              <img
+                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800"
+                alt="Justice"
                 className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl w-full"
               />
             </div>

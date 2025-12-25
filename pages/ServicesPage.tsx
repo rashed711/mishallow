@@ -1,4 +1,5 @@
 import React from 'react';
+import SEO from '../components/SEO';
 
 import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon } from '../components/icons/ServiceIcons';
 
@@ -18,6 +19,11 @@ const serviceList = [
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
   return (
     <div className="bg-[#F8FAFC]">
+      <SEO
+        title="خدماتنا | مكتب مشعل بادغيش للمحاماة"
+        description="استشارات قانونية، صياغة عقود، ترافع، وتأسيس شركات. خدمات قانونية شاملة لقطاع الأعمال والأفراد."
+        url="https://mishal-lawfirm.com/services"
+      />
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -33,8 +39,8 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             {serviceList.map((service, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full"
               >
                 <div className="h-60 relative overflow-hidden">
@@ -50,7 +56,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                     حلول قانونية مبتكرة مدعومة بخبرة عملية واسعة في الأنظمة السعودية، نضمن لك الحماية والامتثال التام.
                   </p>
                   <div className="mt-auto">
-                    <button 
+                    <button
                       onClick={onOpenModal}
                       className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
                     >
@@ -69,7 +75,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-black text-[#0F172A] mb-6">هل تحتاج لاستشارة خاصة؟</h2>
           <p className="text-slate-500 mb-10 text-lg">فريقنا جاهز لدراسة قضيتك وتقديم الحلول القانونية الأنسب لك.</p>
-          <button 
+          <button
             onClick={onOpenModal}
             className="bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1"
           >

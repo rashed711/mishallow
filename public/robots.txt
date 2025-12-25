@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mishal-lawfirm.com/sitemap.xml
