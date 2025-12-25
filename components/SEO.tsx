@@ -16,7 +16,7 @@ const SEO: React.FC<SEOProps> = ({
     name = "مكتب مشعل بادغيش للمحاماة",
     type = "website",
     url = "https://mishal-lawfirm.com",
-    image = "/og-image.jpg" // You should ensure this image exists in public folder
+    image = "https://www2.0zz0.com/2025/12/25/07/598777726.png"
 }) => {
     return (
         <Helmet>
