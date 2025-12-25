@@ -106,84 +106,86 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       </div>
 
       {/* Advanced Drawer Mobile Menu - Animated */}
-      <AnimatePresence>
-        {isOpen && createPortal(
-          <div className="fixed inset-0 z-[9999] lg:hidden" dir="rtl">
-            {/* Backdrop overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0 bg-black/60 backdrop-blur-md"
-              onClick={closeMenu}
-            ></motion.div>
+      {createPortal(
+        <AnimatePresence>
+          {isOpen && (
+            <div className="fixed inset-0 z-[9999] lg:hidden" dir="rtl">
+              {/* Backdrop overlay */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 bg-black/60 backdrop-blur-md"
+                onClick={closeMenu}
+              ></motion.div>
 
-            {/* Sidebar Drawer */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-white/10 flex flex-col z-[10000]"
-            >
-              <div className="p-6 flex items-center justify-between border-b border-white/5 bg-white/2">
-                <Logo />
-                <button
-                  onClick={closeMenu}
-                  className="p-2 text-slate-400 hover:text-white bg-white/5 rounded-xl border border-white/10"
-                >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <nav className="flex-grow py-8 px-4 overflow-y-auto">
-                <div className="space-y-1">
-                  {navLinks.map((link, idx) => (
-                    <motion.div
-                      key={link.to}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
-                    >
-                      <NavLink
-                        to={link.to}
-                        onClick={closeMenu}
-                        className={({ isActive }) => `flex items-center px-6 py-4.5 rounded-2xl text-[17px] font-bold transition-all duration-300 ${isActive ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20' : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                          }`}
-                      >
-                        {link.text}
-                      </NavLink>
-                    </motion.div>
-                  ))}
-                </div>
-              </nav>
-
-              <div className="p-6 border-t border-white/5 bg-white/2 pb-10">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                >
-                  <Link
-                    to="/contact"
+              {/* Sidebar Drawer */}
+              <motion.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="absolute top-0 right-0 w-[85%] max-w-[360px] h-full bg-[#0F172A] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-l border-white/10 flex flex-col z-[10000]"
+              >
+                <div className="p-6 flex items-center justify-between border-b border-white/5 bg-white/2">
+                  <Logo />
+                  <button
                     onClick={closeMenu}
-                    className="w-full block bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
+                    className="p-2 text-slate-400 hover:text-white bg-white/5 rounded-xl border border-white/10"
                   >
-                    طلب استشارة فورية
-                  </Link>
-                </motion.div>
-                <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
-                  <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
-              </div>
-            </motion.div>
-          </div>,
-          document.body
-        )}
-      </AnimatePresence>
+
+                <nav className="flex-grow py-8 px-4 overflow-y-auto">
+                  <div className="space-y-1">
+                    {navLinks.map((link, idx) => (
+                      <motion.div
+                        key={link.to}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.1 + idx * 0.1, duration: 0.4 }}
+                      >
+                        <NavLink
+                          to={link.to}
+                          onClick={closeMenu}
+                          className={({ isActive }) => `flex items-center px-6 py-4.5 rounded-2xl text-[17px] font-bold transition-all duration-300 ${isActive ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                            }`}
+                        >
+                          {link.text}
+                        </NavLink>
+                      </motion.div>
+                    ))}
+                  </div>
+                </nav>
+
+                <div className="p-6 border-t border-white/5 bg-white/2 pb-10">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.5 }}
+                  >
+                    <Link
+                      to="/contact"
+                      onClick={closeMenu}
+                      className="w-full block bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
+                    >
+                      طلب استشارة فورية
+                    </Link>
+                  </motion.div>
+                  <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
+                    <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </header>
   );
 };

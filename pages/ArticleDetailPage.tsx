@@ -102,7 +102,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                       𝕏
                     </a>
                     <a
-                      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
+                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#0077b5] hover:text-white transition-all"
@@ -120,7 +120,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                       f
                     </a>
                     <a
-                      href={`https://api.whatsapp.com/send?text=${encodedTitle} ${encodedUrl}`}
+                      href={`https://api.whatsapp.com/send?text=${encodedUrl}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-all"
