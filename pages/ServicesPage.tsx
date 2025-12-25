@@ -22,7 +22,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <SEO
         title="خدماتنا | مكتب مشعل بادغيش للمحاماة"
         description="استشارات قانونية، صياغة عقود، ترافع، وتأسيس شركات. خدمات قانونية شاملة لقطاع الأعمال والأفراد."
-        url="https://mishal-lawfirm.com/services"
+        url="https://mishallow.vercel.app/services"
       />
       <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>

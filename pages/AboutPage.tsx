@@ -28,7 +28,7 @@ const AboutPage: React.FC = () => {
       <SEO
         title="من نحن | مكتب مشعل بادغيش للمحاماة"
         description="تعرف على فريقنا ورؤيتنا في مكتب مشعل بادغيش للمحاماة. نقدم خدمات قانونية بمعايير عالمية تحمي مصالحك."
-        url="https://mishal-lawfirm.com/about"
+        url="https://mishallow.vercel.app/about"
       />
       {/* Dark Luxury Hero */}
       <div className="relative pt-32 pb-16 md:pt-48 md:pb-28 bg-[#0F172A] overflow-hidden">
