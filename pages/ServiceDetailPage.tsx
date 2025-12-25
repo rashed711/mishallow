@@ -28,6 +28,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
             <SEO
                 title={service.seoTitle}
                 description={service.seoDescription}
+                image={service.image}
+                type="website"
             />
 
             {/* Hero Section */}

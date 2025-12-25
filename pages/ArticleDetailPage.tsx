@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import { articles } from './ArticlesPage';
 
 interface ArticleDetailPageProps {
@@ -29,6 +30,12 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
 
   return (
     <div className="bg-white min-h-screen">
+      <SEO
+        title={`${article.title} | مكتب مشعل بادغيش`}
+        description={article.excerpt}
+        image={article.image}
+        type="article"
+      />
       <div className="relative pt-40 pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">
           <img src={article.image} alt="" className="w-full h-full object-cover" />

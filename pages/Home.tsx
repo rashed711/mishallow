@@ -15,6 +15,8 @@ const Home: React.FC = () => {
       <SEO
         title="مكتب محاماة في مكة | مكتب مشعل بادغيش للمحاماة والاستشارات القانونية"
         description="مكتب مشعل بادغيش للمحاماة والاستشارات القانونية في مكة، فريق قانوني متكامل لخدمة الأفراد والشركات في جميع القضايا. استشارة قانونية أولية مجانية."
+        image="https://mishallow.vercel.app/logo.png"
+        type="website"
       />
       <Hero />
       <FadeInSection delay={0.2}>
