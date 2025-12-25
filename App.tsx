@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -29,7 +29,7 @@ const App: React.FC = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <ScrollToTop />
       <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800">
         <Header onOpenModal={handleOpenModal} />
@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <Footer onOpenModal={handleOpenModal} />
         <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
