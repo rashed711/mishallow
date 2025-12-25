@@ -11,7 +11,7 @@ const Logo: React.FC<{ light?: boolean }> = ({ light = true }) => (
       <img
         src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
         alt="شعار مكتب مشعل بادغيش"
-        className="h-8 w-8 md:h-10 md:w-10 object-contain"
+        className="h-10 w-10 md:h-14 md:w-14 object-contain"
       />
     </div>
     <div className="flex flex-col items-start leading-none">
