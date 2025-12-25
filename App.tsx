@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/PageTransition';
+import FloatingShapes from './components/FloatingShapes';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -35,9 +36,10 @@ const App: React.FC = () => {
   return (
     <>
       <ScrollToTop />
-      <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800">
+      <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800 relative">
+        <FloatingShapes />
         <Header onOpenModal={handleOpenModal} />
-        <main>
+        <main className="relative z-10">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
