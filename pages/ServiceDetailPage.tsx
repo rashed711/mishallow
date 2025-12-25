@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { servicesData } from '../data/services';
@@ -11,7 +11,10 @@ interface ServiceDetailPageProps {
 
 const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) => {
     const { slug } = useParams<{ slug: string }>();
+    const navigate = useNavigate();
     const service = servicesData.find(s => s.slug === slug);
+
+    const handleBack = () => navigate('/services');
 
     if (!service) {
         return <Navigate to="/services" replace />;
@@ -35,6 +38,13 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                    <button
+                        onClick={handleBack}
+                        className="inline-flex items-center gap-2 text-[#B89544] font-bold text-sm mb-10 hover:text-white transition-colors"
+                    >
+                        <span>→</span>
+                        <span>العودة للخدمات</span>
+                    </button>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

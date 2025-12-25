@@ -95,7 +95,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 </div>
                 <div>
                   <p className="text-white font-medium mb-1">المقر الرئيسي</p>
-                  <p className="text-slate-300 text-sm">شارع عبدالله بن عباس - بجوار نادي ستار تراك</p>
+                  <p className="text-slate-300 text-sm">شارع عبدالله بن عباس - بجوار نادي ستار تراك - مكة المكرمة</p>
                 </div>
               </li>
               <li className="flex items-center md:items-start group flex-col md:flex-row text-center md:text-right">
