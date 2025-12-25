@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 
 export interface Article {
   id: number;
+  slug: string;
   title: string;
   excerpt: string;
   content: string[];
@@ -19,6 +20,7 @@ export interface Article {
 export const articles: Article[] = [
   {
     id: 1,
+    slug: "كيف-تختار-أفضل-محامي-في-مكة",
     title: "كيف تختار أفضل محامي في مكة؟",
     excerpt: "دليلك الشامل لمعرفة معايير اختيار المحامي المناسب لقضيتك التجارية أو الشخصية في مكة المكرمة...",
     content: [
@@ -35,6 +37,7 @@ export const articles: Article[] = [
   },
   {
     id: 2,
+    slug: "كم-أتعاب-المحامي-في-السعودية",
     title: "كم أتعاب المحامي في السعودية؟",
     excerpt: "تعرف على آلية تحديد أتعاب المحاماة في القضايا المختلفة والفرق بين المبلغ المقطوع والنسبة...",
     content: [
@@ -51,6 +54,7 @@ export const articles: Article[] = [
   },
   {
     id: 3,
+    slug: "الفرق-بين-الاستشارة-القانونية-والتوكيل",
     title: "الفرق بين الاستشارة القانونية والتوكيل",
     excerpt: "متى تكتفي باستشارة قانونية ومتى يجب عليك توكيل محامي لتمثيلك أمام المحاكم؟...",
     content: [
@@ -67,6 +71,7 @@ export const articles: Article[] = [
   },
   {
     id: 4,
+    slug: "خطوات-رفع-قضية-تجارية-في-المحكمة",
     title: "خطوات رفع قضية تجارية في المحكمة",
     excerpt: "شرح مفصل للإجراءات النظامية لرفع الدعاوى التجارية في المملكة العربية السعودية...",
     content: [
@@ -104,8 +109,8 @@ const ArticlesPage: React.FC = () => {
     });
   }, [categoryFilter, sortBy]);
 
-  const handleSelectArticle = (articleId: number) => {
-    navigate(`/articles/${articleId}`);
+  const handleSelectArticle = (articleSlug: string) => {
+    navigate(`/articles/${articleSlug}`);
   };
 
   return (
@@ -209,7 +214,7 @@ const ArticlesPage: React.FC = () => {
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100 flex flex-col h-full"
               >
-                <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => handleSelectArticle(article.id)}>
+                <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => handleSelectArticle(article.slug)}>
                   <img
                     src={article.image}
                     alt={article.title}
@@ -239,7 +244,7 @@ const ArticlesPage: React.FC = () => {
                   </div>
                   <h3
                     className="text-2xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight cursor-pointer"
-                    onClick={() => handleSelectArticle(article.id)}
+                    onClick={() => handleSelectArticle(article.slug)}
                   >
                     {article.title}
                   </h3>
@@ -248,7 +253,7 @@ const ArticlesPage: React.FC = () => {
                   </p>
                   <div className="mt-auto">
                     <button
-                      onClick={() => handleSelectArticle(article.id)}
+                      onClick={() => handleSelectArticle(article.slug)}
                       className="text-[#0F172A] font-black text-sm inline-flex items-center gap-3 group/btn"
                     >
                       <span>اقرأ المقال كاملاً</span>

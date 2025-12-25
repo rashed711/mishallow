@@ -7,9 +7,9 @@ interface ArticleDetailPageProps {
 }
 
 const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const article = articles.find(a => a.id === Number(id));
+  const article = articles.find(a => a.slug === slug);
 
   if (!article) {
     return <div className="pt-40 text-center text-xl font-bold">عذراً، هذا المقال غير موجود.</div>;
@@ -17,11 +17,15 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
 
   const relatedArticles = articles.filter(a => a.id !== article.id).slice(0, 3);
 
-  const handleSelectArticle = (selectedId: number) => {
-    navigate(`/articles/${selectedId}`);
+  const handleSelectArticle = (selectedSlug: string) => {
+    navigate(`/articles/${selectedSlug}`);
   };
 
   const handleBack = () => navigate('/articles');
+
+  const currentUrl = window.location.href;
+  const encodedUrl = encodeURIComponent(currentUrl);
+  const encodedTitle = article ? encodeURIComponent(article.title) : '';
 
   return (
     <div className="bg-white min-h-screen">
@@ -81,11 +85,42 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                 <div className="flex items-center gap-4">
                   <span className="text-slate-900 font-black text-sm">مشاركة المقال:</span>
                   <div className="flex gap-3">
-                    {[1, 2, 3].map(i => (
-                      <button key={i} className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#B89544] hover:text-white transition-all">
-                        {i === 1 ? '𝕏' : i === 2 ? 'in' : 'f'}
-                      </button>
-                    ))}
+                    <a
+                      href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white transition-all"
+                      title="مشاركة على X (تويتر)"
+                    >
+                      𝕏
+                    </a>
+                    <a
+                      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#0077b5] hover:text-white transition-all"
+                      title="مشاركة على LinkedIn"
+                    >
+                      in
+                    </a>
+                    <a
+                      href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1877f2] hover:text-white transition-all"
+                      title="مشاركة على Facebook"
+                    >
+                      f
+                    </a>
+                    <a
+                      href={`https://api.whatsapp.com/send?text=${encodedTitle} ${encodedUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#25D366] hover:text-white transition-all"
+                      title="مشاركة على WhatsApp"
+                    >
+                      W
+                    </a>
                   </div>
                 </div>
                 <button onClick={handleBack} className="text-slate-500 font-bold hover:text-[#0F172A] transition-colors">إغلاق المقال</button>
@@ -104,7 +139,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                   <div
                     key={rel.id}
                     className="group cursor-pointer flex gap-4 items-start"
-                    onClick={() => handleSelectArticle(rel.id)}
+                    onClick={() => handleSelectArticle(rel.slug)}
                   >
                     <div className="w-24 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
                       <img src={rel.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />

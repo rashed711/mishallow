@@ -51,7 +51,7 @@ const App: React.FC = () => {
               <Route path="/services" element={<PageTransition><ServicesPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/articles" element={<PageTransition><ArticlesPage /></PageTransition>} />
-              <Route path="/articles/:id" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
+              <Route path="/articles/:slug" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
               <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
