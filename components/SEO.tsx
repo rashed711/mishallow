@@ -16,7 +16,7 @@ const SEO: React.FC<SEOProps> = ({
     name = "مكتب مشعل بادغيش للمحاماة",
     type = "website",
     url = "https://mishallow.vercel.app",
-    image = "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=800"
+    image = "https://mishallow.vercel.app/logo.png"
 }) => {
     return (
         <Helmet>
