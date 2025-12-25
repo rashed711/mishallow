@@ -101,9 +101,6 @@ const Hero: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                     animate={{ boxShadow: ["0 10px 40px -10px rgba(184,149,68,0.6)", "0 10px 50px -5px rgba(184,149,68,0.9)", "0 10px 40px -10px rgba(184,149,68,0.6)"] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                     className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
