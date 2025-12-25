@@ -10,7 +10,7 @@ const LatestArticles: React.FC = () => {
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
             <h2 className="text-3xl md:text-4xl font-black text-[#0F172A]">آخر الرؤى القانونية</h2>
           </div>
-          <Link 
+          <Link
             to="/articles"
             className="mt-8 md:mt-0 px-10 py-4 bg-white border border-slate-200 text-[#0F172A] font-bold rounded-2xl hover:bg-[#0F172A] hover:text-white transition-all shadow-sm"
           >
@@ -30,7 +30,7 @@ const LatestArticles: React.FC = () => {
 
           <Link to="/articles/2" className="group">
             <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
-              <img src="https://images.unsplash.com/photo-1454165833767-0266b19677c8?q=80&w=600" alt="Article 2" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              <img src="https://mishal-lawfirm.com/assets/img/constructions-2.webp" alt="Article 2" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">قانون العمل</div>
             </div>
             <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors mb-4 leading-tight">تعديلات نظام العمل الجديد: ما يجب أن تعرفه الشركات</h3>

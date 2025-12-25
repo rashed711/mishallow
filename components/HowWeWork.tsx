@@ -21,7 +21,7 @@ const steps = [
 const HowWeWork: React.FC = () => {
   return (
     <section className="py-28 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
         <div className="text-center mb-20 reveal">
           <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">منهجية عملنا</span>
           <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] leading-tight">
