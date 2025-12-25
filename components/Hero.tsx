@@ -119,46 +119,46 @@ const Hero: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Desktop Features Visuals */}
-          <div className="lg:col-span-5 hidden lg:block relative">
+          {/* Features Visuals - Visible on all screens now */}
+          <div className="lg:col-span-5 relative mt-12 lg:mt-0">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6, duration: 0.8, ease: "backOut" }}
-              className="space-y-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6"
             >
               <motion.div
                 whileHover={{ y: -10, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
-                className="bg-white/5 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group"
+                className="bg-white/5 backdrop-blur-xl p-6 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group"
               >
-                <div className="flex items-start gap-6">
-                  <div className="bg-[#B89544] p-4 rounded-2xl shadow-xl shadow-[#B89544]/20 group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-[#0F172A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <div className="flex items-start gap-4 lg:gap-6">
+                  <div className="bg-[#B89544] p-3 lg:p-4 rounded-2xl shadow-xl shadow-[#B89544]/20 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg className="w-6 h-6 lg:w-8 lg:h-8 text-[#0F172A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-3xl font-black mb-1">10+</div>
-                    <div className="text-[#B89544] font-bold text-sm">أعوام من التميز القانوني</div>
-                    <p className="text-slate-300 text-xs mt-2 leading-relaxed font-bold">خبرة ممتدة في صياغة الأنظمة وحماية المصالح التجارية الكبرى.</p>
+                    <div className="text-white text-2xl lg:text-3xl font-black mb-1">10+</div>
+                    <div className="text-[#B89544] font-bold text-xs lg:text-sm">أعوام من التميز القانوني</div>
+                    <p className="text-slate-300 text-[10px] lg:text-xs mt-2 leading-relaxed font-bold">خبرة ممتدة في صياغة الأنظمة وحماية المصالح التجارية الكبرى.</p>
                   </div>
                 </div>
               </motion.div>
 
               <motion.div
                 whileHover={{ y: -10, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
-                className="bg-white/5 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group delay-150"
+                className="bg-white/5 backdrop-blur-xl p-6 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group delay-150"
               >
-                <div className="flex items-start gap-6">
-                  <div className="bg-white/10 p-4 rounded-2xl border border-white/20 group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-[#B89544]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <div className="flex items-start gap-4 lg:gap-6">
+                  <div className="bg-white/10 p-3 lg:p-4 rounded-2xl border border-white/20 group-hover:scale-110 transition-transform flex-shrink-0">
+                    <svg className="w-6 h-6 lg:w-8 lg:h-8 text-[#B89544]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-3xl font-black mb-1">98%</div>
-                    <div className="text-slate-100 font-bold text-sm">نسبة إنجاز القضايا</div>
-                    <p className="text-slate-300 text-xs mt-2 leading-relaxed font-bold">نحقق نتائج ملموسة عبر استراتيجيات قانونية مدروسة بعناية.</p>
+                    <div className="text-white text-2xl lg:text-3xl font-black mb-1">98%</div>
+                    <div className="text-slate-100 font-bold text-xs lg:text-sm">نسبة إنجاز القضايا</div>
+                    <p className="text-slate-300 text-[10px] lg:text-xs mt-2 leading-relaxed font-bold">نحقق نتائج ملموسة عبر استراتيجيات قانونية مدروسة بعناية.</p>
                   </div>
                 </div>
               </motion.div>

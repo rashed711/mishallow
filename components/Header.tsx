@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       ? 'bg-[#0F172A]/90 backdrop-blur-xl shadow-2xl border-b border-white/5'
       : 'bg-[#0F172A]/80 backdrop-blur-sm'
       }`}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full">
         <div className="flex items-center justify-between h-full">
           <div className="flex-shrink-0">
             <Logo />
