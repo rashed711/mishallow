@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './components/PageTransition';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -28,28 +30,32 @@ const App: React.FC = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
+  const location = useLocation();
+
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800">
         <Header onOpenModal={handleOpenModal} />
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage onOpenModal={handleOpenModal} />} />
-            <Route path="/articles" element={<ArticlesPage />} />
-            <Route path="/articles/:id" element={<ArticleDetailPage onOpenModal={handleOpenModal} />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-            <Route path="/terms" element={<TermsPage />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+              <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
+              <Route path="/services" element={<PageTransition><ServicesPage onOpenModal={handleOpenModal} /></PageTransition>} />
+              <Route path="/articles" element={<PageTransition><ArticlesPage /></PageTransition>} />
+              <Route path="/articles/:id" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+              <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
+              <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
+              <Route path="*" element={<PageTransition><Home /></PageTransition>} />
+            </Routes>
+          </AnimatePresence>
         </main>
         <Footer onOpenModal={handleOpenModal} />
         <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
