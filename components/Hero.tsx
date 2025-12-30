@@ -72,15 +72,33 @@ const Hero: React.FC = () => {
                 مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
               </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="fluid-h1 font-black text-white leading-[1.1] mb-8 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className="mb-8"
               >
-                مكتب محاماة <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37]">واستشارات قانونية في مكة</span>
-              </motion.h1>
+                <div className="overflow-hidden mb-2">
+                  <motion.h1
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                    className="fluid-h1 font-black text-white leading-[1.3] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+                  >
+                    مكتب محاماة
+                  </motion.h1>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: "150%" }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: 0.5, duration: 1, ease: [0.33, 1, 0.68, 1] }}
+                    className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-[1.3] pb-2"
+                  >
+                    واستشارات قانونية في مكة
+                  </motion.h1>
+                </div>
+              </motion.div>
 
               <motion.p
                 initial={{ opacity: 0 }}
@@ -98,26 +116,54 @@ const Hero: React.FC = () => {
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
               >
                 <Link to="/contact" className="relative group w-full sm:w-auto inline-block">
+
+                  {/* Rotating Golden Border Effect */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="absolute -inset-1 rounded-2xl overflow-hidden">
+                    <motion.div
+                      className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear"
+                      }}
+                      style={{ opacity: 0.8 }}
+                    />
+                  </div>
+
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    animate={{ boxShadow: ["0 10px 40px -10px rgba(184,149,68,0.6)", "0 10px 50px -5px rgba(184,149,68,0.9)", "0 10px 40px -10px rgba(184,149,68,0.6)"] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{
+                      scale: [1, 1.02, 1],
+                      boxShadow: [
+                        "0 0 0 0 rgba(70, 70, 70, 0.4)",
+                        "0 0 20px 0 rgba(184, 149, 68, 0.2)",
+                        "0 0 0 0 rgba(70, 70, 70, 0.4)"
+                      ]
+                    }}
+                    transition={{
+                      scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+                      boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                    }}
                     className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
                   >
-                    <span className="relative z-10 text-lg tracking-wide">احصل على استشارة قانونية أولية مجانية</span>
+                    <span className="relative z-10 text-lg tracking-wide flex items-center justify-center gap-2">
+                      احصل على استشارة قانونية أولية مجانية
+                    </span>
 
-                    {/* Premium Sheen Effect - Intensified */}
+                    {/* Enhanced Shine Effect */}
                     <motion.div
                       initial={{ x: '-100%', skewX: -15, opacity: 0 }}
-                      animate={{ x: '150%', skewX: -15, opacity: [0, 0.9, 0] }}
+                      animate={{ x: '150%', skewX: -15, opacity: [0, 0.8, 0] }}
                       transition={{
                         repeat: Infinity,
-                        duration: 1.5,
+                        duration: 2.5,
                         ease: "easeInOut",
-                        repeatDelay: 2
+                        repeatDelay: 1
                       }}
-                      className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/80 to-transparent"
+                      className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/60 to-transparent"
                     />
                   </motion.button>
                 </Link>
