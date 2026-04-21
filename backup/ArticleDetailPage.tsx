@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { articles } from '../data/articles';
+import { articles } from './ArticlesPage';
 
 interface ArticleDetailPageProps {
   onOpenModal: () => void;

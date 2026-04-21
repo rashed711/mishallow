@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { articles } from '../data/articles';
 
 const LatestArticles: React.FC = () => {
+  // Get latest 3 articles based on date
+  const latestArticles = [...articles]
+    .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime())
+    .slice(0, 3);
+
   return (
     <section className="py-28 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,32 +25,26 @@ const LatestArticles: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-10">
-          <Link to="/articles/1" className="group">
-            <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
-              <img src="https://images.unsplash.com/photo-1579541814924-49fef17c5be5?q=80&w=600" alt="Article 1" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">رؤية 2030</div>
-            </div>
-            <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors mb-4 leading-tight">أثر رؤية المملكة 2030 على تطور الأنظمة التجارية</h3>
-            <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">استعراض شامل للتحولات الجوهرية في البيئة النظامية السعودية وكيف ساهمت في جذب الاستثمارات...</p>
-          </Link>
-
-          <Link to="/articles/2" className="group">
-            <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
-              <img src="https://mishal-lawfirm.com/assets/img/constructions-2.webp" alt="Article 2" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">قانون العمل</div>
-            </div>
-            <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors mb-4 leading-tight">تعديلات نظام العمل الجديد: ما يجب أن تعرفه الشركات</h3>
-            <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">دليل عملي لأصحاب الأعمال والمدراء التنفيذيين حول أحدث التعديلات في نظام العمل والعمال السعودي...</p>
-          </Link>
-
-          <Link to="/articles/3" className="group">
-            <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
-              <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600" alt="Article 3" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">الملكية الفكرية</div>
-            </div>
-            <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors mb-4 leading-tight">حماية الملكية الفكرية في العصر الرقمي</h3>
-            <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">كيف تحمي علامتك التجارية وبراءات اختراعك في ظل التطور التكنولوجي السريع بالمملكة...</p>
-          </Link>
+          {latestArticles.map((article) => (
+            <Link key={article.id} to={`/articles/${article.slug}`} className="group">
+              <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
+                <img 
+                  src={article.image} 
+                  alt={article.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">
+                  {article.category}
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors mb-4 leading-tight">
+                {article.title}
+              </h3>
+              <p className="text-slate-500 text-sm leading-relaxed line-clamp-2">
+                {article.excerpt}
+              </p>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
