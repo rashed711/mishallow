@@ -11,12 +11,20 @@ const backgroundImages = [
 
 const Hero: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 7000);
-    return () => clearInterval(timer);
+    }, 8000);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
@@ -30,60 +38,52 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: isMobile ? 0.5 : 1.2 }}
             className="absolute inset-0"
           >
             <img
               src={backgroundImages[currentIndex]}
               alt="Background"
-              className="w-full h-full object-cover brightness-[0.85] contrast-[1.1] "
+              className="w-full h-full object-cover brightness-[0.8] contrast-[1.1]"
+              loading={currentIndex === 0 ? "eager" : "lazy"}
             />
-            {/* Slow Zoom Effect */}
-            <motion.div
-              className="absolute inset-0"
-              initial={{ scale: 1 }}
-              animate={{ scale: 1.1 }}
-              transition={{ duration: 10, ease: "linear" }}
-            />
+            {/* Slow Zoom Effect - DISABLED ON MOBILE for performance */}
+            {!isMobile && (
+              <motion.div
+                className="absolute inset-0"
+                initial={{ scale: 1 }}
+                animate={{ scale: 1.08 }}
+                transition={{ duration: 15, ease: "linear" }}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
 
-        {/* Dynamic Multi-layer Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-l from-[#0F172A] via-[#0F172A]/80 to-transparent z-[1]"></div>
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0F172A] to-transparent z-[2]"></div>
+        <div className="absolute inset-0 bg-gradient-to-l from-[#0F172A] via-[#0F172A]/85 to-transparent z-[1]"></div>
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0F172A] to-transparent z-[2]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pt-24 lg:pt-0">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full pt-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           <div className="lg:col-span-7 text-center lg:text-right">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.6 }}
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-md text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-6 md:mb-10 shadow-lg"
-              >
-                <span className="w-2.5 h-2.5 bg-[#B89544] rounded-full ml-3 animate-pulse shadow-[0_0_15px_#B89544]"></span>
+              <div className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg">
+                <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 shadow-[0_0_10px_#B89544]"></span>
                 مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                className="mb-8"
-              >
+              <div className="mb-8">
                 <div className="overflow-hidden mb-2">
                   <motion.h1
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-                    className="fluid-h1 font-black text-white leading-[1.3] drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+                    transition={{ delay: 0.2, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                    className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
                   >
                     مكتب محاماة
                   </motion.h1>
@@ -92,150 +92,108 @@ const Hero: React.FC = () => {
                   <motion.h1
                     initial={{ y: "150%" }}
                     animate={{ y: 0 }}
-                    transition={{ delay: 0.5, duration: 1, ease: [0.33, 1, 0.68, 1] }}
-                    className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-[1.3] pb-2"
+                    transition={{ delay: 0.4, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                    className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2"
                   >
                     واستشارات قانونية في مكة
                   </motion.h1>
                 </div>
-              </motion.div>
+              </div>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-white text-base md:text-xl leading-relaxed font-bold mb-10 md:mb-14 max-w-2xl mx-auto lg:mx-0 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="text-white text-base md:text-lg leading-relaxed font-bold mb-10 max-w-2xl mx-auto lg:mx-0 drop-shadow-lg opacity-90"
               >
-                مكتب مشعل بادغيش للمحاماة والاستشارات القانونية نقدّم خدمات قانونية متكاملة في مكة للأفراد والشركات، من خلال فريق قانوني متخصص يعمل وفق الأنظمة المعتمدة في المملكة العربية السعودية، مع التزام كامل بالسرية والدقة وتحقيق أفضل النتائج القانونية الممكنة.
+                نقدّم خدمات قانونية متكاملة في مكة للأفراد والشركات، عبر فريق قانوني متخصص يعمل وفق الأنظمة المعتمدة في المملكة، مع التزام كامل بالسرية وتحقيق أفضل النتائج.
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.5 }}
+                transition={{ delay: 0.8 }}
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
               >
-                <Link to="/contact" className="relative group w-full sm:w-auto inline-block">
+                <Link to="/contact" className="relative group w-full sm:w-auto">
+                  {/* Rotating border DISABLED ON MOBILE */}
+                  {!isMobile && (
+                    <>
+                      <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                      <div className="absolute -inset-1 rounded-2xl overflow-hidden">
+                        <motion.div
+                          className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                          style={{ opacity: 0.5 }}
+                        />
+                      </div>
+                    </>
+                  )}
 
-                  {/* Rotating Golden Border Effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-                  <div className="absolute -inset-1 rounded-2xl overflow-hidden">
-                    <motion.div
-                      className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                      style={{ opacity: 0.8 }}
-                    />
-                  </div>
-
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={{
-                      scale: [1, 1.02, 1],
-                      boxShadow: [
-                        "0 0 0 0 rgba(70, 70, 70, 0.4)",
-                        "0 0 20px 0 rgba(184, 149, 68, 0.2)",
-                        "0 0 0 0 rgba(70, 70, 70, 0.4)"
-                      ]
-                    }}
-                    transition={{
-                      scale: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                      boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                    }}
-                    className="w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl transition-all relative overflow-hidden z-10 bg-[length:200%_auto] animate-shine"
-                  >
-                    <span className="relative z-10 text-lg tracking-wide flex items-center justify-center gap-2">
-                      احصل على استشارة قانونية أولية مجانية
+                  <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-4.5 rounded-2xl transition-all bg-[length:200%_auto] animate-gradient-move">
+                    <span className="relative z-10 text-base md:text-lg">
+                      استشارة قانونية مجانية
                     </span>
-
-                    {/* Enhanced Shine Effect */}
-                    <motion.div
-                      initial={{ x: '-100%', skewX: -15, opacity: 0 }}
-                      animate={{ x: '150%', skewX: -15, opacity: [0, 0.8, 0] }}
-                      transition={{
-                        repeat: Infinity,
-                        duration: 2.5,
-                        ease: "easeInOut",
-                        repeatDelay: 1
-                      }}
-                      className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/60 to-transparent"
-                    />
-                  </motion.button>
+                  </button>
                 </Link>
-                <Link to="/services">
-                  <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-black px-12 py-4.5 rounded-2xl shadow-[0_15px_30px_rgba(184,149,68,0.3)] transition-all relative overflow-hidden group"
-                  >
+                
+                <Link to="/services" className="w-full sm:w-auto">
+                  <button className="w-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-black px-10 py-4.5 rounded-2xl transition-all hover:bg-[#B89544] hover:text-[#0F172A]">
                     استكشف خدماتنا
-                  </motion.button>
+                  </button>
                 </Link>
               </motion.div>
             </motion.div>
           </div>
 
-          {/* Features Visuals - Visible on all screens now */}
-          <div className="lg:col-span-5 relative mt-12 lg:mt-0">
+          {/* Stats Cards - Simplified blurs for mobile */}
+          <div className="lg:col-span-5 relative mt-6 lg:mt-0">
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.8, ease: "backOut" }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6"
+              transition={{ delay: 1, duration: 0.8 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6"
             >
-              <motion.div
-                whileHover={{ y: -10, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
-                className="bg-white/5 backdrop-blur-xl p-6 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group"
-              >
-                <div className="flex items-start gap-4 lg:gap-6">
-                  <div className="bg-[#B89544] p-3 lg:p-4 rounded-2xl shadow-xl shadow-[#B89544]/20 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg className="w-6 h-6 lg:w-8 lg:h-8 text-[#0F172A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
+                <div className="flex items-center gap-5">
+                  <div className="bg-[#B89544] p-3 rounded-2xl shadow-xl flex-shrink-0">
+                    <svg className="w-6 h-6 text-[#0F172A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-2xl lg:text-3xl font-black mb-1">10+</div>
-                    <div className="text-[#B89544] font-bold text-xs lg:text-sm">أعوام من التميز القانوني</div>
-                    <p className="text-slate-300 text-[10px] lg:text-xs mt-2 leading-relaxed font-bold">خبرة ممتدة في صياغة الأنظمة وحماية المصالح التجارية الكبرى.</p>
+                    <div className="text-white text-2xl font-black">10+</div>
+                    <div className="text-[#B89544] font-bold text-xs uppercase">أعوام من التميز</div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                whileHover={{ y: -10, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" }}
-                className="bg-white/5 backdrop-blur-xl p-6 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] group delay-150"
-              >
-                <div className="flex items-start gap-4 lg:gap-6">
-                  <div className="bg-white/10 p-3 lg:p-4 rounded-2xl border border-white/20 group-hover:scale-110 transition-transform flex-shrink-0">
-                    <svg className="w-6 h-6 lg:w-8 lg:h-8 text-[#B89544]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
+                <div className="flex items-center gap-5">
+                  <div className="bg-white/10 p-3 rounded-2xl border border-white/20 flex-shrink-0">
+                    <svg className="w-6 h-6 text-[#B89544]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-2xl lg:text-3xl font-black mb-1">98%</div>
-                    <div className="text-slate-100 font-bold text-xs lg:text-sm">نسبة إنجاز القضايا</div>
-                    <p className="text-slate-300 text-[10px] lg:text-xs mt-2 leading-relaxed font-bold">نحقق نتائج ملموسة عبر استراتيجيات قانونية مدروسة بعناية.</p>
+                    <div className="text-white text-2xl font-black">98%</div>
+                    <div className="text-slate-300 font-bold text-xs uppercase">نسبة الإنجاز</div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
       </div>
 
-      {/* Interactive slider indicators */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      {/* Slider indicators */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {backgroundImages.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1.5 rounded-full transition-all duration-700 ${idx === currentIndex ? 'w-12 bg-[#B89544]' : 'w-4 bg-white/30 hover:bg-white/50'
-              }`}
+            className={`h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
           />
         ))}
       </div>

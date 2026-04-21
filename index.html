@@ -60,6 +60,7 @@
       overflow-x: hidden;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      will-change: contents;
     }
 
     /* html {
@@ -113,6 +114,14 @@
     }
     .animate-article-entry {
       animation: articleEntry 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .will-change-transform {
+      will-change: transform;
+    }
+    
+    .will-change-opacity {
+      will-change: opacity;
     }
 
     /* Custom Scrollbar */
