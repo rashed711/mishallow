@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TeamMember } from '../data/team';
 
@@ -9,55 +9,94 @@ interface TeamMemberModalProps {
 }
 
 const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClose }) => {
+  useEffect(() => {
+    if (isOpen) {
+      // Logic to handle back button closing the modal
+      window.history.pushState({ modalOpen: true }, "");
+      
+      const handlePopState = (e: PopStateEvent) => {
+        // If the state we pushed is gone, close the modal
+        onClose();
+      };
+
+      window.addEventListener("popstate", handlePopState);
+      
+      // Prevent scrolling when modal is open
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        window.removeEventListener("popstate", handlePopState);
+        // If modal is closed manually (not via back button), remove the history entry
+        if (window.history.state?.modalOpen) {
+          window.history.back();
+        }
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen, onClose]);
+
   if (!member) return null;
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 md:p-6" dir="rtl">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#0F172A]/90 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#0F172A]/95 backdrop-blur-md"
           ></motion.div>
 
           {/* Modal Content */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative bg-white w-full max-w-4xl rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[85vh] md:max-h-[90vh]"
+            exit={{ opacity: 0, scale: 0.95, y: 30 }}
+            className="relative bg-white w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] z-10"
           >
-            {/* Close Button */}
+            {/* Close Button - Repositioned for Mobile Visibility */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 md:top-6 md:right-6 z-50 w-10 h-10 rounded-full bg-white/20 md:bg-black/10 hover:bg-[#B89544] text-white md:text-[#0F172A] hover:text-white transition-all flex items-center justify-center backdrop-blur-md"
+              className="absolute top-4 left-4 md:top-6 md:left-6 z-50 w-10 h-10 rounded-full bg-[#0F172A]/10 md:bg-black/5 hover:bg-[#B89544] text-[#0F172A] hover:text-white transition-all flex items-center justify-center backdrop-blur-md border border-white/20"
+              aria-label="إغلاق"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
             {/* Left: Image (Top on Mobile) */}
-            <div className="w-full md:w-5/12 h-56 md:h-auto relative bg-slate-100 flex-shrink-0">
+            <div className="w-full md:w-[45%] h-64 md:h-auto relative bg-slate-100 flex-shrink-0">
               <img
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/60 md:from-[#0F172A]/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 md:from-transparent to-transparent"></div>
+              
+              {/* Mobile Mobile Float Detail */}
+              <div className="absolute bottom-4 right-6 md:hidden">
+                <h2 className="text-xl font-black text-white">{member.name}</h2>
+                <p className="text-slate-300 text-sm font-bold">{member.role}</p>
+              </div>
             </div>
 
             {/* Right: Details */}
-            <div className="w-full md:w-7/12 p-8 md:p-12 overflow-y-auto text-right custom-scrollbar">
-              <div className="mb-6 md:mb-10">
-                <span className="text-[#B89544] font-black tracking-widest uppercase text-[10px] md:text-xs mb-2 block">عضو فريق العمل</span>
-                <h2 className="text-2xl md:text-4xl font-black text-[#0F172A] mb-1 md:mb-2">{member.name}</h2>
-                <p className="text-slate-400 font-bold text-sm md:text-lg">{member.role}</p>
-                <div className="w-16 md:w-20 h-1 md:h-1.5 bg-[#B89544] mt-3 md:mt-4 rounded-full"></div>
+            <div className="w-full md:w-[55%] p-6 sm:p-8 md:p-12 overflow-y-auto text-right custom-scrollbar">
+              <div className="hidden md:block mb-8">
+                <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-2 block">عضو فريق العمل</span>
+                <h2 className="text-3xl md:text-4xl font-black text-[#0F172A] mb-2">{member.name}</h2>
+                <p className="text-slate-400 font-bold text-lg">{member.role}</p>
+                <div className="w-16 h-1.5 bg-[#B89544] mt-4 rounded-full"></div>
+              </div>
+
+              {/* Mobile-only separator/title */}
+              <div className="md:hidden mb-6">
+                <div className="w-12 h-1 bg-[#B89544] mb-4 rounded-full"></div>
+                <span className="text-[#B89544] font-black tracking-widest uppercase text-[10px] block mb-1">عن المستشار</span>
               </div>
 
               <div className="space-y-6">
@@ -66,21 +105,21 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
                     السيرة المهنية
                     <span className="h-[1px] flex-grow bg-slate-100"></span>
                   </h3>
-                  <p className="text-slate-600 text-sm md:text-lg leading-loose font-medium">
+                  <p className="text-slate-600 text-base md:text-lg leading-relaxed md:leading-loose font-medium">
                     {member.bio}
                   </p>
                 </div>
 
-                <div className="pt-8 pb-4">
-                  <p className="text-slate-400 italic text-[11px] md:text-sm border-r-4 border-[#B89544]/20 pr-4">
+                <div className="pt-6 border-r-4 border-[#B89544]/20 pr-4">
+                  <p className="text-slate-500 italic text-sm md:text-base leading-relaxed">
                     مكرس لتقديم أفضل الحلول القانونية وحماية حقوق الموكلين بأعلى معايير الأمانة والمهنية تحت ظل القضاء السعودي.
                   </p>
                 </div>
               </div>
               
               {/* Luxury Footer Detail */}
-              <div className="mt-8 flex justify-center md:justify-end opacity-20 pointer-events-none">
-                <img src="/logo.png" alt="Logo" className="h-8 md:h-12 grayscale" />
+              <div className="mt-10 md:mt-12 flex justify-start opacity-10 pointer-events-none grayscale">
+                <img src="https://www2.0zz0.com/2025/12/25/07/347380644.png" alt="Logo" className="h-10 md:h-14" />
               </div>
             </div>
           </motion.div>
