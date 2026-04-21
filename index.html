@@ -62,9 +62,9 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    html {
-      /* scroll-behavior: smooth; REMOVED to fix page transition scrolling */
-    }
+    /* html {
+      scroll-behavior: smooth; REMOVED to fix page transition scrolling
+    } */
 
     /* Fluid Typography */
     .fluid-h1 {
@@ -79,22 +79,38 @@
       font-size: clamp(1rem, 2vw, 1.125rem);
     }
 
-    /* Reveal Animation */
-
-
-    /* Article Entry Animation */
-    @keyframes articleEntry {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Global Animations - Consolidated */
+    @keyframes luxury-shimmer {
+      0% { transform: translateX(-100%) skewX(-15deg); }
+      100% { transform: translateX(200%) skewX(-15deg); }
+    }
+    .animate-luxury-shimmer {
+      animation: luxury-shimmer 3s linear infinite;
+    }
+    
+    @keyframes luxury-pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.7); }
+      70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(184, 149, 68, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0); }
+    }
+    .animate-luxury-pulse {
+      animation: luxury-pulse 2s ease-in-out infinite;
     }
 
+    @keyframes gradient-move {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .animate-gradient-move {
+      background-size: 240% 240%;
+      animation: gradient-move 4s ease infinite;
+    }
+
+    @keyframes articleEntry {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .animate-article-entry {
       animation: articleEntry 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
@@ -103,36 +119,30 @@
     ::-webkit-scrollbar {
       width: 6px;
     }
-
     ::-webkit-scrollbar-track {
       background: #F1F5F9;
     }
-
     ::-webkit-scrollbar-thumb {
       background: var(--gold-primary);
       border-radius: 10px;
     }
 
-    /* Glass Effects */
+    /* Glass and Utility Classes */
     .glass-card {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
     .mobile-menu-glass {
       background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
-
     .section-padding {
       padding-top: clamp(4rem, 10vh, 10rem);
       padding-bottom: clamp(4rem, 10vh, 10rem);
     }
-
-    /* Transitions */
     .drawer-transition {
       transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
     }

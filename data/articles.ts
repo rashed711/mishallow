@@ -12,6 +12,8 @@ export interface Article {
   views: number;
 }
 
+export const ARTICLE_CATEGORIES = ['الكل', 'استشارات قانونية', 'دليل العملاء', 'ثقافة قانونية', 'القضاء التجاري', 'رؤية 2030', 'قانون العمل', 'الملكية الفكرية'];
+
 export const articles: Article[] = [
   {
     id: 5,

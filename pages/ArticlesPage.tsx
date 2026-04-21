@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
-import { articles } from '../data/articles';
+import { articles, ARTICLE_CATEGORIES } from '../data/articles';
 
 const ArticlesPage: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState('الكل');
   const [sortBy, setSortBy] = useState<'date' | 'popularity'>('date');
   const navigate = useNavigate();
 
-  const categories = ['الكل', 'استشارات قانونية', 'دليل العملاء', 'ثقافة قانونية', 'القضاء التجاري', 'رؤية 2030', 'قانون العمل', 'الملكية الفكرية'];
+  const categories = ARTICLE_CATEGORIES;
 
   const processedArticles = useMemo(() => {
     let filtered = categoryFilter === 'الكل'

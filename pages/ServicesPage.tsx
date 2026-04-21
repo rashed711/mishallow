@@ -34,13 +34,13 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             </p>
             <Link
               to="/quick-services"
-              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-[pulse-glow_2s_infinite,gradient-move_3s_ease_infinite]"
+              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-luxury-pulse animate-gradient-move"
             >
               {/* Permanent Outer Ring Pulse */}
               <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
 
-              {/* Permanent Shimmer Sweep Animation - Brightened for 'Lighting Up' effect */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-[shimmer_2s_infinite] pointer-events-none"></span>
+              {/* Permanent Shimmer Sweep Animation */}
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
 
               <span className="relative z-10 flex items-center gap-4">
                 <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
@@ -50,23 +50,6 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                 </div>
                 <span className="text-sm md:text-base">استكشف الخدمات السريعة</span>
               </span>
-
-              <style>{`
-                @keyframes shimmer {
-                  0% { transform: translateX(-100%) skewX(-15deg); }
-                  100% { transform: translateX(200%) skewX(-15deg); }
-                }
-                @keyframes pulse-glow {
-                  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.7); }
-                  70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(184, 149, 68, 0); }
-                  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0); }
-                }
-                @keyframes gradient-move {
-                  0% { background-position: 0% 50%; }
-                  50% { background-position: 100% 50%; }
-                  100% { background-position: 0% 50%; }
-                }
-              `}</style>
             </Link>
           </motion.div>
         </div>
@@ -123,7 +106,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             className="relative overflow-hidden inline-block bg-[#0F172A] text-white px-12 py-4.5 rounded-2xl font-black shadow-xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1 group"
           >
             <span className="relative z-10">تحدث مع مستشار قانوني</span>
-            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+            <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-luxury-shimmer"></span>
           </Link>
         </div>
       </section>
