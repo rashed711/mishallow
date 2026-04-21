@@ -101,45 +101,40 @@ const QuickServicesPage: React.FC = () => {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="group relative bg-white rounded-[2.5rem] p-8 pb-10 transition-all duration-500 border border-slate-100 hover:border-[#B89544]/30 shadow-sm hover:shadow-2xl hover:shadow-[#B89544]/10 flex flex-col h-full overflow-hidden"
+                                                className="group relative bg-slate-50 hover:bg-white rounded-[2.5rem] p-8 transition-all duration-500 border border-transparent hover:border-slate-100 hover:shadow-2xl flex flex-col h-full"
                                             >
-                                                {/* Top gold accent line */}
-                                                <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] to-[#B89544]/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></div>
-                                                
-                                                <div className="flex items-center justify-between mb-8">
-                                                    <div className="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-[#B89544]/10 shadow-inner flex items-center justify-center font-black text-[#B89544] text-xl transition-colors">
+                                                <div className="flex items-center justify-between mb-6">
+                                                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center font-black text-[#B89544]">
                                                         {index + 1}
                                                     </div>
-                                                    <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest group-hover:text-[#B89544] transition-colors">
-                                                        {selectedCategory.name}
-                                                    </div>
+                                                    <button 
+                                                        onClick={() => handleViewDetail(service.slug)}
+                                                        className="text-[10px] font-black text-[#B89544] uppercase tracking-widest hover:underline"
+                                                    >
+                                                        عرض التفاصيل
+                                                    </button>
                                                 </div>
-
-                                                <h3 className="text-xl md:text-2xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight">
+                                                <h3 className="text-xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight">
                                                     {service.title}
                                                 </h3>
-                                                
-                                                <p className="text-slate-500 text-sm leading-loose mb-10 font-medium line-clamp-3">
+                                                <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium line-clamp-2">
                                                     {service.description}
                                                 </p>
-
-                                                <div className="mt-auto space-y-5">
+                                                <div className="mt-auto space-y-4">
                                                     <a
                                                         href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-6 py-5 rounded-2xl font-black text-sm hover:bg-[#B89544] hover:shadow-lg hover:shadow-[#B89544]/20 hover:-translate-y-1 transition-all w-full justify-center group/wa"
+                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-6 py-4 rounded-2xl font-black text-xs hover:bg-[#B89544] hover:-translate-y-1 transition-all w-full justify-center group/wa"
                                                     >
                                                         <WhatsAppIcon className="w-5 h-5 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
                                                         <span>طلب عبر الواتساب</span>
                                                     </a>
-                                                    
                                                     <button 
                                                         onClick={() => handleViewDetail(service.slug)}
-                                                        className="w-full flex items-center justify-center gap-2 text-slate-400 group-hover:text-[#0F172A] font-black text-xs transition-all"
+                                                        className="w-full text-center text-slate-400 text-[11px] font-bold hover:text-[#0F172A] transition-colors"
                                                     >
-                                                        <span>اقرأ المزيد عن الخدمة</span>
-                                                        <span className="text-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">←</span>
+                                                        اقرأ المزيد عن الخدمة
                                                     </button>
                                                 </div>
                                             </motion.div>
