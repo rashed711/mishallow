@@ -46,25 +46,32 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             </p>
             <Link
               to="/quick-services"
-              className="relative group inline-flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/50 transition-all duration-500 overflow-hidden"
+              className="relative group inline-flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-[pulse-glow_2s_infinite]"
             >
-              {/* Outer Glow Pulse */}
-              <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-20 group-hover:opacity-40 transition-opacity duration-1000"></span>
+              {/* Permanent Outer Ring Pulse */}
+              <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
               
-              {/* Shimmer Sweep Animation */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite] pointer-events-none"></span>
+              {/* Shimmer Sweep Animation on Hover */}
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></span>
               
-              <span className="relative z-10 flex items-center gap-3">
-                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                خدمات سريعة للأعمال
+              <span className="relative z-10 flex items-center gap-4">
+                <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <span className="text-sm md:text-base">استكشف الخدمات السريعة للأعمال</span>
               </span>
 
               <style>{`
                 @keyframes shimmer {
                   0% { transform: translateX(-100%) skewX(-15deg); }
                   100% { transform: translateX(200%) skewX(-15deg); }
+                }
+                @keyframes pulse-glow {
+                  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.4); }
+                  70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(184, 149, 68, 0); }
+                  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0); }
                 }
               `}</style>
             </Link>

@@ -48,7 +48,7 @@ const QuickServicesPage: React.FC = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="grid lg:grid-cols-12 gap-10">
-                    
+
                     {/* Sidebar Tabs (Right side in RTL) */}
                     <div className="lg:col-span-4">
                         <div className="bg-white rounded-[2.5rem] p-6 shadow-sm border border-slate-100 sticky top-28">
@@ -61,11 +61,10 @@ const QuickServicesPage: React.FC = () => {
                                     <button
                                         key={category.id}
                                         onClick={() => setSelectedCategoryId(category.id)}
-                                        className={`w-full flex items-center justify-between px-6 py-5 rounded-2xl font-bold transition-all duration-300 text-right ${
-                                            selectedCategoryId === category.id
+                                        className={`w-full flex items-center justify-between px-6 py-5 rounded-2xl font-bold transition-all duration-300 text-right ${selectedCategoryId === category.id
                                                 ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
                                                 : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
-                                        }`}
+                                            }`}
                                     >
                                         <span>{category.name}</span>
                                         <span className={`w-2 h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
@@ -105,10 +104,10 @@ const QuickServicesPage: React.FC = () => {
                                             >
                                                 {/* Shine Effect Sweep */}
                                                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
-                                                
+
                                                 {/* Permanent top gold accent line */}
                                                 <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/30 group-hover:h-2 transition-all"></div>
-                                                
+
                                                 <div className="flex items-center justify-between mb-6">
                                                     <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 group-hover:bg-[#B89544] group-hover:text-white shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg transition-all duration-300">
                                                         {index + 1}
@@ -121,7 +120,7 @@ const QuickServicesPage: React.FC = () => {
                                                 <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
                                                     {service.title}
                                                 </h3>
-                                                
+
                                                 <p className="text-slate-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
                                                     {service.description}
                                                 </p>
@@ -134,10 +133,10 @@ const QuickServicesPage: React.FC = () => {
                                                         className="flex items-center gap-3 bg-[#0F172A] text-white px-5 py-4 rounded-xl font-black text-xs hover:bg-[#B89544] hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
                                                     >
                                                         <WhatsAppIcon className="w-4 h-4 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
-                                                        <span>طلب عاجل الآن</span>
+                                                        <span>اطلب الخدمة</span>
                                                     </a>
-                                                    
-                                                    <button 
+
+                                                    <button
                                                         onClick={() => handleViewDetail(service.slug)}
                                                         className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
                                                     >
