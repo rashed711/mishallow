@@ -117,20 +117,16 @@ const Hero: React.FC = () => {
               >
                 <div className="animate-luxury-float w-full sm:w-auto">
                   <Link to="/contact" className="relative group block">
-                    {/* Rotating border effect for desktop only */}
-                    {!isMobile && (
-                      <>
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                        <div className="absolute -inset-1 rounded-2xl overflow-hidden">
-                          <motion.div
-                            className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                            style={{ opacity: 0.5 }}
-                          />
-                        </div>
-                      </>
-                    )}
+                    {/* Rotating border effect for all devices */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                    <div className="absolute -inset-1 rounded-2xl overflow-hidden">
+                      <motion.div
+                        className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                        style={{ opacity: 0.5 }}
+                      />
+                    </div>
 
                     <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-6 md:py-7 rounded-2xl transition-all bg-[length:200%_auto] animate-luxury-pulse animate-gradient-move overflow-hidden">
                       {/* Permanent Shimmer Sweep */}
