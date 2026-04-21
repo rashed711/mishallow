@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ScaleIcon } from './icons/ServiceIcons';
 
 interface FooterProps {
@@ -18,6 +18,7 @@ const SocialIcon: React.FC<{ children: React.ReactNode; href: string }> = ({ chi
 );
 
 const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
+  const location = useLocation();
   const quickLinks = [
     { to: '/', text: 'الرئيسية' },
     { to: '/about', text: 'من نحن' },
@@ -25,6 +26,13 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
     { to: '/articles', text: 'المقالات القانونية' },
     { to: '/contact', text: 'تواصل معنا' },
   ];
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer className="relative bg-[#0F172A] text-white pt-24 pb-12 overflow-hidden">
@@ -41,8 +49,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 
           <div className="space-y-6 flex flex-col items-center md:items-start">
-            <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className="bg-white p-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden">
+            <Link to="/" onClick={handleLogoClick} className="flex items-center space-x-3 rtl:space-x-reverse group">
+              <div className="bg-white p-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
                 <img
                   src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
                   alt="شعار مكتب مشعل بادغيش"
@@ -50,10 +58,10 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 />
               </div>
               <div className="flex flex-col items-start leading-none">
-                <span className="text-xl font-bold text-white">مشعل بادغيش</span>
+                <span className="text-xl font-bold text-white group-hover:text-[#B89544] transition-colors">مشعل بادغيش</span>
                 <span className="text-[10px] tracking-[0.2em] text-[#B89544] font-semibold uppercase">للمحاماة والاستشارات</span>
               </div>
-            </div>
+            </Link>
             <p className="text-slate-300 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
               نلتزم بتقديم حلول قانونية استراتيجية تتوافق مع تطلعات النهضة الاقتصادية للمملكة، ونضع خبراتنا بين يدي عملائنا لتحقيق أعلى معايير الأمان النظامي.
             </p>

@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
   onOpenModal: () => void;
 }
 
-const Logo: React.FC<{ light?: boolean }> = ({ light = true }) => (
-  <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none group">
-    <div className="bg-white p-0 rounded-sm shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
-      <img
-        src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
-        alt="شعار مكتب مشعل بادغيش"
-        className="h-11 w-11 md:h-[60px] md:w-[60px] object-contain"
-      />
-    </div>
-    <div className="flex flex-col items-start leading-none">
-      <span className={`text-base md:text-xl font-black tracking-tight ${light ? 'text-white' : 'text-[#0F172A]'}`}>مشعل بادغيش</span>
-      <span className="text-[7px] md:text-[9px] tracking-[0.15em] text-[#B89544] font-bold uppercase mt-1">للمحاماة والاستشارات</span>
-    </div>
-  </Link>
-);
-
 const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +30,37 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // If not on home page, Link will handle it (navigates to /)
+      // but we could also close the mobile menu if it's open
+      setIsOpen(false);
+    }
+  };
+
+  const Logo: React.FC<{ light?: boolean }> = ({ light = true }) => (
+    <Link 
+      to="/" 
+      onClick={handleLogoClick}
+      className="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none group"
+    >
+      <div className="bg-white p-0 rounded-sm shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
+          alt="شعار مكتب مشعل بادغيش"
+          className="h-11 w-11 md:h-[60px] md:w-[60px] object-contain"
+        />
+      </div>
+      <div className="flex flex-col items-start leading-none">
+        <span className={`text-base md:text-xl font-black tracking-tight ${light ? 'text-white' : 'text-[#0F172A]'}`}>مشعل بادغيش</span>
+        <span className="text-[7px] md:text-[9px] tracking-[0.15em] text-[#B89544] font-bold uppercase mt-1">للمحاماة والاستشارات</span>
+      </div>
+    </Link>
+  );
 
   const navLinks = [
     { to: '/', text: 'الرئيسية' },
