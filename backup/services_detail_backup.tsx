@@ -34,10 +34,9 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
 
             {/* Hero Section */}
             <div className="relative pt-40 pb-20 bg-[#0F172A] overflow-hidden">
-                <div className="absolute inset-0">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
-                    {/* Dynamic gradient overlay: darker at bottom for text, lighter at top to show image */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/40 via-[#0F172A]/80 to-[#0F172A]"></div>
+                <div className="absolute inset-0 opacity-20">
+                    <img src={service.image} alt={service.title} className="w-full h-full object-cover blur-sm" />
+                    <div className="absolute inset-0 bg-[#0F172A]/80 mix-blend-multiply"></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
