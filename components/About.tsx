@@ -42,7 +42,7 @@ const About: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             viewport={{ once: true }}
-            className="lg:w-1/2 text-right"
+            className="lg:w-1/2 text-center lg:text-right flex flex-col items-center lg:items-end"
           >
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">شريكك القانوني الاستراتيجي</span>
             <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-8 leading-[1.2]">

@@ -22,11 +22,11 @@ const WhyUs: React.FC = () => {
             viewport={{ once: true }}
             className="mb-12 lg:mb-0"
           >
-            <h2 className="text-3xl font-black text-gray-900 sm:text-5xl mb-6">
+            <h2 className="text-3xl font-black text-gray-900 sm:text-5xl mb-6 text-center md:text-right">
               لماذا تختار مكتب <br /><span className="text-[#B89544]">مشعل بادغيش</span>
             </h2>
-            <div className="h-1.5 w-20 bg-[#B89544] rounded-full mb-8"></div>
-            <p className="text-lg text-gray-600 font-medium leading-relaxed mb-10">
+            <div className="h-1.5 w-20 bg-[#B89544] rounded-full mb-8 mx-auto md:mx-0"></div>
+            <p className="text-lg text-gray-600 font-medium leading-relaxed mb-10 text-center md:text-right">
               نحن نؤمن بأن العلاقة مع العميل هي شراكة مبنية على الثقة والوضوح. هدفنا هو تقديم خدمة قانونية تتجاوز التوقعات، وتساهم في نجاح عملائنا وحماية مصالحهم.
             </p>
             <ul className="space-y-5">

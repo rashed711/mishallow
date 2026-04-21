@@ -11,14 +11,14 @@ const LatestArticles: React.FC = () => {
   return (
     <section className="py-28 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-20 text-center md:text-right">
           <div>
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
             <h2 className="text-3xl md:text-4xl font-black text-[#0F172A]">آخر الرؤى القانونية</h2>
           </div>
           <Link
             to="/articles"
-            className="mt-8 md:mt-0 px-10 py-4 bg-white border border-slate-200 text-[#0F172A] font-bold rounded-2xl hover:bg-[#0F172A] hover:text-white transition-all shadow-sm"
+            className="mt-10 md:mt-0 px-10 py-4 bg-white border border-slate-200 text-[#0F172A] font-bold rounded-2xl hover:bg-[#0F172A] hover:text-white transition-all shadow-sm"
           >
             استعرض كافة المقالات
           </Link>
