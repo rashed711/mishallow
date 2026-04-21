@@ -101,28 +101,25 @@ const QuickServicesPage: React.FC = () => {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="group relative bg-white rounded-[2rem] p-6 pb-7 transition-all duration-500 border border-[#B89544]/30 shadow-xl shadow-[#B89544]/5 flex flex-col h-full overflow-hidden hover:scale-[1.02] hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#B89544]/30 hover:border-[#B89544]"
+                                                className="group relative bg-white rounded-[2rem] p-6 pb-7 transition-all duration-500 border border-[#B89544]/30 shadow-xl shadow-[#B89544]/5 flex flex-col h-full overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#B89544]/20 hover:border-[#B89544]"
                                             >
-                                                {/* Shine Effect Sweep */}
-                                                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
-                                                
                                                 {/* Permanent top gold accent line */}
-                                                <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/30 group-hover:h-2 transition-all"></div>
+                                                <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/40"></div>
                                                 
                                                 <div className="flex items-center justify-between mb-6">
-                                                    <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 group-hover:bg-[#B89544] group-hover:text-white shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg transition-all duration-300">
+                                                    <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg">
                                                         {index + 1}
                                                     </div>
-                                                    <div className="text-[9px] font-black text-[#B89544] opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">
+                                                    <div className="text-[9px] font-black text-[#B89544] opacity-60 uppercase tracking-widest">
                                                         {selectedCategory.name}
                                                     </div>
                                                 </div>
 
-                                                <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
+                                                <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight">
                                                     {service.title}
                                                 </h3>
                                                 
-                                                <p className="text-slate-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
+                                                <p className="text-slate-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2">
                                                     {service.description}
                                                 </p>
 
@@ -131,27 +128,20 @@ const QuickServicesPage: React.FC = () => {
                                                         href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-5 py-4 rounded-xl font-black text-xs hover:bg-[#B89544] hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
+                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-5 py-4 rounded-xl font-black text-xs hover:bg-[#B89544] hover:shadow-lg transition-all w-full justify-center group/wa"
                                                     >
                                                         <WhatsAppIcon className="w-4 h-4 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
-                                                        <span>طلب عاجل الآن</span>
+                                                        <span>طلب عاجل</span>
                                                     </a>
                                                     
                                                     <button 
                                                         onClick={() => handleViewDetail(service.slug)}
-                                                        className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
+                                                        className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-60 hover:opacity-100 transition-opacity"
                                                     >
-                                                        <span>استكشف تفاصيل الخدمة</span>
+                                                        <span>التفاصيل الكاملة</span>
                                                         <span className="text-sm">←</span>
                                                     </button>
                                                 </div>
-
-                                                <style>{`
-                                                    @keyframes shimmer {
-                                                        0% { transform: translateX(-100%) skewX(-15deg); }
-                                                        100% { transform: translateX(200%) skewX(-15deg); }
-                                                    }
-                                                `}</style>
                                             </motion.div>
                                         ))}
                                     </div>

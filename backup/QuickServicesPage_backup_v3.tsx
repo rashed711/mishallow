@@ -94,64 +94,54 @@ const QuickServicesPage: React.FC = () => {
                                         <h2 className="text-2xl md:text-3xl font-black text-[#0F172A]">{selectedCategory.name}</h2>
                                     </div>
 
-                                    <div className="grid md:grid-cols-2 gap-6">
+                                    <div className="grid md:grid-cols-2 gap-8">
                                         {selectedCategory.services.map((service, index) => (
                                             <motion.div
                                                 key={service.id}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="group relative bg-white rounded-[2rem] p-6 pb-7 transition-all duration-500 border border-[#B89544]/30 shadow-xl shadow-[#B89544]/5 flex flex-col h-full overflow-hidden hover:scale-[1.02] hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#B89544]/30 hover:border-[#B89544]"
+                                                className="group relative bg-white rounded-[2.5rem] p-8 pb-10 transition-all duration-500 border border-slate-100 hover:border-[#B89544]/30 shadow-sm hover:shadow-2xl hover:shadow-[#B89544]/10 flex flex-col h-full overflow-hidden"
                                             >
-                                                {/* Shine Effect Sweep */}
-                                                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
+                                                {/* Top gold accent line */}
+                                                <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] to-[#B89544]/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></div>
                                                 
-                                                {/* Permanent top gold accent line */}
-                                                <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/30 group-hover:h-2 transition-all"></div>
-                                                
-                                                <div className="flex items-center justify-between mb-6">
-                                                    <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 group-hover:bg-[#B89544] group-hover:text-white shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg transition-all duration-300">
+                                                <div className="flex items-center justify-between mb-8">
+                                                    <div className="w-14 h-14 rounded-2xl bg-slate-50 group-hover:bg-[#B89544]/10 shadow-inner flex items-center justify-center font-black text-[#B89544] text-xl transition-colors">
                                                         {index + 1}
                                                     </div>
-                                                    <div className="text-[9px] font-black text-[#B89544] opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">
+                                                    <div className="text-[10px] font-black text-slate-300 uppercase tracking-widest group-hover:text-[#B89544] transition-colors">
                                                         {selectedCategory.name}
                                                     </div>
                                                 </div>
 
-                                                <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
+                                                <h3 className="text-xl md:text-2xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight">
                                                     {service.title}
                                                 </h3>
                                                 
-                                                <p className="text-slate-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
+                                                <p className="text-slate-500 text-sm leading-loose mb-10 font-medium line-clamp-3">
                                                     {service.description}
                                                 </p>
 
-                                                <div className="mt-auto space-y-4">
+                                                <div className="mt-auto space-y-5">
                                                     <a
                                                         href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-5 py-4 rounded-xl font-black text-xs hover:bg-[#B89544] hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
+                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-6 py-5 rounded-2xl font-black text-sm hover:bg-[#B89544] hover:shadow-lg hover:shadow-[#B89544]/20 hover:-translate-y-1 transition-all w-full justify-center group/wa"
                                                     >
-                                                        <WhatsAppIcon className="w-4 h-4 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
-                                                        <span>طلب عاجل الآن</span>
+                                                        <WhatsAppIcon className="w-5 h-5 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
+                                                        <span>طلب عبر الواتساب</span>
                                                     </a>
                                                     
                                                     <button 
                                                         onClick={() => handleViewDetail(service.slug)}
-                                                        className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
+                                                        className="w-full flex items-center justify-center gap-2 text-slate-400 group-hover:text-[#0F172A] font-black text-xs transition-all"
                                                     >
-                                                        <span>استكشف تفاصيل الخدمة</span>
-                                                        <span className="text-sm">←</span>
+                                                        <span>اقرأ المزيد عن الخدمة</span>
+                                                        <span className="text-lg opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">←</span>
                                                     </button>
                                                 </div>
-
-                                                <style>{`
-                                                    @keyframes shimmer {
-                                                        0% { transform: translateX(-100%) skewX(-15deg); }
-                                                        100% { transform: translateX(200%) skewX(-15deg); }
-                                                    }
-                                                `}</style>
                                             </motion.div>
                                         ))}
                                     </div>
