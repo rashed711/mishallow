@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
 
           <div className="space-y-6 flex flex-col items-center md:items-start">
             <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className="bg-white p-0 rounded shadow-lg flex items-center justify-center overflow-hidden">
+              <div className="bg-white p-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden">
                 <img
                   src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
                   alt="شعار مكتب مشعل بادغيش"
