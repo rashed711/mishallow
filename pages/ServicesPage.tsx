@@ -32,25 +32,27 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium mb-10">
               نقدم حزمة شاملة من الخدمات القانونية المصممة بعناية لتلبي طموحاتكم وتحمي استثماراتكم في بيئة الأعمال السعودية المتطورة.
             </p>
-            <Link
-              to="/quick-services"
-              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#e6d49c] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-luxury-pulse animate-gradient-move"
-            >
-              {/* Permanent Outer Ring Pulse */}
-              <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
+            <div className="animate-luxury-float">
+              <Link
+                to="/quick-services"
+                className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#e6d49c] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-luxury-pulse animate-gradient-move"
+              >
+                {/* Permanent Outer Ring Pulse */}
+                <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
 
-              {/* Permanent Shimmer Sweep Animation */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
+                {/* Permanent Shimmer Sweep Animation */}
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
 
-              <span className="relative z-10 flex items-center gap-4">
-                <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <span className="text-sm md:text-base">استكشف الخدمات السريعة</span>
-              </span>
-            </Link>
+                <span className="relative z-10 flex items-center gap-4">
+                  <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm md:text-base">استكشف الخدمات السريعة</span>
+                </span>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>

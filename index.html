@@ -98,6 +98,14 @@
       animation: luxury-pulse 2s ease-in-out infinite;
     }
 
+    @keyframes luxury-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-luxury-float {
+      animation: luxury-float 5s ease-in-out infinite;
+    }
+
     @keyframes gradient-move {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
