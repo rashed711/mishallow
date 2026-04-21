@@ -103,8 +103,18 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                   <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                 </div>
                 <div>
-                  <p className="text-white font-medium mb-1">البريد الإلكتروني / الهاتف</p>
-                  <p className="text-slate-300 text-sm">0568000085</p>
+                  <p className="text-white font-medium mb-1">البريد الإلكتروني</p>
+                  <p className="text-slate-300 text-sm"> <a href="mailto:info@mishal-lawfirm.com">info@mishal-lawfirm.com</a></p>
+                </div>
+              </li>
+
+              <li className="flex items-center md:items-start group flex-col md:flex-row text-center md:text-right">
+                <div className="bg-white/5 p-2 rounded-lg ml-0 md:ml-4 mb-3 md:mb-0 group-hover:bg-[#B89544]/20 transition-colors">
+                  <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </div>
+                <div>
+                  <p className="text-white font-medium mb-1">الهاتف</p>
+                  <p className="text-slate-300 text-sm"><a href="tel:+966568000085">0568000085</a></p>
                 </div>
               </li>
             </ul>
