@@ -23,7 +23,7 @@ const About: React.FC = () => {
               <img
                 src="https://f.top4top.io/p_3763w9a8g1.png"
                 alt="Law Library"
-                className="w-full object-cover h-[550px] grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                className="w-full object-cover h-[300px] md:h-[550px] grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               />
             </motion.div>
             <motion.div
