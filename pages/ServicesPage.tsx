@@ -38,17 +38,17 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             >
               {/* Permanent Outer Ring Pulse */}
               <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
-              
-              {/* Permanent Shimmer Sweep Animation */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-[shimmer_3s_infinite] pointer-events-none"></span>
-              
+
+              {/* Permanent Shimmer Sweep Animation - Brightened for 'Lighting Up' effect */}
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full animate-[shimmer_2s_infinite] pointer-events-none"></span>
+
               <span className="relative z-10 flex items-center gap-4">
                 <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <span className="text-sm md:text-base">استكشف الخدمات السريعة للأعمال</span>
+                <span className="text-sm md:text-base">استكشف الخدمات السريعة</span>
               </span>
 
               <style>{`
@@ -57,8 +57,8 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                   100% { transform: translateX(200%) skewX(-15deg); }
                 }
                 @keyframes pulse-glow {
-                  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.4); }
-                  70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(184, 149, 68, 0); }
+                  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.7); }
+                  70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(184, 149, 68, 0); }
                   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0); }
                 }
                 @keyframes gradient-move {

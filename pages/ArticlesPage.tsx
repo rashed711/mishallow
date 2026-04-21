@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
-import { articles, Article } from '../data/articles';
-
+import { articles } from '../data/articles';
 
 const ArticlesPage: React.FC = () => {
   const [categoryFilter, setCategoryFilter] = useState('الكل');
@@ -32,164 +31,206 @@ const ArticlesPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white">
-      <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">المركز المعرفي</span>
-            <SEO
-              title="استشارات قانونية في مكة | أسئلة شائعة – مكتب محاماة"
-              description="إجابات قانونية موثوقة على أكثر الأسئلة شيوعًا حول القضايا والاستشارات القانونية في مكة، مع إمكانية الحصول على استشارة أولية مجانية."
-            />
-            <h1 className="text-4xl md:text-6xl font-black text-white mb-6">رؤى ودراسات قانونية</h1>
-            <p className="text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed font-medium">
-              نحن نؤمن بنشر الوعي النظامي ومواكبة آخر التطورات التشريعية في المملكة العربية السعودية لتعزيز بيئة الأعمال.
-            </p>
-          </motion.div>
+    <div className="bg-white min-h-screen font-sans">
+      <SEO
+        title="المركز المعرفي | مكتب مشعل بادغيش للمحاماة"
+        description="استكشف أحدث المقالات والدراسات القانونية التي تغطي الأنظمة السعودية، رؤية 2030، وقضايا العمل والاستثمار."
+      />
+
+      {/* Simplified Elegant Hero */}
+      <div className="bg-[#0F172A] pt-44 pb-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto">
+             <motion.span 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               className="text-[#B89544] font-black tracking-[0.3em] uppercase text-xs mb-6 block"
+             >
+               المركز المعرفي
+             </motion.span>
+             <motion.h1 
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight"
+             >
+               رؤى قانونية لمستقبل <span className="text-[#B89544]">واثق</span>
+             </motion.h1>
+             <motion.p 
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ delay: 0.1 }}
+               className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium"
+             >
+               تزويدكم بالوعي النظامي اللازم لمواكبة التحول التشريعي في المملكة وحماية مصالح أعمالكم.
+             </motion.p>
+          </div>
         </div>
-        <div className="absolute inset-0 opacity-5">
-          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <pattern id="article-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
-              <circle cx="30" cy="30" r="1" fill="#B89544" />
-            </pattern>
-            <rect width="100%" height="100%" fill="url(#article-pattern)" />
-          </svg>
+        
+        {/* Abstract Background Element */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+           <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[60%] bg-[#B89544]/10 blur-[120px] rounded-full"></div>
+           <div className="absolute bottom-[-10%] left-[-10%] w-[30%] h-[50%] bg-blue-500/5 blur-[100px] rounded-full"></div>
         </div>
       </div>
 
-      {/* Advanced Filters UI */}
-      <div className="bg-white border-b border-slate-100 sticky top-16 md:top-24 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-
-            {/* Category Filter */}
-            <div className="flex space-x-2 rtl:space-x-reverse overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
-              {categories.map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setCategoryFilter(cat)}
-                  className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 whitespace-nowrap ${categoryFilter === cat
-                    ? 'bg-[#B89544] text-[#0F172A] shadow-md'
-                    : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
-                    }`}
-                >
-                  {cat}
-                </button>
-              ))}
+      {/* Ultra-Minimalist Professional Filter Bar */}
+      <div className="sticky top-16 md:top-24 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center justify-between py-6 gap-8">
+            
+            {/* Category Pills - Clean & Centered */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide w-full lg:w-auto scroll-smooth">
+               {categories.map((cat) => (
+                 <button
+                   key={cat}
+                   onClick={() => setCategoryFilter(cat)}
+                   className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 whitespace-nowrap border ${
+                     categoryFilter === cat 
+                     ? 'bg-[#B89544] border-[#B89544] text-white shadow-lg shadow-[#B89544]/20' 
+                     : 'bg-white border-slate-200 text-slate-500 hover:border-[#B89544] hover:text-[#B89544]'
+                   }`}
+                 >
+                   {cat}
+                 </button>
+               ))}
             </div>
 
-            {/* Sort Toggle */}
-            <div className="flex items-center bg-slate-50 p-1.5 rounded-2xl border border-slate-100 w-fit">
-              <button
-                onClick={() => setSortBy('date')}
-                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-black transition-all ${sortBy === 'date'
-                  ? 'bg-white text-[#B89544] shadow-sm'
-                  : 'text-slate-400 hover:text-slate-600'
-                  }`}
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                الأحدث
-              </button>
-              <button
-                onClick={() => setSortBy('popularity')}
-                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-black transition-all ${sortBy === 'popularity'
-                  ? 'bg-white text-[#B89544] shadow-sm'
-                  : 'text-slate-400 hover:text-slate-600'
-                  }`}
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                الأكثر قراءة
-              </button>
+            {/* Sort Controls - Integrated Style */}
+            <div className="flex items-center gap-6 w-full lg:w-auto justify-center lg:justify-end">
+               <div className="flex items-center gap-3">
+                 <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest whitespace-nowrap">الترتيب حسب:</span>
+                 <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-100">
+                    <button 
+                      onClick={() => setSortBy('date')}
+                      className={`px-5 py-1.5 rounded-lg text-[10px] font-black transition-all ${
+                        sortBy === 'date' ? 'bg-white text-[#B89544] shadow-sm' : 'text-slate-400'
+                      }`}
+                    >
+                      التاريخ
+                    </button>
+                    <button 
+                      onClick={() => setSortBy('popularity')}
+                      className={`px-5 py-1.5 rounded-lg text-[10px] font-black transition-all ${
+                        sortBy === 'popularity' ? 'bg-white text-[#B89544] shadow-sm' : 'text-slate-400'
+                      }`}
+                    >
+                      التفاعل
+                    </button>
+                 </div>
+               </div>
+               
+               <div className="h-6 w-[1px] bg-slate-200 hidden lg:block"></div>
+               
+               <div className="hidden md:flex items-center gap-2 text-slate-500 font-bold text-xs whitespace-nowrap">
+                  <span className="text-[#B89544]">{processedArticles.length}</span>
+                  <span>مقال متاح</span>
+               </div>
             </div>
 
           </div>
         </div>
       </div>
 
-      <section className="py-24 bg-slate-50">
+      {/* Content Section */}
+      <section className="py-20 bg-slate-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Key on grid forces animation reset on filter/sort change */}
-          <div
-            key={`${categoryFilter}-${sortBy}`}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-12"
-          >
-            {processedArticles.map((article, index) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group border border-slate-100 flex flex-col h-full"
-              >
-                <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => handleSelectArticle(article.slug)}>
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
-                  />
-                  <div className="absolute top-6 right-6 bg-white/90 backdrop-blur px-5 py-2 rounded-2xl text-[10px] font-black text-[#0F172A] uppercase tracking-widest shadow-sm">
-                    {article.category}
-                  </div>
-                </div>
-                <div className="p-10 flex flex-col flex-grow">
-                  <div className="flex items-center justify-between text-slate-400 text-[11px] font-bold mb-6">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                        {article.date}
-                      </span>
-                      <span className="flex items-center gap-2">
-                        <svg className="w-4 h-4 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        {article.readTime}
-                      </span>
-                    </div>
-                    {sortBy === 'popularity' && (
-                      <span className="text-[#B89544] bg-[#B89544]/5 px-3 py-1 rounded-lg">
-                        {article.views.toLocaleString()} مشاهدة
-                      </span>
-                    )}
-                  </div>
-                  <h3
-                    className="text-2xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight cursor-pointer"
+          <AnimatePresence mode="popLayout">
+            <motion.div 
+              layout
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12"
+            >
+              {processedArticles.map((article, index) => (
+                <motion.article
+                  key={article.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100 flex flex-col group h-full"
+                >
+                  <div 
+                    className="aspect-[16/10] overflow-hidden relative cursor-pointer"
                     onClick={() => handleSelectArticle(article.slug)}
                   >
-                    {article.title}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                  <div className="mt-auto">
-                    <button
-                      onClick={() => handleSelectArticle(article.slug)}
-                      className="text-[#0F172A] font-black text-sm inline-flex items-center gap-3 group/btn"
-                    >
-                      <span>اقرأ المقال كاملاً</span>
-                      <span className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-[#0F172A] transition-all transform rotate-180 shadow-sm">←</span>
-                    </button>
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[9px] font-black text-[#0F172A] uppercase tracking-wider shadow-sm">
+                      {article.category}
+                    </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                  
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="flex items-center gap-4 text-slate-400 text-[10px] font-bold mb-5">
+                       <span className="flex items-center gap-1.5">
+                         <div className="w-1.5 h-1.5 rounded-full bg-[#B89544]"></div>
+                         {article.date}
+                       </span>
+                       <span className="flex items-center gap-1.5">
+                         <div className="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
+                         {article.readTime}
+                       </span>
+                    </div>
+                    
+                    <h3 
+                      className="text-xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-snug cursor-pointer line-clamp-2"
+                      onClick={() => handleSelectArticle(article.slug)}
+                    >
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium line-clamp-2">
+                       {article.excerpt}
+                    </p>
+                    
+                    <div className="mt-auto pt-6 border-t border-slate-50">
+                      <button 
+                        onClick={() => handleSelectArticle(article.slug)}
+                        className="w-full py-3 rounded-2xl bg-slate-50 text-[#0F172A] font-black text-xs hover:bg-[#B89544] hover:text-white transition-all flex items-center justify-center gap-2 group/btn"
+                      >
+                        <span>اقرأ التفاصيل</span>
+                        <span className="transition-transform group-hover/btn:translate-x-[-4px]">←</span>
+                      </button>
+                    </div>
+                  </div>
+                </motion.article>
+              ))}
+            </motion.div>
+          </AnimatePresence>
 
           {processedArticles.length === 0 && (
-            <div className="text-center py-24">
-              <div className="text-6xl mb-6">🔍</div>
-              <p className="text-slate-400 text-xl font-medium">لا توجد مقالات في هذا القسم حالياً.</p>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-32"
+            >
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-100 text-slate-300 text-4xl mb-6">
+                ∅
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">لا توجد نتائج</h3>
+              <p className="text-slate-500">جرب اختيار قسم آخر أو تصفح كافة المقالات.</p>
+            </motion.div>
           )}
         </div>
+      </section>
+      
+      {/* Newsletter / Contact Section - Subdued Elegant */}
+      <section className="py-24 bg-white border-t border-slate-100 overflow-hidden relative">
+         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 className="text-3xl font-black text-slate-900 mb-6">نوافيكم بكل جديد في الأنظمة</h2>
+            <p className="text-slate-500 text-lg mb-12">اشترك في قائمتنا البريدية لتصلك آخر الدراسات والتحليلات القانونية فور صدورها.</p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+               <input 
+                 type="email" 
+                 placeholder="البريد الإلكتروني" 
+                 className="flex-grow px-6 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-[#B89544] transition-all text-sm font-medium"
+               />
+               <button className="bg-[#0F172A] text-white px-8 py-4 rounded-2xl font-black text-sm hover:shadow-2xl hover:shadow-[#0F172A]/20 transition-all">اشتراك</button>
+            </div>
+         </div>
       </section>
     </div>
   );
