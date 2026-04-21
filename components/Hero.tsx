@@ -115,34 +115,42 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.8 }}
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
               >
-                <Link to="/contact" className="relative group w-full sm:w-auto">
-                  {/* Rotating border DISABLED ON MOBILE */}
-                  {!isMobile && (
-                    <>
-                      <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                      <div className="absolute -inset-1 rounded-2xl overflow-hidden">
-                        <motion.div
-                          className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                          style={{ opacity: 0.5 }}
-                        />
-                      </div>
-                    </>
-                  )}
+                <div className="animate-luxury-float w-full sm:w-auto">
+                  <Link to="/contact" className="relative group block">
+                    {/* Rotating border effect for desktop only */}
+                    {!isMobile && (
+                      <>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+                        <div className="absolute -inset-1 rounded-2xl overflow-hidden">
+                          <motion.div
+                            className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                            style={{ opacity: 0.5 }}
+                          />
+                        </div>
+                      </>
+                    )}
 
-                  <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-4.5 rounded-2xl transition-all bg-[length:200%_auto] animate-gradient-move">
-                    <span className="relative z-10 text-base md:text-lg">
-                      استشارة قانونية مجانية
-                    </span>
-                  </button>
-                </Link>
+                    <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-6 md:py-7 rounded-2xl transition-all bg-[length:200%_auto] animate-luxury-pulse animate-gradient-move overflow-hidden">
+                      {/* Permanent Shimmer Sweep */}
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
+                      <span className="relative z-10 text-base md:text-lg">
+                        استشارة قانونية مجانية
+                      </span>
+                    </button>
+                  </Link>
+                </div>
                 
-                <Link to="/services" className="w-full sm:w-auto">
-                  <button className="w-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-black px-10 py-4.5 rounded-2xl transition-all hover:bg-[#B89544] hover:text-[#0F172A]">
-                    استكشف خدماتنا
-                  </button>
-                </Link>
+                <div className="animate-luxury-float w-full sm:w-auto" style={{ animationDelay: '0.5s' }}>
+                  <Link to="/services" className="relative group block">
+                    <button className="w-full relative z-10 bg-white/10 backdrop-blur-md border border-white/20 text-white font-black px-10 py-6 md:py-7 rounded-2xl transition-all hover:bg-white/15 hover:border-[#B89544]/50 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] overflow-hidden group">
+                       {/* Subtle Shimmer for the secondary button */}
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-luxury-shimmer pointer-events-none"></span>
+                      <span className="text-base md:text-lg group-hover:text-[#F3E2B1] transition-colors">استكشف خدماتنا</span>
+                    </button>
+                  </Link>
+                </div>
               </motion.div>
             </motion.div>
           </div>
