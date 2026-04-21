@@ -61,13 +61,13 @@ const QuickServicesPage: React.FC = () => {
                                     <button
                                         key={category.id}
                                         onClick={() => setSelectedCategoryId(category.id)}
-                                        className={`w-full flex items-center justify-between px-6 py-5 rounded-2xl font-bold transition-all duration-300 text-right ${selectedCategoryId === category.id
+                                        className={`w-full flex items-center justify-between px-4 py-3.5 md:px-6 md:py-5 rounded-xl md:rounded-2xl font-bold transition-all duration-300 text-right text-sm md:text-base ${selectedCategoryId === category.id
                                                 ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
                                                 : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
                                             }`}
                                     >
                                         <span>{category.name}</span>
-                                        <span className={`w-2 h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
+                                        <span className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
                                     </button>
                                 ))}
                             </div>

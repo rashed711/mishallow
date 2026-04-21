@@ -69,7 +69,7 @@ export const quickServicesData: QuickServiceCategory[] = [
   },
   {
     id: 'litigation',
-    name: 'الدعاوي',
+    name: 'الدعاوى',
     services: [
       {
         id: 'l1',
