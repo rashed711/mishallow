@@ -17,7 +17,7 @@ export const teamData: TeamMember[] = [
     name: "مشعل بادغيش",
     role: "المؤسس والمدير العام",
     bio: "محامٍ ومستشار قانوني بخبرة تمتد لأكثر من 15 عاماً في القضايا التجارية والأنظمة السعودية، متخصص في صياغة الاستراتيجيات القانونية المعقدة.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400"
+    image: "https://mishal-lawfirm.com/assets/img/team/team-1.webp"
   },
   {
     id: 'dr-abdulaziz',

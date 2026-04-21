@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { teamData, TeamMember } from '../data/team';
-import TeamMemberModal from './TeamMemberModal';
+import { teamData } from '../data/team';
 
 interface TeamSectionProps {
   showTitle?: boolean;
@@ -9,19 +8,7 @@ interface TeamSectionProps {
 }
 
 const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) => {
-  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const displayTeam = limit ? teamData.slice(0, limit) : teamData;
-
-  const handleMemberClick = (member: TeamMember) => {
-    setSelectedMember(member);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <section className="py-24 bg-white overflow-hidden">
@@ -51,8 +38,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) =>
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.5 }}
-              onClick={() => handleMemberClick(member)}
-              className="group text-center cursor-pointer"
+              className="group text-center"
             >
               <div className="relative w-48 h-48 mx-auto mb-8">
                 {/* Decorative Ring */}
@@ -65,11 +51,6 @@ const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) =>
                     className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 group-hover:bg-[#0F172A]/5 transition-opacity"></div>
-                </div>
-                
-                {/* Click Hint */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                    <span className="bg-[#B89544] text-white text-[10px] font-black px-3 py-1 rounded-full shadow-lg">تعرف عليّ</span>
                 </div>
               </div>
 
@@ -84,12 +65,6 @@ const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) =>
           ))}
         </div>
       </div>
-
-      <TeamMemberModal 
-        member={selectedMember} 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-      />
     </section>
   );
 };
