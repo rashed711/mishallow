@@ -1,19 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
 
 const QuickServicesPage: React.FC = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState(quickServicesData[0].id);
-    const navigate = useNavigate();
 
     const selectedCategory = quickServicesData.find(cat => cat.id === selectedCategoryId) || quickServicesData[0];
-
-    const handleViewDetail = (slug: string) => {
-        navigate(`/quick-services/${slug}`);
-    };
 
     return (
         <div className="bg-slate-50 min-h-screen">
@@ -94,49 +88,32 @@ const QuickServicesPage: React.FC = () => {
                                         <h2 className="text-2xl md:text-3xl font-black text-[#0F172A]">{selectedCategory.name}</h2>
                                     </div>
 
-                                    <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="grid gap-6">
                                         {selectedCategory.services.map((service, index) => (
                                             <motion.div
                                                 key={service.id}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: index * 0.1 }}
-                                                className="group relative bg-slate-50 hover:bg-white rounded-[2.5rem] p-8 transition-all duration-500 border border-transparent hover:border-slate-100 hover:shadow-2xl flex flex-col h-full"
+                                                className="group flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-3xl bg-slate-50 hover:bg-white hover:shadow-xl transition-all duration-300 border border-transparent hover:border-slate-100"
                                             >
-                                                <div className="flex items-center justify-between mb-6">
-                                                    <div className="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center font-black text-[#B89544]">
+                                                <div className="flex items-center gap-4 mb-4 md:mb-0">
+                                                    <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center font-black text-[#B89544] text-sm">
                                                         {index + 1}
                                                     </div>
-                                                    <button 
-                                                        onClick={() => handleViewDetail(service.slug)}
-                                                        className="text-[10px] font-black text-[#B89544] uppercase tracking-widest hover:underline"
-                                                    >
-                                                        عرض التفاصيل
-                                                    </button>
+                                                    <h3 className="text-lg font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors">
+                                                        {service.title}
+                                                    </h3>
                                                 </div>
-                                                <h3 className="text-xl font-black text-[#0F172A] mb-4 group-hover:text-[#B89544] transition-colors leading-tight">
-                                                    {service.title}
-                                                </h3>
-                                                <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium line-clamp-2">
-                                                    {service.description}
-                                                </p>
-                                                <div className="mt-auto space-y-4">
-                                                    <a
-                                                        href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-6 py-4 rounded-2xl font-black text-xs hover:bg-[#B89544] hover:-translate-y-1 transition-all w-full justify-center group/wa"
-                                                    >
-                                                        <WhatsAppIcon className="w-5 h-5 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
-                                                        <span>طلب عبر الواتساب</span>
-                                                    </a>
-                                                    <button 
-                                                        onClick={() => handleViewDetail(service.slug)}
-                                                        className="w-full text-center text-slate-400 text-[11px] font-bold hover:text-[#0F172A] transition-colors"
-                                                    >
-                                                        اقرأ المزيد عن الخدمة
-                                                    </button>
-                                                </div>
+                                                <a
+                                                    href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-3 bg-[#25D366] text-white px-6 py-3 rounded-2xl font-black text-sm hover:shadow-[0_4px_15px_rgba(37,211,102,0.3)] hover:-translate-y-0.5 transition-all w-full md:w-fit justify-center"
+                                                >
+                                                    <WhatsAppIcon className="w-5 h-5 fill-current" />
+                                                    <span>طلب عبر الواتساب</span>
+                                                </a>
                                             </motion.div>
                                         ))}
                                     </div>

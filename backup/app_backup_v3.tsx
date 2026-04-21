@@ -14,7 +14,6 @@ import ArticlesPage from './pages/ArticlesPage';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import ContactPage from './pages/ContactPage';
 import QuickServicesPage from './pages/QuickServicesPage';
-import QuickServiceDetailPage from './pages/QuickServiceDetailPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import { ServiceRequestModal } from './components/ServiceRequestModal';
@@ -56,7 +55,6 @@ const App: React.FC = () => {
               <Route path="/articles/:slug" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
               <Route path="/quick-services" element={<PageTransition><QuickServicesPage /></PageTransition>} />
-              <Route path="/quick-services/:slug" element={<PageTransition><QuickServiceDetailPage /></PageTransition>} />
               <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
               <Route path="*" element={<PageTransition><Home /></PageTransition>} />
