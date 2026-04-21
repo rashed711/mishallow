@@ -41,9 +41,16 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
           >
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">نطاق خبراتنا</span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-8">حلول قانونية احترافية</h1>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium">
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium mb-10">
               نقدم حزمة شاملة من الخدمات القانونية المصممة بعناية لتلبي طموحاتكم وتحمي استثماراتكم في بيئة الأعمال السعودية المتطورة.
             </p>
+            <Link
+              to="/quick-services"
+              className="inline-flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-10 py-4.5 rounded-2xl font-black shadow-xl hover:shadow-[#B89544]/20 hover:-translate-y-1 transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+              خدمات سريعة
+            </Link>
           </motion.div>
         </div>
       </div>

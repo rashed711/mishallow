@@ -10,19 +10,17 @@ interface ServicesPageProps {
 }
 
 const serviceList = [
-  { slug: 'commercial-lawyer-makkah', icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://i.pinimg.com/736x/6d/50/8a/6d508a9e9cbeb452fde4dbb9d130067a.jpg' },
-  { slug: 'labor-lawyer-makkah', icon: UsersIcon, title: 'القضايا العمالية', img: 'https://images.unsplash.com/photo-1521898284481-a5ec048282bc?q=80&w=600' },
-  { slug: 'family-lawyer-makkah', icon: UsersIcon, title: 'قضايا الأحوال الشخصية والأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
-  { slug: 'criminal-lawyer-makkah', icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=600' },
-  // These below don't have specific pages yet, so we'll keep them without slugs or handle them gracefully
-  { slug: '', icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://images.unsplash.com/photo-1542744173-8e7e5341c447?q=80&w=600' },
-  { slug: '', icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=600' },
-  { slug: '', icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
-  { slug: '', icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://images.unsplash.com/photo-1585829365291-1782bd043d70?q=80&w=600' },
-  { slug: '', icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=600' },
-  { slug: '', icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://images.unsplash.com/photo-1521791055366-0d553872115b?q=80&w=600' },
-  { slug: '', icon: ScaleIcon, title: 'الخدمات القانونية', img: 'https://images.unsplash.com/photo-1454165833767-0266b19677c8?q=80&w=600' },
-  { slug: '', icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?q=80&w=600' },
+  { slug: 'military-cases-makkah', icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://h.top4top.io/p_3763nlepp1.png' },
+  { slug: 'commercial-lawyer-makkah', icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://i.pinimg.com/1200x/4d/f4/a6/4df4a63592b1427e7a3c04029ecf33ef.jpg' },
+  { slug: 'labor-lawyer-makkah', icon: UsersIcon, title: 'القضايا العمالية', img: 'https://i.pinimg.com/736x/b7/01/56/b70156fd633543f22ba8b1ce35657217.jpg' },
+  { slug: 'family-lawyer-makkah', icon: UsersIcon, title: 'قضايا الأحوال الشخصية والأسرية', img: 'https://i.pinimg.com/736x/89/9e/57/899e57f864136464c78d15b463be38e9.jpg' },
+  { slug: 'criminal-lawyer-makkah', icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://i.pinimg.com/736x/bd/43/8d/bd438d9e8f8a91e4107ff3bab62d3417.jpg' },
+  { slug: 'family-matters-makkah', icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://i.pinimg.com/736x/47/06/9b/47069b4d4b0955f685bdcc1a8f85b1a6.jpg' },
+  { slug: 'contract-drafting-makkah', icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://i.pinimg.com/736x/30/2f/09/302f0990c054d3a0e576f7481f2fd22e.jpg' },
+  { slug: 'legal-consultations-makkah', icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
+  { slug: 'litigation-services-makkah', icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://i.pinimg.com/736x/17/ee/63/17ee6361aa102a7a1a98a5fa7b360034.jpg' },
+  { slug: 'judicial-services-makkah', icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://i.pinimg.com/736x/1e/57/d0/1e57d0da304a7a85763dcda5e1d414ed.jpg' },
+  { slug: 'debt-collection-makkah', icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://i.pinimg.com/1200x/ae/7e/35/ae7e35de1f6c7f893a686dfe21bcdaa3.jpg' },
 ];
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
@@ -76,23 +74,13 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                     حلول قانونية مبتكرة مدعومة بخبرة عملية واسعة في الأنظمة السعودية، نضمن لك الحماية والامتثال التام.
                   </p>
                   <div className="mt-auto">
-                    {service.slug ? (
-                      <Link
-                        to={`/${service.slug}`}
-                        className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
-                      >
-                        <span>تفاصيل الخدمة</span>
-                        <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
-                      </Link>
-                    ) : (
-                      <Link
-                        to="/contact"
-                        className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
-                      >
-                        <span>اطلب الخدمة الآن</span>
-                        <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
-                      </Link>
-                    )}
+                    <Link
+                      to={`/${service.slug}`}
+                      className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
+                    >
+                      <span>تفاصيل الخدمة</span>
+                      <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -100,6 +88,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
           </div>
         </div>
       </section>
+
 
       <section className="py-20 bg-slate-50 border-t border-slate-100">
         <div className="max-w-4xl mx-auto px-4 text-center">

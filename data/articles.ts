@@ -26,7 +26,7 @@ export const articles: Article[] = [
     category: "رؤية 2030",
     date: "20 يونيو 2024",
     rawDate: "2024-06-20",
-    image: "https://images.unsplash.com/photo-1579541814924-49fef17c5be5?q=80&w=600",
+    image: "https://i.pinimg.com/1200x/1a/27/21/1a2721b1ecb1831d1f27a0dec7a85477.jpg",
     readTime: "7 دقائق",
     views: 1850
   },
