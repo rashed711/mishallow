@@ -52,29 +52,36 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
             </div>
 
             {/* Right: Details */}
-            <div className="w-full md:w-7/12 p-6 md:p-12 overflow-y-auto text-right custom-scrollbar">
-              <div className="mb-6 md:mb-8">
+            <div className="w-full md:w-7/12 p-8 md:p-12 overflow-y-auto text-right custom-scrollbar">
+              <div className="mb-6 md:mb-10">
                 <span className="text-[#B89544] font-black tracking-widest uppercase text-[10px] md:text-xs mb-2 block">عضو فريق العمل</span>
                 <h2 className="text-2xl md:text-4xl font-black text-[#0F172A] mb-1 md:mb-2">{member.name}</h2>
                 <p className="text-slate-400 font-bold text-sm md:text-lg">{member.role}</p>
                 <div className="w-16 md:w-20 h-1 md:h-1.5 bg-[#B89544] mt-3 md:mt-4 rounded-full"></div>
               </div>
 
-              <div className="space-y-4 md:space-y-6">
-                <div>
-                  <h3 className="text-lg md:text-xl font-black text-[#0F172A] mb-2 md:mb-3">السيرة المهنية</h3>
-                  <p className="text-slate-600 text-sm md:text-lg leading-relaxed font-medium">
+              <div className="space-y-6">
+                <div className="relative">
+                  <h3 className="text-lg md:text-xl font-black text-[#0F172A] mb-3 md:mb-4 flex items-center gap-3">
+                    السيرة المهنية
+                    <span className="h-[1px] flex-grow bg-slate-100"></span>
+                  </h3>
+                  <p className="text-slate-600 text-sm md:text-lg leading-loose font-medium">
                     {member.bio}
                   </p>
                 </div>
 
-                {member.bio.length < 150 && (
-                  <p className="text-slate-500 italic text-xs md:text-sm border-r-4 border-slate-100 pr-4 mt-6 md:mt-8">
-                    مكرس لتقديم أفضل الحلول القانونية وحماية حقوق الموكلين بأعلى معايير الأمانة والمهنية.
+                <div className="pt-8 pb-4">
+                  <p className="text-slate-400 italic text-[11px] md:text-sm border-r-4 border-[#B89544]/20 pr-4">
+                    مكرس لتقديم أفضل الحلول القانونية وحماية حقوق الموكلين بأعلى معايير الأمانة والمهنية تحت ظل القضاء السعودي.
                   </p>
-                )}
+                </div>
               </div>
-
+              
+              {/* Luxury Footer Detail */}
+              <div className="mt-8 flex justify-center md:justify-end opacity-20 pointer-events-none">
+                <img src="/logo.png" alt="Logo" className="h-8 md:h-12 grayscale" />
+              </div>
             </div>
           </motion.div>
         </div>
