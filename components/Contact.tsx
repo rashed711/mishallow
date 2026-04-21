@@ -10,10 +10,10 @@ const Contact: React.FC = () => {
     <div className="bg-[#0F172A] p-10 md:p-16 rounded-[2.5rem] border border-white/10 shadow-2xl">
       {/* Direct Contact Options Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-        <a 
-          href="https://wa.me/966568000085" 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href="https://wa.me/966568000085"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group relative overflow-hidden bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-[#B89544]/10 hover:border-[#B89544]/30 transition-all duration-500"
         >
           <div className="flex items-center gap-6 relative z-10">
@@ -30,8 +30,8 @@ const Contact: React.FC = () => {
           </div>
         </a>
 
-        <a 
-          href="tel:0568000085" 
+        <a
+          href="tel:0568000085"
           className="group relative overflow-hidden bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 hover:border-white/20 transition-all duration-500"
         >
           <div className="flex items-center gap-6 relative z-10">
@@ -54,38 +54,62 @@ const Contact: React.FC = () => {
         <span className="text-slate-500 text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap">أو اترك رسالتك هنا</span>
         <div className="h-[1px] bg-white/10 flex-grow"></div>
       </div>
-      <form action="#" method="POST" className="space-y-10">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-          <div className="space-y-3">
-            <label className="text-sm font-black text-slate-300 pr-2">الاسم الكامل</label>
-            <input
-              type="text"
-              className="w-full bg-white/5 border border-white/10 text-white py-4.5 px-6 rounded-2xl focus:ring-2 focus:ring-[#B89544] focus:border-transparent transition-all outline-none placeholder:text-slate-600"
-              placeholder="اكتب اسمك الثلاثي..."
-            />
+      <form action="#" method="POST" className="space-y-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {/* Name Field */}
+          <div className="group space-y-3">
+            <label className="text-xs font-black text-slate-400 group-focus-within:text-[#B89544] uppercase tracking-widest transition-colors pr-1">
+              الاسم الكامل
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-5 px-8 rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium"
+                placeholder="اكتب اسمك..."
+              />
+            </div>
           </div>
-          <div className="space-y-3">
-            <label className="text-sm font-black text-slate-300 pr-2">رقم الجوال أو البريد</label>
-            <input
-              type="text"
-              className="w-full bg-white/5 border border-white/10 text-white py-4.5 px-6 rounded-2xl focus:ring-2 focus:ring-[#B89544] focus:border-transparent transition-all outline-none placeholder:text-slate-600"
-              placeholder="05xxxxxxx"
-            />
+
+          {/* Contact Field */}
+          <div className="group space-y-3">
+            <label className="text-xs font-black text-slate-400 group-focus-within:text-[#B89544] uppercase tracking-widest transition-colors pr-1">
+              رقم الجوال
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-5 px-8 rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium"
+                placeholder="05xxxxxxx"
+              />
+            </div>
           </div>
-          <div className="md:col-span-2 space-y-3">
-            <label className="text-sm font-black text-slate-300 pr-2">طبيعة الاستشارة</label>
-            <textarea
-              rows={4}
-              className="w-full bg-white/5 border border-white/10 text-white py-4.5 px-6 rounded-2xl focus:ring-2 focus:ring-[#B89544] focus:border-transparent transition-all outline-none resize-none placeholder:text-slate-600"
-              placeholder="اشرح لنا باختصار موضوعك القانوني..."
-            ></textarea>
+
+          {/* Message Field */}
+          <div className="md:col-span-2 group space-y-3">
+            <label className="text-xs font-black text-slate-400 group-focus-within:text-[#B89544] uppercase tracking-widest transition-colors pr-1">
+              تفاصيل الاستشارة القانونية
+            </label>
+            <div className="relative">
+              <textarea
+                rows={5}
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-5 px-8 rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none resize-none placeholder:text-slate-600 font-medium"
+                placeholder="اشرح لنا باختصار موضوعك القانوني ليتسنى لنا خدمتك بشكل أفضل..."
+              ></textarea>
+            </div>
           </div>
         </div>
+
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-[#B89544] to-[#E2C670] text-[#0F172A] font-black py-5 rounded-2xl shadow-xl hover:brightness-110 transition-all transform hover:-translate-y-1 active:scale-95"
+          className="relative group overflow-hidden w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] font-black py-6 rounded-2xl shadow-2xl shadow-[#B89544]/20 hover:shadow-[#B89544]/40 transition-all transform hover:-translate-y-1 active:scale-95 animate-[gradient-move_4s_linear_infinite]"
         >
-          إرسال طلب الاستشارة
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            إرسال طلب الاستشارة القانونية
+            <svg className="w-5 h-5 transition-transform group-hover:translate-x-[-4px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+          </span>
+          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
         </button>
       </form>
 
