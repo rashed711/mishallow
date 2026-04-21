@@ -8,6 +8,52 @@ const WhatsAppIcon: React.FC<{ className?: string }> = (props) => (
 const Contact: React.FC = () => {
   return (
     <div className="bg-[#0F172A] p-10 md:p-16 rounded-[2.5rem] border border-white/10 shadow-2xl">
+      {/* Direct Contact Options Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <a 
+          href="https://wa.me/966568000085" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="group relative overflow-hidden bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-[#B89544]/10 hover:border-[#B89544]/30 transition-all duration-500"
+        >
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="w-16 h-16 bg-[#B89544]/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+              <WhatsAppIcon className="w-8 h-8 text-[#B89544]" />
+            </div>
+            <div>
+              <h4 className="text-white font-black text-lg mb-1">مراسلة فورية</h4>
+              <p className="text-slate-400 text-sm font-medium">ابدأ المحادثة عبر واتساب</p>
+            </div>
+          </div>
+          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <WhatsAppIcon className="w-24 h-24" />
+          </div>
+        </a>
+
+        <a 
+          href="tel:0568000085" 
+          className="group relative overflow-hidden bg-white/5 border border-white/10 p-8 rounded-[2rem] hover:bg-white/10 hover:border-white/20 transition-all duration-500"
+        >
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+              <PhoneIcon className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h4 className="text-white font-black text-lg mb-1">اتصال هاتفي</h4>
+              <p className="text-slate-400 text-sm font-medium">تحدث مباشرة مع مستشار</p>
+            </div>
+          </div>
+          <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <PhoneIcon className="w-24 h-24" />
+          </div>
+        </a>
+      </div>
+
+      <div className="flex items-center gap-6 mb-12">
+        <div className="h-[1px] bg-white/10 flex-grow"></div>
+        <span className="text-slate-500 text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap">أو اترك رسالتك هنا</span>
+        <div className="h-[1px] bg-white/10 flex-grow"></div>
+      </div>
       <form action="#" method="POST" className="space-y-10">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div className="space-y-3">
@@ -43,17 +89,7 @@ const Contact: React.FC = () => {
         </button>
       </form>
 
-      <div className="mt-12 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-6">
-        <a href="https://wa.me/966568000085" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-[#B89544] font-black text-sm hover:text-white transition-colors">
-          <WhatsAppIcon className="w-5 h-5" />
-          <span>مراسلة عبر واتساب</span>
-        </a>
-        <div className="w-1.5 h-1.5 bg-white/20 rounded-full hidden sm:block"></div>
-        <a href="tel:0568000085" className="flex items-center gap-3 text-white font-black text-sm hover:text-[#B89544] transition-colors">
-          <PhoneIcon className="w-5 h-5" />
-          <span>اتصال هاتفي مباشر</span>
-        </a>
-      </div>
+
     </div>
   );
 };

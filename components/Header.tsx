@@ -73,11 +73,14 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 <NavLink
                   key={link.to}
                   to={link.to}
-                  className={({ isActive }) => `text-sm font-bold transition-all relative py-2 group ${isActive ? 'text-[#B89544]' : 'text-slate-300 hover:text-white'
-                    }`}
+                  className={({ isActive }) => `text-sm font-bold transition-all relative py-2 group ${isActive ? 'text-[#B89544]' : 'text-slate-300 hover:text-white'}`}
                 >
-                  {link.text}
-                  <span className={`absolute bottom-0 right-0 w-full h-0.5 bg-[#B89544] transform origin-right transition-transform duration-300 ${link.to === window.location.hash.slice(1) || (link.to === '/' && window.location.hash === '') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                  {({ isActive }) => (
+                    <>
+                      {link.text}
+                      <span className={`absolute bottom-0 right-0 w-full h-0.5 bg-[#B89544] transform origin-right transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                    </>
+                  )}
                 </NavLink>
               ))}
               <Link
