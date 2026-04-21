@@ -34,13 +34,13 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             </p>
             <Link
               to="/quick-services"
-              className="relative group inline-flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-[pulse-glow_2s_infinite]"
+              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-[pulse-glow_2s_infinite,gradient-move_3s_ease_infinite]"
             >
               {/* Permanent Outer Ring Pulse */}
               <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
               
-              {/* Shimmer Sweep Animation on Hover */}
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></span>
+              {/* Permanent Shimmer Sweep Animation */}
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-[shimmer_3s_infinite] pointer-events-none"></span>
               
               <span className="relative z-10 flex items-center gap-4">
                 <div className="bg-[#0F172A] rounded-lg p-1.5 group-hover:scale-110 transition-transform duration-300">
@@ -60,6 +60,11 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0.4); }
                   70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(184, 149, 68, 0); }
                   100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 149, 68, 0); }
+                }
+                @keyframes gradient-move {
+                  0% { background-position: 0% 50%; }
+                  50% { background-position: 100% 50%; }
+                  100% { background-position: 0% 50%; }
                 }
               `}</style>
             </Link>
