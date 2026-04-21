@@ -34,7 +34,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             </p>
             <Link
               to="/quick-services"
-              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-luxury-pulse animate-gradient-move"
+              className="relative group inline-flex items-center gap-3 bg-gradient-to-r from-[#B89544] via-[#e6d49c] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] px-12 py-5 rounded-2xl font-black shadow-[0_0_20px_rgba(184,149,68,0.3)] hover:shadow-[#B89544]/60 transition-all duration-500 overflow-hidden animate-luxury-pulse animate-gradient-move"
             >
               {/* Permanent Outer Ring Pulse */}
               <span className="absolute inset-0 rounded-2xl bg-[#B89544] animate-ping opacity-10 pointer-events-none"></span>
