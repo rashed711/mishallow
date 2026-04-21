@@ -76,8 +76,8 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
 
           <div className="lg:col-span-8">
             <div className="prose prose-lg prose-slate max-w-none text-right">
-              <div className="rounded-[2.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl mb-16 aspect-video">
-                <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+              <div className="rounded-[3rem] overflow-hidden shadow-2xl mb-16">
+                <img src={article.image} alt={article.title} className="w-full h-auto" />
               </div>
 
               <div className="space-y-10">
