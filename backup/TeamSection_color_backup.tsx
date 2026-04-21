@@ -48,9 +48,9 @@ const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) =>
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-110"
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 group-hover:bg-[#0F172A]/5 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-[#0F172A]/20 group-hover:opacity-0 transition-opacity"></div>
                 </div>
               </div>
 
