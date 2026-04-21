@@ -50,7 +50,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
     { to: '/about', text: 'من نحن' },
     { to: '/services', text: 'خدماتنا' },
     { to: '/articles', text: 'المقالات' },
-    { to: '/contact', text: 'تواصل معنا' },
   ];
 
   const closeMenu = () => setIsOpen(false);
@@ -87,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 to="/contact"
                 className="relative overflow-hidden bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] px-7 py-3 rounded-xl text-xs font-black hover:brightness-110 hover:-translate-y-0.5 transition-all shadow-lg active:scale-95 group"
               >
-                <span className="relative z-10">طلب استشارة</span>
+                <span className="relative z-10">تواصل معنا</span>
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-shimmer" style={{ animationDuration: '2s' }}></span>
               </Link>
             </div>
@@ -176,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                       onClick={closeMenu}
                       className="w-full block bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] py-5 rounded-2xl font-black text-center shadow-xl mb-6 active:scale-95 transition-all"
                     >
-                      طلب استشارة فورية
+                      تواصل معنا
                     </Link>
                   </motion.div>
                   <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
