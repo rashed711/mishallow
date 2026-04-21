@@ -24,7 +24,7 @@ export const teamData: TeamMember[] = [
     name: "د. عبد العزيز العتيبي",
     role: "شريك قانوني - قسم الشركات",
     bio: "خبير في حوكمة الشركات والاندماج والاستحواذ، حاصل على الدكتوراه في القانون التجاري الدولي ومستشار للعديد من الهيئات الحكومية.",
-    image: "https://k.top4top.io/p_3763gthk11.png"
+    image: "https://l.top4top.io/p_3763d5ig41.png"
   },
   {
     id: 'mohammed-alahmadi',
