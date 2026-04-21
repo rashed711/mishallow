@@ -33,7 +33,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
             />
 
             {/* Hero Section */}
-            <div className="relative pt-40 pb-20 bg-[#0F172A] overflow-hidden">
+            <div className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-[#0F172A] overflow-hidden">
                 <div className="absolute inset-0">
                     <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
                     {/* Dynamic gradient overlay: darker at bottom for text, lighter at top to show image */}
@@ -77,7 +77,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100"
+                            className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-12 shadow-sm border border-slate-100"
                         >
                             <h2 className="text-2xl font-black text-[#0F172A] mb-6">نظرة عامة على الخدمة</h2>
                             <div className="space-y-6 text-slate-600 text-lg leading-loose font-medium">

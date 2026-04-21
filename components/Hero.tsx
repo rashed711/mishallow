@@ -63,7 +63,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0F172A] to-transparent z-[2]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full pt-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 w-full pt-32 lg:pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           <div className="lg:col-span-7 text-center lg:text-right">

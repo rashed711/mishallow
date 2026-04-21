@@ -22,7 +22,7 @@ const QuickServicesPage: React.FC = () => {
                 description="اطلب خدماتنا القانونية السريعة مباشرة عبر الواتساب. استشارات، لوائح، دعاوي، صياغة قانونية، وتوكيلات."
             />
 
-            <div className="bg-[#0F172A] pt-40 pb-20 relative overflow-hidden">
+            <div className="bg-[#0F172A] pt-32 pb-12 md:pt-40 md:pb-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -51,7 +51,7 @@ const QuickServicesPage: React.FC = () => {
 
                     {/* Sidebar Tabs (Right side in RTL) */}
                     <div className="lg:col-span-4">
-                        <div className="bg-white rounded-[2.5rem] p-6 shadow-sm border border-slate-100 sticky top-28">
+                        <div className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 shadow-sm border border-slate-100 sticky top-28">
                             <h2 className="text-xl font-black text-[#0F172A] mb-8 pr-4 relative inline-block">
                                 التصنيفات
                                 <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
@@ -85,7 +85,12 @@ const QuickServicesPage: React.FC = () => {
                                 transition={{ duration: 0.4 }}
                                 className="space-y-6"
                             >
-                                <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-12 shadow-sm border border-slate-100"
+                                >
                                     <div className="flex items-center gap-4 mb-10">
                                         <div className="w-12 h-12 rounded-2xl bg-[#B89544]/10 flex items-center justify-center">
                                             <span className="text-[#B89544] font-black text-xl">#</span>
@@ -154,7 +159,7 @@ const QuickServicesPage: React.FC = () => {
                                             </motion.div>
                                         ))}
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 <div className="bg-[#B89544]/5 border border-[#B89544]/10 rounded-[2.5rem] p-10 text-center">
                                     <h3 className="text-xl font-bold text-[#0F172A] mb-4">لم تجد الخدمة المطلوبة؟</h3>

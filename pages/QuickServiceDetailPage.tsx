@@ -36,7 +36,7 @@ const QuickServiceDetailPage: React.FC = () => {
                 description={service.description}
             />
 
-            <div className="relative pt-40 pb-28 bg-[#0F172A] overflow-hidden">
+            <div className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-[#0F172A] overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
                     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                         <pattern id="detail-grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -70,8 +70,8 @@ const QuickServiceDetailPage: React.FC = () => {
             </div>
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-                    <div className="p-8 md:p-16">
+                <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+                    <div className="p-6 md:p-16">
                         <div className="mb-16">
                             <h2 className="text-2xl font-black text-[#0F172A] mb-6 flex items-center gap-4">
                                 <span className="w-2 h-8 bg-[#B89544] rounded-full"></span>

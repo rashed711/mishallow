@@ -38,7 +38,7 @@ const ArticlesPage: React.FC = () => {
       />
 
       {/* Simplified Elegant Hero */}
-      <div className="bg-[#0F172A] pt-44 pb-32 relative overflow-hidden">
+      <div className="bg-[#0F172A] pt-32 pb-20 md:pt-44 md:pb-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
              <motion.span 
