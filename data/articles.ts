@@ -43,7 +43,7 @@ export const articles: Article[] = [
     category: "قانون العمل",
     date: "18 يونيو 2024",
     rawDate: "2024-06-18",
-    image: "https://mishal-lawfirm.com/assets/img/constructions-2.webp",
+    image: "https://i.pinimg.com/736x/b7/01/56/b70156fd633543f22ba8b1ce35657217.jpg",
     readTime: "6 دقائق",
     views: 2400
   },

@@ -9,19 +9,7 @@ interface ServicesPageProps {
   onOpenModal: () => void;
 }
 
-const serviceList = [
-  { slug: 'military-cases-makkah', icon: ShieldCheckIcon, title: 'القضايا العسكرية', img: 'https://h.top4top.io/p_3763nlepp1.png' },
-  { slug: 'commercial-lawyer-makkah', icon: BriefcaseIcon, title: 'القضايا التجارية وقضايا الشركات', img: 'https://i.pinimg.com/1200x/4d/f4/a6/4df4a63592b1427e7a3c04029ecf33ef.jpg' },
-  { slug: 'labor-lawyer-makkah', icon: UsersIcon, title: 'القضايا العمالية', img: 'https://i.pinimg.com/736x/b7/01/56/b70156fd633543f22ba8b1ce35657217.jpg' },
-  { slug: 'family-lawyer-makkah', icon: UsersIcon, title: 'قضايا الأحوال الشخصية والأسرية', img: 'https://i.pinimg.com/736x/89/9e/57/899e57f864136464c78d15b463be38e9.jpg' },
-  { slug: 'criminal-lawyer-makkah', icon: GavelIcon, title: 'القضايا الجنائية', img: 'https://i.pinimg.com/736x/bd/43/8d/bd438d9e8f8a91e4107ff3bab62d3417.jpg' },
-  { slug: 'family-matters-makkah', icon: UsersIcon, title: 'القضايا الأسرية', img: 'https://i.pinimg.com/736x/47/06/9b/47069b4d4b0955f685bdcc1a8f85b1a6.jpg' },
-  { slug: 'contract-drafting-makkah', icon: DocumentTextIcon, title: 'صياغة ومراجعة العقود', img: 'https://i.pinimg.com/736x/30/2f/09/302f0990c054d3a0e576f7481f2fd22e.jpg' },
-  { slug: 'legal-consultations-makkah', icon: ScaleIcon, title: 'الاستشارات القانونية المتخصصة', img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600' },
-  { slug: 'litigation-services-makkah', icon: BuildingLibraryIcon, title: 'مجال العمل القضائي', img: 'https://i.pinimg.com/736x/17/ee/63/17ee6361aa102a7a1a98a5fa7b360034.jpg' },
-  { slug: 'judicial-services-makkah', icon: GavelIcon, title: 'الخدمات القضائية', img: 'https://i.pinimg.com/736x/1e/57/d0/1e57d0da304a7a85763dcda5e1d414ed.jpg' },
-  { slug: 'debt-collection-makkah', icon: ClipboardDocumentCheckIcon, title: 'خدمات تحصيل الديون', img: 'https://i.pinimg.com/1200x/ae/7e/35/ae7e35de1f6c7f893a686dfe21bcdaa3.jpg' },
-];
+import { servicesData } from '../data/services';
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
   return (
@@ -82,7 +70,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {serviceList.map((service, index) => (
+            {servicesData.map((service, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -93,7 +81,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                 className="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full"
               >
                 <div className="h-60 relative overflow-hidden">
-                  <img src={service.img} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                  <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                   <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-transparent transition-all duration-500"></div>
                   <div className="absolute bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl transform group-hover:rotate-12 transition-transform">
                     <service.icon className="h-7 w-7 text-[#B89544]" />
@@ -102,7 +90,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                 <div className="p-10 flex-grow flex flex-col">
                   <h3 className="text-2xl font-black text-[#0F172A] mb-4 leading-tight group-hover:text-[#B89544] transition-colors">{service.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
-                    حلول قانونية مبتكرة مدعومة بخبرة عملية واسعة في الأنظمة السعودية، نضمن لك الحماية والامتثال التام.
+                    {service.shortDescription}
                   </p>
                   <div className="mt-auto">
                     <Link
