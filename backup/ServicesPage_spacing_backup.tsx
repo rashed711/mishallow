@@ -31,7 +31,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         description="نقدم خدمات قانونية شاملة في مكة للأفراد والشركات تشمل القضايا التجارية، العمالية، الأسرية، الجنائية، والعقود، بإشراف فريق قانوني متخصص."
         url="https://mishallow.vercel.app/services"
       />
-      <div className="bg-[#0F172A] pt-40 pb-16 relative overflow-hidden">
+      <div className="bg-[#0F172A] pt-40 pb-28 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
@@ -55,7 +55,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         </div>
       </div>
 
-      <section className="py-20 bg-white">
+      <section className="py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             {serviceList.map((service, index) => (
