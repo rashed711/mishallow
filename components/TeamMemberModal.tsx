@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TeamMember } from '../data/team';
 
@@ -15,7 +16,6 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
       window.history.pushState({ modalOpen: true }, "");
       
       const handlePopState = (e: PopStateEvent) => {
-        // If the state we pushed is gone, close the modal
         onClose();
       };
 
@@ -37,17 +37,17 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
 
   if (!member) return null;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 md:p-6" dir="rtl">
+        <div className="fixed inset-0 z-[10000] flex items-center justify-center p-2 sm:p-4 md:p-6" dir="rtl">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#0F172A]/95 backdrop-blur-md"
+            className="absolute inset-0 bg-[#0F172A]/98 backdrop-blur-md"
           ></motion.div>
 
           {/* Modal Content */}
@@ -55,7 +55,7 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
             initial={{ opacity: 0, scale: 0.95, y: 30 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 30 }}
-            className="relative bg-white w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh] z-10"
+            className="relative bg-white w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[95vh] md:max-h-[85vh] z-10"
           >
             {/* Close Button - Repositioned for Mobile Visibility */}
             <button
@@ -75,17 +75,17 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
                 alt={member.name}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 md:from-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 md:from-transparent to-transparent"></div>
               
-              {/* Mobile Mobile Float Detail */}
-              <div className="absolute bottom-4 right-6 md:hidden">
-                <h2 className="text-xl font-black text-white">{member.name}</h2>
-                <p className="text-slate-300 text-sm font-bold">{member.role}</p>
+              {/* Mobile Float Detail */}
+              <div className="absolute bottom-6 right-6 md:hidden">
+                <h2 className="text-2xl font-black text-white mb-0.5">{member.name}</h2>
+                <p className="text-slate-300 text-sm font-bold opacity-90">{member.role}</p>
               </div>
             </div>
 
             {/* Right: Details */}
-            <div className="w-full md:w-[55%] p-6 sm:p-8 md:p-12 overflow-y-auto text-right custom-scrollbar">
+            <div className="w-full md:w-[55%] p-6 sm:p-8 md:p-12 overflow-y-auto text-right custom-scrollbar bg-white">
               <div className="hidden md:block mb-8">
                 <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-2 block">عضو فريق العمل</span>
                 <h2 className="text-3xl md:text-4xl font-black text-[#0F172A] mb-2">{member.name}</h2>
@@ -94,24 +94,24 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
               </div>
 
               {/* Mobile-only separator/title */}
-              <div className="md:hidden mb-6">
+              <div className="md:hidden mt-2 mb-6">
                 <div className="w-12 h-1 bg-[#B89544] mb-4 rounded-full"></div>
-                <span className="text-[#B89544] font-black tracking-widest uppercase text-[10px] block mb-1">عن المستشار</span>
+                <span className="text-[#B89544] font-black tracking-widest uppercase text-[11px] block mb-1">السيرة المهنية</span>
               </div>
 
               <div className="space-y-6">
                 <div className="relative">
-                  <h3 className="text-lg md:text-xl font-black text-[#0F172A] mb-3 md:mb-4 flex items-center gap-3">
-                    السيرة المهنية
+                  <h3 className="hidden md:flex text-lg md:text-xl font-black text-[#0F172A] mb-3 md:mb-4 items-center gap-3">
+                    عن المستشار
                     <span className="h-[1px] flex-grow bg-slate-100"></span>
                   </h3>
-                  <p className="text-slate-600 text-base md:text-lg leading-relaxed md:leading-loose font-medium">
+                  <p className="text-slate-600 text-[15px] md:text-lg leading-relaxed md:leading-loose font-medium">
                     {member.bio}
                   </p>
                 </div>
 
                 <div className="pt-6 border-r-4 border-[#B89544]/20 pr-4">
-                  <p className="text-slate-500 italic text-sm md:text-base leading-relaxed">
+                  <p className="text-slate-500 italic text-[13px] md:text-base leading-relaxed">
                     مكرس لتقديم أفضل الحلول القانونية وحماية حقوق الموكلين بأعلى معايير الأمانة والمهنية تحت ظل القضاء السعودي.
                   </p>
                 </div>
@@ -127,6 +127,8 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
       )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 };
 
 export default TeamMemberModal;
