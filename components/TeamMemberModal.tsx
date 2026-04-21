@@ -14,13 +14,13 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
     if (isOpen) {
       // Logic to handle back button closing the modal
       window.history.pushState({ modalOpen: true }, "");
-      
+
       const handlePopState = (e: PopStateEvent) => {
         onClose();
       };
 
       window.addEventListener("popstate", handlePopState);
-      
+
       // Prevent scrolling when modal is open
       document.body.style.overflow = 'hidden';
 
@@ -76,7 +76,7 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 md:from-transparent to-transparent"></div>
-              
+
               {/* Mobile Float Detail */}
               <div className="absolute bottom-6 right-6 md:hidden">
                 <h2 className="text-2xl font-black text-white mb-0.5">{member.name}</h2>
@@ -116,11 +116,9 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
                   </p>
                 </div>
               </div>
-              
+
               {/* Luxury Footer Detail */}
-              <div className="mt-10 md:mt-12 flex justify-start opacity-10 pointer-events-none grayscale">
-                <img src="https://www2.0zz0.com/2025/12/25/07/347380644.png" alt="Logo" className="h-10 md:h-14" />
-              </div>
+
             </div>
           </motion.div>
         </div>
