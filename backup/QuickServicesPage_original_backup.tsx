@@ -18,9 +18,8 @@ const QuickServicesPage: React.FC = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             <SEO
-                title="خدمات قانونية سريعة | استشارة فورية عبر الواتساب - مكتب مشعل بادغيش"
-                description="احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح، دعاوي، وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك القانونية بكل سهولة."
-                url="https://mishallow.vercel.app/quick-services"
+                title="خدمات سريعة | مكتب مشعل بادغيش للمحاماة"
+                description="اطلب خدماتنا القانونية السريعة مباشرة عبر الواتساب. استشارات، لوائح، دعاوي، صياغة قانونية، وتوكيلات."
             />
 
             <div className="bg-[#0F172A] pt-32 pb-12 md:pt-40 md:pb-20 relative overflow-hidden">

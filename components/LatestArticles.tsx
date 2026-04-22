@@ -18,6 +18,7 @@ const LatestArticles: React.FC = () => {
           </div>
           <Link
             to="/articles"
+            title="استعرض كافة المقالات والدراسات القانونية في مركزنا المعرفي"
             className="mt-10 md:mt-0 px-10 py-4 bg-white border border-slate-200 text-[#0F172A] font-bold rounded-2xl hover:bg-[#0F172A] hover:text-white transition-all shadow-sm"
           >
             استعرض كافة المقالات
@@ -26,7 +27,12 @@ const LatestArticles: React.FC = () => {
 
         <div className="grid md:grid-cols-3 gap-10">
           {latestArticles.map((article) => (
-            <Link key={article.id} to={`/articles/${article.slug}`} className="group">
+            <Link 
+              key={article.id} 
+              to={`/articles/${article.slug}`} 
+              className="group"
+              title={`اقرأ المقال: ${article.title}`}
+            >
               <div className="h-72 rounded-[2.5rem] overflow-hidden mb-8 relative shadow-lg">
                 <img 
                   src={article.image} 

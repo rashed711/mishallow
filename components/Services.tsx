@@ -51,6 +51,7 @@ const Services: React.FC = () => {
         >
           <Link
             to="/services"
+            title="اكتشف جميع الخدمات والتخصصات القانونية التي نقدمها"
             className="group relative bg-gradient-to-r from-[#B89544] to-[#E2C670] text-[#0F172A] px-10 md:px-16 py-4.5 md:py-5 rounded-2xl font-black transition-all shadow-2xl shadow-[#B89544]/20 inline-flex items-center gap-4 overflow-hidden"
           >
             {/* Simple continuous pulse effect */}

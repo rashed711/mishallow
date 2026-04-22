@@ -47,11 +47,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       to="/" 
       onClick={handleLogoClick}
       className="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none group"
+      title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
+      aria-label="العودة إلى الصفحة الرئيسية لمكتب مشعل بادغيش"
     >
       <div className="bg-white p-0 rounded-sm shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
         <img
           src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
-          alt="شعار مكتب مشعل بادغيش"
+          alt="شعار مكتب مشعل بادغيش للمحاماة"
           className="h-11 w-11 md:h-[60px] md:w-[60px] object-contain"
         />
       </div>
@@ -63,10 +65,10 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   );
 
   const navLinks = [
-    { to: '/', text: 'الرئيسية' },
-    { to: '/about', text: 'من نحن' },
-    { to: '/services', text: 'خدماتنا' },
-    { to: '/articles', text: 'المقالات' },
+    { to: '/', text: 'الرئيسية', title: 'الانتقال إلى الصفحة الرئيسية' },
+    { to: '/about', text: 'من نحن', title: 'تعرف على خبراتنا وفريقنا القانوني' },
+    { to: '/services', text: 'خدماتنا', title: 'استكشف تخصصاتنا وخدماتنا القانونية' },
+    { to: '/articles', text: 'المقالات', title: 'اقرأ آخر الرؤى والدراسات القانونية' },
   ];
 
   const closeMenu = () => setIsOpen(false);
@@ -89,6 +91,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                 <NavLink
                   key={link.to}
                   to={link.to}
+                  title={link.title}
                   className={({ isActive }) => `text-sm font-bold transition-all relative py-2 group ${isActive ? 'text-[#B89544]' : 'text-slate-300 hover:text-white'}`}
                 >
                   {({ isActive }) => (

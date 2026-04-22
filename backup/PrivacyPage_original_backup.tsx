@@ -1,14 +1,9 @@
+
 import React from 'react';
-import SEO from '../components/SEO';
 
 const PrivacyPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
-      <SEO 
-        title="سياسة الخصوصية | مكتب مشعل بادغيش للمحاماة"
-        description="نحن في مكتب مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية."
-        url="https://mishallow.vercel.app/privacy"
-      />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-black text-white mb-6">سياسة الخصوصية</h1>

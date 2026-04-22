@@ -9,9 +9,8 @@ const ContactPage: React.FC = () => {
     <div className="bg-[#0F172A]">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <SEO
-          title="تواصل معنا | استشارات قانونية مباشرة في مكة - مكتب مشعل بادغيش"
-          description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
-          url="https://mishallow.vercel.app/contact"
+          title="تواصل مع محامي في مكة | مكتب مشعل بادغيش للمحاماة"
+          description="تواصل الآن مع مكتب مشعل بادغيش للمحاماة في مكة واحصل على استشارة قانونية أولية مجانية من فريق قانوني متخصص."
         />
       </div>
       {/* Dark Hero */}

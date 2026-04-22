@@ -30,7 +30,6 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                 description={service.seoDescription}
                 image={service.image}
                 type="website"
-                url={`https://mishallow.vercel.app/${service.slug}`}
             />
 
             {/* Hero Section */}
