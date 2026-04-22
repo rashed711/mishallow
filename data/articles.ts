@@ -79,7 +79,7 @@ export const articles: Article[] = [
     category: "استشارات قانونية",
     date: "10 يونيو 2024",
     rawDate: "2024-06-10",
-    image: "https://b.top4top.io/p_37643ovcg1.png",
+    image: "https://b.top4top.io/p_37643ovcg1.png?v=1",
     readTime: "5 دقائق",
     views: 1560
   },
@@ -113,7 +113,7 @@ export const articles: Article[] = [
     category: "ثقافة قانونية",
     date: "28 مايو 2024",
     rawDate: "2024-05-28",
-    image: "https://k.top4top.io/p_3764yeh301.png",
+    image: "https://k.top4top.io/p_3764yeh301.png?v=1",
     readTime: "3 دقائق",
     views: 980
   },

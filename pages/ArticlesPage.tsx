@@ -157,7 +157,6 @@ const ArticlesPage: React.FC = () => {
                       src={article.image}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
                     />
                     <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[9px] font-black text-[#0F172A] uppercase tracking-wider shadow-sm">
                       {article.category}
