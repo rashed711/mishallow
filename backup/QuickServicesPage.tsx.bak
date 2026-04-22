@@ -51,25 +51,25 @@ const QuickServicesPage: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div className="grid lg:grid-cols-12 gap-10">
 
-                    {/* Sidebar Tabs - Responsive: Horizontal Scroll on Mobile, Vertical Sidebar on Desktop */}
-                    <div className="lg:col-span-4 lg:sticky lg:top-28 self-start w-full min-w-0">
-                        <div className="bg-white rounded-2xl md:rounded-[2rem] p-4 md:p-6 shadow-sm border border-slate-100 overflow-hidden">
-                            <h2 className="hidden lg:block text-xl font-black text-[#0F172A] mb-8 pr-4 relative">
+                    {/* Sidebar Tabs (Right side in RTL) */}
+                    <div className="lg:col-span-4">
+                        <div className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 shadow-sm border border-slate-100 sticky top-28">
+                            <h2 className="text-xl font-black text-[#0F172A] mb-8 pr-4 relative inline-block">
                                 التصنيفات
                                 <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
                             </h2>
-                            <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-hide scroll-smooth w-full">
+                            <div className="space-y-4">
                                 {quickServicesData.map(category => (
                                     <button
                                         key={category.id}
                                         onClick={() => setSelectedCategoryId(category.id)}
-                                        className={`flex-none lg:w-full flex items-center justify-between px-5 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl font-bold transition-all duration-300 text-right whitespace-nowrap lg:whitespace-normal ${selectedCategoryId === category.id
+                                        className={`w-full flex items-center justify-between px-3 py-2.5 md:px-6 md:py-5 rounded-lg md:rounded-2xl font-bold transition-all duration-300 text-right text-xs md:text-base ${selectedCategoryId === category.id
                                             ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
                                             : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
                                             }`}
                                     >
-                                        <span className="text-sm md:text-base">{category.name}</span>
-                                        <span className={`hidden lg:block w-2 h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
+                                        <span>{category.name}</span>
+                                        <span className={`w-1 h-1 md:w-2 md:h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
                                     </button>
                                 ))}
                             </div>
