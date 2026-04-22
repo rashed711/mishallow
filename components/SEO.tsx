@@ -45,6 +45,7 @@ const SEO: React.FC<SEOProps> = ({
             <meta property="og:image:height" content="630" />
             <meta property="og:image:type" content="image/png" />
             <meta property="og:locale" content="ar_SA" />
+            <meta itemprop="image" content={imageUrl} />
 
             {/* Twitter tags */}
             <meta name="twitter:card" content="summary_large_image" />
