@@ -51,16 +51,16 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
 
           <div className="space-y-6 flex flex-col items-center md:items-start">
-            <Link 
-              to="/" 
-              onClick={handleLogoClick} 
+            <Link
+              to="/"
+              onClick={handleLogoClick}
               className="flex items-center space-x-3 rtl:space-x-reverse group"
               title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
               aria-label="العودة للصفحة الرئيسية"
             >
               <div className="bg-white p-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
                 <img
-                  src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
+                  src="https://mishallow.vercel.app/logo.webp"
                   alt="شعار مكتب مشعل بادغيش للمحاماة"
                   className="h-10 w-10 object-contain"
                 />

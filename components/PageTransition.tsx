@@ -68,7 +68,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
                 <div className="relative">
                     <div className="absolute inset-0 bg-[#B89544] blur-3xl opacity-20 rounded-full"></div>
                     <img
-                        src="https://www2.0zz0.com/2025/12/25/07/347380644.png"
+                        src="https://mishallow.vercel.app/logo.webp"
                         alt="Logo"
                         className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(184,149,68,0.4)]"
                     />
