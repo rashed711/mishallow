@@ -23,7 +23,7 @@ export const servicesData: ServiceData[] = [
         seoTitle: 'محامي قضايا عسكرية في مكة | تظلم عسكري واستشارات عسكرية',
         seoDescription: 'دفاع متخصص في القضايا العسكرية بمكة. تظلمات ضد القرارات الإدارية العسكرية، قضايا المجالس التأديبية، وحفظ حقوق العسكريين.',
         icon: ShieldCheckIcon,
-        image: 'https://h.top4top.io/p_3763nlepp1.png',
+        image: 'https://res.cloudinary.com/dhxvk4dhx/image/upload/v1776867850/121_1_esqwpy.webp',
         shortDescription: 'خدمات قانونية متخصصة للعسكريين تشمل التظلمات والمنازعات الوظيفية العسكرية.',
         fullDescription: [
             'تحكم الأنظمة العسكرية قواعد خاصة تتطلب معرفة دقيقة باللوائح والأنظمة العسكرية السعودية.',
