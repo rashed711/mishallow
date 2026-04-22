@@ -7,6 +7,7 @@ const TermsPage: React.FC = () => {
       <SEO 
         title="اتفاقية الاستخدام | مكتب مشعل بادغيش للمحاماة"
         description="تعرف على شروط وأحكام استخدام موقع مكتب مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية."
+        image="/logo.png"
         url="https://mishallow.vercel.app/terms"
       />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">

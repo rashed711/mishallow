@@ -7,6 +7,7 @@ const PrivacyPage: React.FC = () => {
       <SEO 
         title="سياسة الخصوصية | مكتب مشعل بادغيش للمحاماة"
         description="نحن في مكتب مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية."
+        image="/logo.png"
         url="https://mishallow.vercel.app/privacy"
       />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">

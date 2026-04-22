@@ -18,9 +18,6 @@ const SEO: React.FC<SEOProps> = ({
     url = "https://mishallow.vercel.app",
     image = "https://mishallow.vercel.app/logo.png"
 }) => {
-    // Ensure image is an absolute URL
-    const imageUrl = image.startsWith('http') ? image : `https://mishallow.vercel.app${image}`;
-    
     // Determine canonical URL: if url is just the domain, use current path
     const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
 
@@ -39,11 +36,7 @@ const SEO: React.FC<SEOProps> = ({
             <meta property="og:description" content={description} />
             <meta property="og:url" content={canonicalUrl} />
             <meta property="og:site_name" content={name} />
-            <meta property="og:image" content={imageUrl} />
-            <meta property="og:image:secure_url" content={imageUrl} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
-            <meta property="og:image:type" content="image/png" />
+            <meta property="og:image" content={image} />
             <meta property="og:locale" content="ar_SA" />
 
             {/* Twitter tags */}
@@ -52,8 +45,7 @@ const SEO: React.FC<SEOProps> = ({
             <meta name="twitter:creator" content="@mishallow" />
             <meta name="twitter:title" content={title} />
             <meta name="twitter:description" content={description} />
-            <meta name="twitter:image" content={imageUrl} />
-            <meta name="twitter:image:alt" content={title} />
+            <meta name="twitter:image" content={image} />
 
             {/* Canonical */}
             <link rel="canonical" href={canonicalUrl} />
@@ -66,7 +58,7 @@ const SEO: React.FC<SEOProps> = ({
                     "name": title,
                     "description": description,
                     "url": canonicalUrl,
-                    "image": imageUrl,
+                    "image": image,
                     "address": {
                         "@type": "PostalAddress",
                         "addressLocality": "Makkah",
