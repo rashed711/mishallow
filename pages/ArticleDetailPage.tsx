@@ -38,7 +38,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
       />
       <div className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">
-          <img src={article.image} alt="" className="w-full h-full object-cover" />
+          <img src={article.image} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-[#0F172A]/80"></div>
         </div>
 
@@ -77,7 +77,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
           <div className="lg:col-span-8">
             <div className="prose prose-lg prose-slate max-w-none text-right">
               <div className="rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl mb-12 md:mb-16 aspect-video">
-                <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+                <img src={article.image} alt={article.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
 
               <div className="space-y-10">

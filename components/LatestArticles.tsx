@@ -32,6 +32,7 @@ const LatestArticles: React.FC = () => {
                   src={article.image} 
                   alt={article.title} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-6 right-6 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black text-[#0F172A]">
                   {article.category}
