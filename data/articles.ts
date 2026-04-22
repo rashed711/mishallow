@@ -79,7 +79,7 @@ export const articles: Article[] = [
     category: "استشارات قانونية",
     date: "10 يونيو 2024",
     rawDate: "2024-06-10",
-    image: "https://b.top4top.io/p_37643ovcg1.png?v=1",
+    image: "https://h.top4top.io/p_3764cf1h31.png",
     readTime: "5 دقائق",
     views: 1560
   },
