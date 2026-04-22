@@ -35,7 +35,7 @@ const ArticlesPage: React.FC = () => {
       <SEO
         title="المركز المعرفي | مقالات ودراسات قانونية متخصصة - مكتب مشعل بادغيش"
         description="استكشف أحدث المقالات القانونية، التحليلات النظامية، ودراسات الحالة التي تغطي الأنظمة السعودية، رؤية 2030، وقضايا الاستثمار والعمل. وعي قانوني لمستقبل واثق."
-        image="/logo.png"
+        image="/logo.webp"
         url="https://mishallow.vercel.app/articles"
       />
 
@@ -87,8 +87,8 @@ const ArticlesPage: React.FC = () => {
                   key={cat}
                   onClick={() => setCategoryFilter(cat)}
                   className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 whitespace-nowrap border ${categoryFilter === cat
-                      ? 'bg-[#B89544] border-[#B89544] text-white shadow-lg shadow-[#B89544]/20'
-                      : 'bg-white border-slate-200 text-slate-500 hover:border-[#B89544] hover:text-[#B89544]'
+                    ? 'bg-[#B89544] border-[#B89544] text-white shadow-lg shadow-[#B89544]/20'
+                    : 'bg-white border-slate-200 text-slate-500 hover:border-[#B89544] hover:text-[#B89544]'
                     }`}
                 >
                   {cat}

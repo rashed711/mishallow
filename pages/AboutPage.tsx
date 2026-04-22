@@ -9,7 +9,7 @@ const AboutPage: React.FC = () => {
             <SEO
                 title="من نحن | نخبة من المحامين والمستشارين في مكة - مكتب مشعل بادغيش"
                 description="تعرف على رؤية ومنهجية مكتب مشعل بادغيش للمحاماة في مكة المكرمة. خبرة قانونية عميقة تخدم تطلعات رؤية المملكة 2030، مع الالتزام التام بأعلى معايير السرية والاحترافية."
-                image="/logo.png"
+                image="/logo.webp"
                 url="https://mishallow.vercel.app/about"
             />
             {/* Dark Luxury Hero */}

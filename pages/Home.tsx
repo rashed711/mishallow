@@ -16,7 +16,7 @@ const Home: React.FC = () => {
             <SEO
                 title="مكتب محاماة في مكة | مشعل بادغيش للمحاماة والاستشارات القانونية"
                 description="أفضل مكتب محاماة في مكة المكرمة. متخصصون في القضايا التجارية، العمالية، العقارية، والأحوال الشخصية. فريق من المحامين والمستشارين القانونيين لخدمتكم بأعلى معايير المهنية."
-                image="https://mishallow.vercel.app/logo.png"
+                image="https://mishallow.vercel.app/logo.webp"
                 type="website"
                 url="https://mishallow.vercel.app"
             />
@@ -44,18 +44,18 @@ const Home: React.FC = () => {
                     <WhoWeServe />
                 </div>
             </FadeInSection>
-      <FadeInSection delay={0.2}>
-        <div className="scroll-mt-24">
-          <LatestArticles />
+            <FadeInSection delay={0.2}>
+                <div className="scroll-mt-24">
+                    <LatestArticles />
+                </div>
+            </FadeInSection>
+            <FadeInSection delay={0.2}>
+                <div className="scroll-mt-24">
+                    <Services />
+                </div>
+            </FadeInSection>
         </div>
-      </FadeInSection>
-      <FadeInSection delay={0.2}>
-        <div className="scroll-mt-24">
-          <Services />
-        </div>
-      </FadeInSection>
-    </div>
-  );
+    );
 };
 
 export default Home;

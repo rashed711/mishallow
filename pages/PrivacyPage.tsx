@@ -4,10 +4,10 @@ import SEO from '../components/SEO';
 const PrivacyPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
-      <SEO 
+      <SEO
         title="سياسة الخصوصية | مكتب مشعل بادغيش للمحاماة"
         description="نحن في مكتب مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية."
-        image="/logo.png"
+        image="/logo.webp"
         url="https://mishallow.vercel.app/privacy"
       />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">
@@ -24,7 +24,7 @@ const PrivacyPage: React.FC = () => {
               <p className="text-slate-600 font-medium text-lg leading-relaxed">
                 في مكتب مشعل بادغيش للمحاماة، ندرك تماماً أهمية خصوصية بياناتكم وسرية معلوماتكم القانونية. تهدف هذه السياسة إلى توضيح كيفية التعامل مع المعلومات في إطار أنظمة المملكة.
               </p>
-              
+
               <div className="space-y-4">
                 <h2 className="text-2xl font-black text-[#0F172A]">1. جمع المعلومات</h2>
                 <p className="text-slate-600 font-medium leading-relaxed">

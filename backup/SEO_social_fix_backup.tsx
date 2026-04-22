@@ -16,7 +16,7 @@ const SEO: React.FC<SEOProps> = ({
     name = "مكتب مشعل بادغيش للمحاماة",
     type = "website",
     url = "https://mishallow.vercel.app",
-    image = "https://mishallow.vercel.app/logo.png"
+    image = "https://mishallow.vercel.app/logo.webp"
 }) => {
     // Determine canonical URL: if url is just the domain, use current path
     const canonicalUrl = url.endsWith('/') ? url : `${url}/`;

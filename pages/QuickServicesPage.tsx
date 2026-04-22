@@ -20,7 +20,7 @@ const QuickServicesPage: React.FC = () => {
             <SEO
                 title="خدمات قانونية سريعة | استشارة فورية عبر الواتساب - مكتب مشعل بادغيش"
                 description="احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح، دعاوي، وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك القانونية بكل سهولة."
-                image="/logo.png"
+                image="/logo.webp"
                 url="https://mishallow.vercel.app/quick-services"
             />
 
@@ -64,8 +64,8 @@ const QuickServicesPage: React.FC = () => {
                                         key={category.id}
                                         onClick={() => setSelectedCategoryId(category.id)}
                                         className={`w-full flex items-center justify-between px-3 py-2.5 md:px-6 md:py-5 rounded-lg md:rounded-2xl font-bold transition-all duration-300 text-right text-xs md:text-base ${selectedCategoryId === category.id
-                                                ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
-                                                : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                                            ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
+                                            : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
                                             }`}
                                     >
                                         <span>{category.name}</span>

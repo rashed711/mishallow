@@ -4,10 +4,10 @@ import SEO from '../components/SEO';
 const TermsPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
-      <SEO 
+      <SEO
         title="اتفاقية الاستخدام | مكتب مشعل بادغيش للمحاماة"
         description="تعرف على شروط وأحكام استخدام موقع مكتب مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية."
-        image="/logo.png"
+        image="/logo.webp"
         url="https://mishallow.vercel.app/terms"
       />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">

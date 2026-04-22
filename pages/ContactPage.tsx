@@ -11,7 +11,7 @@ const ContactPage: React.FC = () => {
         <SEO
           title="تواصل معنا | استشارات قانونية مباشرة في مكة - مكتب مشعل بادغيش"
           description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
-          image="/logo.png"
+          image="/logo.webp"
           url="https://mishallow.vercel.app/contact"
         />
       </div>

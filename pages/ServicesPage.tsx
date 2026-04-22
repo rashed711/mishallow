@@ -17,7 +17,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <SEO
         title="خدماتنا القانونية | تخصصات شاملة وحلول مبتكرة - مكتب مشعل بادغيش"
         description="نقدم باقة متكاملة من الخدمات القانونية في مكة: القضايا التجارية، العمالية، العقارية، الاستشارات القانونية، وصياغة العقود. حلول شرعية ونظامية رصينة لحماية حقوقكم."
-        image="/logo.png"
+        image="/logo.webp"
         url="https://mishallow.vercel.app/services"
       />
       <div className="bg-[#0F172A] pt-32 pb-20 md:pt-44 md:pb-32 relative overflow-hidden">
