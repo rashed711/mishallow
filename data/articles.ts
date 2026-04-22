@@ -113,7 +113,7 @@ export const articles: Article[] = [
     category: "ثقافة قانونية",
     date: "28 مايو 2024",
     rawDate: "2024-05-28",
-    image: "https://k.top4top.io/p_3764yeh301.png?v=1",
+    image: "https://a.top4top.io/p_3764fgqdt1.png",
     readTime: "3 دقائق",
     views: 980
   },
