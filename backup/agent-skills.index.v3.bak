@@ -6,16 +6,14 @@
       "name": "Find Legal Experts",
       "description": "Helps AI agents find specialized lawyers in Saudi Arabia via the Mishallow firm directory.",
       "url": "https://mishallow.vercel.app/services",
-      "type": "informational",
-      "digest": "sha256-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "type": "informational"
     },
     {
       "id": "office-contact",
       "name": "Get Office Contact",
       "description": "Retrieves the physical address and contact methods for the firm's branches.",
       "url": "https://mishallow.vercel.app/contact",
-      "type": "informational",
-      "digest": "sha256-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "type": "informational"
     }
   ]
 }
