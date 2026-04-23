@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mishallow.vercel.app/sitemap.xml

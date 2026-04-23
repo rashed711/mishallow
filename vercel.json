@@ -1,4 +1,15 @@
 {
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Link",
+                    "value": "<https://mishallow.vercel.app/.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/json\""
+                }
+            ]
+        }
+    ],
     "rewrites": [
         {
             "source": "/((?!.*\\.).*)",
