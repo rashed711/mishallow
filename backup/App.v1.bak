@@ -37,29 +37,6 @@ const App: React.FC = () => {
 
   const location = useLocation();
 
-  useEffect(() => {
-    // WebMCP Integration for AI Agents
-    const nav = navigator as any;
-    if (nav.modelContext && typeof nav.modelContext.provideContext === 'function') {
-      nav.modelContext.provideContext({
-        tools: [
-          {
-            name: 'contact_office',
-            description: 'Get contact information or open the contact form for the law firm.',
-            parameters: { type: 'object', properties: {} },
-            execute: () => { window.location.href = '/contact'; }
-          },
-          {
-            name: 'browse_services',
-            description: 'Navigate to the legal services page to see all legal specialties.',
-            parameters: { type: 'object', properties: {} },
-            execute: () => { window.location.href = '/services'; }
-          }
-        ]
-      });
-    }
-  }, []);
-
   return (
     <>
       <ScrollToTop />
