@@ -1,26 +1,17 @@
 {
-  "version": "1.0",
+  "$schema": "https://agentskills.io/v0.2.0/schema.json",
   "skills": [
     {
       "id": "find-specialized-lawyers",
       "name": "Finding specialized lawyers",
-      "description": "Helping users find lawyers based on their legal expertise and specialization.",
-      "category": "legal-services",
-      "keywords": ["محامي", "استشارة", "قانون"]
+      "description": "Helping users find lawyers based on their legal expertise.",
+      "url": "https://mishallow.vercel.app/services"
     },
     {
       "id": "get-contact-info",
       "name": "Getting contact info",
-      "description": "Providing phone numbers, physical addresses, and digital contact forms.",
-      "category": "contact",
-      "keywords": ["تواصل", "عنوان", "رقم"]
-    },
-    {
-      "id": "browse-legal-articles",
-      "name": "Browsing legal articles",
-      "description": "Accessing educational articles, legal insights, and law updates.",
-      "category": "education",
-      "keywords": ["مقالات", "ثقافة قانونية"]
+      "description": "Providing phone numbers and physical addresses.",
+      "url": "https://mishallow.vercel.app/contact"
     }
   ]
 }

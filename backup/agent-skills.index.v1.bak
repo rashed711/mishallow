@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "skills": [
+    {
+      "id": "find-specialized-lawyers",
+      "name": "Finding specialized lawyers",
+      "description": "Helping users find lawyers based on their legal expertise and specialization.",
+      "category": "legal-services",
+      "keywords": ["محامي", "استشارة", "قانون"]
+    },
+    {
+      "id": "get-contact-info",
+      "name": "Getting contact info",
+      "description": "Providing phone numbers, physical addresses, and digital contact forms.",
+      "category": "contact",
+      "keywords": ["تواصل", "عنوان", "رقم"]
+    },
+    {
+      "id": "browse-legal-articles",
+      "name": "Browsing legal articles",
+      "description": "Accessing educational articles, legal insights, and law updates.",
+      "category": "education",
+      "keywords": ["مقالات", "ثقافة قانونية"]
+    }
+  ]
+}

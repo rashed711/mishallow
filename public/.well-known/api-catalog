@@ -1,24 +1,19 @@
 {
-  "api-catalog": [
+  "linkset": [
     {
-      "name": "الخدمات القانونية (Legal Services)",
-      "description": "معلومات عن الخدمات القانونية التي يقدمها مكتب مشعل بادغيش للمحاماة.",
-      "url": "https://mishallow.vercel.app/services"
+      "anchor": "https://mishallow.vercel.app/services",
+      "rel": "service-doc",
+      "title": "الخدمات القانونية (Legal Services)"
     },
     {
-      "name": "فريق العمل (Team)",
-      "description": "السير الذاتية والخبرات للمحامين والموظفين.",
-      "url": "https://mishallow.vercel.app/about"
+      "anchor": "https://mishallow.vercel.app/about",
+      "rel": "service-doc",
+      "title": "فريق العمل (Team)"
     },
     {
-      "name": "مواقع المكاتب (Locations)",
-      "description": "العناوين الفيزيائية ومعلومات الاتصال بالمكتب.",
-      "url": "https://mishallow.vercel.app/contact"
-    },
-    {
-      "name": "المقالات القانونية (Legal Articles)",
-      "description": "مقالات تعليمية وأخبار قانونية.",
-      "url": "https://mishallow.vercel.app/articles"
+      "anchor": "https://mishallow.vercel.app/contact",
+      "rel": "contact",
+      "title": "مواقع المكاتب (Locations)"
     }
   ]
 }
