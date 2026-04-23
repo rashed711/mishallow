@@ -1,22 +1,20 @@
 {
-  "mcp-version": "1.0",
-  "server": {
-    "name": "Mishallow AI Agent Server",
+  "mcpVersion": "1.0",
+  "serverInfo": {
+    "name": "Mishallow Law Firm Agent Server",
     "version": "1.0.0",
-    "description": "Agent-ready metadata for Mishallow Law Firm website.",
-    "capabilities": {
-      "resources": true,
-      "prompts": true,
-      "tools": false
-    }
+    "description": "Official AI Agent metadata for Mishallow Law Firm"
   },
-  "metadata": {
-    "site_name": "مكتب مشعل بادغيش للمحاماة",
-    "industry": "Legal",
-    "primary_language": "ar",
-    "contact": {
-      "email": "info@mishallow.com",
-      "website": "https://mishallow.vercel.app"
+  "capabilities": {
+    "resources": {},
+    "prompts": {},
+    "tools": {}
+  },
+  "endpoints": [
+    {
+      "name": "mcp-main",
+      "transport": "http",
+      "url": "https://mishallow.vercel.app/.well-known/mcp/server-card.json"
     }
-  }
+  ]
 }

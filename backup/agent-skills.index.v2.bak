@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agentskills.io/v0.2.0/schema.json",
+  "skills": [
+    {
+      "id": "find-specialized-lawyers",
+      "name": "Finding specialized lawyers",
+      "description": "Helping users find lawyers based on their legal expertise.",
+      "url": "https://mishallow.vercel.app/services"
+    },
+    {
+      "id": "get-contact-info",
+      "name": "Getting contact info",
+      "description": "Providing phone numbers and physical addresses.",
+      "url": "https://mishallow.vercel.app/contact"
+    }
+  ]
+}
