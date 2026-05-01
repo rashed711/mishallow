@@ -74,10 +74,18 @@ const QuickServiceDetailPage: React.FC = () => {
                 <div className="bg-white rounded-[2rem] md:rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
                     <div className="p-6 md:p-16">
                         <div className="mb-16">
-                            <h2 className="text-2xl font-black text-[#0F172A] mb-6 flex items-center gap-4">
-                                <span className="w-2 h-8 bg-[#B89544] rounded-full"></span>
-                                وصف الخدمة
-                            </h2>
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                                <h2 className="text-2xl font-black text-[#0F172A] flex items-center gap-4">
+                                    <span className="w-2 h-8 bg-[#B89544] rounded-full"></span>
+                                    وصف الخدمة
+                                </h2>
+                                {service.priceRange && (
+                                    <div className="bg-[#B89544]/10 px-6 py-3 rounded-2xl border border-[#B89544]/20 flex items-center gap-4">
+                                        <span className="text-xs font-bold text-[#0F172A]/60">التكلفة المتوقعة:</span>
+                                        <span className="text-lg font-black text-[#B89544]">{service.priceRange}</span>
+                                    </div>
+                                )}
+                            </div>
                             <p className="text-slate-600 text-xl leading-loose font-medium">
                                 {service.description}
                             </p>

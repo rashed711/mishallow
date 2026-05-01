@@ -128,9 +128,16 @@ const QuickServicesPage: React.FC = () => {
                                                     {service.title}
                                                 </h3>
 
-                                                <p className="text-slate-500 text-xs leading-relaxed mb-6 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
+                                                <p className="text-slate-500 text-xs leading-relaxed mb-4 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
                                                     {service.description}
                                                 </p>
+
+                                                {service.priceRange && (
+                                                    <div className="mb-6 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-100 group-hover:bg-[#B89544]/5 group-hover:border-[#B89544]/20 transition-all">
+                                                        <span className="text-[10px] font-bold text-slate-400">التكلفة التقريبية</span>
+                                                        <span className="text-sm font-black text-[#B89544]">{service.priceRange}</span>
+                                                    </div>
+                                                )}
 
                                                 <div className="mt-auto space-y-4">
                                                     <a
