@@ -66,7 +66,7 @@ const Services: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="relative z-10"
             >
-              استعرض كافة الخدمات الاحترافية
+              استعرض كافة الخدمات
             </motion.span>
 
             <span className="w-8 h-8 rounded-full bg-[#0F172A]/10 flex items-center justify-center group-hover:bg-[#0F172A]/20 transition-all transform rotate-180 relative z-10">
