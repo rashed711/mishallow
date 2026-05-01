@@ -50,7 +50,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <span className="text-sm md:text-base">استكشف الخدمات السريعة</span>
+                  <span className="text-sm md:text-base">اضغط لعرض الخدمات السريعة</span>
                 </span>
               </Link>
             </div>
