@@ -116,9 +116,9 @@ const QuickServiceDetailPage: React.FC = () => {
                                 href={`https://wa.me/966568000085?text=${whatsappMessage}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-4 bg-[#0F172A] text-white px-12 py-5 rounded-3xl font-black shadow-2xl hover:bg-[#B89544] transition-all transform hover:-translate-y-1 group"
+                                className="inline-flex items-center gap-4 bg-[#B89544] text-[#0F172A] px-12 py-5 rounded-3xl font-black shadow-2xl hover:bg-[#0F172A] hover:text-white transition-all transform hover:-translate-y-1 group"
                             >
-                                <WhatsAppIcon className="w-6 h-6 fill-[#25D366] group-hover:fill-white transition-colors" />
+                                <WhatsAppIcon className="w-6 h-6 fill-[#0F172A] group-hover:fill-white transition-colors" />
                                 <span>طلب الخدمة عبر الواتساب</span>
                             </a>
                             <p className="mt-8 text-slate-400 text-sm font-medium">سيقوم فريقنا بالرد عليكم في أقرب وقت ممكن</p>

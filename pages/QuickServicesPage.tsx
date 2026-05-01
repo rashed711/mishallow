@@ -144,9 +144,9 @@ const QuickServicesPage: React.FC = () => {
                                                         href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#0F172A] text-white px-5 py-4 rounded-xl font-black text-xs hover:bg-[#B89544] hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
+                                                        className="flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-xs hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
                                                     >
-                                                        <WhatsAppIcon className="w-4 h-4 fill-[#25D366] group-hover/wa:fill-white transition-colors" />
+                                                        <WhatsAppIcon className="w-4 h-4 fill-[#0F172A] group-hover/wa:fill-white transition-colors" />
                                                         <span>اطلب الخدمة</span>
                                                     </a>
 
