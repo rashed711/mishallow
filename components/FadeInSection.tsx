@@ -7,6 +7,19 @@ interface FadeInSectionProps {
 }
 
 const FadeInSection: React.FC<FadeInSectionProps> = ({ children, delay = 0 }) => {
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    if (isMobile) {
+        return <div className="opacity-100 transform-none">{children}</div>;
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 50 }}

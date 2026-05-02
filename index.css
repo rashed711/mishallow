@@ -139,3 +139,24 @@ body {
 .drawer-transition {
   transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
 }
+/* Mobile Animation Overrides */
+@media (max-width: 768px) {
+  .animate-luxury-shimmer,
+  .animate-luxury-pulse,
+  .animate-luxury-float,
+  .animate-gradient-move,
+  .animate-article-entry {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+  }
+  
+  .glass-card, .mobile-menu-glass {
+    backdrop-filter: none !important;
+    background: rgba(15, 23, 42, 0.98) !important;
+  }
+}

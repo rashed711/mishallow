@@ -4,9 +4,11 @@ import { articles } from '../data/articles';
 
 const LatestArticles: React.FC = () => {
   // Get latest 3 articles based on date
-  const latestArticles = [...articles]
-    .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime())
-    .slice(0, 3);
+  const latestArticles = React.useMemo(() => {
+    return [...articles]
+      .sort((a, b) => new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime())
+      .slice(0, 3);
+  }, []);
 
   return (
     <section className="py-28 bg-slate-50">

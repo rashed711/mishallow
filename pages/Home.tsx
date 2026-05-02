@@ -1,6 +1,7 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
+import LazySection from '../components/LazySection';
 const HowWeWork = lazy(() => import('../components/HowWeWork'));
 const WhyUs = lazy(() => import('../components/WhyUs'));
 const WhoWeServe = lazy(() => import('../components/WhoWeServe'));
@@ -9,8 +10,6 @@ const Services = lazy(() => import('../components/Services'));
 import FadeInSection from '../components/FadeInSection';
 import SEO from '../components/SEO';
 const TeamSection = lazy(() => import('../components/TeamSection'));
-
-const SectionLoader = () => <div className="h-[400px] w-full bg-slate-50/50 animate-pulse rounded-3xl" />;
 
 const Home: React.FC = () => {
     return (
@@ -28,36 +27,52 @@ const Home: React.FC = () => {
                     <About />
                 </div>
             </FadeInSection>
-            <Suspense fallback={<SectionLoader />}>
+            
+            <LazySection height="400px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <HowWeWork />
                     </div>
                 </FadeInSection>
+            </LazySection>
+
+            <LazySection height="400px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <WhyUs />
                     </div>
                 </FadeInSection>
+            </LazySection>
+
+            <LazySection height="500px">
                 <FadeInSection>
                     <TeamSection limit={3} />
                 </FadeInSection>
+            </LazySection>
+
+            <LazySection height="400px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <WhoWeServe />
                     </div>
                 </FadeInSection>
+            </LazySection>
+
+            <LazySection height="600px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <LatestArticles />
                     </div>
                 </FadeInSection>
+            </LazySection>
+
+            <LazySection height="600px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <Services />
                     </div>
                 </FadeInSection>
-            </Suspense>
+            </LazySection>
         </div>
     );
 };
