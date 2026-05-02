@@ -21,7 +21,7 @@ const About: React.FC = () => {
               className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-slate-50"
             >
               <img
-                src="https://f.top4top.io/p_3763w9a8g1.png"
+                src="https://mishal-lawfirm.com/images/p_3763w9a8g1.webp"
                 alt="Law Library"
                 className="w-full object-cover h-[300px] md:h-[550px] grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               />
