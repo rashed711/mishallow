@@ -28,6 +28,32 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
   const encodedUrl = encodeURIComponent(currentUrl);
   const encodedTitle = article ? encodeURIComponent(article.title) : '';
 
+  // Helper to render text with markdown links [text](/path)
+  const renderContent = (text: string) => {
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      parts.push(
+        <Link key={match.index} to={match[2]} className="text-[#B89544] hover:underline font-bold">
+          {match[1]}
+        </Link>
+      );
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+
+    return parts.length > 0 ? parts : text;
+  };
+
   return (
     <div className="bg-white min-h-screen">
       <SEO
@@ -86,7 +112,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
               <div className="space-y-10">
                 {article.content.map((paragraph, i) => (
                   <p key={i} className="text-slate-600 text-xl leading-relaxed font-medium">
-                    {paragraph}
+                    {renderContent(paragraph)}
                   </p>
                 ))}
               </div>
