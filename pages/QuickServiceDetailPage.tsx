@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
@@ -28,6 +28,32 @@ const QuickServiceDetailPage: React.FC = () => {
     const handleBack = () => navigate('/quick-services');
 
     const whatsappMessage = encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`);
+
+    // Helper to render text with markdown links [text](/path)
+    const renderContent = (text: string) => {
+        const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+                parts.push(text.substring(lastIndex, match.index));
+            }
+            parts.push(
+                <Link key={match.index} to={match[2]} className="text-[#B89544] hover:underline font-bold">
+                    {match[1]}
+                </Link>
+            );
+            lastIndex = regex.lastIndex;
+        }
+
+        if (lastIndex < text.length) {
+            parts.push(text.substring(lastIndex));
+        }
+
+        return parts.length > 0 ? parts : text;
+    };
 
     return (
         <div className="bg-slate-50 min-h-screen">
@@ -87,7 +113,7 @@ const QuickServiceDetailPage: React.FC = () => {
                                 )}
                             </div>
                             <p className="text-slate-600 text-xl leading-loose font-medium">
-                                {service.description}
+                                {renderContent(service.description)}
                             </p>
                         </div>
 

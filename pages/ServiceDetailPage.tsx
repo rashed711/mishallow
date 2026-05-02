@@ -20,8 +20,33 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
         return <Navigate to="/services" replace />;
     }
 
-    // Use icon component
     const Icon = service.icon;
+
+    // Helper to render text with markdown links [text](/path)
+    const renderContent = (text: string) => {
+        const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const parts = [];
+        let lastIndex = 0;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+            if (match.index > lastIndex) {
+                parts.push(text.substring(lastIndex, match.index));
+            }
+            parts.push(
+                <Link key={match.index} to={match[2]} className="text-[#B89544] hover:underline font-bold">
+                    {match[1]}
+                </Link>
+            );
+            lastIndex = regex.lastIndex;
+        }
+
+        if (lastIndex < text.length) {
+            parts.push(text.substring(lastIndex));
+        }
+
+        return parts.length > 0 ? parts : text;
+    };
 
     return (
         <div className="bg-slate-50 min-h-screen">
@@ -63,7 +88,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                             {service.title}
                         </h1>
                         <p className="text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-                            {service.shortDescription}
+                            {renderContent(service.shortDescription)}
                         </p>
                     </motion.div>
                 </div>
@@ -85,7 +110,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                             <h2 className="text-2xl font-black text-[#0F172A] mb-6">نظرة عامة على الخدمة</h2>
                             <div className="space-y-6 text-slate-600 text-lg leading-loose font-medium">
                                 {service.fullDescription.map((paragraph, idx) => (
-                                    <p key={idx}>{paragraph}</p>
+                                    <p key={idx}>{renderContent(paragraph)}</p>
                                 ))}
                             </div>
                         </motion.div>
@@ -157,7 +182,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                                 {service.faq.map((item, idx) => (
                                     <div key={idx} className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
                                         <h3 className="text-lg font-black text-[#0F172A] mb-3">{item.question}</h3>
-                                        <p className="text-slate-600 font-medium">{item.answer}</p>
+                                        <p className="text-slate-600 font-medium">{renderContent(item.answer)}</p>
                                     </div>
                                 ))}
                             </div>
