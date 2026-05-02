@@ -110,7 +110,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                             </ul>
                         </motion.div>
 
-                        {/* Legal Systems Section */}
+                        {/* Legal Systems Section - Authority Signal */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -119,15 +119,24 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                         >
                             <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-4">
                                 <div className="w-2 h-8 bg-[#B89544] rounded-full"></div>
-                                الأنظمة والمنصات التي نعمل بها
+                                الأنظمة التي نعمل بها
                             </h2>
+                            <p className="text-slate-400 mb-8 font-medium leading-relaxed">
+                                نلتزم في مكتب مشعل بادغيش بتطبيق أعلى معايير الامتثال العدلي من خلال تفعيل الأدوات النظامية والمنصات الرسمية التابعة لوزارة العدل والجهات القضائية في المملكة العربية السعودية.
+                            </p>
                             <div className="grid sm:grid-cols-2 gap-4">
-                                {service.legalSystems.map((system, idx) => (
+                                {[
+                                    { name: 'منصة ناجز العدلية', link: 'https://najiz.sa' },
+                                    { name: 'نظام الشركات السعودي الجديد', link: '#' },
+                                    { name: 'المحاكم التجارية والعمالية', link: '#' },
+                                    { name: 'وزارة العدل السعودية', link: 'https://www.moj.gov.sa' },
+                                    ...service.legalSystems.filter(s => !['منصة ناجز العدلية', 'نظام الشركات السعودي الجديد', 'المحاكم التجارية والعمالية', 'وزارة العدل السعودية'].includes(s.name))
+                                ].map((system, idx) => (
                                     <div key={idx} className="bg-white/5 backdrop-blur-sm p-5 rounded-2xl border border-white/10 hover:border-[#B89544]/50 transition-all group">
                                         <div className="flex items-center justify-between">
                                             <span className="text-white font-bold">{system.name}</span>
-                                            {system.link !== '#' && (
-                                                <a href={system.link} target="_blank" rel="noopener noreferrer" className="text-[#B89544] hover:text-white transition-colors">
+                                            {system.link && system.link !== '#' && (
+                                                <a href={system.link} target="_blank" rel="noopener noreferrer" className="text-[#B89544] hover:text-white transition-colors" aria-label={`زيارة ${system.name}`}>
                                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                                 </a>
                                             )}

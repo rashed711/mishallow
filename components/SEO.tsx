@@ -63,7 +63,7 @@ const SEO: React.FC<SEOProps> = ({
             {/* Canonical */}
             <link rel="canonical" href={canonicalUrl} />
 
-            {/* Structured Data (JSON-LD) */}
+            {/* Structured Data (JSON-LD) for GEO/Entity Authority */}
             <script type="application/ld+json">
                 {JSON.stringify({
                     "@context": "https://schema.org",
@@ -72,19 +72,55 @@ const SEO: React.FC<SEOProps> = ({
                     "description": description,
                     "url": canonicalUrl,
                     "image": imageUrl,
-                    "areaServed": areaServed,
+                    "areaServed": [
+                        {
+                            "@type": "City",
+                            "name": "Makkah",
+                            "sameAs": "https://en.wikipedia.org/wiki/Mecca"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Jeddah",
+                            "sameAs": "https://en.wikipedia.org/wiki/Jeddah"
+                        }
+                    ],
                     "serviceType": serviceType,
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "Makkah",
-                        "addressCountry": "SA"
+                    "provider": {
+                        "@type": "LegalService",
+                        "name": "مكتب مشعل بادغيش للمحاماة",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": "Makkah",
+                            "addressRegion": "Makkah Province",
+                            "addressCountry": "SA"
+                        },
+                        "telephone": "+966568000085"
+                    },
+                    "hasOfferCatalog": {
+                        "@type": "OfferCatalog",
+                        "name": "خدمات قانونية سعودية",
+                        "itemListElement": [
+                            {
+                                "@type": "Offer",
+                                "itemOffered": {
+                                    "@type": "Service",
+                                    "name": "الترافع أمام المحاكم التجارية"
+                                }
+                            },
+                            {
+                                "@type": "Offer",
+                                "itemOffered": {
+                                    "@type": "Service",
+                                    "name": "التمثيل القضائي عبر منصة ناجز"
+                                }
+                            }
+                        ]
                     },
                     "geo": {
                         "@type": "GeoCoordinates",
                         "latitude": "21.4225",
                         "longitude": "39.8262"
                     },
-                    "telephone": "+966568000085",
                     "priceRange": "$$$"
                 })}
             </script>

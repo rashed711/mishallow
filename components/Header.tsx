@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:block">
-            <div className="flex items-center gap-x-16">
+            <div className="flex items-center gap-x-10 xl:gap-x-20">
               {navLinks.map((link) => (
                 <NavLink
                   key={link.to}
