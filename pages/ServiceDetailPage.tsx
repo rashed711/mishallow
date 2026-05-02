@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
-import { servicesData } from '../data/services';
+import { servicesData } from '../data/services.ts';
 import Contact from '../components/Contact';
 
 interface ServiceDetailPageProps {
@@ -31,6 +31,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                 image={service.image}
                 type="website"
                 url={`https://mishallow.vercel.app/${service.slug}`}
+                serviceType={service.title}
+                areaServed={["Makkah", "Jeddah"]}
             />
 
             {/* Hero Section */}
@@ -106,6 +108,33 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                                     </li>
                                 ))}
                             </ul>
+                        </motion.div>
+
+                        {/* Legal Systems Section */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-white/5"
+                        >
+                            <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-4">
+                                <div className="w-2 h-8 bg-[#B89544] rounded-full"></div>
+                                الأنظمة والمنصات التي نعمل بها
+                            </h2>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                {service.legalSystems.map((system, idx) => (
+                                    <div key={idx} className="bg-white/5 backdrop-blur-sm p-5 rounded-2xl border border-white/10 hover:border-[#B89544]/50 transition-all group">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-white font-bold">{system.name}</span>
+                                            {system.link !== '#' && (
+                                                <a href={system.link} target="_blank" rel="noopener noreferrer" className="text-[#B89544] hover:text-white transition-colors">
+                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </motion.div>
 
                         {/* FAQ Section */}

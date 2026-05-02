@@ -44,12 +44,12 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="lg:w-1/2 text-center lg:text-right flex flex-col items-center lg:items-end"
           >
-            <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">شريكك القانوني الاستراتيجي</span>
+            <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">حوكمة وامتثال وترافع تخصصي</span>
             <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-8 leading-[1.2]">
-              نلتزم بصيانة حقوقكم <br /> وصناعة الأمان لأعمالكم
+              صيانة الحقوق عبر <br /> الأنظمة السعودية الحديثة
             </h2>
             <p className="text-slate-600 text-lg mb-10 leading-relaxed font-medium">
-              في مكتب مشعل بادغيش، ندمج بين الخبرة العميقة في الأنظمة السعودية وبين الرؤية الحديثة للممارسة القانونية. نحن هنا لنكون المستشار الذي تثق به في كل خطوة تخطوها.
+              في مكتب مشعل بادغيش، نمارس القانون برؤية تتماشى مع التحول الرقمي العدلي في المملكة. ندمج بين التخصص في نظام الشركات الجديد ونظام المعاملات المدنية وبين الخبرة العميقة في الترافع أمام المحاكم التجارية والعمالية.
             </p>
             <Link
               to="/about"

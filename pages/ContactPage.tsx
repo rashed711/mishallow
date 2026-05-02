@@ -18,7 +18,7 @@ const ContactPage: React.FC = () => {
       {/* Dark Hero */}
       <div className="pt-40 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <img src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?q=80&w=1600" alt="Riyadh" className="w-full h-full object-cover" />
+          <img src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?q=80&w=1600" alt="Makkah" className="w-full h-full object-cover" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div

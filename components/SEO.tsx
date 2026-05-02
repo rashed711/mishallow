@@ -8,6 +8,8 @@ interface SEOProps {
     type?: string;
     url?: string;
     image?: string;
+    areaServed?: string[];
+    serviceType?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -16,7 +18,9 @@ const SEO: React.FC<SEOProps> = ({
     name = "مكتب مشعل بادغيش للمحاماة",
     type = "website",
     url = "https://mishallow.vercel.app",
-    image = "https://mishallow.vercel.app/logo.webp"
+    image = "https://mishallow.vercel.app/logo.webp",
+    areaServed = ["Makkah", "Jeddah"],
+    serviceType = "Legal Services"
 }) => {
     // Ensure image is an absolute URL
     const imageUrl = image.startsWith('http') ? image : `https://mishallow.vercel.app${image}`;
@@ -68,6 +72,8 @@ const SEO: React.FC<SEOProps> = ({
                     "description": description,
                     "url": canonicalUrl,
                     "image": imageUrl,
+                    "areaServed": areaServed,
+                    "serviceType": serviceType,
                     "address": {
                         "@type": "PostalAddress",
                         "addressLocality": "Makkah",
@@ -78,7 +84,8 @@ const SEO: React.FC<SEOProps> = ({
                         "latitude": "21.4225",
                         "longitude": "39.8262"
                     },
-                    "telephone": "+966568000085"
+                    "telephone": "+966568000085",
+                    "priceRange": "$$$"
                 })}
             </script>
         </Helmet>

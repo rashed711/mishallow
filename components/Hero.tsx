@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
                     transition={{ delay: 0.2, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
                     className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
                   >
-                    مكتب محاماة
+                    مكتب محاماة خبير
                   </motion.h1>
                 </div>
                 <div className="overflow-hidden">
@@ -95,7 +95,7 @@ const Hero: React.FC = () => {
                     transition={{ delay: 0.4, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
                     className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2"
                   >
-                    واستشارات قانونية في مكة
+                    بأنظمة المملكة الحديثة في مكة
                   </motion.h1>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                 transition={{ delay: 0.6, duration: 0.8 }}
                 className="text-white text-base md:text-lg leading-relaxed font-bold mb-10 max-w-2xl mx-auto lg:mx-0 drop-shadow-lg opacity-90"
               >
-                نقدّم خدمات قانونية متكاملة في مكة للأفراد والشركات، عبر فريق قانوني متخصص يعمل وفق الأنظمة المعتمدة في المملكة، مع التزام كامل بالسرية وتحقيق أفضل النتائج.
+                نقدم خدمات قانونية تخصصية في مكة وجدة، تركز على نظام الشركات الجديد، نظام المعاملات المدنية، والتمثيل القضائي عبر منصة "ناجز"، لضمان حماية استباقية لمصالح الأفراد والكيانات التجارية.
               </motion.p>
 
               <motion.div

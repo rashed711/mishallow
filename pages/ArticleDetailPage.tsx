@@ -36,6 +36,8 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
         image={article.image}
         type="article"
         url={`https://mishallow.vercel.app/articles/${article.slug}`}
+        serviceType={article.category}
+        areaServed={["Makkah", "Jeddah"]}
       />
       <div className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">

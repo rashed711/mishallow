@@ -2,14 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-
-import { BriefcaseIcon, ScaleIcon, DocumentTextIcon, UsersIcon, ShieldCheckIcon, GavelIcon, BuildingLibraryIcon, ClipboardDocumentCheckIcon } from '../components/icons/ServiceIcons';
+import { servicesData, ServiceData } from '../data/services.ts';
 
 interface ServicesPageProps {
   onOpenModal: () => void;
 }
-
-import { servicesData } from '../data/services';
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
   return (
@@ -61,40 +58,43 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {servicesData.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full"
-              >
-                <div className="h-60 relative overflow-hidden">
-                  <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
-                  <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-transparent transition-all duration-500"></div>
-                  <div className="absolute bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl transform group-hover:rotate-12 transition-transform">
-                    <service.icon className="h-7 w-7 text-[#B89544]" />
+            {servicesData.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -10 }}
+                  className="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full"
+                >
+                  <div className="h-60 relative overflow-hidden">
+                    <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
+                    <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-transparent transition-all duration-500"></div>
+                    <div className="absolute bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl transform group-hover:rotate-12 transition-transform">
+                      <Icon className="h-7 w-7 text-[#B89544]" />
+                    </div>
                   </div>
-                </div>
-                <div className="p-10 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-black text-[#0F172A] mb-4 leading-tight group-hover:text-[#B89544] transition-colors">{service.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
-                    {service.shortDescription}
-                  </p>
-                  <div className="mt-auto">
-                    <Link
-                      to={`/${service.slug}`}
-                      className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
-                    >
-                      <span>تفاصيل الخدمة</span>
-                      <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
-                    </Link>
+                  <div className="p-10 flex-grow flex flex-col">
+                    <h3 className="text-2xl font-black text-[#0F172A] mb-4 leading-tight group-hover:text-[#B89544] transition-colors">{service.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                      {service.shortDescription}
+                    </p>
+                    <div className="mt-auto">
+                      <Link
+                        to={`/${service.slug}`}
+                        className="inline-flex items-center gap-3 text-[#0F172A] font-black text-sm group/btn"
+                      >
+                        <span>تفاصيل الخدمة</span>
+                        <span className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center group-hover/btn:bg-[#B89544] group-hover/btn:text-white transition-all transform rotate-180 shadow-sm">←</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
