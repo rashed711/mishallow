@@ -70,6 +70,8 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
                     <img
                         src="https://mishallow.vercel.app/logo.webp"
                         alt="Logo"
+                        width={128}
+                        height={128}
                         className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(184,149,68,0.4)]"
                     />
                 </div>

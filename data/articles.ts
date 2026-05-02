@@ -65,7 +65,7 @@ export const articles: Article[] = [
     category: "الملكية الفكرية",
     date: "15 يونيو 2024",
     rawDate: "2024-06-15",
-    image: "https://i.pinimg.com/1200x/2d/34/8d/2d348d9e8f8a91e4107ff3bab62d3417.jpg",
+    image: "https://i.pinimg.com/736x/e8/d6/07/e8d607acb1307a1f7ddce7d0584203f2.jpg",
     readTime: "5 دقائق",
     views: 1200
   },

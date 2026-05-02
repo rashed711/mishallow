@@ -54,6 +54,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
         <img
           src="https://mishallow.vercel.app/logo.webp"
           alt="شعار مكتب مشعل بادغيش للمحاماة"
+          width={60}
+          height={60}
           className="h-11 w-11 md:h-[60px] md:w-[60px] object-contain"
         />
       </div>
@@ -86,7 +88,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:block">
-            <div className="flex items-center space-x-10 rtl:space-x-reverse">
+            <div className="flex items-center space-x-14 rtl:space-x-reverse">
               {navLinks.map((link) => (
                 <NavLink
                   key={link.to}

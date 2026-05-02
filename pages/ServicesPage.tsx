@@ -20,11 +20,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <div className="bg-[#0F172A] pt-32 pb-5 md:pt-44 md:pb-5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="opacity-100 transform-none">
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">نطاق خبراتنا</span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-8">حلول قانونية احترافية</h1>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed font-medium mb-10">
@@ -51,7 +47,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                 </span>
               </Link>
             </div>
-          </motion.div>
+            </div>
         </div>
       </div>
 
@@ -71,7 +67,14 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                   className="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full"
                 >
                   <div className="h-60 relative overflow-hidden">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" loading="lazy" />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      width={400}
+                      height={240}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                      loading="lazy"
+                    />
                     <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-transparent transition-all duration-500"></div>
                     <div className="absolute bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl transform group-hover:rotate-12 transition-transform">
                       <Icon className="h-7 w-7 text-[#B89544]" />

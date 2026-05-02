@@ -67,11 +67,7 @@ const Hero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           <div className="lg:col-span-7 text-center lg:text-right">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="opacity-100 transform-none">
               <div className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg">
                 <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 shadow-[0_0_10px_#B89544]"></span>
                 مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
@@ -79,42 +75,28 @@ const Hero: React.FC = () => {
 
               <div className="mb-8">
                 <div className="overflow-hidden mb-2">
-                  <motion.h1
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                  <h1
                     className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
                   >
                     مكتب محاماة خبير
-                  </motion.h1>
+                  </h1>
                 </div>
                 <div className="overflow-hidden">
-                  <motion.h1
-                    initial={{ y: "150%" }}
-                    animate={{ y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                  <h1
                     className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2"
                   >
                     بأنظمة المملكة الحديثة في مكة
-                  </motion.h1>
+                  </h1>
                 </div>
               </div>
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
+              <p
                 className="text-white text-base md:text-lg leading-relaxed font-bold mb-10 max-w-2xl mx-auto lg:mx-0 drop-shadow-lg opacity-90"
               >
                 نقدم خدمات قانونية تخصصية في مكة وجدة، تركز على نظام الشركات الجديد، نظام المعاملات المدنية، والتمثيل القضائي عبر منصة "ناجز"، لضمان حماية استباقية لمصالح الأفراد والكيانات التجارية.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
-              >
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8">
                 <div className="animate-luxury-float w-full sm:w-auto">
                   <Link to="/contact" className="relative group block">
                     {/* Rotating border effect for all devices */}
@@ -147,18 +129,13 @@ const Hero: React.FC = () => {
                     </button>
                   </Link>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
 
           {/* Stats Cards - Simplified blurs for mobile */}
           <div className="lg:col-span-5 relative mt-6 lg:mt-0">
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6"
-            >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6">
               <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
                 <div className="flex items-center gap-5">
                   <div className="bg-[#B89544] p-3 rounded-2xl shadow-xl flex-shrink-0">
@@ -186,7 +163,7 @@ const Hero: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>

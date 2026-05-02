@@ -62,6 +62,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 <img
                   src="https://mishallow.vercel.app/logo.webp"
                   alt="شعار مكتب مشعل بادغيش للمحاماة"
+                  width={40}
+                  height={40}
+                  loading="lazy"
                   className="h-10 w-10 object-contain"
                 />
               </div>

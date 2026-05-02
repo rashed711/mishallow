@@ -43,28 +43,15 @@ const ArticlesPage: React.FC = () => {
       <div className="bg-[#0F172A] pt-32 pb-20 md:pt-44 md:pb-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <motion.span
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-[#B89544] font-black tracking-[0.3em] uppercase text-xs mb-6 block"
-            >
+            <span className="text-[#B89544] font-black tracking-[0.3em] uppercase text-xs mb-6 block">
               المركز المعرفي
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight"
-            >
+            </span>
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
               رؤى قانونية لمستقبل <span className="text-[#B89544]">واثق</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium"
-            >
+            </h1>
+            <p className="text-slate-400 text-lg md:text-xl leading-relaxed font-medium">
               تزويدكم بالوعي النظامي اللازم لمواكبة التحول التشريعي في المملكة وحماية مصالح أعمالكم.
-            </motion.p>
+            </p>
           </div>
         </div>
 
@@ -155,8 +142,11 @@ const ArticlesPage: React.FC = () => {
                     <img
                       src={article.image}
                       alt={article.title}
+                      width={400}
+                      height={250}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       referrerPolicy="no-referrer"
+                      loading="lazy"
                     />
                     <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-4 py-1.5 rounded-full text-[9px] font-black text-[#0F172A] uppercase tracking-wider shadow-sm">
                       {article.category}
