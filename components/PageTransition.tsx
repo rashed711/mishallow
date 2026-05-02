@@ -37,22 +37,24 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
         <div className="relative w-full">
             {/* Top Panel */}
             <motion.div
-                initial={{ height: "50vh" }}
-                animate={{ height: 0 }}
-                exit={{ height: "50vh" }}
+                initial={{ scaleY: 1 }}
+                animate={{ scaleY: 0 }}
+                exit={{ scaleY: 1 }}
                 transition={transition}
-                className="fixed top-0 left-0 right-0 z-[200] bg-[#0F172A] w-full"
+                style={{ transformOrigin: 'top' }}
+                className="fixed top-0 left-0 right-0 z-[200] bg-[#0F172A] w-full h-[50vh]"
             >
                 <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#B89544] to-transparent shadow-[0_0_15px_#B89544]"></div>
             </motion.div>
 
             {/* Bottom Panel */}
             <motion.div
-                initial={{ height: "50vh" }}
-                animate={{ height: 0 }}
-                exit={{ height: "50vh" }}
+                initial={{ scaleY: 1 }}
+                animate={{ scaleY: 0 }}
+                exit={{ scaleY: 1 }}
                 transition={transition}
-                className="fixed bottom-0 left-0 right-0 z-[200] bg-[#0F172A] w-full"
+                style={{ transformOrigin: 'bottom' }}
+                className="fixed bottom-0 left-0 right-0 z-[200] bg-[#0F172A] w-full h-[50vh]"
             >
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#B89544] to-transparent shadow-[0_0_15px_#B89544]"></div>
             </motion.div>

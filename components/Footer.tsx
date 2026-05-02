@@ -170,4 +170,4 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

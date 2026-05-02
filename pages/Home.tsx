@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
-import HowWeWork from '../components/HowWeWork';
-import WhyUs from '../components/WhyUs';
-import WhoWeServe from '../components/WhoWeServe';
-import LatestArticles from '../components/LatestArticles';
-import Services from '../components/Services';
+const HowWeWork = lazy(() => import('../components/HowWeWork'));
+const WhyUs = lazy(() => import('../components/WhyUs'));
+const WhoWeServe = lazy(() => import('../components/WhoWeServe'));
+const LatestArticles = lazy(() => import('../components/LatestArticles'));
+const Services = lazy(() => import('../components/Services'));
 import FadeInSection from '../components/FadeInSection';
 import SEO from '../components/SEO';
-import TeamSection from '../components/TeamSection';
+const TeamSection = lazy(() => import('../components/TeamSection'));
+
+const SectionLoader = () => <div className="h-[400px] w-full bg-slate-50/50 animate-pulse rounded-3xl" />;
 
 const Home: React.FC = () => {
     return (
@@ -21,39 +23,41 @@ const Home: React.FC = () => {
                 url="https://mishallow.vercel.app"
             />
             <Hero />
-            <FadeInSection delay={0.2}>
+            <FadeInSection>
                 <div className="scroll-mt-24">
                     <About />
                 </div>
             </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <div className="scroll-mt-24">
-                    <HowWeWork />
-                </div>
-            </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <div className="scroll-mt-24">
-                    <WhyUs />
-                </div>
-            </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <TeamSection limit={3} />
-            </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <div className="scroll-mt-24">
-                    <WhoWeServe />
-                </div>
-            </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <div className="scroll-mt-24">
-                    <LatestArticles />
-                </div>
-            </FadeInSection>
-            <FadeInSection delay={0.2}>
-                <div className="scroll-mt-24">
-                    <Services />
-                </div>
-            </FadeInSection>
+            <Suspense fallback={<SectionLoader />}>
+                <FadeInSection>
+                    <div className="scroll-mt-24">
+                        <HowWeWork />
+                    </div>
+                </FadeInSection>
+                <FadeInSection>
+                    <div className="scroll-mt-24">
+                        <WhyUs />
+                    </div>
+                </FadeInSection>
+                <FadeInSection>
+                    <TeamSection limit={3} />
+                </FadeInSection>
+                <FadeInSection>
+                    <div className="scroll-mt-24">
+                        <WhoWeServe />
+                    </div>
+                </FadeInSection>
+                <FadeInSection>
+                    <div className="scroll-mt-24">
+                        <LatestArticles />
+                    </div>
+                </FadeInSection>
+                <FadeInSection>
+                    <div className="scroll-mt-24">
+                        <Services />
+                    </div>
+                </FadeInSection>
+            </Suspense>
         </div>
     );
 };

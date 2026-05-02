@@ -94,4 +94,4 @@ const FloatingShapes: React.FC = () => {
     );
 };
 
-export default FloatingShapes;
+export default React.memo(FloatingShapes);

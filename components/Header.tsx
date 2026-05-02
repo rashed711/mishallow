@@ -214,4 +214,5 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
+

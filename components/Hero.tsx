@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
         <AnimatePresence mode='wait'>
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
+            initial={currentIndex === 0 ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: isMobile ? 0.5 : 1.2 }}
@@ -44,6 +44,9 @@ const Hero: React.FC = () => {
             <img
               src={backgroundImages[currentIndex]}
               alt="Background"
+              width={1600}
+              height={900}
+              fetchpriority={currentIndex === 0 ? "high" : "auto"}
               className="w-full h-full object-cover brightness-[0.8] contrast-[1.1]"
               loading={currentIndex === 0 ? "eager" : "lazy"}
             />
