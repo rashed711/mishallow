@@ -12,11 +12,24 @@ const LazySection: React.FC<LazySectionProps> = ({
   fallback = <div className="h-[200px] w-full animate-pulse bg-slate-50 rounded-3xl" />,
   height = "200px"
 }) => {
+  // Performance Optimization: Only use intersection observer on mobile/low-end devices.
+  // On desktop, we want immediate rendering to avoid TBT/Hydration overhead.
+  const [isDesktop, setIsDesktop] = useState(true);
   const [hasBeenViewed, setHasBeenViewed] = useState(false);
+
   const { ref, inView } = useInView({
     triggerOnce: true,
-    rootMargin: '200px 0px', // Load before it comes into view
+    rootMargin: '400px 0px',
+    skip: isDesktop, // Skip observer on desktop
   });
+
+  useEffect(() => {
+    const checkDesktop = window.innerWidth >= 1024;
+    setIsDesktop(checkDesktop);
+    if (checkDesktop) {
+      setHasBeenViewed(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (inView) {
@@ -25,8 +38,8 @@ const LazySection: React.FC<LazySectionProps> = ({
   }, [inView]);
 
   return (
-    <div ref={ref} style={{ minHeight: hasBeenViewed ? 'auto' : height }}>
-      {hasBeenViewed ? (
+    <div ref={ref} style={{ minHeight: isDesktop || hasBeenViewed ? 'auto' : height }}>
+      {isDesktop || hasBeenViewed ? (
         <Suspense fallback={fallback}>
           {children}
         </Suspense>

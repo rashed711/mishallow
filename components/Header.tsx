@@ -56,6 +56,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
           alt="شعار مكتب مشعل بادغيش للمحاماة"
           width={60}
           height={60}
+          loading="eager"
+          fetchpriority="high"
           className="h-11 w-11 md:h-[60px] md:w-[60px] object-contain"
         />
       </div>

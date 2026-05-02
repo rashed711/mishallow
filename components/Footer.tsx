@@ -84,10 +84,10 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
           </div>
 
           <div>
-            <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
+            <h3 className="text-white font-bold text-lg mb-8 relative inline-block">
               روابط سريعة
               <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
-            </h4>
+            </h3>
             <ul className="space-y-4">
               {quickLinks.map(link => (
                 <li key={link.to}>

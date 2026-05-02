@@ -28,45 +28,31 @@ const Home: React.FC = () => {
                 </div>
             </FadeInSection>
             
-            <LazySection height="400px">
+            {/* Grouping secondary sections to reduce observers and main-thread overhead on mobile, bypassed on desktop */}
+            <LazySection height="2000px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <HowWeWork />
                     </div>
                 </FadeInSection>
-            </LazySection>
-
-            <LazySection height="400px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <WhyUs />
                     </div>
                 </FadeInSection>
-            </LazySection>
-
-            <LazySection height="500px">
                 <FadeInSection>
                     <TeamSection limit={3} />
                 </FadeInSection>
-            </LazySection>
-
-            <LazySection height="400px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <WhoWeServe />
                     </div>
                 </FadeInSection>
-            </LazySection>
-
-            <LazySection height="600px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <LatestArticles />
                     </div>
                 </FadeInSection>
-            </LazySection>
-
-            <LazySection height="600px">
                 <FadeInSection>
                     <div className="scroll-mt-24">
                         <Services />

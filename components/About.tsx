@@ -23,8 +23,8 @@ const About: React.FC = () => {
               <img
                 src="https://mishal-lawfirm.com/images/p_3763w9a8g1.webp"
                 alt="Law Library"
-                width={600}
-                height={550}
+                width={530}
+                height={525}
                 loading="lazy"
                 className="w-full object-cover h-[300px] md:h-[550px] grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               />

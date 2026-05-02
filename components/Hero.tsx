@@ -187,6 +187,7 @@ const Hero: React.FC = () => {
             key={idx}
             onClick={() => setCurrentIndex(idx)}
             className={`h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
+            aria-label={`الذهاب إلى الصورة رقم ${idx + 1}`}
           />
         ))}
       </div>
