@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const backgroundImages = [
-  "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1600",
+  "https://mishal-lawfirm.com/images/image.webp",
   "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1600",
   "https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1600",
   "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600"
@@ -137,11 +137,11 @@ const Hero: React.FC = () => {
                     </button>
                   </Link>
                 </div>
-                
+
                 <div className="animate-luxury-float w-full sm:w-auto" style={{ animationDelay: '0.5s' }}>
                   <Link to="/services" className="relative group block">
                     <button className="w-full relative z-10 bg-white/10 backdrop-blur-md border border-white/20 text-white font-black px-10 py-6 md:py-7 rounded-2xl transition-all hover:bg-white/15 hover:border-[#B89544]/50 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] overflow-hidden group">
-                       {/* Subtle Shimmer for the secondary button */}
+                      {/* Subtle Shimmer for the secondary button */}
                       <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-luxury-shimmer pointer-events-none"></span>
                       <span className="text-base md:text-lg group-hover:text-[#F3E2B1] transition-colors">استكشف خدماتنا</span>
                     </button>
