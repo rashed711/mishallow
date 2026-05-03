@@ -22,13 +22,17 @@ const TermsPage = lazy(() => import('./pages/TermsPage'));
 import { ServiceRequestModal } from './components/ServiceRequestModal';
 
 const LoadingFallback = () => (
-  <div className="h-screen w-full flex flex-col items-center justify-center bg-[#0F172A]">
-    <div className="relative flex items-center justify-center mb-8">
-      <div className="absolute inset-0 border-4 border-[#B89544]/30 rounded-full"></div>
-      <div className="absolute inset-0 border-4 border-[#B89544] border-t-transparent rounded-full animate-spin"></div>
-      <img src="/logo.webp" alt="Loading" className="w-16 h-16 object-contain animate-pulse" />
+  <div className="h-screen w-full fixed inset-0 z-[300] flex items-center justify-center bg-[#0F172A]">
+    <div className="relative">
+      <div className="absolute inset-0 bg-[#B89544] blur-3xl opacity-20 rounded-full animate-pulse"></div>
+      <img
+        src="/logo.webp"
+        alt="Logo"
+        width={128}
+        height={128}
+        className="relative w-32 h-32 object-contain drop-shadow-[0_0_20px_rgba(184,149,68,0.4)] animate-pulse"
+      />
     </div>
-    <div className="text-[#B89544] font-black tracking-widest text-sm animate-pulse">جاري التحميل...</div>
   </div>
 );
 
