@@ -22,7 +22,7 @@ const TermsPage = lazy(() => import('./pages/TermsPage'));
 import { ServiceRequestModal } from './components/ServiceRequestModal';
 
 const LoadingFallback = () => (
-  <div className="h-screen w-full fixed inset-0 z-[300] flex items-center justify-center bg-[#0F172A]">
+  <div className="h-screen w-full flex items-center justify-center bg-[#0F172A]">
     <div className="relative">
       <div className="absolute inset-0 bg-[#B89544] blur-3xl opacity-20 rounded-full animate-pulse"></div>
       <img
