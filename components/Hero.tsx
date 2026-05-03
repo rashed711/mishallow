@@ -182,7 +182,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Slider indicators */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4">
         {backgroundImages.map((_, idx) => (
           <button
             key={idx}
