@@ -18,6 +18,7 @@ interface SEOProps {
     datePublished?: string;
     authorName?: string;
     faqs?: FAQItem[];
+    quickServiceName?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -31,7 +32,8 @@ const SEO: React.FC<SEOProps> = ({
     serviceType = "Legal Services",
     datePublished,
     authorName = "مشعل بادغيش",
-    faqs
+    faqs,
+    quickServiceName
 }) => {
     // Ensure image is an absolute URL
     const imageUrl = image.startsWith('http') ? image : `https://mishallow.vercel.app${image}`;
@@ -41,9 +43,11 @@ const SEO: React.FC<SEOProps> = ({
 
     // Memoize multiple schemas generation for performance
     const schemas = React.useMemo(() => {
+        const orgId = "https://mishallow.vercel.app/#organization";
         const globalOrganization = {
             "@context": "https://schema.org",
             "@type": "LegalService",
+            "@id": orgId,
             "name": name,
             "url": "https://mishallow.vercel.app",
             "logo": "https://mishallow.vercel.app/logo.webp",
@@ -72,7 +76,9 @@ const SEO: React.FC<SEOProps> = ({
                     "@type": "ListItem",
                     "position": 1,
                     "name": "الرئيسية",
-                    "item": "https://mishallow.vercel.app"
+                    "item": {
+                        "@id": "https://mishallow.vercel.app"
+                    }
                 }
             ]
         };
@@ -81,18 +87,23 @@ const SEO: React.FC<SEOProps> = ({
 
         // 1. Article / BlogPosting Schema
         if (type === 'article') {
+            const articleId = `${canonicalUrl}#article`;
             breadcrumbs.itemListElement.push(
                 {
                     "@type": "ListItem",
                     "position": 2,
                     "name": "المقالات",
-                    "item": "https://mishallow.vercel.app/articles"
+                    "item": {
+                        "@id": "https://mishallow.vercel.app/articles"
+                    }
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
                     "name": title,
-                    "item": canonicalUrl
+                    "item": {
+                        "@id": articleId
+                    }
                 }
             );
             pageSchemas.push(breadcrumbs);
@@ -100,6 +111,7 @@ const SEO: React.FC<SEOProps> = ({
             pageSchemas.push({
                 "@context": "https://schema.org",
                 "@type": "BlogPosting",
+                "@id": articleId,
                 "headline": title,
                 "description": description,
                 "url": canonicalUrl,
@@ -108,25 +120,35 @@ const SEO: React.FC<SEOProps> = ({
                     "@type": "Person",
                     "name": authorName
                 },
-                "publisher": globalOrganization,
+                "publisher": { "@id": orgId },
+                "isPartOf": { "@id": "https://mishallow.vercel.app/#website" },
+                "about": {
+                    "@type": "Service",
+                    "name": serviceType
+                },
                 "datePublished": datePublished || new Date().toISOString()
             });
         }
 
         // 2. Service Schema
         if (type === 'service') {
+            const serviceId = `${canonicalUrl}#service`;
             breadcrumbs.itemListElement.push(
                 {
                     "@type": "ListItem",
                     "position": 2,
                     "name": "الخدمات",
-                    "item": "https://mishallow.vercel.app/services"
+                    "item": {
+                        "@id": "https://mishallow.vercel.app/services"
+                    }
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
                     "name": title,
-                    "item": canonicalUrl
+                    "item": {
+                        "@id": serviceId
+                    }
                 }
             );
             pageSchemas.push(breadcrumbs);
@@ -134,14 +156,22 @@ const SEO: React.FC<SEOProps> = ({
             pageSchemas.push({
                 "@context": "https://schema.org",
                 "@type": "Service",
+                "@id": serviceId,
                 "name": title,
                 "description": description,
                 "serviceType": serviceType,
-                "provider": globalOrganization,
+                "provider": { "@id": orgId },
                 "areaServed": areaServed.map(city => ({
                     "@type": "City",
                     "name": city
-                }))
+                })),
+                ...(quickServiceName && {
+                    "offers": {
+                        "@type": "Offer",
+                        "name": quickServiceName,
+                        "offeredBy": { "@id": orgId }
+                    }
+                })
             });
         }
 
@@ -150,6 +180,10 @@ const SEO: React.FC<SEOProps> = ({
             pageSchemas.push({
                 "@context": "https://schema.org",
                 "@type": "FAQPage",
+                "about": {
+                    "@type": "Service",
+                    "name": serviceType
+                },
                 "mainEntity": faqs.map(item => ({
                     "@type": "Question",
                     "name": item.question,
