@@ -10,6 +10,7 @@ const WhatsAppButton: React.FC = () => {
                 href="https://wa.me/966568000085"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="تواصل معنا عبر واتساب"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 whileHover={{ scale: 1.1, rotate: 10 }}

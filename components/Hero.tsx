@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const backgroundImages = [
   "https://mishal-lawfirm.com/images/image.webp",
-  "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1600",
-  "https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1600",
-  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600"
+  "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format,compress&q=80",
+  "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format,compress&q=80",
+  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format,compress&q=80"
 ];
 
 const Hero: React.FC = () => {
@@ -186,7 +186,7 @@ const Hero: React.FC = () => {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
+            className={`relative before:absolute before:-inset-4 before:content-[''] h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
             aria-label={`الذهاب إلى الصورة رقم ${idx + 1}`}
           />
         ))}
