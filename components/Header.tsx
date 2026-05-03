@@ -52,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
     >
       <div className="bg-white p-0 rounded-sm shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
         <img
-          src="https://mishallow.vercel.app/logo.webp"
+          src="/logo.webp"
           alt="شعار مكتب مشعل بادغيش للمحاماة"
           width={60}
           height={60}
