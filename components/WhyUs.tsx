@@ -59,7 +59,8 @@ const WhyUs: React.FC = () => {
             <img
               className="absolute inset-0 w-full h-full object-cover rounded-[2rem] lg:rounded-[3rem] shadow-2xl z-10"
               src="https://i.pinimg.com/736x/42/2b/35/422b35e7a8327a44af847424db270928.jpg"
-              alt="Professional legal team meeting" />
+              alt="Professional legal team meeting"
+              loading="lazy" />
             <div className="absolute inset-0 bg-[#0F172A]/40 rounded-[3rem] z-20"></div>
             <div className="absolute inset-0 flex items-center justify-center z-30 p-12 text-center">
               <p className="text-white text-3xl font-black leading-tight">الخبرة، الثقة، والنتائج <br /> في خدمة طموحاتكم</p>

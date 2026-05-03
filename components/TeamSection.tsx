@@ -63,6 +63,7 @@ const TeamSection: React.FC<TeamSectionProps> = ({ showTitle = true, limit }) =>
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover transition-all duration-700 scale-105 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 group-hover:bg-[#0F172A]/5 transition-opacity"></div>
                 </div>

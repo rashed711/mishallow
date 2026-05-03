@@ -7,7 +7,7 @@ const Services: React.FC = () => {
     <section className="section-padding bg-[#0F172A] text-white relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c8?q=80&w=1600"
+          src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1600"
           className="w-full h-full object-cover opacity-5 md:opacity-10"
           alt="Saudi Business"
         />
