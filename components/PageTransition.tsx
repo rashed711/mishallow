@@ -21,15 +21,36 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 
     if (isMobile) {
         return (
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="w-full"
-            >
-                {children}
-            </motion.div>
+            <div className="relative w-full">
+                {/* Logo Overlay for Mobile */}
+                <motion.div
+                    initial={{ opacity: 1, scale: 1 }}
+                    animate={{ opacity: 0, scale: 0.8 }}
+                    exit={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="fixed inset-0 z-[210] flex items-center justify-center pointer-events-none bg-[#0F172A]"
+                >
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-[#B89544] blur-2xl opacity-20 rounded-full"></div>
+                        <img
+                            src="/logo.webp"
+                            alt="Logo"
+                            className="relative w-24 h-24 object-contain drop-shadow-[0_0_15px_rgba(184,149,68,0.4)] animate-pulse"
+                        />
+                    </div>
+                </motion.div>
+
+                {/* Content */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
+                    className="w-full"
+                >
+                    {children}
+                </motion.div>
+            </div>
         );
     }
 
@@ -70,7 +91,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
                 <div className="relative">
                     <div className="absolute inset-0 bg-[#B89544] blur-3xl opacity-20 rounded-full"></div>
                     <img
-                        src="https://mishallow.vercel.app/logo.webp"
+                        src="/logo.webp"
                         alt="Logo"
                         width={128}
                         height={128}
