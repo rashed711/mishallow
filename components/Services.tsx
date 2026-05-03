@@ -7,8 +7,8 @@ const Services: React.FC = () => {
     <section className="section-padding bg-[#0F172A] text-white relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1600"
-          srcSet="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=400 400w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=800 800w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1200 1200w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1600 1600w"
+          src="https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1600"
+          srcSet="https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=400 400w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=800 800w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1200 1200w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1600 1600w"
           sizes="100vw"
           loading="lazy"
           decoding="async"
