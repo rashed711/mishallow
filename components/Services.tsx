@@ -8,6 +8,10 @@ const Services: React.FC = () => {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1600"
+          srcSet="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=400 400w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=800 800w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1200 1200w, https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format,compress&q=80&w=1600 1600w"
+          sizes="100vw"
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover opacity-5 md:opacity-10"
           alt="Saudi Business"
         />

@@ -50,12 +50,13 @@ const Hero: React.FC = () => {
                 ${backgroundImages[currentIndex]}&w=1600 1600w
               ` : undefined}
               sizes="(max-width: 768px) 100vw, 1600px"
-              alt="Background"
+              alt="المحامي مشعل بادغيش - خبير قانوني في مكة وجدة"
               width={1600}
               height={900}
               fetchpriority={currentIndex === 0 ? "high" : "auto"}
               className="w-full h-full object-cover brightness-[0.8] contrast-[1.1]"
               loading={currentIndex === 0 ? "eager" : "lazy"}
+              decoding={currentIndex === 0 ? "sync" : "async"}
             />
             {/* Slow Zoom Effect - DISABLED ON MOBILE for performance */}
             {!isMobile && (
@@ -186,7 +187,7 @@ const Hero: React.FC = () => {
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}
-            className={`relative before:absolute before:-inset-4 before:content-[''] h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
+            className={`relative before:absolute before:-inset-6 before:content-[''] h-1 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-10 bg-[#B89544]' : 'w-2 bg-white/20'}`}
             aria-label={`الذهاب إلى الصورة رقم ${idx + 1}`}
           />
         ))}

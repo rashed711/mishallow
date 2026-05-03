@@ -26,6 +26,7 @@ const About: React.FC = () => {
                 width={530}
                 height={525}
                 loading="lazy"
+                decoding="async"
                 className="w-full object-cover h-[300px] md:h-[550px] grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               />
             </motion.div>
