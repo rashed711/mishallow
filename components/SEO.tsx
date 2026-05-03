@@ -39,42 +39,116 @@ const SEO: React.FC<SEOProps> = ({
     // Determine canonical URL
     const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
 
-    // Memoize schema generation for performance
-    const schemaData = React.useMemo(() => {
-        const baseSchema = {
+    // Memoize multiple schemas generation for performance
+    const schemas = React.useMemo(() => {
+        const globalOrganization = {
             "@context": "https://schema.org",
-            "name": title,
-            "description": description,
-            "url": canonicalUrl,
-            "image": imageUrl,
+            "@type": "LegalService",
+            "name": name,
+            "url": "https://mishallow.vercel.app",
+            "logo": "https://mishallow.vercel.app/logo.webp",
+            "image": "https://mishallow.vercel.app/logo.webp",
+            "telephone": "+966568000085",
+            "areaServed": areaServed.map(city => ({
+                "@type": "City",
+                "name": city
+            })),
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "21.4225",
+                "longitude": "39.8262"
+            },
+            "sameAs": [
+                "https://najiz.sa",
+                "https://www.moj.gov.sa"
+            ]
         };
+
+        const breadcrumbs = {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "الرئيسية",
+                    "item": "https://mishallow.vercel.app"
+                }
+            ]
+        };
+
+        const pageSchemas: any[] = [globalOrganization];
 
         // 1. Article / BlogPosting Schema
         if (type === 'article') {
-            return {
-                ...baseSchema,
+            breadcrumbs.itemListElement.push(
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "المقالات",
+                    "item": "https://mishallow.vercel.app/articles"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": title,
+                    "item": canonicalUrl
+                }
+            );
+            pageSchemas.push(breadcrumbs);
+
+            pageSchemas.push({
+                "@context": "https://schema.org",
                 "@type": "BlogPosting",
                 "headline": title,
+                "description": description,
+                "url": canonicalUrl,
+                "image": imageUrl,
                 "author": {
                     "@type": "Person",
                     "name": authorName
                 },
-                "publisher": {
-                    "@type": "Organization",
-                    "name": name,
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "https://mishallow.vercel.app/logo.webp"
-                    }
-                },
+                "publisher": globalOrganization,
                 "datePublished": datePublished || new Date().toISOString()
-            };
+            });
         }
 
-        // 2. FAQ Page Schema
-        if (type === 'faq' && faqs) {
-            return {
-                ...baseSchema,
+        // 2. Service Schema
+        if (type === 'service') {
+            breadcrumbs.itemListElement.push(
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "الخدمات",
+                    "item": "https://mishallow.vercel.app/services"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": title,
+                    "item": canonicalUrl
+                }
+            );
+            pageSchemas.push(breadcrumbs);
+
+            pageSchemas.push({
+                "@context": "https://schema.org",
+                "@type": "Service",
+                "name": title,
+                "description": description,
+                "serviceType": serviceType,
+                "provider": globalOrganization,
+                "areaServed": areaServed.map(city => ({
+                    "@type": "City",
+                    "name": city
+                }))
+            });
+        }
+
+        // 3. FAQ Schema (Always link to main content)
+        if (faqs && faqs.length > 0) {
+            pageSchemas.push({
+                "@context": "https://schema.org",
                 "@type": "FAQPage",
                 "mainEntity": faqs.map(item => ({
                     "@type": "Question",
@@ -84,54 +158,10 @@ const SEO: React.FC<SEOProps> = ({
                         "text": item.answer
                     }
                 }))
-            };
+            });
         }
 
-        // 3. Service Schema
-        if (type === 'service') {
-            return {
-                ...baseSchema,
-                "@type": "Service",
-                "serviceType": serviceType,
-                "areaServed": areaServed.map(city => ({
-                    "@type": "City",
-                    "name": city
-                })),
-                "provider": {
-                    "@type": "LegalService",
-                    "name": name,
-                    "address": {
-                        "@type": "PostalAddress",
-                        "addressLocality": "Makkah",
-                        "addressRegion": "Makkah Province",
-                        "addressCountry": "SA"
-                    },
-                    "telephone": "+966568000085",
-                    "geo": {
-                        "@type": "GeoCoordinates",
-                        "latitude": "21.4225",
-                        "longitude": "39.8262"
-                    }
-                }
-            };
-        }
-
-        // 4. Default LegalService Schema (for website type)
-        return {
-            ...baseSchema,
-            "@type": "LegalService",
-            "areaServed": areaServed.map(city => ({
-                "@type": "City",
-                "name": city
-            })),
-            "serviceType": serviceType,
-            "provider": {
-                "@type": "LegalService",
-                "name": name,
-                "telephone": "+966568000085"
-            },
-            "priceRange": "$$$"
-        };
+        return pageSchemas;
     }, [title, description, canonicalUrl, imageUrl, type, datePublished, authorName, faqs, serviceType, areaServed, name]);
 
     return (
@@ -160,9 +190,15 @@ const SEO: React.FC<SEOProps> = ({
 
             <link rel="canonical" href={canonicalUrl} />
 
-            <script type="application/ld+json">
-                {JSON.stringify(schemaData)}
-            </script>
+            {schemas.map((schema, index) => (
+                <script
+                    key={index}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(schema)
+                    }}
+                />
+            ))}
         </Helmet>
     );
 };
