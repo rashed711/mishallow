@@ -44,6 +44,8 @@ const SEO: React.FC<SEOProps> = ({
     // Memoize multiple schemas generation for performance
     const schemas = React.useMemo(() => {
         const orgId = "https://mishallow.vercel.app/#organization";
+        const websiteId = "https://mishallow.vercel.app/#website";
+
         const globalOrganization = {
             "@context": "https://schema.org",
             "@type": "LegalService",
@@ -68,6 +70,15 @@ const SEO: React.FC<SEOProps> = ({
             ]
         };
 
+        const websiteSchema = {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": websiteId,
+            "name": name,
+            "url": "https://mishallow.vercel.app",
+            "publisher": { "@id": orgId }
+        };
+
         const breadcrumbs = {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
@@ -83,7 +94,7 @@ const SEO: React.FC<SEOProps> = ({
             ]
         };
 
-        const pageSchemas: any[] = [globalOrganization];
+        const pageSchemas: any[] = [globalOrganization, websiteSchema];
 
         // 1. Article / BlogPosting Schema
         if (type === 'article') {
@@ -121,11 +132,7 @@ const SEO: React.FC<SEOProps> = ({
                     "name": authorName
                 },
                 "publisher": { "@id": orgId },
-                "isPartOf": { "@id": "https://mishallow.vercel.app/#website" },
-                "about": {
-                    "@type": "Service",
-                    "name": serviceType
-                },
+                "isPartOf": { "@id": websiteId },
                 "datePublished": datePublished || new Date().toISOString()
             });
         }
@@ -173,26 +180,23 @@ const SEO: React.FC<SEOProps> = ({
                     }
                 })
             });
-        }
 
-        // 3. FAQ Schema (Always link to main content)
-        if (faqs && faqs.length > 0) {
-            pageSchemas.push({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                "about": {
-                    "@type": "Service",
-                    "name": serviceType
-                },
-                "mainEntity": faqs.map(item => ({
-                    "@type": "Question",
-                    "name": item.question,
-                    "acceptedAnswer": {
-                        "@type": "Answer",
-                        "text": item.answer
-                    }
-                }))
-            });
+            // If FAQ exists on a service page, link it to the service
+            if (faqs && faqs.length > 0) {
+                pageSchemas.push({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "about": { "@id": serviceId },
+                    "mainEntity": faqs.map(item => ({
+                        "@type": "Question",
+                        "name": item.question,
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": item.answer
+                        }
+                    }))
+                });
+            }
         }
 
         return pageSchemas;
