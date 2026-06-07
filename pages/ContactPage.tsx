@@ -11,14 +11,14 @@ const ContactPage: React.FC = () => {
         <SEO
           title="تواصل معنا | استشارات قانونية مباشرة في مكة - مكتب مشعل بادغيش"
           description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
-          image="/logo.webp"
+          image="/images/logo/logo.webp"
           url="https://mishallow.vercel.app/contact"
         />
       </div>
       {/* Dark Hero */}
       <div className="pt-40 pb-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <img src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?q=80&w=1600" alt="Makkah" className="w-full h-full object-cover" />
+          <img src="/images/contact/contact-bg.jpg" alt="Makkah" className="w-full h-full object-cover" />
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
@@ -90,7 +90,7 @@ const ContactPage: React.FC = () => {
       <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-[400px] w-full bg-slate-800 rounded-[3rem] overflow-hidden relative border border-white/10 grayscale">
-            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1200" className="w-full h-full object-cover opacity-30" />
+            <img src="/images/contact/map-bg.jpg" className="w-full h-full object-cover opacity-30" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20">
                 <p className="text-[#B89544] font-black text-xl mb-2">نسعد باستقبالكم في مكتبنا</p>

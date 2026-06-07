@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const backgroundImages = [
-  "https://mishal-lawfirm.com/images/image.webp",
-  "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format,compress&q=80",
-  "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format,compress&q=80",
-  "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format,compress&q=80"
+  "/images/hero/hero-1.webp",
+  "/images/hero/hero-2.jpg",
+  "/images/hero/hero-3.jpg",
+  "/images/hero/hero-4.jpg"
 ];
 
 const Hero: React.FC = () => {
@@ -42,13 +42,7 @@ const Hero: React.FC = () => {
             className="absolute inset-0"
           >
             <img
-              src={backgroundImages[currentIndex].includes('unsplash') ? `${backgroundImages[currentIndex]}&w=1600` : backgroundImages[currentIndex]}
-              srcSet={backgroundImages[currentIndex].includes('unsplash') ? `
-                ${backgroundImages[currentIndex]}&w=400 400w,
-                ${backgroundImages[currentIndex]}&w=800 800w,
-                ${backgroundImages[currentIndex]}&w=1200 1200w,
-                ${backgroundImages[currentIndex]}&w=1600 1600w
-              ` : undefined}
+              src={backgroundImages[currentIndex]}
               sizes="(max-width: 768px) 100vw, 1600px"
               alt="المحامي مشعل بادغيش - خبير قانوني في مكة وجدة"
               width={1600}

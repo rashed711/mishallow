@@ -35,7 +35,7 @@ const ArticlesPage: React.FC = () => {
       <SEO
         title="المركز المعرفي | مقالات ودراسات قانونية متخصصة - مكتب مشعل بادغيش"
         description="استكشف أحدث المقالات القانونية، التحليلات النظامية، ودراسات الحالة التي تغطي الأنظمة السعودية، رؤية 2030، وقضايا الاستثمار والعمل. وعي قانوني لمستقبل واثق."
-        image="/logo.webp"
+        image="/images/logo/logo.webp"
         url="https://mishallow.vercel.app/articles"
       />
 

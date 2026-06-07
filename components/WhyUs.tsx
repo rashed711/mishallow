@@ -58,7 +58,7 @@ const WhyUs: React.FC = () => {
             <div className="absolute -inset-4 bg-[#B89544]/5 rounded-[2rem] lg:rounded-[3rem] blur-2xl"></div>
             <img
               className="absolute inset-0 w-full h-full object-cover rounded-[2rem] lg:rounded-[3rem] shadow-2xl z-10"
-              src="https://i.pinimg.com/736x/42/2b/35/422b35e7a8327a44af847424db270928.jpg"
+              src="/images/why-us/why-us-1.jpg"
               alt="Professional legal team meeting"
               loading="lazy"
               decoding="async"

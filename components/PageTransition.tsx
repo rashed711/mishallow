@@ -45,7 +45,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
                 <div className="relative">
                     <div className="absolute inset-0 bg-[#B89544] blur-3xl opacity-20 rounded-full"></div>
                     <img
-                        src="/logo.webp"
+                        src="/images/logo/logo.webp"
                         alt="Logo"
                         width={128}
                         height={128}

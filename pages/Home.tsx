@@ -17,7 +17,7 @@ const Home: React.FC = () => {
             <SEO
                 title="مكتب محاماة في مكة وجدة | مشعل بادغيش للمحاماة والاستشارات القانونية"
                 description="أفضل مكتب محاماة في مكة المكرمة وجدة. متخصصون في القضايا التجارية، العمالية، العسكرية، والأحوال الشخصية. فريق من المحامين والمستشارين القانونيين لخدمتكم عبر منصة ناجز."
-                image="https://mishallow.vercel.app/logo.webp"
+                image="/images/logo/logo.webp"
                 type="website"
                 url="https://mishallow.vercel.app"
             />

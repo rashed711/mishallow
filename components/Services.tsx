@@ -7,9 +7,7 @@ const Services: React.FC = () => {
     <section className="section-padding bg-[#0F172A] text-white relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1600"
-          srcSet="https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=400 400w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=800 800w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1200 1200w, https://i.pinimg.com/736x/23/5f/03/235f038bec7b1170d91e8757d1d773e5.jpg?auto=format,compress&q=80&w=1600 1600w"
-          sizes="100vw"
+          src="/images/services/services-bg.jpg"
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover opacity-5 md:opacity-10"

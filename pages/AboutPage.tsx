@@ -9,7 +9,7 @@ const AboutPage: React.FC = () => {
             <SEO
                 title="من نحن | نخبة من المحامين والمستشارين في مكة - مكتب مشعل بادغيش"
                 description="تعرف على رؤية ومنهجية مكتب مشعل بادغيش للمحاماة في مكة المكرمة. خبرة قانونية عميقة تخدم تطلعات رؤية المملكة 2030، مع الالتزام التام بأعلى معايير السرية والاحترافية."
-                image="/logo.webp"
+                image="/images/logo/logo.webp"
                 url="https://mishallow.vercel.app/about"
             />
             {/* Dark Luxury Hero */}
@@ -60,7 +60,7 @@ const AboutPage: React.FC = () => {
                         >
                             <div className="absolute -inset-4 bg-[#B89544]/10 rounded-[2.5rem] md:rounded-[3rem] blur-2xl"></div>
                             <img
-                                src="https://f.top4top.io/p_3763xsxmn1.png"
+                                src="/images/about/about-justice.png"
                                 alt="Justice"
                                 className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl w-full"
                             />
