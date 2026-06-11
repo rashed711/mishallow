@@ -8,10 +8,17 @@
 Options -MultiViews -Indexes
 RewriteEngine On
 
-# ─── أولاً: السماح بالوصول المباشر للملفات الموجودة فعلاً ───────────────────
-# (assets, images, robots.txt, sitemap.xml, backend/...)
+# ─── أولاً: إعادة توجيه الصفحات القديمة للحفاظ على الأرشفة (301 Redirects) ───────
+RewriteRule ^about\.html$ /about [R=301,L]
+RewriteRule ^contact\.html$ /contact [R=301,L]
+RewriteRule ^blog\.html$ /articles [R=301,L]
+RewriteRule ^book_consultation\.html$ /contact [R=301,L]
+
+# ─── ثانياً: السماح بالوصول المباشر للملفات الموجودة فعلاً ───────────────────
+# إذا كان الملف موجوداً، أو كان المجلد يحتوي على ملف index.html حقيقي، نمرره مباشرة.
+# عدا ذلك، نوجهه إلى الـ index.html الرئيسي لتقوم الـ React Router بمعالجته (يمنع الـ 403).
 RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
 RewriteRule ^ - [L]
 
 # ─── ثانياً: توجيه كل شيء آخر إلى index.html ───────────────────────────────
