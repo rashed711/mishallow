@@ -50,7 +50,7 @@ const About: React.FC = () => {
           >
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">حوكمة وامتثال وترافع تخصصي</span>
             <h2 className="text-3xl md:text-5xl font-black text-[#0F172A] mb-8 leading-[1.2]">
-              صيانة الحقوق عبر <br /> الأنظمة السعودية الحديثة
+              صون الحقوق عبر <br /> الأنظمة السعودية الحديثة
             </h2>
             <p className="text-slate-600 text-lg mb-10 leading-relaxed font-medium">
               في مكتب مشعل بادغيش بجدة ومكة، نمارس القانون برؤية تتماشى مع التحول الرقمي العدلي (ناجز) في المملكة. ندمج بين التخصص في نظام الشركات الجديد ونظام المعاملات المدنية وبين الخبرة العميقة في الترافع أمام المحاكم التجارية والعمالية.
