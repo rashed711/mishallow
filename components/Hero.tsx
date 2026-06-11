@@ -52,15 +52,6 @@ const Hero: React.FC = () => {
               loading={currentIndex === 0 ? "eager" : "lazy"}
               decoding={currentIndex === 0 ? "sync" : "async"}
             />
-            {/* Slow Zoom Effect - DISABLED ON MOBILE for performance */}
-            {!isMobile && (
-              <motion.div
-                className="absolute inset-0"
-                initial={{ scale: 1 }}
-                animate={{ scale: 1.08 }}
-                transition={{ duration: 15, ease: "linear" }}
-              />
-            )}
           </motion.div>
         </AnimatePresence>
 
@@ -72,7 +63,11 @@ const Hero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
           <div className="lg:col-span-7 text-center lg:text-right">
-            <div className="opacity-100 transform-none">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               <div className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg">
                 <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 shadow-[0_0_10px_#B89544]"></span>
                 مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
@@ -104,20 +99,7 @@ const Hero: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8">
                 <div className="animate-luxury-float w-full sm:w-auto">
                   <Link to="/contact" className="relative group block">
-                    {/* Rotating border effect for all devices */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-[#B89544] to-[#F3E2B1] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
-                    {!isMobile && (
-                      <div className="absolute -inset-1 rounded-2xl overflow-hidden">
-                        <motion.div
-                          className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,#FFD700_360deg)]"
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                          style={{ opacity: 0.5 }}
-                        />
-                      </div>
-                    )}
-
-                    <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-6 md:py-7 rounded-2xl transition-all bg-[length:200%_auto] animate-luxury-pulse animate-gradient-move overflow-hidden">
+                    <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-6 md:py-7 rounded-2xl bg-[length:200%_auto] animate-luxury-pulse animate-gradient-move overflow-hidden shadow-[0_0_20px_rgba(184,149,68,0.6)] hover:shadow-[0_0_30px_rgba(184,149,68,0.95)] transition-all duration-300">
                       {/* Permanent Shimmer Sweep */}
                       <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
                       <span className="relative z-10 text-base md:text-lg">
@@ -137,11 +119,16 @@ const Hero: React.FC = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Stats Cards - Simplified blurs for mobile */}
-          <div className="lg:col-span-5 relative mt-6 lg:mt-0">
+          <motion.div
+            className="lg:col-span-5 relative mt-6 lg:mt-0"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6">
               <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
                 <div className="flex items-center gap-5">
@@ -171,7 +158,7 @@ const Hero: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

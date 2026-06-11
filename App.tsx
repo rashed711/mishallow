@@ -75,6 +75,48 @@ const App: React.FC = () => {
         ]
       });
     }
+
+    // ─── تحميل Microsoft Clarity بشكل متأخر ذكي لعدم التأثير على الأداء ────────────────
+    let clarityInitialized = false;
+
+    const initClarity = () => {
+      if (clarityInitialized) return;
+      clarityInitialized = true;
+
+      // إزالة مستمعي الأحداث فور بدء التحميل
+      window.removeEventListener('scroll', initClarity);
+      window.removeEventListener('mousemove', initClarity);
+      window.removeEventListener('touchstart', initClarity);
+      window.removeEventListener('keydown', initClarity);
+
+      // تهيئة Clarity
+      (window as any).clarity = (window as any).clarity || function() {
+        ((window as any).clarity.q = (window as any).clarity.q || []).push(arguments);
+      };
+
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.async = true;
+      script.src = 'https://www.clarity.ms/tag/uctykanxrf';
+      document.head.appendChild(script);
+    };
+
+    // الاستماع لأي حركة من الزائر الفعلي لتشغيل الكود فوراً
+    window.addEventListener('scroll', initClarity, { passive: true });
+    window.addEventListener('mousemove', initClarity, { passive: true });
+    window.addEventListener('touchstart', initClarity, { passive: true });
+    window.addEventListener('keydown', initClarity, { passive: true });
+
+    // مؤقت أمان لتشغيل السكريبت بعد 4 ثوانٍ إذا لم يتحرك المستخدم
+    const clarityTimeout = setTimeout(initClarity, 4000);
+
+    return () => {
+      clearTimeout(clarityTimeout);
+      window.removeEventListener('scroll', initClarity);
+      window.removeEventListener('mousemove', initClarity);
+      window.removeEventListener('touchstart', initClarity);
+      window.removeEventListener('keydown', initClarity);
+    };
   }, []);
 
   return (

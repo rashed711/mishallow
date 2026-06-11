@@ -7,21 +7,7 @@ interface FadeInSectionProps {
 }
 
 const FadeInSection: React.FC<FadeInSectionProps> = ({ children, delay = 0 }) => {
-    // Optimization: Avoid per-instance useEffect/resize listeners.
-    // Instead of state, we use a simpler check or allow CSS to handle the "no animation" part.
-    // However, to keep the logic for Framer Motion, we check it once on mount.
-    const [shouldAnimate, setShouldAnimate] = React.useState(true);
-
-    React.useEffect(() => {
-        if (window.innerWidth < 768) {
-            setShouldAnimate(false);
-        }
-    }, []);
-
-    if (!shouldAnimate) {
-        return <div className="opacity-100 transform-none">{children}</div>;
-    }
-
+    // Enable animations on all devices, including mobile.
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
