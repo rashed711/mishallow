@@ -42,7 +42,7 @@ if (empty($name) || mb_strlen($name) < 2) {
 if (empty($phone)) {
     $errors[] = 'رقم الجوال مطلوب';
 } elseif (!Security::validatePhone($phone)) {
-    $errors[] = 'رقم الجوال غير صحيح، يرجى إدخال رقم سعودي صالح';
+    $errors[] = 'رقم الهاتف غير صحيح، يرجى إدخال رقم صالح (7-15 رقمًا)';
 }
 
 if (empty($message) || mb_strlen($message) < 10) {

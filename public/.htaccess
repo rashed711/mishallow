@@ -1,0 +1,41 @@
+# =====================================================
+# مكتب مشعل بادغيش - Apache SPA Routing
+# =====================================================
+# يوجّه كل الطلبات إلى index.html لدعم React Router
+# (Single Page Application - Client-Side Routing)
+# =====================================================
+
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# ─── أولاً: السماح بالوصول المباشر للملفات الموجودة فعلاً ───────────────────
+# (assets, images, robots.txt, sitemap.xml, backend/...)
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ─── ثانياً: توجيه كل شيء آخر إلى index.html ───────────────────────────────
+RewriteRule ^ index.html [L]
+
+# ─── رؤوس الأمان ─────────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # تخزين مؤقت للـ assets (لها هاش في اسمها فتُجدَّد تلقائياً)
+    <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|svg|webp|png|jpg|jpeg|gif|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # لا تخزين مؤقت لـ HTML
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ─── ضغط gzip ─────────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>

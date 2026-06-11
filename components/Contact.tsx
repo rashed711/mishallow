@@ -4,6 +4,10 @@ import { PhoneIcon, WhatsAppIcon } from './icons/ServiceIcons';
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
 const BACKEND_URL = '/backend/contact-form.php';
+// في بيئة التطوير المحلية لا يوجد PHP server، نستخدم WhatsApp كبديل
+const IS_DEV = typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+     window.location.hostname === '127.0.0.1');
 
 const Contact: React.FC = () => {
   const [name, setName]       = useState('');
@@ -19,6 +23,17 @@ const Contact: React.FC = () => {
     setFormState('loading');
     setResponseMsg('');
 
+    // ─── وضع التطوير المحلي: لا يوجد PHP server، نفتح واتساب مباشرة ──────────
+    if (IS_DEV) {
+      const text = `أهلاً، أود التواصل بخصوص استشارة قانونية:\n- الاسم: ${name}\n- الهاتف: ${phone}\n- التفاصيل: ${message}`;
+      window.open(`https://wa.me/966568000085?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+      setFormState('success');
+      setResponseMsg('تم فتح واتساب لإرسال رسالتك (وضع التطوير)');
+      setName(''); setPhone(''); setMessage('');
+      return;
+    }
+
+    // ─── الإنتاج: إرسال عبر الباك إند PHP ───────────────────────────────────
     try {
       const res = await fetch(BACKEND_URL, {
         method: 'POST',
@@ -131,7 +146,7 @@ const Contact: React.FC = () => {
           {/* Phone Field */}
           <div className="group space-y-3">
             <label className="text-[10px] md:text-xs font-black text-slate-400 group-focus-within:text-[#B89544] uppercase tracking-widest transition-colors pr-1">
-              رقم الجوال
+              رقم الهاتف / الجوال
             </label>
             <div className="relative">
               <input
@@ -142,7 +157,7 @@ const Contact: React.FC = () => {
                 onChange={e => setPhone(e.target.value)}
                 disabled={formState === 'loading'}
                 className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium disabled:opacity-50"
-                placeholder="05xxxxxxxx"
+                placeholder="+966 5x xxx xxxx | +1 555 xxx xxxx"
               />
             </div>
           </div>
