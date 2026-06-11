@@ -1,7 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PhoneIcon, WhatsAppIcon } from './icons/ServiceIcons';
 
+type FormState = 'idle' | 'loading' | 'success' | 'error';
+
+const BACKEND_URL = '/backend/contact-form.php';
+
 const Contact: React.FC = () => {
+  const [name, setName]       = useState('');
+  const [phone, setPhone]     = useState('');
+  const [message, setMessage] = useState('');
+  const [formState, setFormState] = useState<FormState>('idle');
+  const [responseMsg, setResponseMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formState === 'loading') return;
+
+    setFormState('loading');
+    setResponseMsg('');
+
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, message }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setFormState('success');
+        setResponseMsg(data.message);
+        setName(''); setPhone(''); setMessage('');
+      } else {
+        setFormState('error');
+        setResponseMsg(data.message || 'حدث خطأ، يرجى المحاولة مجدداً');
+      }
+    } catch {
+      setFormState('error');
+      setResponseMsg('تعذر الاتصال بالخادم، يرجى التواصل معنا مباشرة عبر الواتساب');
+    }
+  };
+
   return (
     <div className="bg-[#0F172A] p-6 md:p-16 rounded-[2rem] md:rounded-[2.5rem] border border-white/10 shadow-2xl">
       {/* Direct Contact Options Cards */}
@@ -50,7 +90,24 @@ const Contact: React.FC = () => {
         <span className="text-slate-500 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap">أو اترك رسالتك هنا</span>
         <div className="h-[1px] bg-white/10 flex-grow"></div>
       </div>
-      <form action="#" method="POST" className="space-y-8 md:space-y-12">
+
+      {/* ─── Success Message ─── */}
+      {formState === 'success' && (
+        <div className="mb-8 flex items-start gap-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-6 py-5 rounded-2xl font-medium text-sm">
+          <span className="text-xl mt-0.5">✅</span>
+          <p>{responseMsg}</p>
+        </div>
+      )}
+
+      {/* ─── Error Message ─── */}
+      {formState === 'error' && (
+        <div className="mb-8 flex items-start gap-4 bg-red-500/10 border border-red-500/30 text-red-400 px-6 py-5 rounded-2xl font-medium text-sm">
+          <span className="text-xl mt-0.5">⚠️</span>
+          <p>{responseMsg}</p>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-8 md:space-y-12">
         <div className="grid grid-cols-1 gap-6 md:gap-8 md:grid-cols-2">
           {/* Name Field */}
           <div className="group space-y-3">
@@ -59,23 +116,33 @@ const Contact: React.FC = () => {
             </label>
             <div className="relative">
               <input
+                id="contact-name"
                 type="text"
-                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium"
+                required
+                value={name}
+                onChange={e => setName(e.target.value)}
+                disabled={formState === 'loading'}
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium disabled:opacity-50"
                 placeholder="اكتب اسمك..."
               />
             </div>
           </div>
 
-          {/* Contact Field */}
+          {/* Phone Field */}
           <div className="group space-y-3">
             <label className="text-[10px] md:text-xs font-black text-slate-400 group-focus-within:text-[#B89544] uppercase tracking-widest transition-colors pr-1">
               رقم الجوال
             </label>
             <div className="relative">
               <input
-                type="text"
-                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium"
-                placeholder="05xxxxxxx"
+                id="contact-phone"
+                type="tel"
+                required
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                disabled={formState === 'loading'}
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-600 font-medium disabled:opacity-50"
+                placeholder="05xxxxxxxx"
               />
             </div>
           </div>
@@ -87,8 +154,13 @@ const Contact: React.FC = () => {
             </label>
             <div className="relative">
               <textarea
+                id="contact-message"
                 rows={5}
-                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none resize-none placeholder:text-slate-600 font-medium"
+                required
+                value={message}
+                onChange={e => setMessage(e.target.value)}
+                disabled={formState === 'loading'}
+                className="w-full bg-[#1E293B]/30 border border-white/5 text-white py-4 md:py-5 px-6 md:px-8 rounded-[1.1rem] md:rounded-[1.3rem] focus:bg-[#1E293B]/50 focus:border-[#B89544]/50 focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none resize-none placeholder:text-slate-600 font-medium disabled:opacity-50"
                 placeholder="اشرح لنا باختصار موضوعك القانوني ليتسنى لنا خدمتك بشكل أفضل..."
               ></textarea>
             </div>
@@ -96,20 +168,37 @@ const Contact: React.FC = () => {
         </div>
 
         <button
+          id="contact-submit"
           type="submit"
-          className="relative group overflow-hidden w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] font-black py-5 md:py-6 rounded-2xl shadow-2xl shadow-[#B89544]/20 hover:shadow-[#B89544]/40 transition-all transform hover:-translate-y-1 active:scale-95 animate-gradient-move"
+          disabled={formState === 'loading' || formState === 'success'}
+          className="relative group overflow-hidden w-full bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] bg-[length:200%_auto] text-[#0F172A] font-black py-5 md:py-6 rounded-2xl shadow-2xl shadow-[#B89544]/20 hover:shadow-[#B89544]/40 transition-all transform hover:-translate-y-1 active:scale-95 animate-gradient-move disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           <span className="relative z-10 flex items-center justify-center gap-3">
-            إرسال طلب الاستشارة القانونية
-            <svg className="w-5 h-5 transition-transform group-hover:translate-x-[-4px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
+            {formState === 'loading' ? (
+              <>
+                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                </svg>
+                <span>جارٍ الإرسال...</span>
+              </>
+            ) : formState === 'success' ? (
+              <>
+                <span>✅</span>
+                <span>تم الإرسال بنجاح</span>
+              </>
+            ) : (
+              <>
+                إرسال طلب الاستشارة القانونية
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-[-4px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+              </>
+            )}
           </span>
           <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-luxury-shimmer"></span>
         </button>
       </form>
-
-
     </div>
   );
 };

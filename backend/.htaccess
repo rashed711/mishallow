@@ -1,0 +1,51 @@
+# =====================================================
+# مكتب مشعل بادغيش - حماية مجلد الباك إند
+# Backend Folder Security - .htaccess
+# =====================================================
+
+# ─── منع استعراض الملفات ──────────────────────────────────────────────────────
+Options -Indexes
+
+# ─── منع الوصول المباشر لملفي الإعداد والأمان ────────────────────────────────
+<FilesMatch "^(config|Security|Mailer)\.php$">
+    Require all denied
+</FilesMatch>
+
+# ─── منع الوصول لملفات السجلات ────────────────────────────────────────────────
+<FilesMatch "\.(log|old)$">
+    Require all denied
+</FilesMatch>
+
+# ─── السماح فقط بملفات API المحددة ───────────────────────────────────────────
+<FilesMatch "^(contact-form|custom-service|index)\.php$">
+    Require all granted
+</FilesMatch>
+
+# ─── رؤوس HTTP الأمنية ────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # منع التخزين المؤقت للردود الحساسة
+    Header always set Cache-Control "no-store, no-cache, must-revalidate"
+    Header always set Pragma "no-cache"
+</IfModule>
+
+# ─── تعطيل تتبع HTTP ──────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^TRACE
+    RewriteRule .* - [F]
+</IfModule>
+
+# ─── تحديد حجم الطلب (منع هجمات DoS) ───────────────────────────────────────
+<IfModule mod_php.c>
+    php_value post_max_size 512K
+    php_value max_input_time 10
+    php_value max_execution_time 20
+</IfModule>
+
+# ─── إخفاء معلومات الخادم ─────────────────────────────────────────────────────
+ServerSignature Off

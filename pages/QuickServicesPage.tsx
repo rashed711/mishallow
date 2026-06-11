@@ -5,6 +5,10 @@ import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
 
+type CustomFormState = 'idle' | 'loading' | 'success' | 'error';
+
+const CUSTOM_SERVICE_API = '/backend/custom-service.php';
+
 const QuickServicesPage: React.FC = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState(quickServicesData[0].id);
     const [customService, setCustomService] = useState({
@@ -12,6 +16,8 @@ const QuickServicesPage: React.FC = () => {
         cost: '',
         description: ''
     });
+    const [customFormState, setCustomFormState] = useState<CustomFormState>('idle');
+    const [customResponseMsg, setCustomResponseMsg] = useState('');
     const navigate = useNavigate();
 
     const selectedCategory = quickServicesData.find(cat => cat.id === selectedCategoryId) || quickServicesData[0];
@@ -20,15 +26,38 @@ const QuickServicesPage: React.FC = () => {
         navigate(`/quick-services/${slug}`);
     };
 
-    const handleCustomServiceSubmit = (e: React.FormEvent) => {
+    const handleCustomServiceSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const text = `أهلاً بك، أود طلب خدمة مخصصة من مكتب مشعل بادغيش:
-- اسم الخدمة: ${customService.name}
-- التكلفة المتوقعة: ${customService.cost}
-- وصف الخدمة: ${customService.description}`;
-        
-        const whatsappUrl = `https://wa.me/966568000085?text=${encodeURIComponent(text)}`;
-        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        if (customFormState === 'loading') return;
+
+        setCustomFormState('loading');
+        setCustomResponseMsg('');
+
+        try {
+            const res = await fetch(CUSTOM_SERVICE_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    service_name:   customService.name,
+                    expected_cost:  customService.cost,
+                    description:    customService.description,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setCustomFormState('success');
+                setCustomResponseMsg(data.message);
+                setCustomService({ name: '', cost: '', description: '' });
+            } else {
+                setCustomFormState('error');
+                setCustomResponseMsg(data.message || 'حدث خطأ، يرجى المحاولة مجدداً');
+            }
+        } catch {
+            setCustomFormState('error');
+            setCustomResponseMsg('تعذر الاتصال بالخادم، يرجى التواصل معنا مباشرة عبر الواتساب');
+        }
     };
 
     return (
@@ -131,17 +160,35 @@ const QuickServicesPage: React.FC = () => {
                                             إذا لم تجد الخدمة المطلوبة في القوائم السابقة، يسعدنا تقديم خدمة مخصصة تلبي احتياجاتك الفريدة. يرجى ملء النموذج أدناه وسنقوم بالتواصل معك فوراً.
                                         </p>
 
+                                        {/* ─── Success Message ─── */}
+                                        {customFormState === 'success' && (
+                                            <div className="mb-6 flex items-start gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 px-5 py-4 rounded-xl font-medium text-sm">
+                                                <span className="text-xl mt-0.5">✅</span>
+                                                <p>{customResponseMsg}</p>
+                                            </div>
+                                        )}
+
+                                        {/* ─── Error Message ─── */}
+                                        {customFormState === 'error' && (
+                                            <div className="mb-6 flex items-start gap-3 bg-red-50 border border-red-200 text-red-600 px-5 py-4 rounded-xl font-medium text-sm">
+                                                <span className="text-xl mt-0.5">⚠️</span>
+                                                <p>{customResponseMsg}</p>
+                                            </div>
+                                        )}
+
                                         <form onSubmit={handleCustomServiceSubmit} className="space-y-6">
                                             <div className="group space-y-2">
                                                 <label className="text-xs font-black text-slate-500 group-focus-within:text-[#B89544] transition-colors pr-1">
                                                     اسم الخدمة المطلوبة
                                                 </label>
                                                 <input
+                                                    id="custom-service-name"
                                                     type="text"
                                                     required
                                                     value={customService.name}
                                                     onChange={e => setCustomService(prev => ({ ...prev, name: e.target.value }))}
-                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm"
+                                                    disabled={customFormState === 'loading'}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm disabled:opacity-50"
                                                     placeholder="مثال: كتابة مذكرة دفاع، تأسيس شركة..."
                                                 />
                                             </div>
@@ -151,11 +198,13 @@ const QuickServicesPage: React.FC = () => {
                                                     التكلفة المتوقعة أو المناسبة
                                                 </label>
                                                 <input
+                                                    id="custom-service-cost"
                                                     type="text"
                                                     required
                                                     value={customService.cost}
                                                     onChange={e => setCustomService(prev => ({ ...prev, cost: e.target.value }))}
-                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm"
+                                                    disabled={customFormState === 'loading'}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm disabled:opacity-50"
                                                     placeholder="مثال: 1500 ريال، أو اكتب غير محدد"
                                                 />
                                             </div>
@@ -165,21 +214,42 @@ const QuickServicesPage: React.FC = () => {
                                                     وصف الخدمة وتفاصيلها
                                                 </label>
                                                 <textarea
+                                                    id="custom-service-description"
                                                     required
                                                     rows={5}
                                                     value={customService.description}
                                                     onChange={e => setCustomService(prev => ({ ...prev, description: e.target.value }))}
-                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm resize-none"
+                                                    disabled={customFormState === 'loading'}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm resize-none disabled:opacity-50"
                                                     placeholder="يرجى كتابة التفاصيل والطلبات الخاصة بالخدمة هنا لتسهيل دراستها..."
                                                 ></textarea>
                                             </div>
 
                                             <button
+                                                id="custom-service-submit"
                                                 type="submit"
-                                                className="w-full flex items-center justify-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-sm hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all"
+                                                disabled={customFormState === 'loading' || customFormState === 'success'}
+                                                className="w-full flex items-center justify-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-sm hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                                             >
-                                                <WhatsAppIcon className="w-5 h-5 fill-current" />
-                                                <span>إرسال الطلب عبر الواتساب</span>
+                                                {customFormState === 'loading' ? (
+                                                    <>
+                                                        <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                                                        </svg>
+                                                        <span>جارٍ الإرسال...</span>
+                                                    </>
+                                                ) : customFormState === 'success' ? (
+                                                    <>
+                                                        <span>✅</span>
+                                                        <span>تم إرسال الطلب بنجاح</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <WhatsAppIcon className="w-5 h-5 fill-current" />
+                                                        <span>إرسال الطلب</span>
+                                                    </>
+                                                )}
                                             </button>
                                         </form>
                                     </motion.div>
