@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const backgroundImages = [
   "/images/hero/hero-1.webp",
-  "/images/hero/hero-2.jpg",
-  "/images/hero/hero-3.jpg",
-  "/images/hero/hero-4.jpg"
+  "/images/hero/hero-2.webp",
+  "/images/hero/hero-3.webp",
+  "/images/hero/hero-4.webp"
 ];
 
 const Hero: React.FC = () => {

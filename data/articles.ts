@@ -37,7 +37,7 @@ export const articles: Article[] = [
     category: "رؤية 2030",
     date: "20 يونيو 2024",
     rawDate: "2024-06-20",
-    image: "/images/articles/article-5.jpg",
+    image: "/images/articles/article-5.webp",
     readTime: "7 دقائق",
     views: 1850
   },
@@ -63,7 +63,7 @@ export const articles: Article[] = [
     category: "قانون العمل",
     date: "18 يونيو 2024",
     rawDate: "2024-06-18",
-    image: "/images/articles/article-6.jpg",
+    image: "/images/articles/article-6.webp",
     readTime: "6 دقائق",
     views: 2400
   },
@@ -89,7 +89,7 @@ export const articles: Article[] = [
     category: "الملكية الفكرية",
     date: "15 يونيو 2024",
     rawDate: "2024-06-15",
-    image: "/images/articles/article-7.jpg",
+    image: "/images/articles/article-7.webp",
     readTime: "5 دقائق",
     views: 1200
   },
@@ -115,7 +115,7 @@ export const articles: Article[] = [
     category: "استشارات قانونية",
     date: "10 يونيو 2024",
     rawDate: "2024-06-10",
-    image: "/images/articles/article-1.png",
+    image: "/images/articles/article-1.webp",
     readTime: "5 دقائق",
     views: 1560
   },
@@ -141,7 +141,7 @@ export const articles: Article[] = [
     category: "دليل العملاء",
     date: "05 يونيو 2024",
     rawDate: "2024-05-05",
-    image: "/images/articles/article-2.jpg",
+    image: "/images/articles/article-2.webp",
     readTime: "4 دقائق",
     views: 3200
   }

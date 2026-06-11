@@ -7,7 +7,7 @@ const Services: React.FC = () => {
     <section className="section-padding bg-[#0F172A] text-white relative overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="/images/services/services-bg.jpg"
+          src="/images/services/services-bg.webp"
           loading="lazy"
           decoding="async"
           className="w-full h-full object-cover opacity-5 md:opacity-10"

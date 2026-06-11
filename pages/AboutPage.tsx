@@ -60,7 +60,7 @@ const AboutPage: React.FC = () => {
                         >
                             <div className="absolute -inset-4 bg-[#B89544]/10 rounded-[2.5rem] md:rounded-[3rem] blur-2xl"></div>
                             <img
-                                src="/images/about/about-justice.png"
+                                src="/images/about/about-justice.webp"
                                 alt="Justice"
                                 className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl w-full"
                             />
