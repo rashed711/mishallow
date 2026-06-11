@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
     <Link
       to="/"
       onClick={handleLogoClick}
-      className="flex items-center space-x-3 rtl:space-x-reverse focus:outline-none group"
+    className="flex items-center gap-4 focus:outline-none group"
       title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
       aria-label="العودة إلى الصفحة الرئيسية لمكتب مشعل بادغيش"
     >

@@ -54,7 +54,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
             <Link
               to="/"
               onClick={handleLogoClick}
-              className="flex items-center space-x-3 rtl:space-x-reverse group"
+              className="flex items-center gap-4 group"
               title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
               aria-label="العودة للصفحة الرئيسية"
             >
