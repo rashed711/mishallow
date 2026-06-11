@@ -7,12 +7,28 @@ import { WhatsAppIcon } from '../components/icons/ServiceIcons';
 
 const QuickServicesPage: React.FC = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState(quickServicesData[0].id);
+    const [customService, setCustomService] = useState({
+        name: '',
+        cost: '',
+        description: ''
+    });
     const navigate = useNavigate();
 
     const selectedCategory = quickServicesData.find(cat => cat.id === selectedCategoryId) || quickServicesData[0];
 
     const handleViewDetail = (slug: string) => {
         navigate(`/quick-services/${slug}`);
+    };
+
+    const handleCustomServiceSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const text = `أهلاً بك، أود طلب خدمة مخصصة من مكتب مشعل بادغيش:
+- اسم الخدمة: ${customService.name}
+- التكلفة المتوقعة: ${customService.cost}
+- وصف الخدمة: ${customService.description}`;
+        
+        const whatsappUrl = `https://wa.me/966568000085?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -72,6 +88,16 @@ const QuickServicesPage: React.FC = () => {
                                         <span className={`hidden lg:block w-2 h-2 rounded-full ${selectedCategoryId === category.id ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
                                     </button>
                                 ))}
+                                <button
+                                    onClick={() => setSelectedCategoryId('custom-services')}
+                                    className={`flex-none lg:w-full flex items-center justify-between px-5 py-3 md:px-6 md:py-4 rounded-xl md:rounded-2xl font-bold transition-all duration-300 text-right whitespace-nowrap lg:whitespace-normal ${selectedCategoryId === 'custom-services'
+                                        ? 'bg-[#B89544] text-[#0F172A] shadow-lg shadow-[#B89544]/20 scale-[1.02]'
+                                        : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                                        }`}
+                                >
+                                    <span className="text-sm md:text-base">خدمات مخصصة</span>
+                                    <span className={`hidden lg:block w-2 h-2 rounded-full ${selectedCategoryId === 'custom-services' ? 'bg-[#0F172A]' : 'bg-slate-300'}`}></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -87,88 +113,160 @@ const QuickServicesPage: React.FC = () => {
                                 transition={{ duration: 0.4 }}
                                 className="space-y-6"
                             >
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-12 shadow-sm border border-slate-100"
-                                >
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <div className="w-12 h-12 rounded-2xl bg-[#B89544]/10 flex items-center justify-center">
-                                            <span className="text-[#B89544] font-black text-xl">#</span>
+                                {selectedCategoryId === 'custom-services' ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-12 shadow-sm border border-slate-100"
+                                    >
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <div className="w-12 h-12 rounded-2xl bg-[#B89544]/10 flex items-center justify-center">
+                                                <span className="text-[#B89544] font-black text-xl">★</span>
+                                            </div>
+                                            <h2 className="text-2xl md:text-3xl font-black text-[#0F172A]">طلب خدمة مخصصة</h2>
                                         </div>
-                                        <h2 className="text-2xl md:text-3xl font-black text-[#0F172A]">{selectedCategory.name}</h2>
-                                    </div>
 
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                        {selectedCategory.services.map((service, index) => (
-                                            <motion.div
-                                                key={service.id}
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: index * 0.1 }}
-                                                className="group relative bg-white rounded-[2rem] p-6 pb-7 transition-all duration-500 border border-[#B89544]/30 shadow-xl shadow-[#B89544]/5 flex flex-col h-full overflow-hidden hover:scale-[1.02] hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#B89544]/30 hover:border-[#B89544]"
+                                        <p className="text-slate-500 mb-8 font-medium text-sm md:text-base leading-relaxed">
+                                            إذا لم تجد الخدمة المطلوبة في القوائم السابقة، يسعدنا تقديم خدمة مخصصة تلبي احتياجاتك الفريدة. يرجى ملء النموذج أدناه وسنقوم بالتواصل معك فوراً.
+                                        </p>
+
+                                        <form onSubmit={handleCustomServiceSubmit} className="space-y-6">
+                                            <div className="group space-y-2">
+                                                <label className="text-xs font-black text-slate-500 group-focus-within:text-[#B89544] transition-colors pr-1">
+                                                    اسم الخدمة المطلوبة
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    value={customService.name}
+                                                    onChange={e => setCustomService(prev => ({ ...prev, name: e.target.value }))}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm"
+                                                    placeholder="مثال: كتابة مذكرة دفاع، تأسيس شركة..."
+                                                />
+                                            </div>
+
+                                            <div className="group space-y-2">
+                                                <label className="text-xs font-black text-slate-500 group-focus-within:text-[#B89544] transition-colors pr-1">
+                                                    التكلفة المتوقعة أو المناسبة
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    value={customService.cost}
+                                                    onChange={e => setCustomService(prev => ({ ...prev, cost: e.target.value }))}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm"
+                                                    placeholder="مثال: 1500 ريال، أو اكتب غير محدد"
+                                                />
+                                            </div>
+
+                                            <div className="group space-y-2">
+                                                <label className="text-xs font-black text-slate-500 group-focus-within:text-[#B89544] transition-colors pr-1">
+                                                    وصف الخدمة وتفاصيلها
+                                                </label>
+                                                <textarea
+                                                    required
+                                                    rows={5}
+                                                    value={customService.description}
+                                                    onChange={e => setCustomService(prev => ({ ...prev, description: e.target.value }))}
+                                                    className="w-full bg-slate-50 border border-slate-200 text-[#0F172A] py-4 px-6 rounded-xl focus:bg-white focus:border-[#B89544] focus:ring-4 focus:ring-[#B89544]/10 transition-all duration-300 outline-none placeholder:text-slate-400 font-medium text-sm resize-none"
+                                                    placeholder="يرجى كتابة التفاصيل والطلبات الخاصة بالخدمة هنا لتسهيل دراستها..."
+                                                ></textarea>
+                                            </div>
+
+                                            <button
+                                                type="submit"
+                                                className="w-full flex items-center justify-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-sm hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all"
                                             >
-                                                {/* Shine Effect Sweep */}
-                                                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
+                                                <WhatsAppIcon className="w-5 h-5 fill-current" />
+                                                <span>إرسال الطلب عبر الواتساب</span>
+                                            </button>
+                                        </form>
+                                    </motion.div>
+                                ) : (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        className="bg-white rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-12 shadow-sm border border-slate-100"
+                                    >
+                                        <div className="flex items-center gap-4 mb-10">
+                                            <div className="w-12 h-12 rounded-2xl bg-[#B89544]/10 flex items-center justify-center">
+                                                <span className="text-[#B89544] font-black text-xl">#</span>
+                                            </div>
+                                            <h2 className="text-2xl md:text-3xl font-black text-[#0F172A]">{selectedCategory.name}</h2>
+                                        </div>
 
-                                                {/* Permanent top gold accent line */}
-                                                <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/30 group-hover:h-2 transition-all"></div>
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            {selectedCategory.services.map((service, index) => (
+                                                <motion.div
+                                                    key={service.id}
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ delay: index * 0.1 }}
+                                                    className="group relative bg-white rounded-[2rem] p-6 pb-7 transition-all duration-500 border border-[#B89544]/30 shadow-xl shadow-[#B89544]/5 flex flex-col h-full overflow-hidden hover:scale-[1.02] hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#B89544]/30 hover:border-[#B89544]"
+                                                >
+                                                    {/* Shine Effect Sweep */}
+                                                    <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
 
-                                                <div className="flex items-center justify-between mb-6">
-                                                    <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 group-hover:bg-[#B89544] group-hover:text-white shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg transition-all duration-300">
-                                                        {index + 1}
+                                                    {/* Permanent top gold accent line */}
+                                                    <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-l from-[#B89544] via-[#B89544] to-[#B89544]/30 group-hover:h-2 transition-all"></div>
+
+                                                    <div className="flex items-center justify-between mb-6">
+                                                        <div className="w-12 h-12 rounded-xl bg-[#B89544]/10 group-hover:bg-[#B89544] group-hover:text-white shadow-inner flex items-center justify-center font-black text-[#B89544] text-lg transition-all duration-300">
+                                                            {index + 1}
+                                                        </div>
+                                                        <div className="text-[9px] font-black text-[#B89544] opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">
+                                                            {selectedCategory.name}
+                                                        </div>
                                                     </div>
-                                                    <div className="text-[9px] font-black text-[#B89544] opacity-50 uppercase tracking-widest group-hover:opacity-100 transition-opacity">
-                                                        {selectedCategory.name}
+
+                                                    <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
+                                                        {service.title}
+                                                    </h3>
+
+                                                    <p className="text-slate-500 text-xs leading-relaxed mb-4 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
+                                                        {service.description}
+                                                    </p>
+
+                                                    {service.priceRange && (
+                                                        <div className="mb-6 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-100 group-hover:bg-[#B89544]/5 group-hover:border-[#B89544]/20 transition-all">
+                                                            <span className="text-[10px] font-bold text-slate-400">التكلفة التقريبية</span>
+                                                            <span className="text-sm font-black text-[#B89544]">{service.priceRange}</span>
+                                                        </div>
+                                                    )}
+
+                                                    <div className="mt-auto space-y-4">
+                                                        <a
+                                                            href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-xs hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
+                                                        >
+                                                            <WhatsAppIcon className="w-4 h-4 fill-[#0F172A] group-hover/wa:fill-white transition-colors" />
+                                                            <span>اطلب الخدمة</span>
+                                                        </a>
+
+                                                        <button
+                                                            onClick={() => handleViewDetail(service.slug)}
+                                                            className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
+                                                        >
+                                                            <span>استكشف تفاصيل الخدمة</span>
+                                                            <span className="text-sm">←</span>
+                                                        </button>
                                                     </div>
-                                                </div>
 
-                                                <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
-                                                    {service.title}
-                                                </h3>
-
-                                                <p className="text-slate-500 text-xs leading-relaxed mb-4 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
-                                                    {service.description}
-                                                </p>
-
-                                                {service.priceRange && (
-                                                    <div className="mb-6 flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-100 group-hover:bg-[#B89544]/5 group-hover:border-[#B89544]/20 transition-all">
-                                                        <span className="text-[10px] font-bold text-slate-400">التكلفة التقريبية</span>
-                                                        <span className="text-sm font-black text-[#B89544]">{service.priceRange}</span>
-                                                    </div>
-                                                )}
-
-                                                <div className="mt-auto space-y-4">
-                                                    <a
-                                                        href={`https://wa.me/966568000085?text=${encodeURIComponent(`أهلاً بك، أرغب في طلب خدمة: ${service.title}`)}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex items-center gap-3 bg-[#B89544] text-[#0F172A] px-5 py-4 rounded-xl font-black text-xs hover:bg-[#0F172A] hover:text-white hover:shadow-lg transition-all w-full justify-center group/wa overflow-hidden relative"
-                                                    >
-                                                        <WhatsAppIcon className="w-4 h-4 fill-[#0F172A] group-hover/wa:fill-white transition-colors" />
-                                                        <span>اطلب الخدمة</span>
-                                                    </a>
-
-                                                    <button
-                                                        onClick={() => handleViewDetail(service.slug)}
-                                                        className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
-                                                    >
-                                                        <span>استكشف تفاصيل الخدمة</span>
-                                                        <span className="text-sm">←</span>
-                                                    </button>
-                                                </div>
-
-                                                <style>{`
-                                                    @keyframes shimmer {
-                                                        0% { transform: translateX(-100%) skewX(-15deg); }
-                                                        100% { transform: translateX(200%) skewX(-15deg); }
-                                                    }
-                                                `}</style>
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                </motion.div>
+                                                    <style>{`
+                                                        @keyframes shimmer {
+                                                            0% { transform: translateX(-100%) skewX(-15deg); }
+                                                            100% { transform: translateX(200%) skewX(-15deg); }
+                                                        }
+                                                    `}</style>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                )}
 
                                 <div className="bg-[#B89544]/5 border border-[#B89544]/10 rounded-[2.5rem] p-10 text-center">
                                     <h3 className="text-xl font-bold text-[#0F172A] mb-4">لم تجد الخدمة المطلوبة؟</h3>
