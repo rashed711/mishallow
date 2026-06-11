@@ -32,7 +32,7 @@ class Mailer
     }
 
     /**
-     * إرسال إيميل
+     * إرسال إيميل لمستلم واحد
      */
     public function send(
         string $toAddress,
@@ -42,13 +42,9 @@ class Mailer
         string $bodyText = ''
     ): bool {
         try {
-            // إنشاء اتصال SMTP آمن
             $socket = $this->createSocket();
-
-            // مصادقة SMTP
             $this->authenticate($socket);
 
-            // إرسال رسالة
             $boundary = '----=_Part_' . md5(uniqid('', true));
             $raw = $this->buildRaw(
                 $toAddress, $toName,
@@ -61,7 +57,6 @@ class Mailer
             $this->smtpCommand($socket, "RCPT TO:<{$toAddress}>", '250');
             $this->smtpCommand($socket, "DATA", '354');
 
-            // إرسال محتوى الرسالة
             fwrite($socket, $raw . "\r\n.\r\n");
             $response = $this->readResponse($socket);
 
@@ -78,6 +73,47 @@ class Mailer
             Security::log('ERROR', 'SMTP send failed: ' . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * إرسال إيميل لجميع المستلمين المُعرَّفين في MAIL_RECIPIENTS
+     * يفتح اتصال SMTP مستقل لكل مستلم لضمان التسليم حتى لو فشل أحدهم
+     *
+     * @return bool true إذا نجح الإرسال لجميع المستلمين، false إذا فشل أحدهم
+     */
+    public function sendToAll(
+        string $subject,
+        string $bodyHtml,
+        string $bodyText = ''
+    ): bool {
+        $recipients = MAIL_RECIPIENTS;
+
+        if (empty($recipients)) {
+            Security::log('WARN', 'sendToAll: MAIL_RECIPIENTS is empty');
+            return false;
+        }
+
+        $allSent = true;
+
+        foreach ($recipients as $recipient) {
+            $address = $recipient['address'] ?? '';
+            $name    = $recipient['name']    ?? $address;
+
+            if (empty($address)) {
+                continue;
+            }
+
+            $sent = $this->send($address, $name, $subject, $bodyHtml, $bodyText);
+
+            if (!$sent) {
+                $allSent = false;
+                Security::log('ERROR', "sendToAll: failed to send to {$address}");
+            } else {
+                Security::log('INFO', "sendToAll: sent to {$address}");
+            }
+        }
+
+        return $allSent;
     }
 
     // ─── SMTP Internals ───────────────────────────────────────────────────────

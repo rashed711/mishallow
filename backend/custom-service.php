@@ -78,9 +78,9 @@ HTML;
 $html    = Mailer::buildHtmlTemplate('طلب خدمة مخصصة جديد من الموقع', $bodyHtml);
 $subject = "⭐ طلب خدمة مخصصة: {$serviceName} | مكتب مشعل بادغيش";
 
-// ─── 6. إرسال الإيميل ─────────────────────────────────────────────────────────
+// ─── 6. إرسال الإيميل لجميع المستلمين ─────────────────────────────────────────
 $mailer = new Mailer();
-$sent   = $mailer->send(MAIL_TO_ADDRESS, MAIL_TO_NAME, $subject, $html);
+$sent   = $mailer->sendToAll($subject, $html);
 
 if ($sent) {
     Security::log('INFO', 'Custom service request sent', ['service' => $serviceName]);
