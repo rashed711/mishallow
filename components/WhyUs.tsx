@@ -19,7 +19,7 @@ const WhyUs: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             className="mb-12 lg:mb-0"
           >
             <h2 className="text-3xl font-black text-gray-900 sm:text-5xl mb-6 text-center md:text-right">
@@ -29,15 +29,29 @@ const WhyUs: React.FC = () => {
             <p className="text-lg text-gray-600 font-medium leading-relaxed mb-10 text-center md:text-right">
               نحن نؤمن بأن العلاقة مع العميل هي شراكة مبنية على الثقة والوضوح. هدفنا هو تقديم خدمة قانونية تتجاوز التوقعات، وتساهم في نجاح عملائنا وحماية مصالحهم.
             </p>
-            <ul className="space-y-5">
+            <motion.ul
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.1
+                  }
+                }
+              }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              className="space-y-5"
+            >
               {features.map((feature, index) => (
                 <motion.li
                   key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.02, x: -10 }}
+                  variants={{
+                    hidden: { opacity: 0, x: 30 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } }
+                  }}
+                  whileHover={{ scale: 1.03, x: -12 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   className="flex items-center group cursor-default"
                 >
                   <div className="flex-shrink-0 bg-[#B89544]/10 p-1.5 rounded-full group-hover:bg-[#B89544] transition-colors duration-300">
@@ -46,19 +60,19 @@ const WhyUs: React.FC = () => {
                   <p className="mr-4 text-lg text-gray-700 font-bold group-hover:text-[#B89544] transition-colors duration-300">{feature}</p>
                 </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
             className="relative h-[300px] lg:h-[500px]"
           >
             <div className="absolute -inset-4 bg-[#B89544]/5 rounded-[2rem] lg:rounded-[3rem] blur-2xl"></div>
             <img
               className="absolute inset-0 w-full h-full object-cover rounded-[2rem] lg:rounded-[3rem] shadow-2xl z-10"
-              src="/images/why-us/why-us-1.jpg"
+              src="/images/why-us/why-us-1.webp"
               alt="Professional legal team meeting"
               loading="lazy"
               decoding="async"

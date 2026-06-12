@@ -11,7 +11,7 @@ const About: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             className="lg:w-1/2 relative"
           >
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#B89544]/5 rounded-full blur-3xl"></div>
@@ -34,7 +34,7 @@ const About: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ y: [0, -10, 0] }}
               transition={{ delay: 0.4, duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.2 }}
               className="absolute -bottom-8 -left-8 bg-[#0F172A] p-10 rounded-[2rem] shadow-2xl border border-white/5 hidden md:block"
             >
               <span className="block text-4xl font-black text-[#B89544] mb-1">98%</span>
@@ -45,7 +45,7 @@ const About: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             className="lg:w-1/2 text-center lg:text-right flex flex-col items-center lg:items-end"
           >
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">حوكمة وامتثال وترافع تخصصي</span>

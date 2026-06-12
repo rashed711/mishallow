@@ -22,42 +22,28 @@ const Home: React.FC = () => {
                 url="https://mishallow.vercel.app"
             />
             <Hero />
-            <FadeInSection>
-                <div className="scroll-mt-24">
-                    <About />
-                </div>
-            </FadeInSection>
+            <div className="scroll-mt-24">
+                <About />
+            </div>
             
             {/* Grouping secondary sections to reduce observers and main-thread overhead on mobile, bypassed on desktop */}
             <LazySection height="2000px">
-                <FadeInSection>
-                    <div className="scroll-mt-24">
-                        <HowWeWork />
-                    </div>
-                </FadeInSection>
-                <FadeInSection>
-                    <div className="scroll-mt-24">
-                        <WhyUs />
-                    </div>
-                </FadeInSection>
-                <FadeInSection>
-                    <TeamSection limit={3} />
-                </FadeInSection>
-                <FadeInSection>
-                    <div className="scroll-mt-24">
-                        <WhoWeServe />
-                    </div>
-                </FadeInSection>
-                <FadeInSection>
-                    <div className="scroll-mt-24">
-                        <LatestArticles />
-                    </div>
-                </FadeInSection>
-                <FadeInSection>
-                    <div className="scroll-mt-24">
-                        <Services />
-                    </div>
-                </FadeInSection>
+                <div className="scroll-mt-24">
+                    <HowWeWork />
+                </div>
+                <div className="scroll-mt-24">
+                    <WhyUs />
+                </div>
+                <TeamSection limit={3} />
+                <div className="scroll-mt-24">
+                    <WhoWeServe />
+                </div>
+                <div className="scroll-mt-24">
+                    <LatestArticles />
+                </div>
+                <div className="scroll-mt-24">
+                    <Services />
+                </div>
             </LazySection>
         </div>
     );

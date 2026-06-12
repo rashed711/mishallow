@@ -64,39 +64,93 @@ const Hero: React.FC = () => {
 
           <div className="lg:col-span-7 text-center lg:text-right">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.12,
+                    delayChildren: 0.1
+                  }
+                }
+              }}
+              initial="hidden"
+              animate="visible"
             >
-              <div className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.9 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: { type: "spring", stiffness: 120, damping: 14 } 
+                  }
+                }}
+                className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg"
+              >
                 <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 shadow-[0_0_10px_#B89544]"></span>
                 مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
-              </div>
+              </motion.div>
 
               <div className="mb-8">
                 <div className="overflow-hidden mb-2">
-                  <h1
+                  <motion.h1
+                    variants={{
+                      hidden: { opacity: 0, y: 70 },
+                      visible: { 
+                        opacity: 1, 
+                        y: 0, 
+                        transition: { type: "spring", stiffness: 100, damping: 12 } 
+                      }
+                    }}
                     className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
                   >
                     مكتب محاماة خبير
-                  </h1>
+                  </motion.h1>
                 </div>
                 <div className="overflow-hidden">
-                  <h1
+                  <motion.h1
+                    variants={{
+                      hidden: { opacity: 0, y: 70 },
+                      visible: { 
+                        opacity: 1, 
+                        y: 0, 
+                        transition: { type: "spring", stiffness: 100, damping: 12, delay: 0.1 } 
+                      }
+                    }}
                     className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2"
                   >
                     بأنظمة المملكة الحديثة في مكة
-                  </h1>
+                  </motion.h1>
                 </div>
               </div>
 
-              <p
+              <motion.p
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { type: "spring", stiffness: 90, damping: 15 } 
+                  }
+                }}
                 className="text-white text-base md:text-lg leading-relaxed font-bold mb-10 max-w-2xl mx-auto lg:mx-0 drop-shadow-lg opacity-90"
               >
                 نقدم خدمات قانونية تخصصية في مكة وجدة، تركز على نظام الشركات الجديد، نظام المعاملات المدنية، والتمثيل القضائي عبر منصة "ناجز"، لضمان حماية استباقية لمصالح الأفراد والكيانات التجارية.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { type: "spring", stiffness: 100, damping: 12 } 
+                  }
+                }}
+                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 md:gap-8"
+              >
                 <div className="animate-luxury-float w-full sm:w-auto">
                   <Link to="/contact" className="relative group block">
                     <button className="w-full relative z-10 bg-gradient-to-r from-[#B89544] via-[#D4AF37] to-[#B89544] text-[#0F172A] font-black px-10 py-6 md:py-7 rounded-2xl bg-[length:200%_auto] animate-luxury-pulse animate-gradient-move overflow-hidden shadow-[0_0_20px_rgba(184,149,68,0.6)] hover:shadow-[0_0_30px_rgba(184,149,68,0.95)] transition-all duration-300">
@@ -118,19 +172,23 @@ const Hero: React.FC = () => {
                     </button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 
           {/* Stats Cards - Simplified blurs for mobile */}
           <motion.div
             className="lg:col-span-5 relative mt-6 lg:mt-0"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            initial={{ opacity: 0, x: 50, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ type: "spring", stiffness: 80, damping: 12, delay: 0.4 }}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6">
-              <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10 cursor-default"
+              >
                 <div className="flex items-center gap-5">
                   <div className="bg-[#B89544] p-3 rounded-2xl shadow-xl flex-shrink-0">
                     <svg className="w-6 h-6 text-[#0F172A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -142,9 +200,13 @@ const Hero: React.FC = () => {
                     <div className="text-[#B89544] font-bold text-xs uppercase">أعوام من التميز</div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10">
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="bg-white/5 backdrop-blur-sm p-6 rounded-3xl border border-white/10 group transition-all hover:bg-white/10 cursor-default"
+              >
                 <div className="flex items-center gap-5">
                   <div className="bg-white/10 p-3 rounded-2xl border border-white/20 flex-shrink-0">
                     <svg className="w-6 h-6 text-[#B89544]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -156,7 +218,7 @@ const Hero: React.FC = () => {
                     <div className="text-slate-300 font-bold text-xs uppercase">نسبة الإنجاز</div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
