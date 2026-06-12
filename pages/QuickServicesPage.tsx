@@ -63,7 +63,7 @@ const QuickServicesPage: React.FC = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             <SEO
-                title="خدمات قانونية سريعة | استشارة فورية عبر الواتساب - مكتب مشعل بادغيش"
+                title="خدمات قانونية سريعة | استشارة فورية عبر الواتساب - شركة مشعل بادغيش"
                 description="احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح، دعاوي، وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك القانونية بكل سهولة."
                 image="/images/logo/logo.webp"
                 url="https://mishallow.vercel.app/quick-services"

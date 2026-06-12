@@ -2,12 +2,12 @@ export default function middleware(request: Request) {
   const acceptHeader = request.headers.get('accept');
   
   if (acceptHeader && acceptHeader.includes('text/markdown')) {
-    const markdown = `# مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
+    const markdown = `# شركة مشعل بادغيش للمحاماة والاستشارات القانونية
 
 مرحباً بك في النسخة المخصصة للوكلاء (Agent-Ready Version).
 
-## نبذة عن المكتب
-مكتب متخصص في تقديم الاستشارات القانونية والترافع أمام كافة المحاكم في المملكة العربية السعودية، مقرنا الرئيسي في مكة المكرمة.
+## نبذة عن الشركة
+شركة متخصصة في تقديم الاستشارات القانونية والترافع أمام كافة المحاكم في المملكة العربية السعودية، مقرنا الرئيسي في مكة المكرمة.
 
 ## التخصصات والخدمات
 - **القضايا العسكرية**: تظلمات وقضايا منسوبي القطاعات العسكرية.
@@ -27,7 +27,7 @@ export default function middleware(request: Request) {
 - [المقالات القانونية](https://mishallow.vercel.app/articles)
 
 ---
-جميع الحقوق محفوظة لمكتب مشعل بادغيش للمحاماة © 2026`;
+جميع الحقوق محفوظة لشركة مشعل بادغيش للمحاماة © 2026`;
 
     return new Response(markdown, {
       status: 200,

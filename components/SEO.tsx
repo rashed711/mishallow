@@ -24,7 +24,7 @@ interface SEOProps {
 const SEO: React.FC<SEOProps> = ({
     title,
     description,
-    name = "مكتب مشعل بادغيش للمحاماة",
+    name = "شركة مشعل بادغيش للمحاماة",
     type = "website",
     url = "https://mishallow.vercel.app",
     image = "https://mishallow.vercel.app/images/logo/logo.webp",

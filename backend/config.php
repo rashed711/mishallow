@@ -1,7 +1,7 @@
 <?php
 /**
  * =====================================================
- * مكتب مشعل بادغيش - إعدادات الباك إند
+ * شركة مشعل بادغيش - إعدادات الباك إند
  * Backend Configuration - Mishal Badghish Law Firm
  * =====================================================
  * تحذير أمني: لا تشارك هذا الملف أبدًا ولا ترفعه علنياً
@@ -28,7 +28,7 @@ define('SMTP_CHARSET',  'UTF-8');
 define('SMTP_TIMEOUT',  15);
 
 // ─── إعدادات الإيميل ─────────────────────────────────────────────────────────
-define('MAIL_FROM_NAME',    'مكتب مشعل بادغيش للمحاماة');
+define('MAIL_FROM_NAME',    'شركة مشعل بادغيش للمحاماة');
 define('MAIL_FROM_ADDRESS', 'noreply@mishal-lawfirm.com');
 
 // ─── قائمة المستلمين ─────────────────────────────────────────────────────────
@@ -36,7 +36,7 @@ define('MAIL_FROM_ADDRESS', 'noreply@mishal-lawfirm.com');
 // لإزالة مستلم:      احذف سطره أو ضع // في بدايته
 define('MAIL_RECIPIENTS', [
     ['address' => 'rashed1711@gmail.com',       'name' => 'راشد'],
-    ['address' => 'info@mishal-lawfirm.com',    'name' => 'مكتب مشعل بادغيش'],
+    ['address' => 'info@mishal-lawfirm.com',    'name' => 'شركة مشعل بادغيش'],
     // ['address' => 'another@example.com',     'name' => 'مستلم آخر'], // مثال لإضافة مستلم ثالث
 ]);
 

@@ -90,7 +90,7 @@ const Hero: React.FC = () => {
                 className="inline-flex items-center px-4 py-2 bg-[#B89544]/20 border border-[#B89544]/40 backdrop-blur-sm text-[#F3E2B1] rounded-full text-[10px] md:text-xs font-black tracking-widest uppercase mb-8 shadow-lg"
               >
                 <span className="w-2 h-2 bg-[#B89544] rounded-full ml-3 shadow-[0_0_10px_#B89544]"></span>
-                مكتب مشعل بادغيش للمحاماة والاستشارات القانونية
+                شركة مشعل بادغيش للمحاماة والاستشارات القانونية
               </motion.div>
 
               <div className="mb-8">
@@ -106,7 +106,7 @@ const Hero: React.FC = () => {
                     }}
                     className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
                   >
-                    مكتب محاماة خبير
+                    شركة محاماة خبيرة
                   </motion.h1>
                 </div>
                 <div className="overflow-hidden">

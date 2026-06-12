@@ -1,7 +1,7 @@
 <?php
 /**
  * =====================================================
- * مكتب مشعل بادغيش - API: نموذج الخدمات المخصصة
+ * شركة مشعل بادغيش - API: نموذج الخدمات المخصصة
  * Custom Service Request Handler - custom-service.php
  * =====================================================
  * الحقول المطلوبة: service_name, expected_cost, description
@@ -76,7 +76,7 @@ $bodyHtml = <<<HTML
 HTML;
 
 $html    = Mailer::buildHtmlTemplate('طلب خدمة مخصصة جديد من الموقع', $bodyHtml);
-$subject = "⭐ طلب خدمة مخصصة: {$serviceName} | مكتب مشعل بادغيش";
+$subject = "⭐ طلب خدمة مخصصة: {$serviceName} | شركة مشعل بادغيش";
 
 // ─── 6. إرسال الإيميل لجميع المستلمين ─────────────────────────────────────────
 $mailer = new Mailer();

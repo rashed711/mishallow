@@ -47,13 +47,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       to="/"
       onClick={handleLogoClick}
     className="flex items-center gap-4 focus:outline-none group"
-      title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
-      aria-label="العودة إلى الصفحة الرئيسية لمكتب مشعل بادغيش"
+      title="شركة مشعل بادغيش للمحاماة - الصفحة الرئيسية"
+      aria-label="العودة إلى الصفحة الرئيسية لشركة مشعل بادغيش"
     >
       <div className="bg-white p-0 rounded-sm shadow-lg shadow-[#B89544]/20 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center overflow-hidden">
         <img
           src="/images/logo/logo.webp"
-          alt="شعار مكتب مشعل بادغيش للمحاماة"
+          alt="شعار شركة مشعل بادغيش للمحاماة"
           width={60}
           height={60}
           loading="eager"
@@ -203,7 +203,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
                     </Link>
                   </motion.div>
                   <div className="flex justify-center space-x-6 rtl:space-x-reverse opacity-40">
-                    <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">مكتب مشعل بادغيش للمحاماة</span>
+                    <span className="text-[10px] font-black tracking-widest text-[#B89544] uppercase">شركة مشعل بادغيش للمحاماة</span>
                   </div>
                 </div>
               </motion.div>
@@ -217,4 +217,4 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
 };
 
 export default React.memo(Header);
-
+

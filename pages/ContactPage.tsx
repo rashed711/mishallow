@@ -9,7 +9,7 @@ const ContactPage: React.FC = () => {
     <div className="bg-[#0F172A]">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <SEO
-          title="تواصل معنا | استشارات قانونية مباشرة في مكة - مكتب مشعل بادغيش"
+          title="تواصل معنا | استشارات قانونية مباشرة في مكة - شركة مشعل بادغيش"
           description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
           image="/images/logo/logo.webp"
           url="https://mishallow.vercel.app/contact"
@@ -93,7 +93,7 @@ const ContactPage: React.FC = () => {
             <img src="/images/contact/map-bg.webp" className="w-full h-full object-cover opacity-30" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20">
-                <p className="text-[#B89544] font-black text-xl mb-2">نسعد باستقبالكم في مكتبنا</p>
+                <p className="text-[#B89544] font-black text-xl mb-2">نسعد باستقبالكم في شركتنا</p>
                 <button className="text-white text-sm font-bold underline"><a href="https://maps.app.goo.gl/5CWETayPznbkXN9A9?g_st=iw" target="_blank">فتح الموقع في خرائط جوجل</a></button>
               </div>
             </div>

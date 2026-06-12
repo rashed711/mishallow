@@ -1,7 +1,7 @@
 <?php
 /**
  * =====================================================
- * مكتب مشعل بادغيش - مُرسِل الإيميلات عبر SMTP
+ * شركة مشعل بادغيش - مُرسِل الإيميلات عبر SMTP
  * Mailer - Sends emails via SMTP using PHP streams
  * No external dependencies required (no PHPMailer)
  * =====================================================
@@ -276,7 +276,7 @@ class Mailer
 <body>
   <div class="wrapper">
     <div class="header">
-      <h1>⚖️ مكتب مشعل بادغيش للمحاماة</h1>
+      <h1>⚖️ شركة مشعل بادغيش للمحاماة</h1>
       <p>{$title}</p>
     </div>
     <div class="body">

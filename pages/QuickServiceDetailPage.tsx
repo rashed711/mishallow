@@ -58,7 +58,7 @@ const QuickServiceDetailPage: React.FC = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             <SEO
-                title={`${service.title} | خدمات سريعة - مكتب مشعل بادغيش`}
+                title={`${service.title} | خدمات سريعة - شركة مشعل بادغيش`}
                 description={service.description}
                 url={`https://mishallow.vercel.app/quick-services/${service.slug}`}
             />

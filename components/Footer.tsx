@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
     { to: '/about', text: 'من نحن', title: 'نبذة عن خبراتنا وفريقنا القانوني' },
     { to: '/services', text: 'خدماتنا القانونية', title: 'استكشف تخصصاتنا وخدماتنا القانونية' },
     { to: '/articles', text: 'المقالات القانونية', title: 'اقرأ آخر الرؤى والدراسات القانونية' },
-    { to: '/contact', text: 'تواصل معنا', title: 'قنوات الاتصال المباشر بالمكتب' },
+    { to: '/contact', text: 'تواصل معنا', title: 'قنوات الاتصال المباشر بالشركة' },
   ];
 
   const handleLogoClick = (e: React.MouseEvent) => {
@@ -55,13 +55,13 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
               to="/"
               onClick={handleLogoClick}
               className="flex items-center gap-4 group"
-              title="مكتب مشعل بادغيش للمحاماة - الصفحة الرئيسية"
+              title="شركة مشعل بادغيش للمحاماة - الصفحة الرئيسية"
               aria-label="العودة للصفحة الرئيسية"
             >
               <div className="bg-white p-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
                 <img
                   src="/images/logo/logo.webp"
-                  alt="شعار مكتب مشعل بادغيش للمحاماة"
+                  alt="شعار شركة مشعل بادغيش للمحاماة"
                   width={40}
                   height={40}
                   loading="lazy"
@@ -157,7 +157,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-slate-400 text-xs text-center md:text-right">
-              &copy; {new Date().getFullYear()} مكتب مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة. ترخيص رقم (12345/67)
+              &copy; {new Date().getFullYear()} شركة مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة. ترخيص رقم (12345/67)
             </p>
             <div className="flex space-x-6 rtl:space-x-reverse text-slate-400 text-xs">
               <Link to="/privacy" className="hover:text-[#B89544] transition-colors">سياسة الخصوصية</Link>

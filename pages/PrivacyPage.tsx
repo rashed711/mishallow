@@ -5,8 +5,8 @@ const PrivacyPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title="سياسة الخصوصية | مكتب مشعل بادغيش للمحاماة"
-        description="نحن في مكتب مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية."
+        title="سياسة الخصوصية | شركة مشعل بادغيش للمحاماة"
+        description="نحن في شركة مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية."
         image="/images/logo/logo.webp"
         url="https://mishallow.vercel.app/privacy"
       />
@@ -22,7 +22,7 @@ const PrivacyPage: React.FC = () => {
           <div className="bg-slate-50 p-12 md:p-20 rounded-[3rem] border border-slate-100 shadow-sm text-right">
             <div className="prose prose-lg prose-slate max-w-none space-y-12">
               <p className="text-slate-600 font-medium text-lg leading-relaxed">
-                في مكتب مشعل بادغيش للمحاماة، ندرك تماماً أهمية خصوصية بياناتكم وسرية معلوماتكم القانونية. تهدف هذه السياسة إلى توضيح كيفية التعامل مع المعلومات في إطار أنظمة المملكة.
+                في شركة مشعل بادغيش للمحاماة، ندرك تماماً أهمية خصوصية بياناتكم وسرية معلوماتكم القانونية. تهدف هذه السياسة إلى توضيح كيفية التعامل مع المعلومات في إطار أنظمة المملكة.
               </p>
 
               <div className="space-y-4">
@@ -42,7 +42,7 @@ const PrivacyPage: React.FC = () => {
               <div className="space-y-4">
                 <h2 className="text-2xl font-black text-[#0F172A]">3. سرية المعلومات</h2>
                 <p className="text-slate-600 font-medium leading-relaxed">
-                  بصفتنا مكتب محاماة مرخص، فإننا نطبق أعلى معايير الأمان لحماية بياناتكم، ولا نقوم بمشاركة أي معلومات مع أطراف ثالثة إلا في الحدود النظامية الصارمة.
+                  بصفتنا شركة محاماة مرخصة، فإننا نطبق أعلى معايير الأمان لحماية بياناتكم، ولا نقوم بمشاركة أي معلومات مع أطراف ثالثة إلا في الحدود النظامية الصارمة.
                 </p>
               </div>
             </div>

@@ -42,7 +42,7 @@ function extractData(filePath) {
         if (slugMatch) {
             items.push({
                 slug:        slugMatch[1],
-                title:       titleMatch ? titleMatch[2] : 'مكتب مشعل بادغيش للمحاماة',
+                title:       titleMatch ? titleMatch[2] : 'شركة مشعل بادغيش للمحاماة',
                 description: descMatch  ? descMatch[2]  : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
                 image:       imageMatch ? imageMatch[1]  : 'https://mishallow.vercel.app/images/logo/logo.webp'
             });
