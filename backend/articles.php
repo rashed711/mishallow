@@ -115,6 +115,14 @@ switch ($method) {
         }
 
         try {
+            // جلب الصورة القديمة لمقارنتها وحذفها إذا تم استبدالها
+            $oldStmt = $db->prepare("SELECT image FROM articles WHERE id = ?");
+            $oldStmt->execute([$id]);
+            $oldArticle = $oldStmt->fetch();
+            if ($oldArticle && !empty($oldArticle['image']) && $oldArticle['image'] !== $image) {
+                Security::deleteImage($oldArticle['image']);
+            }
+
             $stmt = $db->prepare("UPDATE articles SET slug = ?, title = ?, excerpt = ?, content = ?, category = ?, image = ?, readTime = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
             $stmt->execute([$slug, $title, $excerpt, $content, $category, $image, $readTime, $id]);
             Security::jsonResponse(true, 'تم تحديث المقال بنجاح');
@@ -129,6 +137,14 @@ switch ($method) {
         $id = intval($_GET['id'] ?? 0);
         if (empty($id)) {
             Security::jsonResponse(false, 'معرف المقال مطلوب لحذفه', 400);
+        }
+
+        // جلب الصورة القديمة لحذفها من المجلد
+        $oldStmt = $db->prepare("SELECT image FROM articles WHERE id = ?");
+        $oldStmt->execute([$id]);
+        $oldArticle = $oldStmt->fetch();
+        if ($oldArticle && !empty($oldArticle['image'])) {
+            Security::deleteImage($oldArticle['image']);
         }
 
         $stmt = $db->prepare("DELETE FROM articles WHERE id = ?");

@@ -178,4 +178,26 @@ class Security
 
         file_put_contents(LOG_FILE, $entry, FILE_APPEND | LOCK_EX);
     }
+
+    /**
+     * حذف ملف الصورة من الخادم لتوفير المساحة وتجنب الملفات اليتيمة
+     */
+    public static function deleteImage(?string $imageUrl): void
+    {
+        if (empty($imageUrl)) {
+            return;
+        }
+        
+        // التحقق من أن مسار الصورة يبدأ بـ /uploads/ لتجنب حذف ملفات خارج المجلد المسموح
+        if (strpos($imageUrl, '/uploads/') === 0) {
+            $fileName = substr($imageUrl, 9); // إزالة '/uploads/' للحصول على اسم الملف فقط
+            $fileName = basename($fileName);   // حماية إضافية ضد هجمات تخطي المجلدات (Path Traversal)
+            $filePath = __DIR__ . '/../uploads/' . $fileName;
+            
+            if (file_exists($filePath) && is_file($filePath)) {
+                unlink($filePath);
+                self::log('INFO', "Deleted orphaned image file: {$fileName}");
+            }
+        }
+    }
 }

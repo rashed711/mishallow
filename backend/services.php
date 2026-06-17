@@ -123,6 +123,14 @@ switch ($method) {
         }
 
         try {
+            // جلب الصورة القديمة لمقارنتها وحذفها إذا تم استبدالها
+            $oldStmt = $db->prepare("SELECT image FROM services WHERE id = ?");
+            $oldStmt->execute([$id]);
+            $oldService = $oldStmt->fetch();
+            if ($oldService && !empty($oldService['image']) && $oldService['image'] !== $image) {
+                Security::deleteImage($oldService['image']);
+            }
+
             $stmt = $db->prepare("UPDATE services SET slug = ?, title = ?, seoTitle = ?, seoDescription = ?, icon = ?, image = ?, shortDescription = ?, fullDescription = ?, features = ?, targetAudience = ?, legalSystems = ?, faq = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
             $stmt->execute([$slug, $title, $seoTitle, $seoDescription, $icon, $image, $shortDescription, $fullDescription, $features, $targetAudience, $legalSystems, $faq, $id]);
             Security::jsonResponse(true, 'تم تحديث الخدمة بنجاح');
@@ -137,6 +145,14 @@ switch ($method) {
         $id = Security::sanitize($_GET['id'] ?? '', 50);
         if (empty($id)) {
             Security::jsonResponse(false, 'معرف الخدمة مطلوب لحذفها', 400);
+        }
+
+        // جلب الصورة القديمة لحذفها من المجلد
+        $oldStmt = $db->prepare("SELECT image FROM services WHERE id = ?");
+        $oldStmt->execute([$id]);
+        $oldService = $oldStmt->fetch();
+        if ($oldService && !empty($oldService['image'])) {
+            Security::deleteImage($oldService['image']);
         }
 
         $stmt = $db->prepare("DELETE FROM services WHERE id = ?");
