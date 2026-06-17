@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { servicesData, ServiceData } from '../data/services.ts';
+import { servicesData, ServiceData, serviceIconsMap } from '../data/services.ts';
+import { apiFetch } from '../data/api';
 
 interface ServicesPageProps {
   onOpenModal: () => void;
 }
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
+  const [services, setServices] = useState<ServiceData[]>(servicesData);
+
+  useEffect(() => {
+    const loadServices = async () => {
+      const data = await apiFetch('/services.php');
+      if (data.success && data.services && Array.isArray(data.services)) {
+        const mapped = data.services.map((s: any) => ({
+          ...s,
+          icon: serviceIconsMap[s.icon] || serviceIconsMap.ScaleIcon
+        }));
+        setServices(mapped);
+      }
+    };
+    loadServices();
+  }, []);
+
   return (
     <div className="bg-[#F8FAFC]">
       <SEO
@@ -54,7 +71,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
       <section className="py-5 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {servicesData.map((service, index) => {
+            {services.map((service, index) => {
               const Icon = service.icon;
               return (
                 <motion.div

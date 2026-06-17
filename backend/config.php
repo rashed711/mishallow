@@ -45,7 +45,6 @@ define('MAIL_RECIPIENTS', [
 define('ALLOWED_ORIGINS', [
     'https://mishal-lawfirm.com',
     'https://www.mishal-lawfirm.com',
-    'https://mishallow.vercel.app',
 ]);
 
 // الحد الأقصى لعدد الطلبات في الدقيقة لكل IP (Rate Limiting)
@@ -62,3 +61,16 @@ define('MAX_SUBJECT_LENGTH', 200);
 define('LOG_ENABLED',  true);
 define('LOG_FILE',     __DIR__ . '/logs/mail.log');
 define('LOG_MAX_SIZE', 1048576); // 1MB - يتم تدوير الملف عند تجاوز الحد
+
+// ─── تهيئة الجلسة الموحدة للموقع ولوحة التحكم ─────────────────────────────────
+if (session_status() === PHP_SESSION_NONE) {
+    $secure = isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) === 'on';
+    session_set_cookie_params([
+        'lifetime' => 86400, // يوم واحد
+        'path' => '/',
+        'secure' => $secure,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+    session_start();
+}

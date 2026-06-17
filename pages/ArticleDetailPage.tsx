@@ -1,16 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { articles } from '../data/articles';
+import { articles as staticArticles, Article } from '../data/articles';
+import { apiFetch } from '../data/api';
 
 interface ArticleDetailPageProps {
   onOpenModal: () => void;
 }
 
 const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) => {
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const article = articles.find(a => a.slug === slug);
+  
+  const fallbackArticle = staticArticles.find(a => a.slug === slug);
+  const [article, setArticle] = useState<Article | undefined>(fallbackArticle);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [articles, setArticles] = useState<Article[]>(staticArticles);
+
+  useEffect(() => {
+    const loadArticleDetail = async () => {
+      if (!slug) return;
+      const data = await apiFetch(`/articles.php?slug=${slug}`);
+      if (data.success && data.article) {
+        setArticle(data.article);
+      }
+      setLoading(false);
+    };
+
+    const loadAllArticles = async () => {
+      const data = await apiFetch('/articles.php');
+      if (data.success && data.articles && Array.isArray(data.articles)) {
+        setArticles(data.articles);
+      }
+    };
+
+    loadArticleDetail();
+    loadAllArticles();
+  }, [slug]);
+
+  if (loading && !article) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-[#0F172A]">
+        <div className="text-white">جاري تحميل المقال...</div>
+      </div>
+    );
+  }
 
   if (!article) {
     return <div className="pt-40 text-center text-xl font-bold">عذراً، هذا المقال غير موجود.</div>;

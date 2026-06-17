@@ -1,16 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 
-import { articles, ARTICLE_CATEGORIES } from '../data/articles';
+import { articles as staticArticles, ARTICLE_CATEGORIES, Article } from '../data/articles';
+import { apiFetch } from '../data/api';
 
 const ArticlesPage: React.FC = () => {
+  const [articles, setArticles] = useState<Article[]>(staticArticles);
   const [categoryFilter, setCategoryFilter] = useState('الكل');
   const [sortBy, setSortBy] = useState<'date' | 'popularity'>('date');
   const navigate = useNavigate();
 
   const categories = ARTICLE_CATEGORIES;
+
+  useEffect(() => {
+    const loadArticles = async () => {
+      const data = await apiFetch('/articles.php');
+      if (data.success && data.articles && Array.isArray(data.articles)) {
+        setArticles(data.articles);
+      }
+    };
+    loadArticles();
+  }, []);
 
   const processedArticles = useMemo(() => {
     let filtered = categoryFilter === 'الكل'
@@ -24,7 +36,7 @@ const ArticlesPage: React.FC = () => {
         return b.views - a.views;
       }
     });
-  }, [categoryFilter, sortBy]);
+  }, [articles, categoryFilter, sortBy]);
 
   const handleSelectArticle = (articleSlug: string) => {
     navigate(`/articles/${articleSlug}`);

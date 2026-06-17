@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Navigate, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
-import { servicesData } from '../data/services.ts';
+import { servicesData, ServiceData, serviceIconsMap } from '../data/services.ts';
 import Contact from '../components/Contact';
+import { apiFetch } from '../data/api';
 
 interface ServiceDetailPageProps {
     onOpenModal: () => void;
@@ -12,9 +13,37 @@ interface ServiceDetailPageProps {
 const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const service = servicesData.find(s => s.slug === slug);
+    
+    // إعداد القيمة الافتراضية من البيانات الثابتة
+    const fallbackService = servicesData.find(s => s.slug === slug);
+    const [service, setService] = useState<ServiceData | undefined>(fallbackService);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const loadServiceDetail = async () => {
+            if (!slug) return;
+            const data = await apiFetch(`/services.php?slug=${slug}`);
+            if (data.success && data.service) {
+                const s = data.service;
+                setService({
+                    ...s,
+                    icon: serviceIconsMap[s.icon] || serviceIconsMap.ScaleIcon
+                });
+            }
+            setLoading(false);
+        };
+        loadServiceDetail();
+    }, [slug]);
 
     const handleBack = () => navigate('/services');
+
+    if (loading && !service) {
+        return (
+            <div className="h-screen w-full flex items-center justify-center bg-[#0F172A]">
+                <div className="text-white">جاري تحميل تفاصيل الخدمة...</div>
+            </div>
+        );
+    }
 
     if (!service) {
         return <Navigate to="/services" replace />;

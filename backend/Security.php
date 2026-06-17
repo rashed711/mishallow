@@ -18,6 +18,11 @@ class Security
     {
         $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
+        // إذا كان الطلب من نفس النطاق ولا يحتوي على Origin Header (مثل طلبات GET من نفس Origin)
+        if (empty($origin)) {
+            return;
+        }
+
         // في بيئة التطوير اسمح بـ localhost
         if (APP_ENV === 'development' && (
             str_starts_with($origin, 'http://localhost') ||
@@ -28,7 +33,7 @@ class Security
         }
 
         if (!in_array($origin, ALLOWED_ORIGINS, true)) {
-            self::jsonResponse(false, 'غير مسموح بالوصول', 403);
+            self::jsonResponse(false, 'غير مسموح بالوصول (CORS)', 403, ['origin' => $origin]);
         }
 
         self::setCorsHeaders($origin);
@@ -139,8 +144,9 @@ class Security
     private static function setCorsHeaders(string $origin): void
     {
         header('Access-Control-Allow-Origin: ' . $origin);
-        header('Access-Control-Allow-Methods: POST, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, X-Requested-With, Authorization');
+        header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Max-Age: 86400');
         header('X-Content-Type-Options: nosniff');
         header('X-Frame-Options: DENY');

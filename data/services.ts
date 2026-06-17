@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     ShieldCheckIcon,
     BriefcaseIcon,
@@ -10,6 +11,19 @@ import {
     ScaleIcon,
     HeartIcon
 } from '../components/icons/ServiceIcons';
+
+export const serviceIconsMap: Record<string, React.FC<any>> = {
+    ShieldCheckIcon,
+    BriefcaseIcon,
+    UsersIcon,
+    GavelIcon,
+    DocumentTextIcon,
+    BuildingLibraryIcon,
+    ClipboardDocumentCheckIcon,
+    BuildingOfficeIcon,
+    ScaleIcon,
+    HeartIcon
+};
 
 export interface LegalSystem {
     name: string;

@@ -19,6 +19,14 @@ const QuickServicesPage = lazy(() => import('./pages/QuickServicesPage'));
 const QuickServiceDetailPage = lazy(() => import('./pages/QuickServiceDetailPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
+
+// Admin pages
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminLayout = lazy(() => import('./components/AdminLayout'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const AdminServices = lazy(() => import('./pages/AdminServices'));
+const AdminArticles = lazy(() => import('./pages/AdminArticles'));
+
 import { ServiceRequestModal } from './components/ServiceRequestModal';
 
 const LoadingFallback = () => (
@@ -53,6 +61,7 @@ const App: React.FC = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     // WebMCP Integration for AI Agents
@@ -122,10 +131,10 @@ const App: React.FC = () => {
   return (
     <>
       <ScrollToTop />
-      <WhatsAppButton />
-      <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800 relative">
-        <FloatingShapes />
-        <Header onOpenModal={handleOpenModal} />
+      {!isAdminRoute && <WhatsAppButton />}
+      <div className={`${isAdminRoute ? '' : 'bg-[#F8FAFC]'} min-h-screen font-sans text-slate-800 relative`}>
+        {!isAdminRoute && <FloatingShapes />}
+        {!isAdminRoute && <Header onOpenModal={handleOpenModal} />}
         <main className="relative z-10">
           <Suspense fallback={<LoadingFallback />}>
             <AnimatePresence mode="wait">
@@ -134,7 +143,6 @@ const App: React.FC = () => {
                 <Route path="/" element={<PageTransition><Home /></PageTransition>} />
                 <Route path="/about" element={<PageTransition><AboutPage /></PageTransition>} />
                 <Route path="/services" element={<PageTransition><ServicesPage onOpenModal={handleOpenModal} /></PageTransition>} />
-                <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
                 <Route path="/articles" element={<PageTransition><ArticlesPage /></PageTransition>} />
                 <Route path="/articles/:slug" element={<PageTransition><ArticleDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
                 <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
@@ -142,13 +150,23 @@ const App: React.FC = () => {
                 <Route path="/quick-services/:slug" element={<PageTransition><QuickServiceDetailPage /></PageTransition>} />
                 <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
                 <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
+                
+                {/* لوحة التحكم */}
+                <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="services" element={<AdminServices />} />
+                  <Route path="articles" element={<AdminArticles />} />
+                </Route>
+
+                <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
                 <Route path="*" element={<PageTransition><Home /></PageTransition>} />
               </Routes>
             </AnimatePresence>
           </Suspense>
         </main>
-        <Footer onOpenModal={handleOpenModal} />
-        <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />
+        {!isAdminRoute && <Footer onOpenModal={handleOpenModal} />}
+        {!isAdminRoute && <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />}
       </div>
     </>
   );
