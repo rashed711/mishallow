@@ -1,28 +1,82 @@
-import React from 'react';
-import { useParams, Navigate, useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
+import { apiFetch } from '../data/api';
 
 const QuickServiceDetailPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
+    const [service, setService] = useState<any>(null);
+    const [categoryName, setCategoryName] = useState<string>('');
+    const [loading, setLoading] = useState(true);
 
-    // Find the service across all categories
-    let service = null;
-    let categoryName = '';
-    for (const category of quickServicesData) {
-        const found = category.services.find(s => s.slug === slug);
-        if (found) {
-            service = found;
-            categoryName = category.name;
-            break;
-        }
+    useEffect(() => {
+        const fetchService = async () => {
+            setLoading(true);
+            try {
+                // 1. Try fetching from dynamic SQLite API
+                const data = await apiFetch(`/quick-services.php?slug=${slug}`);
+                if (data.success && data.service) {
+                    setService(data.service);
+                    
+                    // Get category name dynamically
+                    if (data.service.category_name) {
+                        setCategoryName(data.service.category_name);
+                    } else if (data.service.category_id) {
+                        // Fallback category name if available
+                        const staticCat = quickServicesData.find(c => c.id === data.service.category_id);
+                        setCategoryName(staticCat ? staticCat.name : 'خدمة سريعة');
+                    } else {
+                        setCategoryName('خدمة سريعة');
+                    }
+                    setLoading(false);
+                    return;
+                }
+            } catch (err) {
+                console.error("Error fetching dynamic service detail:", err);
+            }
+
+            // 2. Fallback to static data if API fails or doesn't find the service
+            let foundService = null;
+            let foundCategoryName = '';
+            for (const category of quickServicesData) {
+                const found = category.services.find(s => s.slug === slug);
+                if (found) {
+                    foundService = found;
+                    foundCategoryName = category.name;
+                    break;
+                }
+            }
+
+            if (foundService) {
+                setService(foundService);
+                setCategoryName(foundCategoryName);
+            } else {
+                // If not found anywhere, redirect to list
+                navigate('/quick-services', { replace: true });
+            }
+            setLoading(false);
+        };
+
+        fetchService();
+    }, [slug, navigate]);
+
+    if (loading) {
+        return (
+            <div className="bg-slate-50 min-h-screen flex items-center justify-center pt-20">
+                <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-[#B89544] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-slate-500 font-bold">جاري تحميل تفاصيل الخدمة...</p>
+                </div>
+            </div>
+        );
     }
 
     if (!service) {
-        return <Navigate to="/quick-services" replace />;
+        return null;
     }
 
     const handleBack = () => navigate('/quick-services');
@@ -31,6 +85,7 @@ const QuickServiceDetailPage: React.FC = () => {
 
     // Helper to render text with markdown links [text](/path)
     const renderContent = (text: string) => {
+        if (!text) return '';
         const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
         const parts = [];
         let lastIndex = 0;
@@ -54,6 +109,8 @@ const QuickServiceDetailPage: React.FC = () => {
 
         return parts.length > 0 ? parts : text;
     };
+
+    const featuresList = Array.isArray(service.features) ? service.features : [];
 
     return (
         <div className="bg-slate-50 min-h-screen">
@@ -117,24 +174,26 @@ const QuickServiceDetailPage: React.FC = () => {
                             </p>
                         </div>
 
-                        <div className="mb-16">
-                            <h2 className="text-2xl font-black text-[#0F172A] mb-8 flex items-center gap-4">
-                                <span className="w-2 h-8 bg-[#B89544] rounded-full"></span>
-                                ما تضمنه الخدمة
-                            </h2>
-                            <div className="grid md:grid-cols-2 gap-6">
-                                {service.features.map((feature, idx) => (
-                                    <div key={idx} className="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100 group hover:border-[#B89544]/30 transition-colors">
-                                        <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
-                                            <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
-                                            </svg>
+                        {featuresList.length > 0 && (
+                            <div className="mb-16">
+                                <h2 className="text-2xl font-black text-[#0F172A] mb-8 flex items-center gap-4">
+                                    <span className="w-2 h-8 bg-[#B89544] rounded-full"></span>
+                                    ما تضمنه الخدمة
+                                </h2>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    {featuresList.map((feature: string, idx: number) => (
+                                        <div key={idx} className="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100 group hover:border-[#B89544]/30 transition-colors">
+                                            <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0">
+                                                <svg className="w-5 h-5 text-[#B89544]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-slate-700 font-bold">{feature}</span>
                                         </div>
-                                        <span className="text-slate-700 font-bold">{feature}</span>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
 
                         <div className="pt-12 border-t border-slate-100 text-center">
                             <h3 className="text-xl font-black text-[#0F172A] mb-8">هل أنت جاهز للبدء؟</h3>

@@ -26,6 +26,8 @@ const AdminLayout = lazy(() => import('./components/AdminLayout'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const AdminServices = lazy(() => import('./pages/AdminServices'));
 const AdminArticles = lazy(() => import('./pages/AdminArticles'));
+const AdminQuickServices = lazy(() => import('./pages/AdminQuickServices'));
+const AdminUsers = lazy(() => import('./pages/AdminUsers'));
 
 import { ServiceRequestModal } from './components/ServiceRequestModal';
 
@@ -157,6 +159,8 @@ const App: React.FC = () => {
                   <Route index element={<AdminDashboard />} />
                   <Route path="services" element={<AdminServices />} />
                   <Route path="articles" element={<AdminArticles />} />
+                  <Route path="quick-services" element={<AdminQuickServices />} />
+                  <Route path="users" element={<AdminUsers />} />
                 </Route>
 
                 <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />

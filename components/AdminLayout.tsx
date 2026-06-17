@@ -105,6 +105,34 @@ const AdminLayout: React.FC = () => {
             <span>إدارة المقالات</span>
           </NavLink>
 
+          <NavLink
+            to="/admin/quick-services"
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-5 py-4 rounded-xl font-bold text-sm transition-all ${
+                isActive
+                  ? 'bg-[#B89544] text-white shadow-lg shadow-[#B89544]/20'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+              }`
+            }
+          >
+            <span className="text-lg">⚡</span>
+            <span>إدارة الخدمات السريعة</span>
+          </NavLink>
+
+          <NavLink
+            to="/admin/users"
+            className={({ isActive }) =>
+              `flex items-center gap-4 px-5 py-4 rounded-xl font-bold text-sm transition-all ${
+                isActive
+                  ? 'bg-[#B89544] text-white shadow-lg shadow-[#B89544]/20'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+              }`
+            }
+          >
+            <span className="text-lg">👥</span>
+            <span>إدارة المستخدمين</span>
+          </NavLink>
+
           <a
             href="/"
             target="_blank"

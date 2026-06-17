@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { quickServicesData } from '../data/quickServices';
+import { quickServicesData, QuickServiceCategory } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
+import { apiFetch } from '../data/api';
 
 type CustomFormState = 'idle' | 'loading' | 'success' | 'error';
 
 const CUSTOM_SERVICE_API = '/backend/custom-service.php';
 
 const QuickServicesPage: React.FC = () => {
+    const [categories, setCategories] = useState<QuickServiceCategory[]>(quickServicesData);
     const [selectedCategoryId, setSelectedCategoryId] = useState(quickServicesData[0].id);
     const [customService, setCustomService] = useState({
         name: '',
@@ -20,7 +22,21 @@ const QuickServicesPage: React.FC = () => {
     const [customResponseMsg, setCustomResponseMsg] = useState('');
     const navigate = useNavigate();
 
-    const selectedCategory = quickServicesData.find(cat => cat.id === selectedCategoryId) || quickServicesData[0];
+    useEffect(() => {
+        const loadQuickServices = async () => {
+            const data = await apiFetch('/quick-services.php');
+            if (data.success && data.quickServices && Array.isArray(data.quickServices)) {
+                setCategories(data.quickServices);
+                // تعيين أول تصنيف فعال إذا تغير المعرف
+                if (data.quickServices.length > 0) {
+                    setSelectedCategoryId(data.quickServices[0].id);
+                }
+            }
+        };
+        loadQuickServices();
+    }, []);
+
+    const selectedCategory = categories.find(cat => cat.id === selectedCategoryId) || categories[0] || quickServicesData[0];
 
     const handleViewDetail = (slug: string) => {
         navigate(`/quick-services/${slug}`);
@@ -104,7 +120,7 @@ const QuickServicesPage: React.FC = () => {
                                 <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
                             </h2>
                             <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-hide scroll-smooth w-full">
-                                {quickServicesData.map(category => (
+                                {categories.map(category => (
                                     <button
                                         key={category.id}
                                         onClick={() => setSelectedCategoryId(category.id)}

@@ -17,7 +17,7 @@ Options -Indexes
 </FilesMatch>
 
 # ─── السماح فقط بملفات API المحددة ───────────────────────────────────────────
-<FilesMatch "^(contact-form|custom-service|index|auth|services|articles|upload)\.php$">
+<FilesMatch "^(contact-form|custom-service|index|auth|services|articles|upload|users|quick-categories|quick-services)\.php$">
     Require all granted
 </FilesMatch>
 
