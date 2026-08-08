@@ -117,7 +117,7 @@ const QuickServiceDetailPage: React.FC = () => {
             <SEO
                 title={`${service.title} | خدمات سريعة - شركة مشعل بادغيش`}
                 description={service.description}
-                url={`https://mishallow.vercel.app/quick-services/${service.slug}`}
+                url={`https://mishal-lawfirm.com/quick-services/${service.slug}`}
             />
 
             <div className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-[#0F172A] overflow-hidden">

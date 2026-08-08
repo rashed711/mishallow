@@ -95,7 +95,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
         description={article.excerpt}
         image={article.image}
         type="article"
-        url={`https://mishallow.vercel.app/articles/${article.slug}`}
+        url={`https://mishal-lawfirm.com/articles/${article.slug}`}
         datePublished={article.rawDate}
       />
       <div className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-[#0F172A] overflow-hidden">

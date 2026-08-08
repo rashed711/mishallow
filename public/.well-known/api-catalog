@@ -1,17 +1,17 @@
 {
   "linkset": [
     {
-      "anchor": "https://mishallow.vercel.app/services",
+      "anchor": "https://mishal-lawfirm.com/services",
       "rel": "service-doc",
       "title": "الخدمات القانونية (Legal Services)"
     },
     {
-      "anchor": "https://mishallow.vercel.app/about",
+      "anchor": "https://mishal-lawfirm.com/about",
       "rel": "service-doc",
       "title": "فريق العمل (Team)"
     },
     {
-      "anchor": "https://mishallow.vercel.app/contact",
+      "anchor": "https://mishal-lawfirm.com/contact",
       "rel": "contact",
       "title": "مواقع المكاتب (Locations)"
     }

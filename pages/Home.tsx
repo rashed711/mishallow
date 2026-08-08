@@ -19,7 +19,7 @@ const Home: React.FC = () => {
                 description="أفضل شركة محاماة في مكة المكرمة وجدة. متخصصون في القضايا التجارية، العمالية، العسكرية، والأحوال الشخصية. فريق من المحامين والمستشارين القانونيين لخدمتكم عبر منصة ناجز."
                 image="/images/logo/logo.webp"
                 type="website"
-                url="https://mishallow.vercel.app"
+                url="https://mishal-lawfirm.com"
             />
             <Hero />
             <div className="scroll-mt-24">

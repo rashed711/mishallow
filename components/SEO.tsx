@@ -24,10 +24,10 @@ interface SEOProps {
 const SEO: React.FC<SEOProps> = ({
     title,
     description,
-    name = "شركة مشعل بادغيش للمحاماة",
+    name = "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
     type = "website",
-    url = "https://mishallow.vercel.app",
-    image = "https://mishallow.vercel.app/images/logo/logo.webp",
+    url = "https://mishal-lawfirm.com",
+    image = "https://mishal-lawfirm.com/images/logo/logo.webp",
     areaServed = ["Makkah", "Jeddah"],
     serviceType = "Legal Services",
     datePublished,
@@ -36,24 +36,24 @@ const SEO: React.FC<SEOProps> = ({
     quickServiceName
 }) => {
     // Ensure image is an absolute URL
-    const imageUrl = image.startsWith('http') ? image : `https://mishallow.vercel.app${image}`;
+    const imageUrl = image.startsWith('http') ? image : `https://mishal-lawfirm.com${image}`;
 
     // Determine canonical URL
     const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
 
     // Memoize multiple schemas generation for performance
     const schemas = React.useMemo(() => {
-        const orgId = "https://mishallow.vercel.app/#organization";
-        const websiteId = "https://mishallow.vercel.app/#website";
+        const orgId = "https://mishal-lawfirm.com/#organization";
+        const websiteId = "https://mishal-lawfirm.com/#website";
 
         const globalOrganization = {
             "@context": "https://schema.org",
             "@type": "LegalService",
             "@id": orgId,
             "name": name,
-            "url": "https://mishallow.vercel.app",
-            "logo": "https://mishallow.vercel.app/images/logo/logo.webp",
-            "image": "https://mishallow.vercel.app/images/logo/logo.webp",
+            "url": "https://mishal-lawfirm.com",
+            "logo": "https://mishal-lawfirm.com/images/logo/logo.webp",
+            "image": "https://mishal-lawfirm.com/images/logo/logo.webp",
             "telephone": "+966568000085",
             "areaServed": areaServed.map(city => ({
                 "@type": "City",
@@ -75,7 +75,12 @@ const SEO: React.FC<SEOProps> = ({
             "@type": "WebSite",
             "@id": websiteId,
             "name": name,
-            "url": "https://mishallow.vercel.app",
+            "alternateName": [
+                "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
+                "شركة مشعل بادغيش للمحاماة",
+                "مشعل بادغيش للمحاماة"
+            ],
+            "url": "https://mishal-lawfirm.com",
             "publisher": { "@id": orgId }
         };
 
@@ -88,7 +93,7 @@ const SEO: React.FC<SEOProps> = ({
                     "position": 1,
                     "name": "الرئيسية",
                     "item": {
-                        "@id": "https://mishallow.vercel.app"
+                        "@id": "https://mishal-lawfirm.com"
                     }
                 }
             ]
@@ -105,7 +110,7 @@ const SEO: React.FC<SEOProps> = ({
                     "position": 2,
                     "name": "المقالات",
                     "item": {
-                        "@id": "https://mishallow.vercel.app/articles"
+                        "@id": "https://mishal-lawfirm.com/articles"
                     }
                 },
                 {
@@ -146,7 +151,7 @@ const SEO: React.FC<SEOProps> = ({
                     "position": 2,
                     "name": "الخدمات",
                     "item": {
-                        "@id": "https://mishallow.vercel.app/services"
+                        "@id": "https://mishal-lawfirm.com/services"
                     }
                 },
                 {

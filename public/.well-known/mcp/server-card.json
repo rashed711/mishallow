@@ -14,7 +14,7 @@
     {
       "name": "mcp-main",
       "transport": "http",
-      "url": "https://mishallow.vercel.app/.well-known/mcp/server-card.json"
+      "url": "https://mishal-lawfirm.com/.well-known/mcp/server-card.json"
     }
   ]
 }

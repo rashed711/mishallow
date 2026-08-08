@@ -12,7 +12,7 @@ const ContactPage: React.FC = () => {
           title="تواصل معنا | استشارات قانونية مباشرة في مكة - شركة مشعل بادغيش"
           description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
           image="/images/logo/logo.webp"
-          url="https://mishallow.vercel.app/contact"
+          url="https://mishal-lawfirm.com/contact"
         />
       </div>
       {/* Dark Hero */}

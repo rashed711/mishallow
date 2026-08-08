@@ -84,7 +84,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
                 description={service.seoDescription}
                 image={service.image}
                 type="service"
-                url={`https://mishallow.vercel.app/${service.slug}`}
+                url={`https://mishal-lawfirm.com/${service.slug}`}
                 serviceType={service.title}
                 faqs={service.faq}
             />

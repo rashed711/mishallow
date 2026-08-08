@@ -20,11 +20,11 @@ export default function middleware(request: Request) {
 - **تحصيل الديون**: استرداد الحقوق المالية.
 
 ## روابط سريعة
-- [الرئيسية](https://mishallow.vercel.app/)
-- [الخدمات القانونية](https://mishallow.vercel.app/services)
-- [من نحن](https://mishallow.vercel.app/about)
-- [اتصل بنا](https://mishallow.vercel.app/contact)
-- [المقالات القانونية](https://mishallow.vercel.app/articles)
+- [الرئيسية](https://mishal-lawfirm.com/)
+- [الخدمات القانونية](https://mishal-lawfirm.com/services)
+- [من نحن](https://mishal-lawfirm.com/about)
+- [اتصل بنا](https://mishal-lawfirm.com/contact)
+- [المقالات القانونية](https://mishal-lawfirm.com/articles)
 
 ---
 جميع الحقوق محفوظة لشركة مشعل بادغيش للمحاماة © 2026`;

@@ -8,7 +8,7 @@ const TermsPage: React.FC = () => {
         title="اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة"
         description="تعرف على شروط وأحكام استخدام موقع شركة مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية."
         image="/images/logo/logo.webp"
-        url="https://mishallow.vercel.app/terms"
+        url="https://mishal-lawfirm.com/terms"
       />
       <div className="bg-[#0F172A] pt-40 pb-24 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

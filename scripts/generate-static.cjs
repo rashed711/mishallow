@@ -44,7 +44,7 @@ function extractData(filePath) {
                 slug:        slugMatch[1],
                 title:       titleMatch ? titleMatch[2] : 'شركة مشعل بادغيش للمحاماة',
                 description: descMatch  ? descMatch[2]  : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
-                image:       imageMatch ? imageMatch[1]  : 'https://mishallow.vercel.app/images/logo/logo.webp'
+                image:       imageMatch ? imageMatch[1]  : 'https://mishal-lawfirm.com/images/logo/logo.webp'
             });
         }
     }
@@ -80,7 +80,7 @@ async function run() {
 
         let imageUrl = route.image;
         if (!imageUrl.startsWith('http')) {
-            imageUrl = `https://mishallow.vercel.app${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
+            imageUrl = `https://mishal-lawfirm.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
         }
 
         let html = template;
@@ -91,7 +91,7 @@ async function run() {
             { property: 'og:title',       content: route.title },
             { property: 'og:description', content: route.description },
             { property: 'og:image',       content: imageUrl },
-            { property: 'og:url',         content: `https://mishallow.vercel.app${route.path}` },
+            { property: 'og:url',         content: `https://mishal-lawfirm.com${route.path}` },
             { name: 'twitter:title',       content: route.title },
             { name: 'twitter:description', content: route.description },
             { name: 'twitter:image',       content: imageUrl },
