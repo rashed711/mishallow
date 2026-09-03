@@ -37,9 +37,17 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
 
     const handleBack = () => navigate('/services');
 
+    // إذا كان الرابط index أو home يتم التحويل للصفحة الرئيسية
+    if (slug === 'index' || slug === 'home') {
+        return <Navigate to="/" replace />;
+    }
+
     // إذا كان الرابط يحتوي على .html أو ,html نقوم بتنظيفه والتحويل فوراً للرابط النظيف
     if (slug && /[.,]html$/i.test(slug)) {
         const cleanSlug = slug.replace(/[.,]html$/i, '');
+        if (cleanSlug === 'index' || cleanSlug === 'home') {
+            return <Navigate to="/" replace />;
+        }
         return <Navigate to={`/${cleanSlug}`} replace />;
     }
 
@@ -52,7 +60,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
     }
 
     if (!service) {
-        return <Navigate to="/services" replace />;
+        return <Navigate to="/" replace />;
     }
 
     const Icon = service.icon;

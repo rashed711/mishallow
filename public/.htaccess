@@ -17,9 +17,9 @@ RewriteBase /
     RewriteCond %{HTTP_HOST} ^www\.mishal-lawfirm\.com$ [NC]
     RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L]
 
-    # ─── 3. تحويل طلبات /index.html الصريحة إلى الجذر / (301) ─────────────────
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/index\.html(?:\?[^\s]*)?\s [NC]
-    RewriteRule ^index\.html$ https://mishal-lawfirm.com/ [R=301,L]
+    # ─── 3. تحويل طلبات /index.html أو /index الصريحة إلى الجذر / (301) ────────
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
+    RewriteRule ^index(?:[.,]html)?$ https://mishal-lawfirm.com/ [R=301,L]
 
     # ─── 4. إعادة توجيه الروابط القديمة والتاريخية (301 Redirects) ─────────────
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/blog(?:[.,]html)?[\s?] [NC]
@@ -29,6 +29,7 @@ RewriteBase /
     RewriteRule ^book_consultation(?:[.,]html)?$ https://mishal-lawfirm.com/contact [R=301,L]
 
     # ─── 5. إزالة لاحقة .html أو ,html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) 
+    RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)[.,]html(?:\?([^\s]*))?\s [NC]
     RewriteRule ^(.+?)[.,]html$ https://mishal-lawfirm.com/$1 [R=301,L]
 

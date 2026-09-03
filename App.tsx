@@ -71,6 +71,11 @@ const UrlNormalizer: React.FC = () => {
     cleanPath = cleanPath.replace(/\/+$/, '');
   }
 
+  // تحويل مسار /index و /home إلى الجذر الرئيسي '/'
+  if (cleanPath === '/index' || cleanPath === '/home' || cleanPath === '') {
+    cleanPath = '/';
+  }
+
   // تحويل المسارات القديمة
   if (cleanPath === '/blog') cleanPath = '/articles';
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
