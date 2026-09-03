@@ -1,20 +1,4 @@
-export interface Article {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  content: string[];
-  category: string;
-  date: string; // Format: DD MMMM YYYY
-  rawDate: string; // ISO format for sorting
-  image: string;
-  readTime: string;
-  views: number;
-}
-
-export const ARTICLE_CATEGORIES = ['الكل', 'استشارات قانونية', 'دليل العملاء', 'ثقافة قانونية', 'القضاء التجاري', 'رؤية 2030', 'قانون العمل', 'الملكية الفكرية'];
-
-export const articles: Article[] = [
+module.exports = [
   // ─── 1. استشارات قانونية ──────────────────────────────────────────────────
   {
     id: 1,
