@@ -9,8 +9,8 @@ const ContactPage: React.FC = () => {
     <div className="bg-[#0F172A]">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <SEO
-          title="تواصل معنا | استشارات قانونية مباشرة في مكة - شركة مشعل بادغيش"
-          description="احصل على استشارة قانونية متخصصة الآن. يمكنك التواصل معنا عبر الهاتف، الواتساب، أو زيارة مقرنا في مكة المكرمة. نحن هنا للإجابة على جميع استفساراتكم القانونية."
+          title="تواصل مع مكتب المحامي مشعل | استشارات قانونية في مكة وجدة"
+          description="احجز استشارتك القانونية الآن مع نخبة من المحامين المعتمدين في مكة وجدة. تمثيل قضائي واستشارات تجارية وجنائية متخصصة. تواصل معنا مباشرة."
           image="/images/logo/logo.webp"
           url="https://mishal-lawfirm.com/contact"
         />

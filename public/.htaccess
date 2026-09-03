@@ -1,48 +1,77 @@
 # =====================================================
-# مكتب مشعل بادغيش - Apache SPA Routing
-# =====================================================
-# يوجّه كل الطلبات إلى index.html لدعم React Router
-# (Single Page Application - Client-Side Routing)
+# شركة مشعل بادغيش للمحاماة والاستشارات القانونية
+# Modern Technical SEO & Production Server Configuration
 # =====================================================
 
 Options -MultiViews -Indexes
 RewriteEngine On
+RewriteBase /
 
-# ─── أولاً: إعادة توجيه الصفحات القديمة للحفاظ على الأرشفة (301 Redirects) ───────
-RewriteRule ^about\.html$ /about [R=301,L]
-RewriteRule ^contact\.html$ /contact [R=301,L]
-RewriteRule ^blog\.html$ /articles [R=301,L]
-RewriteRule ^book_consultation\.html$ /contact [R=301,L]
+# ─── 1. فرض بروتوكول HTTPS الإجباري (301 Permanent Redirect) ────────────────
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP:X-Forwarded-Proto} =http
+    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L]
 
-# ─── ثانياً: السماح بالوصول المباشر للملفات الموجودة فعلاً ───────────────────
-# إذا كان الملف موجوداً، أو كان المجلد يحتوي على ملف index.html حقيقي، نمرره مباشرة.
-# عدا ذلك، نوجهه إلى الـ index.html الرئيسي لتقوم الـ React Router بمعالجته (يمنع الـ 403).
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME}/index.html -f
-RewriteRule ^ - [L]
+    # ─── 2. توحيد النطاق وإزالة WWW الإجباري (301 Permanent Redirect) ─────────
+    RewriteCond %{HTTP_HOST} ^www\.mishal-lawfirm\.com$ [NC]
+    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L]
 
-# ─── ثانياً: توجيه كل شيء آخر إلى index.html ───────────────────────────────
-RewriteRule ^ index.html [L]
+    # ─── 3. تحويل طلبات /index.html الصريحة إلى الجذر / (301) ─────────────────
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/index\.html(?:\?[^\s]*)?\s [NC]
+    RewriteRule ^index\.html$ https://mishal-lawfirm.com/ [R=301,L]
 
-# ─── رؤوس الأمان ─────────────────────────────────────────────────────────────
+    # ─── 4. إعادة توجيه الروابط القديمة والتاريخية (301 Redirects) ─────────────
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/blog(?:\.html)?[\s?] [NC]
+    RewriteRule ^blog(?:\.html)?$ https://mishal-lawfirm.com/articles [R=301,L]
+
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/book_consultation(?:\.html)?[\s?] [NC]
+    RewriteRule ^book_consultation(?:\.html)?$ https://mishal-lawfirm.com/contact [R=301,L]
+
+    # ─── 5. إزالة لاحقة .html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) 
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)\.html(?:\?([^\s]*))?\s [NC]
+    RewriteRule ^(.+?)\.html$ https://mishal-lawfirm.com/$1 [R=301,L]
+
+    # ─── 6. ضبط التحويل الصارم لـ Trailing Slash (إزالة الشرطة المائلة الزائدة) ─
+    # استثناء المسار الجذري والمجلدات الفعلية، وتحويل مثل /about/ إلى /about
+    RewriteCond %{REQUEST_METHOD} =GET
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)/+[\s?] [NC]
+    RewriteRule ^(.+?)/+$ https://mishal-lawfirm.com/$1 [R=301,L]
+
+    # ─── 7. استثناء مسار الـ Backend والـ APIs (PHP) ───────────────────────────
+    RewriteCond %{REQUEST_URI} ^/backend/ [NC]
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # ─── 8. السماح بالوصول المباشر للملفات والمجلدات الثابتة الموجودة ──────────
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # ─── 9. توجيه جميع المسارات المتبقية إلى index.html (SPA Fallback) ─────────
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# ─── رؤوس الأمان (Security Headers) ──────────────────────────────────────────
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
-    # تخزين مؤقت للـ assets (لها هاش في اسمها فتُجدَّد تلقائياً)
+    # التخزين المؤقت للملفات الثابتة (Static Assets Caching)
     <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|svg|webp|png|jpg|jpeg|gif|ico)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
 
-    # لا تخزين مؤقت لـ HTML
+    # منع التخزين المؤقت لملفات HTML لضمان التحديث اللحظي للـ SPA والميتا
     <FilesMatch "\.html$">
         Header set Cache-Control "no-cache, no-store, must-revalidate"
     </FilesMatch>
 </IfModule>
 
-# ─── ضغط gzip ─────────────────────────────────────────────────────────────────
+# ─── ضغط الملفات لتسريع التحميل وتحسين سرعة السيرفر (Gzip Compression) ───────
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript application/json image/svg+xml
 </IfModule>

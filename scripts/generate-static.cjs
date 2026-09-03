@@ -34,16 +34,19 @@ function extractData(filePath) {
     while ((match = blockRegex.exec(content)) !== null) {
         const block = match[0];
 
-        const slugMatch  = block.match(/slug:\s*['\"](.*?)['\"]/);;
-        const titleMatch = block.match(/(seoTitle|title):\s*['\"](.*?)['\"]/);;
-        const descMatch  = block.match(/(seoDescription|excerpt|description):\s*['\"](.*?)['\"]/);;
-        const imageMatch = block.match(/image:\s*['\"](.*?)['\"]/);;
+        const slugMatch  = block.match(/slug:\s*['\"](.*?)['\"]/);
+        const seoTitleMatch = block.match(/seoTitle:\s*['\"](.*?)['\"]/);
+        const titleMatch = seoTitleMatch || block.match(/title:\s*['\"](.*?)['\"]/);
+
+        const seoDescMatch = block.match(/seoDescription:\s*['\"](.*?)['\"]/);
+        const descMatch = seoDescMatch || block.match(/(excerpt|description):\s*['\"](.*?)['\"]/);
+        const imageMatch = block.match(/image:\s*['\"](.*?)['\"]/);
 
         if (slugMatch) {
             items.push({
                 slug:        slugMatch[1],
-                title:       titleMatch ? titleMatch[2] : 'شركة مشعل بادغيش للمحاماة',
-                description: descMatch  ? descMatch[2]  : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
+                title:       titleMatch ? titleMatch[1] : 'شركة مشعل بادغيش للمحاماة',
+                description: descMatch  ? (seoDescMatch ? seoDescMatch[1] : descMatch[2] || descMatch[1]) : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
                 image:       imageMatch ? imageMatch[1]  : 'https://mishal-lawfirm.com/images/logo/logo.webp'
             });
         }
@@ -64,7 +67,53 @@ async function run() {
     const services = extractData(path.join(__dirname, '../data/services.ts'));
     const articles = extractData(path.join(__dirname, '../data/articles.ts'));
 
+    const staticPages = [
+        {
+            path: '/about',
+            title: 'من نحن | مكتب المحامي مشعل | نخبة محامين في مكة وجدة',
+            description: 'تعرف على شركة المحامي مشعل بادغيش. نخبة من أفضل المحامين والمستشارين في مكة وجدة لتقديم استشارات قانونية وتمثيل قضائي احترافي للأفراد والشركات.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/contact',
+            title: 'تواصل مع مكتب المحامي مشعل | استشارات قانونية في مكة وجدة',
+            description: 'احجز استشارتك القانونية الآن مع نخبة من المحامين المعتمدين في مكة وجدة. تمثيل قضائي واستشارات تجارية وجنائية متخصصة. تواصل معنا مباشرة.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/services',
+            title: 'الخدمات القانونية | مكتب المحامي مشعل في مكة وجدة',
+            description: 'خدمات واستشارات قانونية متكاملة في مكة وجدة: قضايا تجارية، دفاع جنائي، عمالية، عقارية وصياغة عقود. تمثيل قضائي مرخص أمام كافة المحاكم.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/articles',
+            title: 'المدونة القانونية | مقالات واستشارات الأنظمة السعودية',
+            description: 'دليل قانوني ومقالات متخصصة في الأنظمة السعودية، نظام الشركات، العمل، والقضايا التجارية والجنائية يقدمها نخبة مستشاري مكتب المحامي مشعل.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/quick-services',
+            title: 'خدمات قانونية سريعة | استشارات فورية في مكة وجدة',
+            description: 'احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك بأعلى سرية.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/privacy',
+            title: 'سياسة الخصوصية | شركة مشعل بادغيش للمحاماة',
+            description: 'نحن في شركة مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        },
+        {
+            path: '/terms',
+            title: 'اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة',
+            description: 'تعرف على شروط وأحكام استخدام موقع شركة مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية.',
+            image: 'https://mishal-lawfirm.com/images/logo/logo.webp'
+        }
+    ];
+
     const routes = [
+        ...staticPages,
         ...services.map(s => ({ path: `/${s.slug}`, ...s })),
         ...articles.map(a => ({ path: `/articles/${a.slug}`, ...a }))
     ];
@@ -86,6 +135,15 @@ async function run() {
         let html = template;
 
         html = html.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
+
+        // Update Canonical Tag for exact page path
+        const canonicalTag = `<link rel="canonical" href="https://mishal-lawfirm.com${route.path}" />`;
+        const canonicalRegex = /<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i;
+        if (html.match(canonicalRegex)) {
+            html = html.replace(canonicalRegex, canonicalTag);
+        } else {
+            html = html.replace('</head>', `  ${canonicalTag}\n</head>`);
+        }
 
         const metaTags = [
             { property: 'og:title',       content: route.title },

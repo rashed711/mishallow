@@ -38,8 +38,9 @@ const SEO: React.FC<SEOProps> = ({
     // Ensure image is an absolute URL
     const imageUrl = image.startsWith('http') ? image : `https://mishal-lawfirm.com${image}`;
 
-    // Determine canonical URL
-    const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
+    // Determine canonical URL: clean path without trailing slash (except root domain)
+    const cleanUrl = (url || 'https://mishal-lawfirm.com').replace(/\/+$/, '');
+    const canonicalUrl = cleanUrl === 'https://mishal-lawfirm.com' ? 'https://mishal-lawfirm.com/' : cleanUrl;
 
     // Memoize multiple schemas generation for performance
     const schemas = React.useMemo(() => {
