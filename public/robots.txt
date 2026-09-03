@@ -3,5 +3,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /admin
 Disallow: /backend/
+Disallow: /api/
 
 Sitemap: https://mishal-lawfirm.com/sitemap.xml

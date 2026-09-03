@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { articles as staticArticles, Article } from '../data/articles';
 import { apiFetch } from '../data/api';
+import NotFoundPage from './NotFoundPage';
 
 interface ArticleDetailPageProps {
   onOpenModal: () => void;
@@ -47,7 +48,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
   }
 
   if (!article) {
-    return <div className="pt-40 text-center text-xl font-bold">عذراً، هذا المقال غير موجود.</div>;
+    return <NotFoundPage />;
   }
 
   const relatedArticles = articles.filter(a => a.id !== article.id).slice(0, 3);

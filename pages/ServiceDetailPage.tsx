@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import { servicesData, ServiceData, serviceIconsMap } from '../data/services.ts';
 import Contact from '../components/Contact';
 import { apiFetch } from '../data/api';
+import NotFoundPage from './NotFoundPage';
 
 interface ServiceDetailPageProps {
     onOpenModal: () => void;
@@ -60,7 +61,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
     }
 
     if (!service) {
-        return <Navigate to="/" replace />;
+        return <NotFoundPage />;
     }
 
     const Icon = service.icon;

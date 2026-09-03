@@ -19,6 +19,7 @@ const QuickServicesPage = lazy(() => import('./pages/QuickServicesPage'));
 const QuickServiceDetailPage = lazy(() => import('./pages/QuickServiceDetailPage'));
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 // Admin pages
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
@@ -196,7 +197,7 @@ const App: React.FC = () => {
                 </Route>
 
                 <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
-                <Route path="*" element={<PageTransition><Home /></PageTransition>} />
+                <Route path="*" element={<PageTransition><NotFoundPage /></PageTransition>} />
               </Routes>
             </AnimatePresence>
           </Suspense>

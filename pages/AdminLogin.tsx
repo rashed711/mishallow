@@ -33,7 +33,7 @@ const AdminLogin: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0F172A] flex items-center justify-center relative overflow-hidden px-4">
-      <SEO title="تسجيل الدخول - لوحة التحكم | شركة مشعل بادغيش" description="صفحة تسجيل الدخول المخصصة لمدراء النظام ومسؤولي المحتوى." image="/images/logo/logo.webp" />
+      <SEO title="تسجيل الدخول - لوحة التحكم | شركة مشعل بادغيش" description="صفحة تسجيل الدخول المخصصة لمدراء النظام ومسؤولي المحتوى." image="/images/logo/logo.webp" noindex={true} />
       
       {/* Background Decorative Blur Rings */}
       <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#B89544]/15 blur-[120px] rounded-full pointer-events-none"></div>

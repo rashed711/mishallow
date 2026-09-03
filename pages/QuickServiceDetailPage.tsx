@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
 import { apiFetch } from '../data/api';
+import NotFoundPage from './NotFoundPage';
 
 const QuickServiceDetailPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -54,15 +55,12 @@ const QuickServiceDetailPage: React.FC = () => {
             if (foundService) {
                 setService(foundService);
                 setCategoryName(foundCategoryName);
-            } else {
-                // If not found anywhere, redirect to list
-                navigate('/quick-services', { replace: true });
             }
             setLoading(false);
         };
 
         fetchService();
-    }, [slug, navigate]);
+    }, [slug]);
 
     if (loading) {
         return (
@@ -76,7 +74,7 @@ const QuickServiceDetailPage: React.FC = () => {
     }
 
     if (!service) {
-        return null;
+        return <NotFoundPage />;
     }
 
     const handleBack = () => navigate('/quick-services');

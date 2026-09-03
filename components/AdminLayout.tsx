@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { apiFetch } from '../data/api';
 
 const AdminLayout: React.FC = () => {
@@ -50,6 +51,10 @@ const AdminLayout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col lg:flex-row text-right" dir="rtl">
+      <Helmet>
+        <title>لوحة التحكم | شركة مشعل بادغيش للمحاماة</title>
+        <meta name="robots" content="noindex, nofollow, noarchive" />
+      </Helmet>
       {/* Sidebar */}
       <aside className="w-full lg:w-72 bg-[#0F172A] text-white flex flex-col border-l border-white/5 z-20">
         <div className="p-8 border-b border-white/5 flex items-center gap-4 justify-between lg:justify-start">
