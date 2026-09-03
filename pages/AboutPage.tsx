@@ -14,6 +14,16 @@ const AboutPage: React.FC = () => {
             />
             {/* Dark Luxury Hero */}
             <div className="relative pt-32 pb-16 md:pt-48 md:pb-28 bg-[#0F172A] overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none">
+                    <img
+                        src="/images/about/about-hero-bg.webp"
+                        alt="من نحن - شركة مشعل بادغيش للمحاماة"
+                        className="w-full h-full object-cover opacity-20"
+                        loading="eager"
+                        decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/90"></div>
+                </div>
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                         <pattern id="about-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">

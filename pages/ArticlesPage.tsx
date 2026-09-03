@@ -53,6 +53,16 @@ const ArticlesPage: React.FC = () => {
 
       {/* Simplified Elegant Hero */}
       <div className="bg-[#0F172A] pt-32 pb-20 md:pt-44 md:pb-32 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/images/articles/articles-bg.webp"
+            alt="المركز المعرفي - شركة مشعل بادغيش للمحاماة"
+            className="w-full h-full object-cover opacity-20"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/90"></div>
+        </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
             <span className="text-[#B89544] font-black tracking-[0.3em] uppercase text-xs mb-6 block">

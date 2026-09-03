@@ -35,7 +35,17 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
         url="https://mishal-lawfirm.com/services"
       />
       <div className="bg-[#0F172A] pt-32 pb-5 md:pt-44 md:pb-5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent"></div>
+        <div className="absolute inset-0 pointer-events-none">
+          <img
+            src="/images/services/services-hero-bg.webp"
+            alt="خدماتنا القانونية - شركة مشعل بادغيش للمحاماة"
+            className="w-full h-full object-cover opacity-20"
+            loading="eager"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/90"></div>
+        </div>
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#B89544]/5 to-transparent pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="opacity-100 transform-none">
             <span className="text-[#B89544] font-black tracking-widest uppercase text-xs mb-4 block">نطاق خبراتنا</span>
