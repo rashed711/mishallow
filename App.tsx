@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/PageTransition';
 import FloatingShapes from './components/FloatingShapes';
@@ -52,6 +52,32 @@ const ScrollToTop = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);
+
+  return null;
+};
+
+const UrlNormalizer: React.FC = () => {
+  const location = useLocation();
+  const rawPath = location.pathname;
+  let cleanPath = rawPath;
+
+  // إزالة لاحقة .html أو ,html
+  if (/[.,]html$/i.test(cleanPath)) {
+    cleanPath = cleanPath.replace(/[.,]html$/i, '');
+  }
+
+  // إزالة الشرطة المائلة في النهاية باستثناء الجذر '/'
+  if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
+    cleanPath = cleanPath.replace(/\/+$/, '');
+  }
+
+  // تحويل المسارات القديمة
+  if (cleanPath === '/blog') cleanPath = '/articles';
+  if (cleanPath === '/book_consultation') cleanPath = '/contact';
+
+  if (cleanPath !== rawPath) {
+    return <Navigate to={cleanPath + location.search + location.hash} replace />;
+  }
 
   return null;
 };
@@ -132,6 +158,7 @@ const App: React.FC = () => {
 
   return (
     <>
+      <UrlNormalizer />
       <ScrollToTop />
       {!isAdminRoute && <WhatsAppButton />}
       <div className={`${isAdminRoute ? '' : 'bg-[#F8FAFC]'} min-h-screen font-sans text-slate-800 relative`}>

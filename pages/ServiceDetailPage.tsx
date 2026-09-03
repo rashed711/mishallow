@@ -37,6 +37,12 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
 
     const handleBack = () => navigate('/services');
 
+    // إذا كان الرابط يحتوي على .html أو ,html نقوم بتنظيفه والتحويل فوراً للرابط النظيف
+    if (slug && /[.,]html$/i.test(slug)) {
+        const cleanSlug = slug.replace(/[.,]html$/i, '');
+        return <Navigate to={`/${cleanSlug}`} replace />;
+    }
+
     if (loading && !service) {
         return (
             <div className="h-screen w-full flex items-center justify-center bg-[#0F172A]">
