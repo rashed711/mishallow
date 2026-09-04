@@ -15,7 +15,7 @@ const Home: React.FC = () => {
     return (
         <div className="flex flex-col">
             <SEO
-                title="المحامي مشعل بادغيش | مكتب محاماة معتمد في مكة وجدة"
+                title="المحامي مشعل بادغيش... | مكتب محاماة معتمد في مكة وجدة"
                 description="مكتب المحامي مشعل بادغيش للمحاماة والاستشارات في مكة وجدة. تمثيل قضائي في القضايا التجارية، الجنائية، العمالية، والعقارية. تواصل معنا الآن."
                 image="/images/logo/logo.webp"
                 type="website"
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
             <div className="scroll-mt-24">
                 <About />
             </div>
-            
+
             {/* Grouping secondary sections to reduce observers and main-thread overhead on mobile, bypassed on desktop */}
             <LazySection height="2000px">
                 <div className="scroll-mt-24">
