@@ -116,6 +116,12 @@ const QuickServiceDetailPage: React.FC = () => {
                 title={`${service.title} | خدمات سريعة - شركة مشعل بادغيش`}
                 description={service.description}
                 url={`https://mishal-lawfirm.com/quick-services/${service.slug}`}
+                type="service"
+                quickServiceName={service.title}
+                breadcrumbs={[
+                    { name: 'خدمات سريعة', url: 'https://mishal-lawfirm.com/quick-services' },
+                    { name: service.title, url: `https://mishal-lawfirm.com/quick-services/${service.slug}` }
+                ]}
             />
 
             <div className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-[#0F172A] overflow-hidden">

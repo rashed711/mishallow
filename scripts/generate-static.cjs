@@ -25,63 +25,82 @@ function copyDirSync(src, dst) {
     }
 }
 
-// ─── Helper: Extract data from TS files using Regex ───────────────────────────
-function extractData(filePath) {
+// ─── Helpers: Accurate Data Loaders for TS Data Files ────────────────────────
+function loadServicesData() {
+    const filePath = path.join(__dirname, '../data/services.ts');
     if (!fs.existsSync(filePath)) return [];
     const content = fs.readFileSync(filePath, 'utf8');
-    const items = [];
-
-    const blockRegex = /\{[\s\S]*?slug:\s*['\"](.*?)['\"][\s\S]*?\}/g;
-    let match;
-
-    while ((match = blockRegex.exec(content)) !== null) {
-        const block = match[0];
-
-        const slugMatch     = block.match(/slug:\s*['\"](.*?)['\"]/);
-        const seoTitleMatch = block.match(/seoTitle:\s*['\"](.*?)['\"]/);
-        const titleMatch    = seoTitleMatch || block.match(/title:\s*['\"](.*?)['\"]/);
-        const seoDescMatch  = block.match(/seoDescription:\s*['\"](.*?)['\"]/);
-        const descMatch     = seoDescMatch || block.match(/(excerpt|description):\s*['\"](.*?)['\"]/);
-        const imageMatch    = block.match(/image:\s*['\"](.*?)['\"]/);
-        const dateMatch     = block.match(/date:\s*['\"](.*?)['\"]/);
-
-        if (slugMatch) {
-            items.push({
-                slug:        slugMatch[1],
-                title:       titleMatch ? titleMatch[1] : 'شركة مشعل بادغيش للمحاماة',
-                description: descMatch  ? (seoDescMatch ? seoDescMatch[1] : descMatch[2] || descMatch[1]) : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
-                image:       imageMatch ? imageMatch[1]  : '/images/logo/logo.webp',
-                date:        dateMatch  ? dateMatch[1]   : '2026-09-03'
-            });
-        }
+    const arrayMatch = content.match(/export\s+const\s+servicesData(?::\s*\w+(?:\[\])?)?\s*=\s*(\[[\s\S]*?\n\];)/);
+    if (!arrayMatch) return [];
+    const cleanJs = arrayMatch[1].replace(/;\s*$/, '').replace(/icon:\s*([A-Za-z0-9_]+)/g, 'icon: "$1"');
+    try {
+        const services = (new Function('return ' + cleanJs))();
+        return services.map(s => ({
+            slug: s.slug,
+            title: s.seoTitle || s.title || 'شركة مشعل بادغيش للمحاماة',
+            description: s.seoDescription || s.shortDescription || 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
+            image: s.image || '/images/logo/logo.webp',
+            faq: s.faq || []
+        }));
+    } catch (e) {
+        console.error('Error parsing servicesData:', e);
+        return [];
     }
-    return items;
 }
 
-// Extract Quick Services
-function extractQuickServices(filePath) {
+function loadArticlesData() {
+    const filePath = path.join(__dirname, '../data/articles.ts');
     if (!fs.existsSync(filePath)) return [];
     const content = fs.readFileSync(filePath, 'utf8');
-    const items = [];
-    const blockRegex = /\{[\s\S]*?slug:\s*['\"](.*?)['\"][\s\S]*?title:\s*['\"](.*?)['\"][\s\S]*?description:\s*['\"]([\s\S]*?)['\"][\s\S]*?\}/g;
-    let match;
-
-    while ((match = blockRegex.exec(content)) !== null) {
-        const slug = match[1];
-        const title = match[2];
-        const desc = match[3].replace(/\\n/g, ' ').substring(0, 160);
-        items.push({
-            slug,
-            title: `${title} | شركة مشعل بادغيش للمحاماة`,
-            description: desc,
-            image: '/images/logo/logo.webp'
-        });
+    const arrayMatch = content.match(/export\s+const\s+articles(?::\s*\w+(?:\[\])?)?\s*=\s*(\[[\s\S]*?\n\];)/);
+    if (!arrayMatch) return [];
+    const cleanJs = arrayMatch[1].replace(/;\s*$/, '');
+    try {
+        const articles = (new Function('return ' + cleanJs))();
+        return articles.map(a => ({
+            slug: a.slug,
+            title: a.title ? `${a.title} | شركة مشعل بادغيش` : 'شركة مشعل بادغيش للمحاماة',
+            description: a.excerpt || 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
+            image: a.image || '/images/logo/logo.webp',
+            rawDate: a.rawDate || a.date
+        }));
+    } catch (e) {
+        console.error('Error parsing articles:', e);
+        return [];
     }
-    return items;
+}
+
+function loadQuickServicesData() {
+    const filePath = path.join(__dirname, '../data/quickServices.ts');
+    if (!fs.existsSync(filePath)) return [];
+    const content = fs.readFileSync(filePath, 'utf8');
+    const arrayMatch = content.match(/export\s+const\s+quickServicesData(?::\s*\w+(?:\[\])?)?\s*=\s*(\[[\s\S]*?\n\];)/);
+    if (!arrayMatch) return [];
+    const cleanJs = arrayMatch[1].replace(/;\s*$/, '');
+    try {
+        const categories = (new Function('return ' + cleanJs))();
+        const items = [];
+        categories.forEach(cat => {
+            if (Array.isArray(cat.services)) {
+                cat.services.forEach(s => {
+                    items.push({
+                        slug: s.slug,
+                        title: `${s.title} | شركة مشعل بادغيش للمحاماة`,
+                        description: (s.description || '').replace(/\n/g, ' ').substring(0, 160),
+                        image: '/images/logo/logo.webp'
+                    });
+                });
+            }
+        });
+        return items;
+    } catch (e) {
+        console.error('Error parsing quickServicesData:', e);
+        return [];
+    }
 }
 
 // ─── Helper: Generate JSON-LD Graph for a specific route ───────────────────────
-function generatePageSchema(route) {
+function generatePageSchema(route, buildSchemaGraph) {
     const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '' : route.path}`;
 
     let imageUrl = route.image;
@@ -89,98 +108,27 @@ function generatePageSchema(route) {
         imageUrl = `https://mishal-lawfirm.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
     }
 
-    const graph = [
-        {
-            "@type": "LegalService",
-            "@id": "https://mishal-lawfirm.com/#organization",
-            "name": "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
-            "alternateName": [
-                "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
-                "شركة مشعل بادغيش للمحاماة",
-                "مكتب المحامي مشعل بادغيش",
-                "شركة محاماة في مكة وجدة"
-            ],
-            "url": "https://mishal-lawfirm.com",
-            "logo": "https://mishal-lawfirm.com/images/logo/logo.webp",
-            "image": "https://mishal-lawfirm.com/images/logo/logo.webp",
-            "telephone": "+966568000085",
-            "email": "info@mishal-lawfirm.com",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "شارع عبدالله بن عباس، بجوار نادي ستار تراك",
-                "addressLocality": "Makkah",
-                "addressRegion": "Makkah Province",
-                "postalCode": "24353",
-                "addressCountry": "SA"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 21.3508,
-                "longitude": 39.8821
-            },
-            "areaServed": [
-                { "@type": "City", "name": "Makkah", "sameAs": "https://en.wikipedia.org/wiki/Mecca" },
-                { "@type": "City", "name": "Jeddah", "sameAs": "https://en.wikipedia.org/wiki/Jeddah" }
-            ],
-            "founder": {
-                "@type": "Person",
-                "name": "مشعل بادغيش",
-                "jobTitle": "محامي ومستشار قانوني مرخص"
-            },
-            "knowsAbout": [
-                "الأنظمة واللوائح القضائية في المملكة العربية السعودية",
-                "نظام المعاملات المدنية السعودي",
-                "نظام الشركات السعودي الجديد",
-                "نظام العمل والتأمينات الاجتماعية",
-                "نظام الإجراءات الجزائية ومكافحة الجرائم المعلوماتية",
-                "منظومة القضاء التجاري وإعادة التنظيم المالي",
-                "بوابة ناجز وخدمات وزارة العدل السعودية",
-                "منصة معين الرقمية بديوان المظالم",
-                "منصة قوى لوزارة الموارد البشرية والتنمية الاجتماعية"
-            ],
-            "openingHours": "Su-Th 09:00-17:00"
-        },
-        {
-            "@type": "WebSite",
-            "@id": "https://mishal-lawfirm.com/#website",
-            "url": "https://mishal-lawfirm.com",
-            "name": "شركة مشعل بادغيش للمحاماة",
-            "publisher": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "inLanguage": "ar"
-        },
-        {
-            "@type": "WebPage",
-            "@id": `${canonicalUrl}#webpage`,
-            "url": canonicalUrl,
-            "name": route.title,
-            "description": route.description,
-            "isPartOf": { "@id": "https://mishal-lawfirm.com/#website" },
-            "about": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "inLanguage": "ar"
-        }
-    ];
+    const isService = route.type === 'service' || route.type === 'quick';
+    const isArticle = route.type === 'article';
+    const isQuick = route.type === 'quick';
 
-    if (route.type === 'article') {
-        graph.push({
-            "@type": "Article",
-            "@id": `${canonicalUrl}#article`,
-            "headline": route.title,
-            "description": route.description,
-            "image": imageUrl,
-            "author": {
-                "@type": "Person",
-                "name": "مشعل بادغيش",
-                "jobTitle": "محامي ومستشار قانوني مرخص"
-            },
-            "publisher": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "datePublished": route.date || "2026-09-03",
-            "dateModified": "2026-09-03",
-            "mainEntityOfPage": canonicalUrl,
-            "inLanguage": "ar"
-        });
-    }
+    const schemaGraph = buildSchemaGraph({
+        pageUrl: canonicalUrl,
+        pageTitle: route.title,
+        pageDescription: route.description,
+        pageType: isService ? 'service' : (isArticle ? 'article' : 'website'),
+        imageUrl: imageUrl,
+        datePublished: isArticle ? (route.rawDate || route.date) : undefined,
+        serviceType: route.type === 'service' ? route.title : undefined,
+        quickServiceName: isQuick ? route.title.split('|')[0].trim() : undefined,
+        faqs: (route.faq && route.faq.length > 0) ? route.faq : (route.faqs && route.faqs.length > 0 ? route.faqs : undefined),
+        breadcrumbs: isQuick ? [
+            { name: 'خدمات سريعة', url: 'https://mishal-lawfirm.com/quick-services' },
+            { name: route.title.split('|')[0].trim(), url: canonicalUrl }
+        ] : undefined
+    });
 
-    return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 2);
+    return JSON.stringify(schemaGraph, null, 2);
 }
 
 // ─── Helper: Generate sitemap.xml ─────────────────────────────────────────────
@@ -227,6 +175,8 @@ function generateSitemapXml(routes) {
 async function run() {
     console.log('🚀 Starting Pre-rendering and SEO sync script...');
 
+    const { buildSchemaGraph } = await import('../data/siteSchema.ts');
+
     if (!fs.existsSync(INDEX_HTML)) {
         console.error('❌ dist/index.html not found! Run npm run build first.');
         process.exit(1);
@@ -234,9 +184,9 @@ async function run() {
 
     const template = fs.readFileSync(INDEX_HTML, 'utf8');
 
-    const services = extractData(path.join(__dirname, '../data/services.ts'));
-    const articles = extractData(path.join(__dirname, '../data/articles.ts'));
-    const quickServices = extractQuickServices(path.join(__dirname, '../data/quickServices.ts'));
+    const services = loadServicesData();
+    const articles = loadArticlesData();
+    const quickServices = loadQuickServicesData();
 
     const staticPages = [
         {
@@ -363,7 +313,7 @@ async function run() {
         });
 
         // Inject Page-Specific JSON-LD Schema
-        const pageSchema = generatePageSchema(route);
+        const pageSchema = generatePageSchema(route, buildSchemaGraph);
         const schemaBlock = `<script type="application/ld+json">\n${pageSchema}\n  </script>`;
         const schemaRegex = /<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/i;
         if (html.match(schemaRegex)) {

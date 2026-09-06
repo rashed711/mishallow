@@ -18,6 +18,7 @@ export const BUSINESS_INFO = {
   telephone: "+966568000085",
   email: "info@mishal-lawfirm.com",
   priceRange: "$$",
+  openingHours: "Su-Th 09:00-17:00",
   founder: {
     "@type": "Person",
     name: "مشعل بادغيش",
@@ -128,11 +129,13 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "image": BUSINESS_INFO.image,
     "telephone": BUSINESS_INFO.telephone,
     "email": BUSINESS_INFO.email,
+    "priceRange": BUSINESS_INFO.priceRange,
     "address": BUSINESS_INFO.address,
     "geo": BUSINESS_INFO.geo,
     "areaServed": BUSINESS_INFO.areaServed,
     "founder": BUSINESS_INFO.founder,
     "knowsAbout": BUSINESS_INFO.knowsAbout,
+    "openingHours": BUSINESS_INFO.openingHours,
     ...(BUSINESS_INFO.sameAs.length > 0 ? { "sameAs": BUSINESS_INFO.sameAs } : {})
   };
 
@@ -222,6 +225,15 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
         }
       }
     );
+  } else if (canonicalUrl !== `${BUSINESS_INFO.url}/` && canonicalUrl !== BUSINESS_INFO.url) {
+    breadcrumbElements.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": pageTitle.split('|')[0].trim(),
+      "item": {
+        "@id": canonicalUrl
+      }
+    });
   }
 
   if (breadcrumbElements.length > 1) {
