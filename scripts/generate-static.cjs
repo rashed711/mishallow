@@ -7,6 +7,8 @@ const BACKEND_SRC = path.join(__dirname, '../backend');
 const BACKEND_DST = path.join(DIST_DIR,  'backend');
 const SITEMAP_PUB = path.join(__dirname, '../public/sitemap.xml');
 const SITEMAP_DST = path.join(DIST_DIR,  'sitemap.xml');
+const NOT_FOUND_PUB = path.join(__dirname, '../public/404.html');
+const NOT_FOUND_DST = path.join(DIST_DIR,  '404.html');
 
 // ─── Helper: Copy directory recursively ───────────────────────────────────────
 function copyDirSync(src, dst) {
@@ -89,6 +91,7 @@ function extractQuickServices(filePath) {
         items.push({
             slug,
             title: `${title} | شركة مشعل بادغيش للمحاماة`,
+            serviceName: title,
             description: desc,
             image: '/images/logo/logo.webp'
         });
@@ -252,8 +255,8 @@ function generatePageSchema(route) {
         });
     }
 
-    // Service entity
-    if (route.type === 'service') {
+    // Service entity (for main services and quick services)
+    if (route.type === 'service' || route.type === 'quick') {
         const serviceId = `${canonicalUrl}#service`;
         webPageEntity.mainEntity = { "@id": serviceId };
 
@@ -262,12 +265,19 @@ function generatePageSchema(route) {
             "@id": serviceId,
             "name": route.title,
             "description": route.description,
-            "serviceType": "خدمات واستشارات قانونية",
+            "serviceType": route.type === 'quick' ? 'خدمات قانونية سريعة' : 'خدمات واستشارات قانونية',
             "provider": { "@id": orgId },
             "areaServed": [
                 { "@type": "City", "name": "Makkah", "sameAs": "https://en.wikipedia.org/wiki/Mecca" },
                 { "@type": "City", "name": "Jeddah", "sameAs": "https://en.wikipedia.org/wiki/Jeddah" }
-            ]
+            ],
+            ...(route.serviceName && {
+                "offers": {
+                    "@type": "Offer",
+                    "name": route.serviceName,
+                    "offeredBy": { "@id": orgId }
+                }
+            })
         };
         graph.push(serviceEntity);
 
@@ -359,6 +369,53 @@ function generateSitemapXml(routes) {
 
     xml += `</urlset>\n`;
     return xml;
+}
+
+// ─── Helper: Generate 404 HTML ────────────────────────────────────────────────
+function generate404Html(template) {
+    let html = template;
+    const title = '404 - الصفحة غير موجودة | شركة مشعل بادغيش للمحاماة';
+    const description = 'عذراً، الرابط الذي حاولت الوصول إليه غير موجود أو تم نقله. يمكنك العودة إلى الصفحة الرئيسية أو التواصل معنا.';
+
+    html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
+    html = html.replace(/<meta\s+name=["']robots["']\s+content=".*?"\s*\/?>/i, '<meta name="robots" content="noindex, nofollow, noarchive" />');
+    html = html.replace(/<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i, '');
+
+    const metaTags = [
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { name: 'description', content: description },
+        { name: 'robots', content: 'noindex, nofollow, noarchive' }
+    ];
+
+    metaTags.forEach(meta => {
+        const attr = meta.property ? `property="${meta.property}"` : `name="${meta.name}"`;
+        const regex = new RegExp(`<meta\\s+${attr.replace(/"/g, '[\"\']')}\\s+content=".*?"\\s*/?>`, 'i');
+        if (html.match(regex)) {
+            html = html.replace(regex, `<meta ${attr} content="${meta.content}" />`);
+        } else {
+            html = html.replace('</title>', `</title>\n  <meta ${attr} content="${meta.content}" />`);
+        }
+    });
+
+    // Remove JSON-LD from 404 page
+    html = html.replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/i, '');
+
+    const notFoundPrerender = `
+    <div id="root">
+      <div class="min-h-screen bg-[#0F172A] text-white flex flex-col justify-center items-center px-4 py-24 sm:px-6 lg:px-8 text-center">
+        <div class="text-7xl font-bold text-[#B89544] mb-4 font-mono">404</div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-white mb-4">الصفحة المطلوبة غير موجودة</h1>
+        <p class="text-slate-300 text-base leading-relaxed mb-8 max-w-lg">عذراً، يبدو أن الرابط الذي تبحث عنه قد تم نقله أو حذفه، أو أن العنوان الذي تم إدخاله غير صحيح.</p>
+        <div class="flex gap-4">
+          <a href="/" class="px-6 py-3 rounded-lg bg-[#B89544] text-[#0F172A] font-bold text-sm">العودة للرئيسية</a>
+          <a href="/services" class="px-6 py-3 rounded-lg bg-white/10 text-white font-medium text-sm">تصفح الخدمات</a>
+        </div>
+      </div>
+    </div>`;
+
+    html = html.replace(/<div id="root"><\/div>/, notFoundPrerender.trim());
+    return html;
 }
 
 // ─── Main Execution ───────────────────────────────────────────────────────────
@@ -508,19 +565,26 @@ async function run() {
             html = html.replace(schemaRegex, schemaBlock);
         }
 
-        // Inject Pre-rendered Initial Static Semantic Content inside #root for crawlers/prerender
+        // Inject Clean Semantic Initial HTML inside #root (No display:none / aria-hidden hacks)
         const staticPrerenderMarkup = `
     <div id="root">
-      <div style="display:none;" aria-hidden="true" class="prerender-seo-content">
+      <header class="sr-only">
         <h1>${route.title}</h1>
         <p>${route.description}</p>
-      </div>
+      </header>
     </div>`;
         html = html.replace(/<div id="root"><\/div>/, staticPrerenderMarkup.trim());
 
         fs.writeFileSync(path.join(routeDir, 'index.html'), html);
         console.log(`✅ Pre-rendered: ${route.path}`);
     }
+
+    // ─── توليد وحفظ 404.html المستقل ──────────────────────────────────────────
+    console.log('\n📄 Generating standalone 404.html...');
+    const notFoundHtml = generate404Html(template);
+    fs.writeFileSync(NOT_FOUND_PUB, notFoundHtml);
+    fs.writeFileSync(NOT_FOUND_DST, notFoundHtml);
+    console.log('✅ 404.html generated successfully.');
 
     console.log('✨ Pre-rendering complete!');
 
