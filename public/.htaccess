@@ -28,6 +28,9 @@ RewriteBase /
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/book_consultation(?:[.,]html)?[\s?] [NC]
     RewriteRule ^book_consultation(?:[.,]html)?$ https://mishal-lawfirm.com/contact [R=301,L,QSA]
 
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/military-lawyer-makkah(?:[.,]html)?[\s?] [NC]
+    RewriteRule ^military-lawyer-makkah(?:[.,]html)?$ https://mishal-lawfirm.com/military-cases-makkah [R=301,L,QSA]
+
     # ─── 5. إزالة لاحقة .html أو ,html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) 
     RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)[.,]html(?:\?([^\s]*))?\s [NC]

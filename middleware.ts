@@ -74,7 +74,7 @@ export default function middleware(request: Request) {
 
 تقدم الشركة باقة متكاملة من الخدمات القانونية التخصصية في مكة المكرمة وجدة:
 
-- [تظلمات وقضايا عسكرية](https://mishal-lawfirm.com/military-lawyer-makkah)
+- [تظلمات وقضايا عسكرية](https://mishal-lawfirm.com/military-cases-makkah)
 - [حوكمة المنشآت وتأسيس الشركات](https://mishal-lawfirm.com/commercial-lawyer-makkah)
 - [المنازعات العمالية والامتثال](https://mishal-lawfirm.com/labor-lawyer-makkah)
 - [الأحوال الشخصية وتصفية التركات](https://mishal-lawfirm.com/family-lawyer-makkah)

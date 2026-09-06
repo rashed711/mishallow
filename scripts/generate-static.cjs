@@ -43,7 +43,22 @@ function extractData(filePath) {
         const seoDescMatch  = block.match(/seoDescription:\s*['\"](.*?)['\"]/);
         const descMatch     = seoDescMatch || block.match(/(excerpt|description):\s*['\"](.*?)['\"]/);
         const imageMatch    = block.match(/image:\s*['\"](.*?)['\"]/);
+        const rawDateMatch  = block.match(/rawDate:\s*['\"](.*?)['\"]/);
         const dateMatch     = block.match(/date:\s*['\"](.*?)['\"]/);
+
+        // Extract FAQs if present
+        const faqs = [];
+        const faqBlockMatch = block.match(/faq:\s*\[([\s\S]*?)\]/);
+        if (faqBlockMatch) {
+            const faqItemsRegex = /\{[\s\S]*?question:\s*['\"](.*?)['\"][\s\S]*?answer:\s*['\"]([\s\S]*?)['\"][\s\S]*?\}/g;
+            let faqMatch;
+            while ((faqMatch = faqItemsRegex.exec(faqBlockMatch[1])) !== null) {
+                faqs.push({
+                    question: faqMatch[1],
+                    answer: faqMatch[2].replace(/\\n/g, ' ').trim()
+                });
+            }
+        }
 
         if (slugMatch) {
             items.push({
@@ -51,7 +66,8 @@ function extractData(filePath) {
                 title:       titleMatch ? titleMatch[1] : 'شركة مشعل بادغيش للمحاماة',
                 description: descMatch  ? (seoDescMatch ? seoDescMatch[1] : descMatch[2] || descMatch[1]) : 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
                 image:       imageMatch ? imageMatch[1]  : '/images/logo/logo.webp',
-                date:        dateMatch  ? dateMatch[1]   : '2026-09-03'
+                rawDate:     rawDateMatch ? rawDateMatch[1] : (dateMatch && /^\d{4}-\d{2}-\d{2}$/.test(dateMatch[1]) ? dateMatch[1] : null),
+                faqs:        faqs
             });
         }
     }
@@ -80,112 +96,231 @@ function extractQuickServices(filePath) {
     return items;
 }
 
-// ─── Helper: Generate JSON-LD Graph for a specific route ───────────────────────
+// ─── Helper: Generate Unified JSON-LD Graph (Matching data/siteSchema.ts) ──────
 function generatePageSchema(route) {
     const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '' : route.path}`;
 
-    let imageUrl = route.image;
+    let imageUrl = route.image || '/images/logo/logo.webp';
     if (!imageUrl.startsWith('http')) {
         imageUrl = `https://mishal-lawfirm.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
     }
 
-    const graph = [
-        {
-            "@type": "LegalService",
-            "@id": "https://mishal-lawfirm.com/#organization",
-            "name": "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
-            "alternateName": [
-                "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
-                "شركة مشعل بادغيش للمحاماة",
-                "مكتب المحامي مشعل بادغيش",
-                "شركة محاماة في مكة وجدة"
-            ],
-            "url": "https://mishal-lawfirm.com",
-            "logo": "https://mishal-lawfirm.com/images/logo/logo.webp",
-            "image": "https://mishal-lawfirm.com/images/logo/logo.webp",
-            "telephone": "+966568000085",
-            "email": "info@mishal-lawfirm.com",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "شارع عبدالله بن عباس، بجوار نادي ستار تراك",
-                "addressLocality": "Makkah",
-                "addressRegion": "Makkah Province",
-                "postalCode": "24353",
-                "addressCountry": "SA"
-            },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 21.3508,
-                "longitude": 39.8821
-            },
-            "areaServed": [
-                { "@type": "City", "name": "Makkah", "sameAs": "https://en.wikipedia.org/wiki/Mecca" },
-                { "@type": "City", "name": "Jeddah", "sameAs": "https://en.wikipedia.org/wiki/Jeddah" }
-            ],
-            "founder": {
-                "@type": "Person",
-                "name": "مشعل بادغيش",
-                "jobTitle": "محامي ومستشار قانوني مرخص"
-            },
-            "knowsAbout": [
-                "الأنظمة واللوائح القضائية في المملكة العربية السعودية",
-                "نظام المعاملات المدنية السعودي",
-                "نظام الشركات السعودي الجديد",
-                "نظام العمل والتأمينات الاجتماعية",
-                "نظام الإجراءات الجزائية ومكافحة الجرائم المعلوماتية",
-                "منظومة القضاء التجاري وإعادة التنظيم المالي",
-                "بوابة ناجز وخدمات وزارة العدل السعودية",
-                "منصة معين الرقمية بديوان المظالم",
-                "منصة قوى لوزارة الموارد البشرية والتنمية الاجتماعية"
-            ],
-            "openingHours": "Su-Th 09:00-17:00"
+    const orgId = "https://mishal-lawfirm.com/#organization";
+    const websiteId = "https://mishal-lawfirm.com/#website";
+    const webpageId = `${canonicalUrl}#webpage`;
+
+    const organizationEntity = {
+        "@type": "LegalService",
+        "@id": orgId,
+        "name": "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
+        "alternateName": [
+            "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
+            "شركة مشعل بادغيش للمحاماة",
+            "مكتب المحامي مشعل بادغيش",
+            "شركة محاماة في مكة وجدة"
+        ],
+        "url": "https://mishal-lawfirm.com",
+        "logo": "https://mishal-lawfirm.com/images/logo/logo.webp",
+        "image": "https://mishal-lawfirm.com/images/logo/logo.webp",
+        "telephone": "+966568000085",
+        "email": "info@mishal-lawfirm.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "شارع عبدالله بن عباس، بجوار نادي ستار تراك",
+            "addressLocality": "Makkah",
+            "addressRegion": "Makkah Province",
+            "postalCode": "24353",
+            "addressCountry": "SA"
         },
-        {
-            "@type": "WebSite",
-            "@id": "https://mishal-lawfirm.com/#website",
-            "url": "https://mishal-lawfirm.com",
-            "name": "شركة مشعل بادغيش للمحاماة",
-            "publisher": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "inLanguage": "ar"
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 21.3508,
+            "longitude": 39.8821
         },
+        "areaServed": [
+            { "@type": "City", "name": "Makkah", "sameAs": "https://en.wikipedia.org/wiki/Mecca" },
+            { "@type": "City", "name": "Jeddah", "sameAs": "https://en.wikipedia.org/wiki/Jeddah" }
+        ],
+        "founder": {
+            "@type": "Person",
+            "name": "مشعل بادغيش",
+            "jobTitle": "محامي ومستشار قانوني مرخص"
+        },
+        "knowsAbout": [
+            "الأنظمة واللوائح القضائية في المملكة العربية السعودية",
+            "نظام المعاملات المدنية السعودي",
+            "نظام الشركات السعودي الجديد",
+            "نظام العمل والتأمينات الاجتماعية",
+            "نظام الإجراءات الجزائية ومكافحة الجرائم المعلوماتية",
+            "منظومة القضاء التجاري وإعادة التنظيم المالي",
+            "بوابة ناجز وخدمات وزارة العدل السعودية",
+            "منصة معين الرقمية بديوان المظالم",
+            "منصة قوى لوزارة الموارد البشرية والتنمية الاجتماعية"
+        ]
+    };
+
+    const websiteEntity = {
+        "@type": "WebSite",
+        "@id": websiteId,
+        "url": "https://mishal-lawfirm.com",
+        "name": "شركة مشعل بادغيش للمحاماة",
+        "alternateName": [
+            "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
+            "شركة مشعل بادغيش للمحاماة",
+            "مكتب المحامي مشعل بادغيش",
+            "شركة محاماة في مكة وجدة"
+        ],
+        "publisher": { "@id": orgId },
+        "inLanguage": "ar"
+    };
+
+    const webPageEntity = {
+        "@type": "WebPage",
+        "@id": webpageId,
+        "url": canonicalUrl,
+        "name": route.title,
+        "description": route.description,
+        "isPartOf": { "@id": websiteId },
+        "about": { "@id": orgId },
+        "inLanguage": "ar"
+    };
+
+    const graph = [organizationEntity, websiteEntity, webPageEntity];
+
+    // Breadcrumbs
+    const breadcrumbElements = [
         {
-            "@type": "WebPage",
-            "@id": `${canonicalUrl}#webpage`,
-            "url": canonicalUrl,
-            "name": route.title,
-            "description": route.description,
-            "isPartOf": { "@id": "https://mishal-lawfirm.com/#website" },
-            "about": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "inLanguage": "ar"
+            "@type": "ListItem",
+            "position": 1,
+            "name": "الرئيسية",
+            "item": { "@id": "https://mishal-lawfirm.com/" }
         }
     ];
 
-    if (route.type === 'article') {
+    if (route.type === 'service') {
+        breadcrumbElements.push(
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "الخدمات",
+                "item": { "@id": "https://mishal-lawfirm.com/services" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": route.title,
+                "item": { "@id": canonicalUrl }
+            }
+        );
+    } else if (route.type === 'article') {
+        breadcrumbElements.push(
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "المقالات",
+                "item": { "@id": "https://mishal-lawfirm.com/articles" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": route.title,
+                "item": { "@id": canonicalUrl }
+            }
+        );
+    } else if (route.type === 'quick') {
+        breadcrumbElements.push(
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "الخدمات السريعة",
+                "item": { "@id": "https://mishal-lawfirm.com/quick-services" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": route.title,
+                "item": { "@id": canonicalUrl }
+            }
+        );
+    }
+
+    if (breadcrumbElements.length > 1) {
         graph.push({
-            "@type": "Article",
-            "@id": `${canonicalUrl}#article`,
+            "@type": "BreadcrumbList",
+            "@id": `${canonicalUrl}#breadcrumb`,
+            "itemListElement": breadcrumbElements
+        });
+    }
+
+    // Service entity
+    if (route.type === 'service') {
+        const serviceId = `${canonicalUrl}#service`;
+        webPageEntity.mainEntity = { "@id": serviceId };
+
+        const serviceEntity = {
+            "@type": "Service",
+            "@id": serviceId,
+            "name": route.title,
+            "description": route.description,
+            "serviceType": "خدمات واستشارات قانونية",
+            "provider": { "@id": orgId },
+            "areaServed": [
+                { "@type": "City", "name": "Makkah", "sameAs": "https://en.wikipedia.org/wiki/Mecca" },
+                { "@type": "City", "name": "Jeddah", "sameAs": "https://en.wikipedia.org/wiki/Jeddah" }
+            ]
+        };
+        graph.push(serviceEntity);
+
+        if (route.faqs && route.faqs.length > 0) {
+            graph.push({
+                "@type": "FAQPage",
+                "@id": `${canonicalUrl}#faq`,
+                "mainEntity": route.faqs.map(item => ({
+                    "@type": "Question",
+                    "name": item.question,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": item.answer
+                    }
+                }))
+            });
+        }
+    }
+
+    // Article entity (Real dates only - NO fabricated dates)
+    if (route.type === 'article') {
+        const articleId = `${canonicalUrl}#article`;
+        webPageEntity.mainEntity = { "@id": articleId };
+
+        const articleEntity = {
+            "@type": "BlogPosting",
+            "@id": articleId,
             "headline": route.title,
             "description": route.description,
+            "url": canonicalUrl,
             "image": imageUrl,
             "author": {
                 "@type": "Person",
                 "name": "مشعل بادغيش",
                 "jobTitle": "محامي ومستشار قانوني مرخص"
             },
-            "publisher": { "@id": "https://mishal-lawfirm.com/#organization" },
-            "datePublished": route.date || "2026-09-03",
-            "dateModified": "2026-09-03",
-            "mainEntityOfPage": canonicalUrl,
+            "publisher": { "@id": orgId },
+            "isPartOf": { "@id": websiteId },
             "inLanguage": "ar"
-        });
+        };
+
+        if (route.rawDate) {
+            articleEntity.datePublished = route.rawDate;
+        }
+
+        graph.push(articleEntity);
     }
 
     return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }, null, 2);
 }
 
-// ─── Helper: Generate sitemap.xml ─────────────────────────────────────────────
+// ─── Helper: Generate sitemap.xml (Real modification dates only) ──────────────
 function generateSitemapXml(routes) {
-    const today = new Date().toISOString().split('T')[0];
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
@@ -213,7 +348,10 @@ function generateSitemapXml(routes) {
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
+        // ONLY include lastmod when a REAL date exists (e.g. article rawDate). Omit otherwise.
+        if (r.rawDate && /^\d{4}-\d{2}-\d{2}$/.test(r.rawDate)) {
+            xml += `    <lastmod>${r.rawDate}</lastmod>\n`;
+        }
         xml += `    <changefreq>${changefreq}</changefreq>\n`;
         xml += `    <priority>${priority}</priority>\n`;
         xml += `  </url>\n`;
@@ -326,7 +464,7 @@ async function run() {
         // Replace Title
         html = html.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
 
-        // Update Canonical Tag (avoid trailing slashes on non-root pages)
+        // Update Canonical Tag (clean URL without trailing slashes on non-root pages)
         const canonicalUrl = `https://mishal-lawfirm.com${route.path}`;
         const canonicalTag = `<link rel="canonical" href="${canonicalUrl}" />`;
         const canonicalRegex = /<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i;
@@ -369,6 +507,16 @@ async function run() {
         if (html.match(schemaRegex)) {
             html = html.replace(schemaRegex, schemaBlock);
         }
+
+        // Inject Pre-rendered Initial Static Semantic Content inside #root for crawlers/prerender
+        const staticPrerenderMarkup = `
+    <div id="root">
+      <div style="display:none;" aria-hidden="true" class="prerender-seo-content">
+        <h1>${route.title}</h1>
+        <p>${route.description}</p>
+      </div>
+    </div>`;
+        html = html.replace(/<div id="root"><\/div>/, staticPrerenderMarkup.trim());
 
         fs.writeFileSync(path.join(routeDir, 'index.html'), html);
         console.log(`✅ Pre-rendered: ${route.path}`);
