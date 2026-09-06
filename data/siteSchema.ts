@@ -5,12 +5,11 @@
 
 export const BUSINESS_INFO = {
   legalName: "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
-  brandName: "شركة مشعل بادغيش للمحاماة",
+  brandName: "مشعل بادغيش للمحاماة والاستشارات القانونية",
   alternateNames: [
     "شركة مشعل بادغيش للمحاماة والاستشارات القانونية",
     "شركة مشعل بادغيش للمحاماة",
-    "مكتب المحامي مشعل بادغيش",
-    "شركة محاماة في مكة وجدة"
+    "مكتب مشعل بادغيش للمحاماة"
   ],
   url: "https://mishal-lawfirm.com",
   logo: "https://mishal-lawfirm.com/images/logo/logo.webp",
