@@ -133,7 +133,6 @@ function generatePageSchema(route, buildSchemaGraph) {
 
 // ─── Helper: Generate sitemap.xml ─────────────────────────────────────────────
 function generateSitemapXml(routes) {
-    const today = new Date().toISOString().split('T')[0];
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
@@ -161,7 +160,9 @@ function generateSitemapXml(routes) {
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
-        xml += `    <lastmod>${today}</lastmod>\n`;
+        if (r.type === 'article' && r.rawDate) {
+            xml += `    <lastmod>${r.rawDate}</lastmod>\n`;
+        }
         xml += `    <changefreq>${changefreq}</changefreq>\n`;
         xml += `    <priority>${priority}</priority>\n`;
         xml += `  </url>\n`;

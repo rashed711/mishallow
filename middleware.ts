@@ -74,7 +74,7 @@ export default function middleware(request: Request) {
 
 تقدم الشركة باقة متكاملة من الخدمات القانونية التخصصية في مكة المكرمة وجدة:
 
-- [تظلمات وقضايا عسكرية](https://mishal-lawfirm.com/military-lawyer-makkah)
+- [تظلمات وقضايا عسكرية](https://mishal-lawfirm.com/military-cases-makkah)
 - [حوكمة المنشآت وتأسيس الشركات](https://mishal-lawfirm.com/commercial-lawyer-makkah)
 - [المنازعات العمالية والامتثال](https://mishal-lawfirm.com/labor-lawyer-makkah)
 - [الأحوال الشخصية وتصفية التركات](https://mishal-lawfirm.com/family-lawyer-makkah)
@@ -109,10 +109,35 @@ export default function middleware(request: Request) {
 - التحول الرقمي العدلي عبر بوابة ناجز ومنصة معين
 
 للاطلاع على كافة المقالات: https://mishal-lawfirm.com/articles`;
+    } else if (pathname === '/quick-services') {
+      markdown = `# الخدمات القانونية السريعة | شركة مشعل بادغيش للمحاماة
+
+حلول واستشارات قانونية فورية للأفراد والشركات في مكة وجدة:
+- استشارة قانونية تجارية سريعة
+- استشارة قانونية عمالية
+- استشارة أحوال شخصية وتركات
+- صياغة العقود ومراجعتها
+- إعداد لوائح العمل الداخلية
+- إعداد وصياغة صحائف الدعوى
+- طلبات ومتابعة التنفيذ القضائي
+
+لطلب خدمة سريعة: https://mishal-lawfirm.com/quick-services`;
+    } else if (pathname === '/privacy') {
+      markdown = `# سياسة الخصوصية | شركة مشعل بادغيش للمحاماة
+نلتزم بأعلى معايير السرية المهنية وحماية بيانات الموكلين وفق أنظمة المملكة العربية السعودية.
+الرابط الرسمي: https://mishal-lawfirm.com/privacy`;
+    } else if (pathname === '/terms') {
+      markdown = `# اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة
+الشروط والأحكام المنظمة لاستخدام المحتوى القانوني والخدمات الرقمية للشركة.
+الرابط الرسمي: https://mishal-lawfirm.com/terms`;
     } else {
-      markdown = `# شركة مشعل بادغيش للمحاماة والاستشارات القانونية
-المسار المطلوب: ${pathname}
-للاطلاع على الموقع الكامل أو حجز موعد قانوني: https://mishal-lawfirm.com/contact`;
+      return new Response('404 Not Found - المسار المطلوب غير موجود', {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'X-Robots-Tag': 'noindex, nofollow, noarchive'
+        }
+      });
     }
 
     return new Response(markdown, {

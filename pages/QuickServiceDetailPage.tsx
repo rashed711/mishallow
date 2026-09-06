@@ -115,8 +115,9 @@ const QuickServiceDetailPage: React.FC = () => {
             <SEO
                 title={`${service.title} | خدمات سريعة - شركة مشعل بادغيش`}
                 description={service.description}
-                url={`https://mishal-lawfirm.com/quick-services/${service.slug}`}
                 type="service"
+                url={`https://mishal-lawfirm.com/quick-services/${service.slug}`}
+                serviceType={categoryName || "خدمات قانونية سريعة"}
                 quickServiceName={service.title}
                 breadcrumbs={[
                     { name: 'خدمات سريعة', url: 'https://mishal-lawfirm.com/quick-services' },

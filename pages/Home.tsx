@@ -25,7 +25,7 @@ const Home: React.FC = () => {
             <div className="scroll-mt-24">
                 <About />
             </div>
-            
+
             {/* Grouping secondary sections to reduce observers and main-thread overhead on mobile, bypassed on desktop */}
             <LazySection height="2000px">
                 <div className="scroll-mt-24">

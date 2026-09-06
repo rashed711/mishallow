@@ -80,6 +80,7 @@ const UrlNormalizer: React.FC = () => {
   // تحويل المسارات القديمة
   if (cleanPath === '/blog') cleanPath = '/articles';
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
+  if (cleanPath === '/military-lawyer-makkah') cleanPath = '/military-cases-makkah';
 
   if (cleanPath !== rawPath) {
     return <Navigate to={cleanPath + location.search + location.hash} replace />;

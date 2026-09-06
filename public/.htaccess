@@ -7,6 +7,9 @@ Options -MultiViews -Indexes
 RewriteEngine On
 RewriteBase /
 
+# ─── صفحة الخطأ 404 المخصصة مع إرجاع كود HTTP 404 الحقيقي ───────────────────
+ErrorDocument 404 /404.html
+
 # ─── 1. فرض بروتوكول HTTPS الإجباري (301 Permanent Redirect) ────────────────
 <IfModule mod_rewrite.c>
     RewriteCond %{HTTPS} off [OR]
@@ -28,13 +31,16 @@ RewriteBase /
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/book_consultation(?:[.,]html)?[\s?] [NC]
     RewriteRule ^book_consultation(?:[.,]html)?$ https://mishal-lawfirm.com/contact [R=301,L,QSA]
 
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/military-lawyer-makkah(?:[.,]html)?[\s?] [NC]
+    RewriteRule ^military-lawyer-makkah(?:[.,]html)?$ https://mishal-lawfirm.com/military-cases-makkah [R=301,L,QSA]
+
     # ─── 5. إزالة لاحقة .html أو ,html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) 
     RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
+    RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+404(?:[.,]html)?[\s?] [NC]
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)[.,]html(?:\?([^\s]*))?\s [NC]
     RewriteRule ^(.+?)[.,]html$ https://mishal-lawfirm.com/$1 [R=301,L,QSA]
 
     # ─── 6. ضبط التحويل الصارم لـ Trailing Slash (إزالة الشرطة المائلة الزائدة) ─
-    # استثناء المسار الجذري والمجلدات الفعلية، وتحويل مثل /about/ إلى /about
     RewriteCond %{REQUEST_METHOD} =GET
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)/+[\s?] [NC]
@@ -45,13 +51,19 @@ RewriteBase /
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # ─── 8. السماح بالوصول المباشر للملفات والمجلدات الثابتة الموجودة ──────────
+    # ─── 8. السماح بالوصول المباشر للملفات والمجلدات الثابتة والمولدة ──────────
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # ─── 9. توجيه جميع المسارات المتبقية إلى index.html (SPA Fallback) ─────────
+    # ─── 9. توجيه مسارات الإدارة الداخلية إلى index.html (Admin SPA Fallback) ───
+    RewriteCond %{REQUEST_URI} ^/admin [NC]
     RewriteRule ^ index.html [L]
+
+    # ─── 10. إرجاع كود 404 حقيقي لكافة المسارات غير الموجودة ──────────────────
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ - [R=404,L]
 </IfModule>
 
 # ─── رؤوس الأمان ومكافحة الأرشفة غير المصرح بها (Headers & Security) ─────────
