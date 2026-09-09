@@ -26,8 +26,21 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
     { to: '/about', text: 'من نحن', title: 'نبذة عن خبراتنا وفريقنا القانوني' },
     { to: '/services', text: 'خدماتنا القانونية', title: 'استكشف تخصصاتنا وخدماتنا القانونية' },
     { to: '/articles', text: 'المقالات القانونية', title: 'اقرأ آخر الرؤى والدراسات القانونية' },
+    { to: '/quick-services', text: 'خدمات سريعة', title: 'استشارات قانونية سريعة وفورية' },
     { to: '/contact', text: 'تواصل معنا', title: 'قنوات الاتصال المباشر بالشركة' },
   ];
+
+  const serviceLinks = [
+    { to: '/commercial-lawyer-makkah', text: 'محامي تجاري في مكة' },
+    { to: '/labor-lawyer-makkah', text: 'محامي عمالي في مكة' },
+    { to: '/criminal-lawyer-makkah', text: 'محامي جنائي في مكة' },
+    { to: '/family-lawyer-makkah', text: 'محامي أسري في مكة' },
+    { to: '/military-cases-makkah', text: 'قضايا عسكرية بمكة' },
+    { to: '/commercial-lawyer-jeddah', text: 'محامي تجاري في جدة' },
+    { to: '/labor-lawyer-jeddah', text: 'محامي عمالي في جدة' },
+    { to: '/criminal-lawyer-jeddah', text: 'محامي جنائي في جدة' },
+  ];
+
 
   const handleLogoClick = (e: React.MouseEvent) => {
     if (location.pathname === '/') {
@@ -104,6 +117,25 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
           </div>
 
           <div>
+            <h3 className="text-white font-bold text-lg mb-8 relative inline-block">
+              تخصصاتنا القانونية
+              <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
+            </h3>
+            <ul className="space-y-4">
+              {serviceLinks.map(link => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-slate-300 hover:text-[#B89544] hover:pr-2 transition-all duration-300 block text-sm"
+                  >
+                    {link.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               معلومات الاتصال
               <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
@@ -138,18 +170,6 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 </div>
               </li>
             </ul>
-          </div>
-
-          <div className="bg-white/5 p-8 rounded-2xl border border-white/10">
-            <h4 className="text-white font-bold text-lg mb-4">هل لديك استفسار؟</h4>
-            <p className="text-slate-300 text-sm mb-6">فريقنا القانوني متاح لتقديم الدعم اللازم لك على مدار الأسبوع.</p>
-            <button
-              onClick={onOpenModal}
-              className="w-full bg-gradient-to-r from-[#B89544] to-[#D4AF37] text-[#0F172A] font-bold py-3 px-4 rounded-xl hover:brightness-110 transition-all duration-300 flex items-center justify-center space-x-2 rtl:space-x-reverse active:scale-95"
-            >
-              <span>احجز موعد الآن</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-            </button>
           </div>
 
         </div>

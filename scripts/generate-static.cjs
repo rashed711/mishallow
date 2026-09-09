@@ -133,6 +133,9 @@ function generatePageSchema(route, buildSchemaGraph) {
 
 // ─── Helper: Generate sitemap.xml ─────────────────────────────────────────────
 function generateSitemapXml(routes) {
+    // تاريخ البناء الحالي بصيغة YYYY-MM-DD لاستخدامه كـ lastmod للصفحات الثابتة
+    const buildDate = new Date().toISOString().split('T')[0];
+
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
@@ -140,6 +143,7 @@ function generateSitemapXml(routes) {
         let loc = `https://mishal-lawfirm.com${r.path === '/' ? '/' : r.path}`;
         let priority = '0.7';
         let changefreq = 'monthly';
+        let lastmod = buildDate; // الافتراضي: تاريخ البناء
 
         if (r.path === '/') {
             priority = '1.0';
@@ -150,19 +154,27 @@ function generateSitemapXml(routes) {
         } else if (r.type === 'service') {
             priority = '0.8';
             changefreq = 'monthly';
+        } else if (r.type === 'quick') {
+            priority = '0.7';
+            changefreq = 'monthly';
         } else if (r.type === 'article') {
             priority = '0.7';
             changefreq = 'monthly';
+            // المقالات تستخدم تاريخ النشر الأصلي إن وُجد
+            if (r.rawDate) {
+                lastmod = r.rawDate;
+            }
         } else if (['/privacy', '/terms'].includes(r.path)) {
             priority = '0.3';
             changefreq = 'yearly';
+        } else if (['/quick-services'].includes(r.path)) {
+            priority = '0.7';
+            changefreq = 'monthly';
         }
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
-        if (r.type === 'article' && r.rawDate) {
-            xml += `    <lastmod>${r.rawDate}</lastmod>\n`;
-        }
+        xml += `    <lastmod>${lastmod}</lastmod>\n`;
         xml += `    <changefreq>${changefreq}</changefreq>\n`;
         xml += `    <priority>${priority}</priority>\n`;
         xml += `  </url>\n`;
