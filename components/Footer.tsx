@@ -61,9 +61,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-right">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-20">
 
-          <div className="space-y-6 flex flex-col items-center md:items-start">
+          <div className="col-span-2 lg:col-span-1 space-y-6 flex flex-col items-center md:items-start">
             <Link
               to="/"
               onClick={handleLogoClick}
@@ -96,7 +96,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
             </div>
           </div>
 
-          <div>
+          <div className="lg:col-span-1">
             <h3 className="text-white font-bold text-lg mb-8 relative inline-block">
               روابط سريعة
               <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
@@ -135,7 +135,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 lg:col-span-1">
             <h4 className="text-white font-bold text-lg mb-8 relative inline-block">
               معلومات الاتصال
               <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
