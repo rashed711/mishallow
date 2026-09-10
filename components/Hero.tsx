@@ -93,9 +93,9 @@ const Hero: React.FC = () => {
                 شركة مشعل بادغيش للمحاماة والاستشارات القانونية
               </motion.div>
 
-              <div className="mb-8">
+              <h1 className="mb-8">
                 <div className="overflow-hidden mb-2">
-                  <motion.h1
+                  <motion.span
                     variants={{
                       hidden: { opacity: 0, y: 70 },
                       visible: { 
@@ -104,13 +104,13 @@ const Hero: React.FC = () => {
                         transition: { type: "spring", stiffness: 100, damping: 12 } 
                       }
                     }}
-                    className="fluid-h1 font-black text-white leading-tight drop-shadow-xl"
+                    className="fluid-h1 font-black text-white leading-tight drop-shadow-xl block"
                   >
                     شركة محاماة خبيرة
-                  </motion.h1>
+                  </motion.span>
                 </div>
                 <div className="overflow-hidden">
-                  <motion.h1
+                  <motion.span
                     variants={{
                       hidden: { opacity: 0, y: 70 },
                       visible: { 
@@ -119,12 +119,12 @@ const Hero: React.FC = () => {
                         transition: { type: "spring", stiffness: 100, damping: 12, delay: 0.1 } 
                       }
                     }}
-                    className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2"
+                    className="fluid-h1 font-black text-transparent bg-clip-text bg-gradient-to-l from-[#B89544] via-[#F3E2B1] to-[#D4AF37] leading-tight pb-2 block"
                   >
                     بأنظمة المملكة الحديثة في مكة
-                  </motion.h1>
+                  </motion.span>
                 </div>
-              </div>
+              </h1>
 
               <motion.p
                 variants={{

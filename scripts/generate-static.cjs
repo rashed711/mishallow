@@ -101,7 +101,7 @@ function loadQuickServicesData() {
 
 // ─── Helper: Generate JSON-LD Graph for a specific route ───────────────────────
 function generatePageSchema(route, buildSchemaGraph) {
-    const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '' : route.path}`;
+    const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '/' : route.path}`;
 
     let imageUrl = route.image;
     if (!imageUrl.startsWith('http')) {
@@ -204,42 +204,42 @@ async function run() {
     const staticPages = [
         {
             path: '/',
-            title: 'المحامي مشعل بادغيش | مكتب محاماة معتمد في مكة وجدة',
-            description: 'مكتب المحامي مشعل بادغيش للمحاماة والاستشارات في مكة وجدة. تمثيل قضائي في القضايا التجارية، الجنائية، العمالية، والعقارية. تواصل معنا الآن.',
+            title: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية | محامون في مكة وجدة',
+            description: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية في مكة وجدة. تمثيل قضائي في القضايا التجارية، الجنائية، العمالية، والعقارية وصياغة العقود. تواصل معنا الآن.',
             image: '/images/logo/logo.webp',
             type: 'static'
         },
         {
             path: '/about',
-            title: 'من نحن | مكتب المحامي مشعل | نخبة محامين في مكة وجدة',
-            description: 'تعرف على شركة المحامي مشعل بادغيش. نخبة من أفضل المحامين والمستشارين في مكة وجدة لتقديم استشارات قانونية وتمثيل قضائي احترافي للأفراد والشركات.',
+            title: 'من نحن | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
+            description: 'تعرف على شركة مشعل بادغيش للمحاماة والاستشارات القانونية. نخبة من أفضل المحامين والمستشارين في مكة وجدة لتقديم استشارات قانونية وتمثيل قضائي احترافي.',
             image: '/images/logo/logo.webp',
             type: 'static'
         },
         {
             path: '/contact',
-            title: 'تواصل مع مكتب المحامي مشعل | استشارات قانونية في مكة وجدة',
+            title: 'تواصل معنا | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
             description: 'احجز استشارتك القانونية الآن مع نخبة من المحامين المعتمدين في مكة وجدة. تمثيل قضائي واستشارات تجارية وجنائية متخصصة. تواصل معنا مباشرة.',
             image: '/images/logo/logo.webp',
             type: 'static'
         },
         {
             path: '/services',
-            title: 'الخدمات القانونية | مكتب المحامي مشعل في مكة وجدة',
+            title: 'الخدمات القانونية | شركة مشعل بادغيش للمحاماة والاستشارات',
             description: 'خدمات واستشارات قانونية متكاملة في مكة وجدة: قضايا تجارية، دفاع جنائي، عمالية، عقارية وصياغة عقود. تمثيل قضائي مرخص أمام كافة المحاكم.',
             image: '/images/logo/logo.webp',
             type: 'static'
         },
         {
             path: '/articles',
-            title: 'المدونة القانونية | مقالات واستشارات الأنظمة السعودية',
-            description: 'دليل قانوني ومقالات متخصصة في الأنظمة السعودية، نظام الشركات، العمل، والقضايا التجارية والجنائية يقدمها نخبة مستشاري مكتب المحامي مشعل.',
+            title: 'المدونة القانونية | شركة مشعل بادغيش للمحاماة',
+            description: 'دليل قانوني ومقالات متخصصة في الأنظمة السعودية، نظام الشركات، العمل، والقضايا التجارية والجنائية يقدمها نخبة مستشاري شركة مشعل بادغيش للمحاماة.',
             image: '/images/logo/logo.webp',
             type: 'static'
         },
         {
             path: '/quick-services',
-            title: 'خدمات قانونية سريعة | استشارات فورية في مكة وجدة',
+            title: 'خدمات قانونية سريعة | شركة مشعل بادغيش للمحاماة',
             description: 'احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك بأعلى سرية.',
             image: '/images/logo/logo.webp',
             type: 'static'
@@ -269,16 +269,21 @@ async function run() {
 
     console.log(`Found ${routes.length} routes to process.`);
 
-    for (const route of routes) {
-        // Skip '/' directory writing since index.html already is the root
-        if (route.path === '/') continue;
-
-        const routeDir = path.join(DIST_DIR, route.path);
-
-        if (!fs.existsSync(routeDir)) {
-            fs.mkdirSync(routeDir, { recursive: true });
+    // تنظيف المجلدات الفرعية المكررة للمسارات المفردة لمنع mod_dir من فرض الشرطة المائلة
+    services.forEach(s => {
+        const legacyDir = path.join(DIST_DIR, s.slug);
+        if (fs.existsSync(legacyDir) && fs.statSync(legacyDir).isDirectory()) {
+            fs.rmSync(legacyDir, { recursive: true, force: true });
         }
+    });
+    ['about', 'contact', 'services', 'privacy', 'terms'].forEach(p => {
+        const legacyDir = path.join(DIST_DIR, p);
+        if (fs.existsSync(legacyDir) && fs.statSync(legacyDir).isDirectory()) {
+            fs.rmSync(legacyDir, { recursive: true, force: true });
+        }
+    });
 
+    for (const route of routes) {
         let imageUrl = route.image;
         if (!imageUrl.startsWith('http')) {
             imageUrl = `https://mishal-lawfirm.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
@@ -289,8 +294,8 @@ async function run() {
         // Replace Title
         html = html.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
 
-        // Update Canonical Tag (avoid trailing slashes on non-root pages)
-        const canonicalUrl = `https://mishal-lawfirm.com${route.path}`;
+        // Update Canonical Tag (clean URL, with trailing slash on root only)
+        const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '/' : route.path}`;
         const canonicalTag = `<link rel="canonical" href="${canonicalUrl}" />`;
         const canonicalRegex = /<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i;
         if (html.match(canonicalRegex)) {
@@ -333,8 +338,32 @@ async function run() {
             html = html.replace(schemaRegex, schemaBlock);
         }
 
-        fs.writeFileSync(path.join(routeDir, 'index.html'), html);
-        console.log(`✅ Pre-rendered: ${route.path}`);
+        if (route.path === '/') {
+            fs.writeFileSync(INDEX_HTML, html);
+            console.log(`✅ Pre-rendered root: / (index.html)`);
+        } else {
+            // Write clean .html file: e.g. dist/about.html or dist/articles/slug.html
+            const cleanPath = route.path.replace(/^\//, '');
+            const targetHtmlFile = path.join(DIST_DIR, `${cleanPath}.html`);
+            const targetDir = path.dirname(targetHtmlFile);
+
+            if (!fs.existsSync(targetDir)) {
+                fs.mkdirSync(targetDir, { recursive: true });
+            }
+
+            fs.writeFileSync(targetHtmlFile, html);
+
+            // For section listing pages like /articles or /quick-services, also provide index.html inside the directory
+            if (['/articles', '/quick-services'].includes(route.path)) {
+                const sectionDir = path.join(DIST_DIR, cleanPath);
+                if (!fs.existsSync(sectionDir)) {
+                    fs.mkdirSync(sectionDir, { recursive: true });
+                }
+                fs.writeFileSync(path.join(sectionDir, 'index.html'), html);
+            }
+
+            console.log(`✅ Pre-rendered: ${route.path} -> ${cleanPath}.html`);
+        }
     }
 
     console.log('✨ Pre-rendering complete!');

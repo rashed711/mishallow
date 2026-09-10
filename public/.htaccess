@@ -4,63 +4,71 @@
 # =====================================================
 
 Options -MultiViews -Indexes
+DirectorySlash Off
 RewriteEngine On
 RewriteBase /
 
 # ─── صفحة الخطأ 404 المخصصة مع إرجاع كود HTTP 404 الحقيقي ───────────────────
 ErrorDocument 404 /404.html
 
-# ─── 1. فرض بروتوكول HTTPS الإجباري (301 Permanent Redirect) ────────────────
 <IfModule mod_rewrite.c>
+    # ─── 1. فرض بروتوكول HTTPS الإجباري (301 Permanent Redirect) ────────────────
     RewriteCond %{HTTPS} off [OR]
     RewriteCond %{HTTP:X-Forwarded-Proto} =http
-    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L,NE,QSA]
+    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L,NE]
 
     # ─── 2. توحيد النطاق وإزالة WWW الإجباري (301 Permanent Redirect) ─────────
     RewriteCond %{HTTP_HOST} ^www\.mishal-lawfirm\.com$ [NC]
-    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L,NE,QSA]
+    RewriteRule ^ https://mishal-lawfirm.com%{REQUEST_URI} [R=301,L,NE]
 
     # ─── 3. تحويل طلبات /index.html أو /index الصريحة إلى الجذر / (301) ────────
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
-    RewriteRule ^index(?:[.,]html)?$ https://mishal-lawfirm.com/ [R=301,L,QSA]
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteCond %{THE_REQUEST} \s/+(index|index\.html)[\s?] [NC]
+    RewriteRule ^(index|index\.html)?$ https://mishal-lawfirm.com/ [R=301,L,NE]
 
     # ─── 4. إعادة توجيه الروابط القديمة والتاريخية (301 Redirects) ─────────────
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/blog(?:[.,]html)?[\s?] [NC]
-    RewriteRule ^blog(?:[.,]html)?$ https://mishal-lawfirm.com/articles [R=301,L,QSA]
+    RewriteCond %{THE_REQUEST} \s/+(blog|blog\.html)[\s?] [NC]
+    RewriteRule ^(blog|blog\.html)?$ https://mishal-lawfirm.com/articles [R=301,L,NE]
 
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/book_consultation(?:[.,]html)?[\s?] [NC]
-    RewriteRule ^book_consultation(?:[.,]html)?$ https://mishal-lawfirm.com/contact [R=301,L,QSA]
+    RewriteCond %{THE_REQUEST} \s/+(book_consultation|book_consultation\.html)[\s?] [NC]
+    RewriteRule ^(book_consultation|book_consultation\.html)?$ https://mishal-lawfirm.com/contact [R=301,L,NE]
 
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/military-lawyer-makkah(?:[.,]html)?[\s?] [NC]
-    RewriteRule ^military-lawyer-makkah(?:[.,]html)?$ https://mishal-lawfirm.com/military-cases-makkah [R=301,L,QSA]
+    RewriteCond %{THE_REQUEST} \s/+(military-lawyer-makkah|military-lawyer-makkah\.html)[\s?] [NC]
+    RewriteRule ^(military-lawyer-makkah|military-lawyer-makkah\.html)?$ https://mishal-lawfirm.com/military-cases-makkah [R=301,L,NE]
 
-    # ─── 5. إزالة لاحقة .html أو ,html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) 
-    RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+index(?:[.,]html)?[\s?] [NC]
-    RewriteCond %{THE_REQUEST} !^[A-Z]{3,9}\s/+404(?:[.,]html)?[\s?] [NC]
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)[.,]html(?:\?([^\s]*))?\s [NC]
-    RewriteRule ^(.+?)[.,]html$ https://mishal-lawfirm.com/$1 [R=301,L,QSA]
+    # ─── 5. إزالة لاحقة .html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) ───
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteCond %{THE_REQUEST} !404\.html
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+    RewriteRule ^(.+?)\.html$ https://mishal-lawfirm.com/$1 [R=301,L,NE]
 
-    # ─── 6. ضبط التحويل الصارم لـ Trailing Slash (إزالة الشرطة المائلة الزائدة) ─
+    # ─── 6. توحيد الروابط وإزالة الشرطة المائلة الزائدة Trailing Slash (301) ───
     RewriteCond %{REQUEST_METHOD} =GET
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\s/+(.+?)/+[\s?] [NC]
-    RewriteRule ^(.+?)/+$ https://mishal-lawfirm.com/$1 [R=301,L,QSA]
+    RewriteCond %{THE_REQUEST} \s/+(.+?)/+[\s?] [NC]
+    RewriteRule ^(.+?)/+$ https://mishal-lawfirm.com/$1 [R=301,L,NE]
 
     # ─── 7. استثناء مسار الـ Backend والـ APIs (PHP) ───────────────────────────
     RewriteCond %{REQUEST_URI} ^/(backend|api)/ [NC]
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # ─── 8. السماح بالوصول المباشر للملفات والمجلدات الثابتة والمولدة ──────────
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
+    # ─── 8. السماح بالوصول المباشر للملفات الثابتة الحقيقية ───────────────────
+    RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # ─── 9. توجيه مسارات الإدارة الداخلية إلى index.html (Admin SPA Fallback) ───
+    # ─── 9. تقديم ملفات HTML المولدة للروابط النظيفة بدون إعادة توجيه (Status 200) ───
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^(.*)$ $1.html [L]
+
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_FILENAME}/index.html -f
+    RewriteRule ^(.*)$ $1/index.html [L]
+
+    # ─── 10. توجيه مسارات الإدارة الداخلية إلى index.html (Admin SPA Fallback) ───
     RewriteCond %{REQUEST_URI} ^/admin [NC]
     RewriteRule ^ index.html [L]
 
-    # ─── 10. إرجاع كود 404 حقيقي لكافة المسارات غير الموجودة ──────────────────
+    # ─── 11. إرجاع كود 404 حقيقي لكافة المسارات غير الموجودة ──────────────────
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ - [R=404,L]

@@ -12,34 +12,40 @@ const LazySection: React.FC<LazySectionProps> = ({
   fallback = <div className="h-[200px] w-full animate-pulse bg-slate-50 rounded-3xl" />,
   height = "200px"
 }) => {
-  // Performance Optimization: Only use intersection observer on mobile/low-end devices.
-  // On desktop, we want immediate rendering to avoid TBT/Hydration overhead.
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [hasBeenViewed, setHasBeenViewed] = useState(false);
+  // Performance & SEO Optimization: Ensure full content parity for mobile and desktop
+  // Crawlers and desktop get immediate render; mobile uses content-visibility for maximum speed
+  const [isReady, setIsReady] = useState(false);
+
+  const isCrawler = typeof navigator !== 'undefined' && /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
 
   const { ref, inView } = useInView({
     triggerOnce: true,
-    rootMargin: '400px 0px',
-    skip: isDesktop, // Skip observer on desktop
+    rootMargin: '600px 0px',
   });
 
   useEffect(() => {
-    const checkDesktop = window.innerWidth >= 1024;
-    setIsDesktop(checkDesktop);
-    if (checkDesktop) {
-      setHasBeenViewed(true);
+    // Desktop and bots are immediately rendered to guarantee parity and prevent TBT
+    if (window.innerWidth >= 1024 || isCrawler) {
+      setIsReady(true);
     }
-  }, []);
+  }, [isCrawler]);
 
   useEffect(() => {
     if (inView) {
-      setHasBeenViewed(true);
+      setIsReady(true);
     }
   }, [inView]);
 
   return (
-    <div ref={ref} style={{ minHeight: isDesktop || hasBeenViewed ? 'auto' : height }}>
-      {isDesktop || hasBeenViewed ? (
+    <div 
+      ref={ref} 
+      style={{ 
+        contentVisibility: 'auto',
+        containIntrinsicSize: '0 800px',
+        minHeight: isReady ? 'auto' : height 
+      }}
+    >
+      {isReady || isCrawler ? (
         <Suspense fallback={fallback}>
           {children}
         </Suspense>

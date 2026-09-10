@@ -177,7 +177,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-slate-400 text-xs text-center md:text-right">
-              &copy; {new Date().getFullYear()} شركة مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة. ترخيص رقم (12345/67)
+              &copy; {new Date().getFullYear()} شركة مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.
             </p>
             <div className="flex space-x-6 rtl:space-x-reverse text-slate-400 text-xs">
               <Link to="/privacy" className="hover:text-[#B89544] transition-colors">سياسة الخصوصية</Link>
