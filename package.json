@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/generate-static.cjs && node scripts/validate-seo.cjs",
     "validate": "node scripts/validate-seo.cjs",
+    "validate:production": "node scripts/validate-production.cjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -145,15 +145,15 @@ function generateSitemapXml(routes) {
     routes.forEach(r => {
         let loc = `https://mishal-lawfirm.com${r.path === '/' ? '/' : r.path}`;
         
-        // Accurate, truthful lastmod logic (No fake daily/universal updates)
-        let lastmod = r.lastmod || '2026-03-01';
-        if (r.type === 'article') {
-            lastmod = r.dateModified || r.rawDate || '2024-06-10';
-        }
+        // Accurate, truthful lastmod logic (No fake fallback or fabricated dates)
+        // Rule: Only include <lastmod> if there is a verified substantive modification date
+        const verifiedLastmod = r.dateModified;
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
-        xml += `    <lastmod>${lastmod}</lastmod>\n`;
+        if (verifiedLastmod) {
+            xml += `    <lastmod>${verifiedLastmod}</lastmod>\n`;
+        }
         xml += `  </url>\n`;
     });
 
@@ -195,72 +195,64 @@ async function run() {
             title: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية | محامون في مكة وجدة',
             description: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية في مكة وجدة. تمثيل قضائي في القضايا التجارية، الجنائية، العمالية، والعقارية وصياغة العقود. تواصل معنا الآن.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/about',
             title: 'من نحن | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
             description: 'تعرف على شركة مشعل بادغيش للمحاماة والاستشارات القانونية. نخبة من أفضل المحامين والمستشارين في مكة وجدة لتقديم استشارات قانونية وتمثيل قضائي احترافي.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/contact',
             title: 'تواصل معنا | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
             description: 'احجز استشارتك القانونية الآن مع نخبة من المحامين المعتمدين في مكة وجدة. تمثيل قضائي واستشارات تجارية وجنائية متخصصة. تواصل معنا مباشرة.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/services',
             title: 'الخدمات القانونية | شركة مشعل بادغيش للمحاماة والاستشارات',
             description: 'خدمات واستشارات قانونية متكاملة في مكة وجدة: قضايا تجارية، دفاع جنائي، عمالية، عقارية وصياغة عقود. تمثيل قضائي مرخص أمام كافة المحاكم.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/articles',
             title: 'المدونة القانونية | شركة مشعل بادغيش للمحاماة',
             description: 'دليل قانوني ومقالات متخصصة في الأنظمة السعودية، نظام الشركات، العمل، والقضايا التجارية والجنائية يقدمها نخبة مستشاري شركة مشعل بادغيش للمحاماة.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/quick-services',
             title: 'خدمات قانونية سريعة | شركة مشعل بادغيش للمحاماة',
             description: 'احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك بأعلى سرية.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-03-01'
+            type: 'static'
         },
         {
             path: '/privacy',
             title: 'سياسة الخصوصية | شركة مشعل بادغيش للمحاماة',
             description: 'نحن في شركة مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-01-15'
+            type: 'static'
         },
         {
             path: '/terms',
             title: 'اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة',
             description: 'تعرف على شروط وأحكام استخدام موقع شركة مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية.',
             image: '/images/logo/logo.webp',
-            type: 'static',
-            lastmod: '2026-01-15'
+            type: 'static'
         }
     ];
 
     const routes = [
         ...staticPages,
-        ...services.map(s => ({ path: `/${s.slug}`, type: 'service', lastmod: '2026-03-01', ...s })),
-        ...articles.map(a => ({ path: `/articles/${a.slug}`, type: 'article', lastmod: a.dateModified || a.rawDate, ...a })),
-        ...quickServices.map(q => ({ path: `/quick-services/${q.slug}`, type: 'quick', lastmod: '2026-03-01', ...q }))
+        ...services.map(s => ({ path: `/${s.slug}`, type: 'service', ...s })),
+        ...articles.map(a => ({ path: `/articles/${a.slug}`, type: 'article', ...a })),
+        ...quickServices.map(q => ({ path: `/quick-services/${q.slug}`, type: 'quick', ...q }))
     ];
 
     console.log(`Found ${routes.length} routes to pre-render with full body content.`);
