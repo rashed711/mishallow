@@ -81,6 +81,7 @@ const UrlNormalizer: React.FC = () => {
   if (cleanPath === '/blog') cleanPath = '/articles';
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
   if (cleanPath === '/military-lawyer-makkah') cleanPath = '/military-cases-makkah';
+  if (cleanPath === '/blog-corporate-lawyer') cleanPath = '/articles/حل-نزاعات-الشركاء-في-الشركات-وفق-نظام-الشركات-الجديد';
 
   if (cleanPath !== rawPath) {
     return <Navigate to={cleanPath + location.search + location.hash} replace />;

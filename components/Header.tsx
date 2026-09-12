@@ -132,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
       </div>
 
       {/* Advanced Drawer Mobile Menu - Animated */}
-      {createPortal(
+      {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {isOpen && (
             <div className="fixed inset-0 z-[9999] lg:hidden" dir="rtl">

@@ -126,6 +126,7 @@ const TeamMemberModal: React.FC<TeamMemberModalProps> = ({ member, isOpen, onClo
     </AnimatePresence>
   );
 
+  if (typeof document === 'undefined') return null;
   return createPortal(modalContent, document.body);
 };
 

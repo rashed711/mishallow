@@ -7,16 +7,29 @@ import { WhatsAppIcon } from '../components/icons/ServiceIcons';
 import { apiFetch } from '../data/api';
 import NotFoundPage from './NotFoundPage';
 
+const getInitialQuickService = (targetSlug?: string) => {
+    if (!targetSlug) return { service: null, categoryName: '' };
+    for (const category of quickServicesData) {
+        const found = category.services.find(s => s.slug === targetSlug);
+        if (found) {
+            return { service: found, categoryName: category.name };
+        }
+    }
+    return { service: null, categoryName: '' };
+};
+
 const QuickServiceDetailPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const [service, setService] = useState<any>(null);
-    const [categoryName, setCategoryName] = useState<string>('');
-    const [loading, setLoading] = useState(true);
+    
+    const initial = getInitialQuickService(slug);
+    const [service, setService] = useState<any>(initial.service);
+    const [categoryName, setCategoryName] = useState<string>(initial.categoryName);
+    const [loading, setLoading] = useState(!initial.service);
 
     useEffect(() => {
         const fetchService = async () => {
-            setLoading(true);
+            if (!initial.service) setLoading(true);
             try {
                 // 1. Try fetching from dynamic SQLite API
                 const data = await apiFetch(`/quick-services.php?slug=${slug}`);
@@ -27,7 +40,6 @@ const QuickServiceDetailPage: React.FC = () => {
                     if (data.service.category_name) {
                         setCategoryName(data.service.category_name);
                     } else if (data.service.category_id) {
-                        // Fallback category name if available
                         const staticCat = quickServicesData.find(c => c.id === data.service.category_id);
                         setCategoryName(staticCat ? staticCat.name : 'خدمة سريعة');
                     } else {
@@ -41,20 +53,10 @@ const QuickServiceDetailPage: React.FC = () => {
             }
 
             // 2. Fallback to static data if API fails or doesn't find the service
-            let foundService = null;
-            let foundCategoryName = '';
-            for (const category of quickServicesData) {
-                const found = category.services.find(s => s.slug === slug);
-                if (found) {
-                    foundService = found;
-                    foundCategoryName = category.name;
-                    break;
-                }
-            }
-
-            if (foundService) {
-                setService(foundService);
-                setCategoryName(foundCategoryName);
+            const staticResult = getInitialQuickService(slug);
+            if (staticResult.service) {
+                setService(staticResult.service);
+                setCategoryName(staticResult.categoryName);
             }
             setLoading(false);
         };

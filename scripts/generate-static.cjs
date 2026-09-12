@@ -1,12 +1,14 @@
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
-const DIST_DIR    = path.join(__dirname, '../dist');
-const INDEX_HTML  = path.join(DIST_DIR,  'index.html');
+const DIST_DIR = path.join(__dirname, '../dist');
+const SSR_DIR = path.join(__dirname, '../dist-ssr');
+const INDEX_HTML = path.join(DIST_DIR, 'index.html');
 const BACKEND_SRC = path.join(__dirname, '../backend');
-const BACKEND_DST = path.join(DIST_DIR,  'backend');
+const BACKEND_DST = path.join(DIST_DIR, 'backend');
 const SITEMAP_PUB = path.join(__dirname, '../public/sitemap.xml');
-const SITEMAP_DST = path.join(DIST_DIR,  'sitemap.xml');
+const SITEMAP_DST = path.join(DIST_DIR, 'sitemap.xml');
 
 // ─── Helper: Copy directory recursively ───────────────────────────────────────
 function copyDirSync(src, dst) {
@@ -59,10 +61,12 @@ function loadArticlesData() {
         const articles = (new Function('return ' + cleanJs))();
         return articles.map(a => ({
             slug: a.slug,
-            title: a.title ? `${a.title} | شركة مشعل بادغيش` : 'شركة مشعل بادغيش للمحاماة',
+            title: a.title ? `${a.title} | شركة مشعل بادغيش للمحاماة` : 'شركة مشعل بادغيش للمحاماة',
             description: a.excerpt || 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
             image: a.image || '/images/logo/logo.webp',
-            rawDate: a.rawDate || a.date
+            rawDate: a.rawDate || a.date,
+            dateModified: a.dateModified,
+            author: a.author
         }));
     } catch (e) {
         console.error('Error parsing articles:', e);
@@ -118,7 +122,9 @@ function generatePageSchema(route, buildSchemaGraph) {
         pageDescription: route.description,
         pageType: isService ? 'service' : (isArticle ? 'article' : 'website'),
         imageUrl: imageUrl,
-        datePublished: isArticle ? (route.rawDate || route.date) : undefined,
+        datePublished: isArticle ? route.rawDate : undefined,
+        dateModified: isArticle ? route.dateModified : undefined,
+        authorName: isArticle ? (route.author || 'مشعل بادغيش') : undefined,
         serviceType: route.type === 'service' ? route.title : undefined,
         quickServiceName: isQuick ? route.title.split('|')[0].trim() : undefined,
         faqs: (route.faq && route.faq.length > 0) ? route.faq : (route.faqs && route.faqs.length > 0 ? route.faqs : undefined),
@@ -131,52 +137,23 @@ function generatePageSchema(route, buildSchemaGraph) {
     return JSON.stringify(schemaGraph, null, 2);
 }
 
-// ─── Helper: Generate sitemap.xml ─────────────────────────────────────────────
+// ─── Helper: Generate sitemap.xml without priority/changefreq and with truthful lastmod ─────
 function generateSitemapXml(routes) {
-    // تاريخ البناء الحالي بصيغة YYYY-MM-DD لاستخدامه كـ lastmod للصفحات الثابتة
-    const buildDate = new Date().toISOString().split('T')[0];
-
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
     routes.forEach(r => {
         let loc = `https://mishal-lawfirm.com${r.path === '/' ? '/' : r.path}`;
-        let priority = '0.7';
-        let changefreq = 'monthly';
-        let lastmod = buildDate; // الافتراضي: تاريخ البناء
-
-        if (r.path === '/') {
-            priority = '1.0';
-            changefreq = 'daily';
-        } else if (['/about', '/services', '/articles', '/contact'].includes(r.path)) {
-            priority = '0.9';
-            changefreq = 'weekly';
-        } else if (r.type === 'service') {
-            priority = '0.8';
-            changefreq = 'monthly';
-        } else if (r.type === 'quick') {
-            priority = '0.7';
-            changefreq = 'monthly';
-        } else if (r.type === 'article') {
-            priority = '0.7';
-            changefreq = 'monthly';
-            // المقالات تستخدم تاريخ النشر الأصلي إن وُجد
-            if (r.rawDate) {
-                lastmod = r.rawDate;
-            }
-        } else if (['/privacy', '/terms'].includes(r.path)) {
-            priority = '0.3';
-            changefreq = 'yearly';
-        } else if (['/quick-services'].includes(r.path)) {
-            priority = '0.7';
-            changefreq = 'monthly';
+        
+        // Accurate, truthful lastmod logic (No fake daily/universal updates)
+        let lastmod = r.lastmod || '2026-03-01';
+        if (r.type === 'article') {
+            lastmod = r.dateModified || r.rawDate || '2024-06-10';
         }
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
         xml += `    <lastmod>${lastmod}</lastmod>\n`;
-        xml += `    <changefreq>${changefreq}</changefreq>\n`;
-        xml += `    <priority>${priority}</priority>\n`;
         xml += `  </url>\n`;
     });
 
@@ -186,14 +163,25 @@ function generateSitemapXml(routes) {
 
 // ─── Main Execution ───────────────────────────────────────────────────────────
 async function run() {
-    console.log('🚀 Starting Pre-rendering and SEO sync script...');
-
-    const { buildSchemaGraph } = await import('../data/siteSchema.ts');
+    console.log('🚀 Starting Full Body Static Pre-rendering and SEO sync script...');
 
     if (!fs.existsSync(INDEX_HTML)) {
-        console.error('❌ dist/index.html not found! Run npm run build first.');
+        console.error('❌ dist/index.html not found! Run vite build first.');
         process.exit(1);
     }
+
+    // 1. Build SSR bundle for static HTML rendering
+    console.log('⚙️  Building SSR bundle for body prerendering...');
+    execSync('npx vite build --ssr entry-server.tsx --outDir dist-ssr', {
+        stdio: 'inherit',
+        cwd: path.join(__dirname, '..')
+    });
+
+    // 2. Import SSR render function & schema builder
+    const ssrEntryPath = path.join(SSR_DIR, 'entry-server.js');
+    const ssrModuleUrl = 'file:///' + ssrEntryPath.replace(/\\/g, '/');
+    const { render } = await import(ssrModuleUrl);
+    const { buildSchemaGraph } = await import('../data/siteSchema.ts');
 
     const template = fs.readFileSync(INDEX_HTML, 'utf8');
 
@@ -207,69 +195,77 @@ async function run() {
             title: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية | محامون في مكة وجدة',
             description: 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية في مكة وجدة. تمثيل قضائي في القضايا التجارية، الجنائية، العمالية، والعقارية وصياغة العقود. تواصل معنا الآن.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/about',
             title: 'من نحن | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
             description: 'تعرف على شركة مشعل بادغيش للمحاماة والاستشارات القانونية. نخبة من أفضل المحامين والمستشارين في مكة وجدة لتقديم استشارات قانونية وتمثيل قضائي احترافي.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/contact',
             title: 'تواصل معنا | شركة مشعل بادغيش للمحاماة والاستشارات القانونية',
             description: 'احجز استشارتك القانونية الآن مع نخبة من المحامين المعتمدين في مكة وجدة. تمثيل قضائي واستشارات تجارية وجنائية متخصصة. تواصل معنا مباشرة.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/services',
             title: 'الخدمات القانونية | شركة مشعل بادغيش للمحاماة والاستشارات',
             description: 'خدمات واستشارات قانونية متكاملة في مكة وجدة: قضايا تجارية، دفاع جنائي، عمالية، عقارية وصياغة عقود. تمثيل قضائي مرخص أمام كافة المحاكم.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/articles',
             title: 'المدونة القانونية | شركة مشعل بادغيش للمحاماة',
             description: 'دليل قانوني ومقالات متخصصة في الأنظمة السعودية، نظام الشركات، العمل، والقضايا التجارية والجنائية يقدمها نخبة مستشاري شركة مشعل بادغيش للمحاماة.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/quick-services',
             title: 'خدمات قانونية سريعة | شركة مشعل بادغيش للمحاماة',
             description: 'احصل على خدمات قانونية سريعة وموثوقة: استشارات فورية، صياغة لوائح وتوكيلات. تواصل معنا مباشرة عبر الواتساب لإنجاز معاملاتك بأعلى سرية.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-03-01'
         },
         {
             path: '/privacy',
             title: 'سياسة الخصوصية | شركة مشعل بادغيش للمحاماة',
             description: 'نحن في شركة مشعل بادغيش نلتزم بأعلى معايير الخصوصية والسرية المهنية لبياناتكم ومعلوماتكم القانونية وفق أنظمة المملكة العربية السعودية.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-01-15'
         },
         {
             path: '/terms',
             title: 'اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة',
             description: 'تعرف على شروط وأحكام استخدام موقع شركة مشعل بادغيش للمحاماة. القواعد المنظمة لاستخدام المحتوى القانوني والملكيات الفكرية.',
             image: '/images/logo/logo.webp',
-            type: 'static'
+            type: 'static',
+            lastmod: '2026-01-15'
         }
     ];
 
     const routes = [
         ...staticPages,
-        ...services.map(s => ({ path: `/${s.slug}`, type: 'service', ...s })),
-        ...articles.map(a => ({ path: `/articles/${a.slug}`, type: 'article', ...a })),
-        ...quickServices.map(q => ({ path: `/quick-services/${q.slug}`, type: 'quick', ...q }))
+        ...services.map(s => ({ path: `/${s.slug}`, type: 'service', lastmod: '2026-03-01', ...s })),
+        ...articles.map(a => ({ path: `/articles/${a.slug}`, type: 'article', lastmod: a.dateModified || a.rawDate, ...a })),
+        ...quickServices.map(q => ({ path: `/quick-services/${q.slug}`, type: 'quick', lastmod: '2026-03-01', ...q }))
     ];
 
-    console.log(`Found ${routes.length} routes to process.`);
+    console.log(`Found ${routes.length} routes to pre-render with full body content.`);
 
-    // تنظيف المجلدات الفرعية المكررة للمسارات المفردة لمنع mod_dir من فرض الشرطة المائلة
+    // Clean any legacy duplicate directories to avoid trailing slash conflicts
     services.forEach(s => {
         const legacyDir = path.join(DIST_DIR, s.slug);
         if (fs.existsSync(legacyDir) && fs.statSync(legacyDir).isDirectory()) {
@@ -289,12 +285,26 @@ async function run() {
             imageUrl = `https://mishal-lawfirm.com${imageUrl.startsWith('/') ? '' : '/'}${imageUrl}`;
         }
 
+        // Render actual HTML body content via React SSR
+        let appHtml = '';
+        try {
+            const renderResult = render(route.path);
+            appHtml = renderResult.appHtml || '';
+        } catch (err) {
+            console.error(`⚠️  Warning rendering body for route ${route.path}:`, err.message);
+        }
+
         let html = template;
+
+        // Replace <div id="root"></div> with the rendered app content
+        if (appHtml) {
+            html = html.replace(/<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`);
+        }
 
         // Replace Title
         html = html.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
 
-        // Update Canonical Tag (clean URL, with trailing slash on root only)
+        // Update Canonical Tag (clean URL, trailing slash on root only)
         const canonicalUrl = `https://mishal-lawfirm.com${route.path === '/' ? '/' : route.path}`;
         const canonicalTag = `<link rel="canonical" href="${canonicalUrl}" />`;
         const canonicalRegex = /<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i;
@@ -318,7 +328,7 @@ async function run() {
         ];
 
         metaTags.forEach(meta => {
-            const attr  = meta.property
+            const attr = meta.property
                 ? `property="${meta.property}"`
                 : (meta.name ? `name="${meta.name}"` : `itemprop="${meta.itemprop}"`);
             const regex = new RegExp(`<meta\\s+${attr.replace(/"/g, '[\"\']')}\\s+content=".*?"\\s*/?>`, 'i');
@@ -340,9 +350,8 @@ async function run() {
 
         if (route.path === '/') {
             fs.writeFileSync(INDEX_HTML, html);
-            console.log(`✅ Pre-rendered root: / (index.html)`);
+            console.log(`✅ Pre-rendered root with full body: / (index.html)`);
         } else {
-            // Write clean .html file: e.g. dist/about.html or dist/articles/slug.html
             const cleanPath = route.path.replace(/^\//, '');
             const targetHtmlFile = path.join(DIST_DIR, `${cleanPath}.html`);
             const targetDir = path.dirname(targetHtmlFile);
@@ -362,14 +371,14 @@ async function run() {
                 fs.writeFileSync(path.join(sectionDir, 'index.html'), html);
             }
 
-            console.log(`✅ Pre-rendered: ${route.path} -> ${cleanPath}.html`);
+            console.log(`✅ Pre-rendered with body: ${route.path} -> ${cleanPath}.html`);
         }
     }
 
-    console.log('✨ Pre-rendering complete!');
+    console.log('✨ All routes statically pre-rendered with HTML body content!');
 
     // ─── توليد وحفظ sitemap.xml ──────────────────────────────────────────────
-    console.log('\n🗺️  Generating dynamic sitemap.xml...');
+    console.log('\n🗺️  Generating dynamic sitemap.xml with truthful lastmod...');
     const sitemapContent = generateSitemapXml(routes);
     fs.writeFileSync(SITEMAP_PUB, sitemapContent);
     fs.writeFileSync(SITEMAP_DST, sitemapContent);
@@ -384,7 +393,12 @@ async function run() {
         console.warn('⚠️  backend/ folder not found – skipping copy.');
     }
 
-    console.log('\n🎉 Build complete! Upload everything inside dist/ to public_html/');
+    // ─── تنظيف مجلد SSR المؤقت ────────────────────────────────────────────────
+    if (fs.existsSync(SSR_DIR)) {
+        fs.rmSync(SSR_DIR, { recursive: true, force: true });
+    }
+
+    console.log('\n🎉 Build complete! All static files contain real initial HTML body!');
 }
 
 run().catch(err => {

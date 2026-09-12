@@ -17,6 +17,7 @@ interface SEOProps {
     areaServed?: string[];
     serviceType?: string;
     datePublished?: string;
+    dateModified?: string;
     authorName?: string;
     faqs?: FAQItem[];
     quickServiceName?: string;
@@ -33,6 +34,7 @@ const SEO: React.FC<SEOProps> = ({
     image = BUSINESS_INFO.image,
     serviceType,
     datePublished,
+    dateModified,
     authorName = BUSINESS_INFO.founder.name,
     faqs,
     quickServiceName,
@@ -55,13 +57,14 @@ const SEO: React.FC<SEOProps> = ({
             pageType: type as 'website' | 'article' | 'service' | 'faq',
             imageUrl: imageUrl,
             datePublished: datePublished,
+            dateModified: dateModified,
             authorName: authorName,
             serviceType: serviceType,
             breadcrumbs: breadcrumbs,
             faqs: faqs,
             quickServiceName: quickServiceName
         });
-    }, [title, description, canonicalUrl, imageUrl, type, datePublished, authorName, faqs, serviceType, quickServiceName, breadcrumbs]);
+    }, [title, description, canonicalUrl, imageUrl, type, datePublished, dateModified, authorName, faqs, serviceType, quickServiceName, breadcrumbs]);
 
     return (
         <Helmet>

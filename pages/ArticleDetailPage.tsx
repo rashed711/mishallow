@@ -59,7 +59,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
 
   const handleBack = () => navigate('/articles');
 
-  const currentUrl = window.location.href;
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : `https://mishal-lawfirm.com/articles/${article.slug}`;
   const encodedUrl = encodeURIComponent(currentUrl);
   const encodedTitle = article ? encodeURIComponent(article.title) : '';
 
@@ -92,12 +92,14 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title={`${article.title} | شركة مشعل بادغيش`}
+        title={`${article.title} | شركة مشعل بادغيش للمحاماة`}
         description={article.excerpt}
         image={article.image}
         type="article"
         url={`https://mishal-lawfirm.com/articles/${article.slug}`}
         datePublished={article.rawDate}
+        dateModified={article.dateModified}
+        authorName={article.author || 'مشعل بادغيش'}
       />
       <div className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">
