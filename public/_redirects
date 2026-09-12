@@ -1,0 +1,37 @@
+# =====================================================
+# Cloudflare Pages 301 Legacy & Clean URL Redirects
+# =====================================================
+
+/index.html / 301
+/about.html /about 301
+/services.html /services 301
+/contact.html /contact 301
+/articles.html /articles 301
+/quick-services.html /quick-services 301
+/privacy.html /privacy 301
+/terms.html /terms 301
+
+# Service URLs
+/commercial-lawyer-makkah.html /commercial-lawyer-makkah 301
+/military-cases-makkah.html /military-cases-makkah 301
+/labor-lawyer-makkah.html /labor-lawyer-makkah 301
+/family-lawyer-makkah.html /family-lawyer-makkah 301
+/criminal-lawyer-makkah.html /criminal-lawyer-makkah 301
+/contract-drafting-makkah.html /contract-drafting-makkah 301
+/litigation-services-makkah.html /litigation-services-makkah 301
+/debt-collection-makkah.html /debt-collection-makkah 301
+/judgment-execution-jeddah.html /judgment-execution-jeddah 301
+/labor-lawyer-jeddah.html /labor-lawyer-jeddah 301
+/commercial-lawyer-jeddah.html /commercial-lawyer-jeddah 301
+/criminal-lawyer-jeddah.html /criminal-lawyer-jeddah 301
+/family-lawyer-jeddah.html /family-lawyer-jeddah 301
+
+# Historical Aliases
+/blog /articles 301
+/blog.html /articles 301
+/book_consultation /contact 301
+/book_consultation.html /contact 301
+/military-lawyer-makkah /military-cases-makkah 301
+/military-lawyer-makkah.html /military-cases-makkah 301
+/blog-corporate-lawyer /commercial-lawyer-makkah 301
+/blog-corporate-lawyer.html /commercial-lawyer-makkah 301

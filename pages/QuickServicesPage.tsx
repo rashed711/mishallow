@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { quickServicesData, QuickServiceCategory } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
-import { apiFetch } from '../data/api';
 
 type CustomFormState = 'idle' | 'loading' | 'success' | 'error';
 
-const CUSTOM_SERVICE_API = '/backend/custom-service.php';
+const CUSTOM_SERVICE_API = '/send';
 
 const QuickServicesPage: React.FC = () => {
-    const [categories, setCategories] = useState<QuickServiceCategory[]>(quickServicesData);
+    const [categories] = useState<QuickServiceCategory[]>(quickServicesData);
     const [selectedCategoryId, setSelectedCategoryId] = useState(quickServicesData[0].id);
     const [customService, setCustomService] = useState({
         name: '',
@@ -21,20 +20,6 @@ const QuickServicesPage: React.FC = () => {
     const [customFormState, setCustomFormState] = useState<CustomFormState>('idle');
     const [customResponseMsg, setCustomResponseMsg] = useState('');
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const loadQuickServices = async () => {
-            const data = await apiFetch('/quick-services.php');
-            if (data.success && data.quickServices && Array.isArray(data.quickServices)) {
-                setCategories(data.quickServices);
-                // تعيين أول تصنيف فعال إذا تغير المعرف
-                if (data.quickServices.length > 0) {
-                    setSelectedCategoryId(data.quickServices[0].id);
-                }
-            }
-        };
-        loadQuickServices();
-    }, []);
 
     const selectedCategory = categories.find(cat => cat.id === selectedCategoryId) || categories[0] || quickServicesData[0];
 

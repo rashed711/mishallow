@@ -376,13 +376,19 @@ async function run() {
     fs.writeFileSync(SITEMAP_DST, sitemapContent);
     console.log(`✅ sitemap.xml generated with ${routes.length} verified URLs.`);
 
-    // ─── نسخ مجلد backend/ كاملاً إلى dist/backend/ ───────────────────────────
-    if (fs.existsSync(BACKEND_SRC)) {
-        console.log('\n📦 Copying backend/ → dist/backend/ ...');
-        copyDirSync(BACKEND_SRC, BACKEND_DST);
-        console.log('✅ backend/ copied to dist/backend/');
-    } else {
-        console.warn('⚠️  backend/ folder not found – skipping copy.');
+    // ─── نسخ ملفات Cloudflare Pages (_redirects و _headers) ─────────────────
+    const REDIRECTS_PUB = path.join(__dirname, '../public/_redirects');
+    const REDIRECTS_DST = path.join(DIST_DIR, '_redirects');
+    if (fs.existsSync(REDIRECTS_PUB)) {
+        fs.copyFileSync(REDIRECTS_PUB, REDIRECTS_DST);
+        console.log('✅ _redirects copied to dist/_redirects');
+    }
+
+    const HEADERS_PUB = path.join(__dirname, '../public/_headers');
+    const HEADERS_DST = path.join(DIST_DIR, '_headers');
+    if (fs.existsSync(HEADERS_PUB)) {
+        fs.copyFileSync(HEADERS_PUB, HEADERS_DST);
+        console.log('✅ _headers copied to dist/_headers');
     }
 
     // ─── تنظيف مجلد SSR المؤقت ────────────────────────────────────────────────

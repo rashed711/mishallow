@@ -1,25 +1,15 @@
-export default function middleware(request: Request) {
-  const acceptHeader = request.headers.get('accept');
-  
-  if (acceptHeader && acceptHeader.includes('text/markdown')) {
+export async function onRequest(context) {
+  const request = context.request;
+  const acceptHeader = request.headers.get('accept') || '';
+
+  // Only intercept if the client explicitly requests text/markdown (AI/AEO agents)
+  if (acceptHeader.includes('text/markdown')) {
     const url = new URL(request.url);
     const pathname = url.pathname.replace(/\/+$/, '') || '/';
 
-    // Protect Admin and Backend routes from agent exposure
-    if (pathname.startsWith('/admin') || pathname.startsWith('/api')) {
-      return new Response('404 Not Found', {
-        status: 404,
-        headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'X-Robots-Tag': 'noindex, nofollow, noarchive'
-        }
-      });
-    }
-
-    let markdown = '';
-
-    if (pathname === '/' || pathname === '') {
-      markdown = `# شركة مشعل بادغيش للمحاماة والاستشارات القانونية
+    // Strict whitelist routing to eliminate path traversal and arbitrary exposure
+    const markdownRoutes = {
+      '/': `# شركة مشعل بادغيش للمحاماة والاستشارات القانونية
 
 مرحباً بك في النسخة المخصصة لأنظمة الذكاء الاصطناعي ومحركات الإجابة (Agent-Ready AEO Document).
 
@@ -52,9 +42,9 @@ export default function middleware(request: Request) {
 - [اتصل بنا](https://mishal-lawfirm.com/contact)
 
 ---
-© 2026 شركة مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.`;
-    } else if (pathname === '/about') {
-      markdown = `# من نحن | شركة مشعل بادغيش للمحاماة والاستشارات القانونية
+© 2026 شركة مشعل بادغيش للمحاماة والاستشارات القانونية. جميع الحقوق محفوظة.`,
+
+      '/about': `# من نحن | شركة مشعل بادغيش للمحاماة والاستشارات القانونية
 
 ## نبذة عن الشركة
 شركة محاماة واستشارات قانونية مرخصة ومعتمدة في المملكة العربية السعودية، تأسست لتقديم حلول قانونية وقائية وعلاجية متقدمة للأفراد والشركات والمستثمرين.
@@ -68,9 +58,9 @@ export default function middleware(request: Request) {
 - **الحسم الإجرائي**: سرعة المبادرة في قيد الدعاوى والتظلمات قبل سقوط المهل النظامية بالتقادم.
 - **السرية التامة**: التزام صارم بآداب وأخلاقيات مهنة المحاماة وحماية بيانات الموكلين.
 
-للتواصل المباشر: +966568000085 | info@mishal-lawfirm.com`;
-    } else if (pathname === '/services') {
-      markdown = `# الخدمات القانونية | شركة مشعل بادغيش للمحاماة
+للتواصل المباشر: +966568000085 | info@mishal-lawfirm.com`,
+
+      '/services': `# الخدمات القانونية | شركة مشعل بادغيش للمحاماة
 
 تقدم الشركة باقة متكاملة من الخدمات القانونية التخصصية في مكة المكرمة وجدة:
 
@@ -88,18 +78,18 @@ export default function middleware(request: Request) {
 - [محامي دفاع جنائي في جدة](https://mishal-lawfirm.com/criminal-lawyer-jeddah)
 - [محامي أحوال شخصية في جدة](https://mishal-lawfirm.com/family-lawyer-jeddah)
 
-لطلب تمثيل أو استشارة: [تواصل معنا](https://mishal-lawfirm.com/contact)`;
-    } else if (pathname === '/contact') {
-      markdown = `# تواصل مع شركة مشعل بادغيش للمحاماة والاستشارات القانونية
+لطلب تمثيل أو استشارة: [تواصل معنا](https://mishal-lawfirm.com/contact)`,
+
+      '/contact': `# تواصل مع شركة مشعل بادغيش للمحاماة والاستشارات القانونية
 
 ## قنوات التواصل الرسمية
 - **المكتب الرئيسي**: شارع عبدالله بن عباس، بجوار نادي ستار تراك، مكة المكرمة، المملكة العربية السعودية
 - **الهاتف / واتساب**: +966568000085
 - **البريد الإلكتروني**: info@mishal-lawfirm.com
 - **ساعات الاستقبال**: الأحد إلى الخميس، 09:00 ص - 05:00 م
-- **خدمة المواعيد الإلكترونية**: متاحة عبر الرابط https://mishal-lawfirm.com/contact`;
-    } else if (pathname === '/articles') {
-      markdown = `# الثقافة القانونية والمقالات | شركة مشعل بادغيش للمحاماة
+- **خدمة المواعيد الإلكترونية**: متاحة عبر الرابط https://mishal-lawfirm.com/contact`,
+
+      '/articles': `# الثقافة القانونية والمقالات | شركة مشعل بادغيش للمحاماة
 
 مكتبة قانونية متخصصة ترصد أحدث التطورات التشريعية والقضائية في المملكة العربية السعودية:
 - نظام الشركات السعودي الجديد وضوابط حماية صغار المساهمين
@@ -108,9 +98,9 @@ export default function middleware(request: Request) {
 - أحكام نظام العمل وضوابط الفصل والتعويض
 - التحول الرقمي العدلي عبر بوابة ناجز ومنصة معين
 
-للاطلاع على كافة المقالات: https://mishal-lawfirm.com/articles`;
-    } else if (pathname === '/quick-services') {
-      markdown = `# الخدمات القانونية السريعة | شركة مشعل بادغيش للمحاماة
+للاطلاع على كافة المقالات: https://mishal-lawfirm.com/articles`,
+
+      '/quick-services': `# الخدمات القانونية السريعة | شركة مشعل بادغيش للمحاماة
 
 حلول واستشارات قانونية فورية للأفراد والشركات في مكة وجدة:
 - استشارة قانونية تجارية سريعة
@@ -121,35 +111,37 @@ export default function middleware(request: Request) {
 - إعداد وصياغة صحائف الدعوى
 - طلبات ومتابعة التنفيذ القضائي
 
-لطلب خدمة سريعة: https://mishal-lawfirm.com/quick-services`;
-    } else if (pathname === '/privacy') {
-      markdown = `# سياسة الخصوصية | شركة مشعل بادغيش للمحاماة
+لطلب خدمة سريعة: https://mishal-lawfirm.com/quick-services`,
+
+      '/privacy': `# سياسة الخصوصية | شركة مشعل بادغيش للمحاماة
 نلتزم بأعلى معايير السرية المهنية وحماية بيانات الموكلين وفق أنظمة المملكة العربية السعودية.
-الرابط الرسمي: https://mishal-lawfirm.com/privacy`;
-    } else if (pathname === '/terms') {
-      markdown = `# اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة
+الرابط الرسمي: https://mishal-lawfirm.com/privacy`,
+
+      '/terms': `# اتفاقية الاستخدام | شركة مشعل بادغيش للمحاماة
 الشروط والأحكام المنظمة لاستخدام المحتوى القانوني والخدمات الرقمية للشركة.
-الرابط الرسمي: https://mishal-lawfirm.com/terms`;
-    } else {
-      return new Response('404 Not Found - المسار المطلوب غير موجود', {
-        status: 404,
+الرابط الرسمي: https://mishal-lawfirm.com/terms`
+    };
+
+    if (markdownRoutes[pathname]) {
+      return new Response(markdownRoutes[pathname], {
+        status: 200,
         headers: {
-          'Content-Type': 'text/plain; charset=utf-8',
-          'X-Robots-Tag': 'noindex, nofollow, noarchive'
+          'Content-Type': 'text/markdown; charset=UTF-8',
+          'Cache-Control': 'public, max-age=3600',
+          'X-Robots-Tag': 'noindex'
         }
       });
     }
 
-    return new Response(markdown, {
-      status: 200,
+    return new Response('404 Not Found - المسار المطلوب غير موجود', {
+      status: 404,
       headers: {
-        'Content-Type': 'text/markdown; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600'
-      },
+        'Content-Type': 'text/plain; charset=UTF-8',
+        'X-Robots-Tag': 'noindex, nofollow, noarchive'
+      }
     });
   }
-}
 
-export const config = {
-  matcher: '/:path*',
-};
+  // Pass through normal requests to static assets / pages functions
+  return await context.next();
+}

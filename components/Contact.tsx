@@ -3,8 +3,8 @@ import { PhoneIcon, WhatsAppIcon } from './icons/ServiceIcons';
 
 type FormState = 'idle' | 'loading' | 'success' | 'error';
 
-const BACKEND_URL = '/backend/contact-form.php';
-// في بيئة التطوير المحلية لا يوجد PHP server، نستخدم WhatsApp كبديل
+const BACKEND_URL = '/send';
+// في بيئة التطوير المحلية لا يوجد Functions server، نستخدم WhatsApp كبديل
 const IS_DEV = typeof window !== 'undefined' &&
     (window.location.hostname === 'localhost' ||
      window.location.hostname === '127.0.0.1');
