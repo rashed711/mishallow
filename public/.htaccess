@@ -36,6 +36,9 @@ ErrorDocument 404 /404.html
     RewriteCond %{THE_REQUEST} \s/+(military-lawyer-makkah|military-lawyer-makkah\.html)[\s?] [NC]
     RewriteRule ^(military-lawyer-makkah|military-lawyer-makkah\.html)?$ https://mishal-lawfirm.com/military-cases-makkah [R=301,L,NE]
 
+    RewriteCond %{THE_REQUEST} \s/+(blog-corporate-lawyer|blog-corporate-lawyer\.html)[\s?] [NC]
+    RewriteRule ^(blog-corporate-lawyer|blog-corporate-lawyer\.html)?$ https://mishal-lawfirm.com/commercial-lawyer-makkah [R=301,L,NE]
+
     # ─── 5. إزالة لاحقة .html عبر تحويل 301 دائم إلى الرابط النظيف (Clean URLs) ───
     RewriteCond %{ENV:REDIRECT_STATUS} ^$
     RewriteCond %{THE_REQUEST} !404\.html

@@ -19,9 +19,8 @@ export const BUSINESS_INFO = {
   priceRange: "$$",
   openingHours: "Su-Th 09:00-17:00",
   founder: {
-    "@type": "Person",
     name: "مشعل بادغيش",
-    jobTitle: "محامي ومستشار قانوني مرخص"
+    jobTitle: "المؤسس والمدير العام - محامٍ ومستشار قانوني مرخص"
   },
   // Physical Office Location (Makkah Only)
   address: {
@@ -64,11 +63,16 @@ export const BUSINESS_INFO = {
     "منصة قوى لوزارة الموارد البشرية والتنمية الاجتماعية"
   ],
   // Verified third-party profiles ONLY (No government portals)
-  sameAs: [] as string[]
+  sameAs: [
+    "https://www.tiktok.com/@mishal_lawfirm",
+    "https://www.linkedin.com/company/mishal-lawfirm/",
+    "https://www.facebook.com/mishal.lawfirm"
+  ]
 };
 
 export const ORG_ID = `${BUSINESS_INFO.url}/#organization`;
 export const WEBSITE_ID = `${BUSINESS_INFO.url}/#website`;
+export const PERSON_ID = `${BUSINESS_INFO.url}/#mishal-badghish`;
 
 export interface BreadcrumbItem {
   name: string;
@@ -87,6 +91,7 @@ export interface GenerateGraphParams {
   pageType?: 'website' | 'article' | 'service' | 'faq';
   imageUrl?: string;
   datePublished?: string;
+  dateModified?: string;
   authorName?: string;
   serviceType?: string;
   breadcrumbs?: BreadcrumbItem[];
@@ -105,6 +110,7 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     pageType = 'website',
     imageUrl = BUSINESS_INFO.image,
     datePublished,
+    dateModified,
     authorName = BUSINESS_INFO.founder.name,
     serviceType = "خدمات واستشارات قانونية",
     breadcrumbs = [],
@@ -117,7 +123,18 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
   const canonicalUrl = cleanUrl === BUSINESS_INFO.url ? `${BUSINESS_INFO.url}/` : cleanUrl;
   const webpageId = `${canonicalUrl}#webpage`;
 
-  // 1. Organization / LegalService (Single Entity Definition)
+  // 1. Person Entity (Founder)
+  const personEntity = {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    "name": BUSINESS_INFO.founder.name,
+    "jobTitle": BUSINESS_INFO.founder.jobTitle,
+    "image": `${BUSINESS_INFO.url}/images/team/team-1.webp`,
+    "url": `${BUSINESS_INFO.url}/about`,
+    "worksFor": { "@id": ORG_ID }
+  };
+
+  // 2. Organization / LegalService (Single Entity Definition)
   const organizationEntity = {
     "@type": "LegalService",
     "@id": ORG_ID,
@@ -132,13 +149,13 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "address": BUSINESS_INFO.address,
     "geo": BUSINESS_INFO.geo,
     "areaServed": BUSINESS_INFO.areaServed,
-    "founder": BUSINESS_INFO.founder,
+    "founder": { "@id": PERSON_ID },
     "knowsAbout": BUSINESS_INFO.knowsAbout,
     "openingHours": BUSINESS_INFO.openingHours,
     ...(BUSINESS_INFO.sameAs.length > 0 ? { "sameAs": BUSINESS_INFO.sameAs } : {})
   };
 
-  // 2. WebSite Entity
+  // 3. WebSite Entity
   const websiteEntity = {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
@@ -149,7 +166,7 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "inLanguage": "ar"
   };
 
-  // 3. WebPage Entity
+  // 4. WebPage Entity
   const webPageEntity: any = {
     "@type": "WebPage",
     "@id": webpageId,
@@ -161,9 +178,9 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "inLanguage": "ar"
   };
 
-  const graph: any[] = [organizationEntity, websiteEntity, webPageEntity];
+  const graph: any[] = [organizationEntity, personEntity, websiteEntity, webPageEntity];
 
-  // 4. BreadcrumbList
+  // 5. BreadcrumbList
   const breadcrumbElements = [
     {
       "@type": "ListItem",
@@ -243,7 +260,7 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     });
   }
 
-  // 5. Service Entity (When on a service page)
+  // 6. Service Entity (When on a service page)
   if (pageType === 'service') {
     const serviceId = `${canonicalUrl}#service`;
     webPageEntity.mainEntity = { "@id": serviceId };
@@ -267,10 +284,12 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     graph.push(serviceEntity);
   }
 
-  // 6. Article / BlogPosting Entity (When on an article page)
+  // 7. Article / BlogPosting Entity (When on an article page)
   if (pageType === 'article') {
     const articleId = `${canonicalUrl}#article`;
     webPageEntity.mainEntity = { "@id": articleId };
+
+    const isFounder = !authorName || authorName === BUSINESS_INFO.founder.name;
 
     const articleEntity: any = {
       "@type": "BlogPosting",
@@ -279,25 +298,28 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
       "description": pageDescription,
       "url": canonicalUrl,
       "image": imageUrl.startsWith('http') ? imageUrl : `${BUSINESS_INFO.url}${imageUrl}`,
-      "author": {
+      "author": isFounder ? { "@id": PERSON_ID } : {
         "@type": "Person",
-        "name": authorName || BUSINESS_INFO.founder.name,
-        "jobTitle": BUSINESS_INFO.founder.jobTitle
+        "name": authorName,
+        "worksFor": { "@id": ORG_ID }
       },
       "publisher": { "@id": ORG_ID },
       "isPartOf": { "@id": WEBSITE_ID },
       "inLanguage": "ar"
     };
 
-    // Only include datePublished if provided and valid - NEVER fabricate a date
+    // Only include dates if provided and truthful
     if (datePublished && datePublished.trim() !== '') {
       articleEntity.datePublished = datePublished;
+    }
+    if (dateModified && dateModified.trim() !== '') {
+      articleEntity.dateModified = dateModified;
     }
 
     graph.push(articleEntity);
   }
 
-  // 7. FAQPage / Questions (When valid FAQs exist)
+  // 8. FAQPage / Questions (When valid FAQs exist)
   if (faqs && faqs.length > 0) {
     const faqId = `${canonicalUrl}#faq`;
     graph.push({

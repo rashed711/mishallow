@@ -1,77 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { quickServicesData } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
-import { apiFetch } from '../data/api';
 import NotFoundPage from './NotFoundPage';
+
+const getInitialQuickService = (targetSlug?: string) => {
+    if (!targetSlug) return { service: null, categoryName: '' };
+    for (const category of quickServicesData) {
+        const found = category.services.find(s => s.slug === targetSlug);
+        if (found) {
+            return { service: found, categoryName: category.name };
+        }
+    }
+    return { service: null, categoryName: '' };
+};
 
 const QuickServiceDetailPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const [service, setService] = useState<any>(null);
-    const [categoryName, setCategoryName] = useState<string>('');
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchService = async () => {
-            setLoading(true);
-            try {
-                // 1. Try fetching from dynamic SQLite API
-                const data = await apiFetch(`/quick-services.php?slug=${slug}`);
-                if (data.success && data.service) {
-                    setService(data.service);
-                    
-                    // Get category name dynamically
-                    if (data.service.category_name) {
-                        setCategoryName(data.service.category_name);
-                    } else if (data.service.category_id) {
-                        // Fallback category name if available
-                        const staticCat = quickServicesData.find(c => c.id === data.service.category_id);
-                        setCategoryName(staticCat ? staticCat.name : 'خدمة سريعة');
-                    } else {
-                        setCategoryName('خدمة سريعة');
-                    }
-                    setLoading(false);
-                    return;
-                }
-            } catch (err) {
-                console.error("Error fetching dynamic service detail:", err);
-            }
-
-            // 2. Fallback to static data if API fails or doesn't find the service
-            let foundService = null;
-            let foundCategoryName = '';
-            for (const category of quickServicesData) {
-                const found = category.services.find(s => s.slug === slug);
-                if (found) {
-                    foundService = found;
-                    foundCategoryName = category.name;
-                    break;
-                }
-            }
-
-            if (foundService) {
-                setService(foundService);
-                setCategoryName(foundCategoryName);
-            }
-            setLoading(false);
-        };
-
-        fetchService();
-    }, [slug]);
-
-    if (loading) {
-        return (
-            <div className="bg-slate-50 min-h-screen flex items-center justify-center pt-20">
-                <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-[#B89544] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-slate-500 font-bold">جاري تحميل تفاصيل الخدمة...</p>
-                </div>
-            </div>
-        );
-    }
+    
+    const { service, categoryName } = getInitialQuickService(slug);
 
     if (!service) {
         return <NotFoundPage />;

@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { servicesData, ServiceData, serviceIconsMap } from '../data/services.ts';
-import { apiFetch } from '../data/api';
+import { servicesData, ServiceData } from '../data/services.ts';
 
 interface ServicesPageProps {
   onOpenModal: () => void;
 }
 
 const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
-  const [services, setServices] = useState<ServiceData[]>(servicesData);
-
-  useEffect(() => {
-    const loadServices = async () => {
-      const data = await apiFetch('/services.php');
-      if (data.success && data.services && Array.isArray(data.services)) {
-        const mapped = data.services.map((s: any) => ({
-          ...s,
-          icon: serviceIconsMap[s.icon] || serviceIconsMap.ScaleIcon
-        }));
-        setServices(mapped);
-      }
-    };
-    loadServices();
-  }, []);
+  const [services] = useState<ServiceData[]>(servicesData);
 
   return (
     <div className="bg-[#F8FAFC]">

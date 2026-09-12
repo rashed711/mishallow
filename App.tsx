@@ -21,14 +21,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 const TermsPage = lazy(() => import('./pages/TermsPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
-// Admin pages
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const AdminLayout = lazy(() => import('./components/AdminLayout'));
-const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
-const AdminServices = lazy(() => import('./pages/AdminServices'));
-const AdminArticles = lazy(() => import('./pages/AdminArticles'));
-const AdminQuickServices = lazy(() => import('./pages/AdminQuickServices'));
-const AdminUsers = lazy(() => import('./pages/AdminUsers'));
+// Admin pages removed for Cloudflare Pages migration
 
 import { ServiceRequestModal } from './components/ServiceRequestModal';
 
@@ -81,6 +74,7 @@ const UrlNormalizer: React.FC = () => {
   if (cleanPath === '/blog') cleanPath = '/articles';
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
   if (cleanPath === '/military-lawyer-makkah') cleanPath = '/military-cases-makkah';
+  if (cleanPath === '/blog-corporate-lawyer') cleanPath = '/articles/حل-نزاعات-الشركاء-في-الشركات-وفق-نظام-الشركات-الجديد';
 
   if (cleanPath !== rawPath) {
     return <Navigate to={cleanPath + location.search + location.hash} replace />;
@@ -96,7 +90,6 @@ const App: React.FC = () => {
   const handleCloseModal = () => setIsModalOpen(false);
 
   const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     // WebMCP Integration for AI Agents
@@ -167,10 +160,10 @@ const App: React.FC = () => {
     <>
       <UrlNormalizer />
       <ScrollToTop />
-      {!isAdminRoute && <WhatsAppButton />}
-      <div className={`${isAdminRoute ? '' : 'bg-[#F8FAFC]'} min-h-screen font-sans text-slate-800 relative`}>
-        {!isAdminRoute && <FloatingShapes />}
-        {!isAdminRoute && <Header onOpenModal={handleOpenModal} />}
+      <WhatsAppButton />
+      <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-800 relative">
+        <FloatingShapes />
+        <Header onOpenModal={handleOpenModal} />
         <main className="relative z-10">
           <Suspense fallback={<LoadingFallback />}>
             <AnimatePresence mode="wait">
@@ -186,25 +179,14 @@ const App: React.FC = () => {
                 <Route path="/quick-services/:slug" element={<PageTransition><QuickServiceDetailPage /></PageTransition>} />
                 <Route path="/privacy" element={<PageTransition><PrivacyPage /></PageTransition>} />
                 <Route path="/terms" element={<PageTransition><TermsPage /></PageTransition>} />
-                
-                {/* لوحة التحكم */}
-                <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
-                <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<AdminDashboard />} />
-                  <Route path="services" element={<AdminServices />} />
-                  <Route path="articles" element={<AdminArticles />} />
-                  <Route path="quick-services" element={<AdminQuickServices />} />
-                  <Route path="users" element={<AdminUsers />} />
-                </Route>
-
                 <Route path="/:slug" element={<PageTransition><ServiceDetailPage onOpenModal={handleOpenModal} /></PageTransition>} />
                 <Route path="*" element={<PageTransition><NotFoundPage /></PageTransition>} />
               </Routes>
             </AnimatePresence>
           </Suspense>
         </main>
-        {!isAdminRoute && <Footer onOpenModal={handleOpenModal} />}
-        {!isAdminRoute && <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />}
+        <Footer onOpenModal={handleOpenModal} />
+        <ServiceRequestModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </div>
     </>
   );

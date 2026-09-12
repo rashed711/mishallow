@@ -45,7 +45,7 @@ const LazySection: React.FC<LazySectionProps> = ({
         minHeight: isReady ? 'auto' : height 
       }}
     >
-      {isReady || isCrawler ? (
+      {isReady || isCrawler || typeof window === 'undefined' ? (
         <Suspense fallback={fallback}>
           {children}
         </Suspense>
