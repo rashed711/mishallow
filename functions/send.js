@@ -39,32 +39,71 @@ function escapeHtml(str) {
 
 function formatWhatsAppNumber(phone) {
   if (!phone) return "";
-  let cleaned = String(phone).replace(/[^0-9]/g, "");
+  const raw = String(phone).trim();
+  let cleaned = raw.replace(/[^0-9]/g, "");
 
-  // إزالة الأصفار الدولية في البداية مثل 00966 أو 0020
-  if (cleaned.startsWith("00")) {
-    cleaned = cleaned.substring(2);
+  if (!cleaned) return "";
+
+  // 1. إذا أدخل المستخدم الرقم بصيغة دولية صريحة تبدأ بـ + أو 00
+  if (raw.startsWith("+") || raw.startsWith("00")) {
+    if (cleaned.startsWith("00")) {
+      cleaned = cleaned.substring(2);
+    }
+    return cleaned;
   }
 
-  // إذا كان رقماً سعودياً محلياً يبدأ بـ 05 (10 أرقام)
+  // 2. إذا كان الرقم يبدأ بالفعل بكود دولة دولي معروف وله طول منطقي
+  if (/^(966|20|971|965|974|973|968|962|964|963|961|212|213|216|249|967|1|44|33|49|90|91)/.test(cleaned) && cleaned.length >= 10) {
+    return cleaned;
+  }
+
+  // 3. السعودية: يبدأ بـ 05 (10 أرقام) أو 5 (9 أرقام)
   if (cleaned.startsWith("05") && cleaned.length === 10) {
     return "966" + cleaned.substring(1);
   }
-  // إذا كان رقماً سعودياً يبدأ بـ 5 (9 أرقام)
   if (cleaned.startsWith("5") && cleaned.length === 9) {
     return "966" + cleaned;
   }
 
-  // إذا كان رقماً مصرياً محلياً يبدأ بـ 01 (11 رقماً: 010, 011, 012, 015)
+  // 4. مصر: يبدأ بـ 01 (11 رقماً: 010, 011, 012, 015)
   if (cleaned.startsWith("01") && cleaned.length === 11) {
-    return "20" + cleaned.substring(1); // ينتج: 201xxxxxxxxx
+    return "20" + cleaned.substring(1);
   }
-  // إذا كان رقماً مصرياً يبدأ بـ 1 (10 أرقام: 10, 11, 12, 15)
-  if (cleaned.startsWith("1") && cleaned.length === 10) {
-    return "20" + cleaned; // ينتج: 201xxxxxxxxx
+  if (cleaned.startsWith("1") && cleaned.length === 10 && /^(10|11|12|15)/.test(cleaned)) {
+    return "20" + cleaned;
   }
 
-  // إذا كان يبدأ بصفر مفرد عام وله أكثر من 9 أرقام
+  // 5. الإمارات: يبدأ بـ 05 (10 أرقام: 050, 052, 054, 055, 056, 058)
+  if (/^05[024568]/.test(cleaned) && cleaned.length === 10) {
+    return "971" + cleaned.substring(1);
+  }
+
+  // 6. الأردن: يبدأ بـ 07 (10 أرقام: 077, 078, 079)
+  if (/^07[789]/.test(cleaned) && cleaned.length === 10) {
+    return "962" + cleaned.substring(1);
+  }
+
+  // 7. الكويت: (8 أرقام تبدأ بـ 5 أو 6 أو 9)
+  if (/^[569]/.test(cleaned) && cleaned.length === 8) {
+    return "965" + cleaned;
+  }
+
+  // 8. البحرين: (8 أرقام تبدأ بـ 3 أو 6)
+  if (/^[36]/.test(cleaned) && cleaned.length === 8) {
+    return "973" + cleaned;
+  }
+
+  // 9. قطر: (8 أرقام تبدأ بـ 3 أو 5 أو 6 أو 7)
+  if (/^[3567]/.test(cleaned) && cleaned.length === 8) {
+    return "974" + cleaned;
+  }
+
+  // 10. عمان: (8 أرقام تبدأ بـ 7 أو 9)
+  if (/^[79]/.test(cleaned) && cleaned.length === 8) {
+    return "968" + cleaned;
+  }
+
+  // الحالة العامة: إذا كان الرقم يبدأ بصفر مفرد وله أكثر من 9 أرقام، نزيل الصفر الافتتاحي
   if (cleaned.startsWith("0") && cleaned.length > 9) {
     cleaned = cleaned.substring(1);
   }
