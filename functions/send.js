@@ -39,16 +39,36 @@ function escapeHtml(str) {
 
 function formatWhatsAppNumber(phone) {
   if (!phone) return "";
-  let cleaned = phone.replace(/[^0-9]/g, "");
+  let cleaned = String(phone).replace(/[^0-9]/g, "");
+
+  // إزالة الأصفار الدولية في البداية مثل 00966 أو 0020
   if (cleaned.startsWith("00")) {
     cleaned = cleaned.substring(2);
   }
+
+  // إذا كان رقماً سعودياً محلياً يبدأ بـ 05 (10 أرقام)
   if (cleaned.startsWith("05") && cleaned.length === 10) {
     return "966" + cleaned.substring(1);
   }
+  // إذا كان رقماً سعودياً يبدأ بـ 5 (9 أرقام)
+  if (cleaned.startsWith("5") && cleaned.length === 9) {
+    return "966" + cleaned;
+  }
+
+  // إذا كان رقماً مصرياً محلياً يبدأ بـ 01 (11 رقماً: 010, 011, 012, 015)
+  if (cleaned.startsWith("01") && cleaned.length === 11) {
+    return "20" + cleaned.substring(1); // ينتج: 201xxxxxxxxx
+  }
+  // إذا كان رقماً مصرياً يبدأ بـ 1 (10 أرقام: 10, 11, 12, 15)
+  if (cleaned.startsWith("1") && cleaned.length === 10) {
+    return "20" + cleaned; // ينتج: 201xxxxxxxxx
+  }
+
+  // إذا كان يبدأ بصفر مفرد عام وله أكثر من 9 أرقام
   if (cleaned.startsWith("0") && cleaned.length > 9) {
     cleaned = cleaned.substring(1);
   }
+
   return cleaned;
 }
 
