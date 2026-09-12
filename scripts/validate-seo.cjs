@@ -166,6 +166,14 @@ allRoutes.forEach(r => {
                     assert(orgEntity.name === 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية', `Authoritative legal name in Organization schema for ${r.path}`);
                     assert(orgEntity.founder && orgEntity.founder['@id'] === 'https://mishal-lawfirm.com/#mishal-badghish', `Organization founder references Person @id in ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah address in Organization schema for ${r.path}`);
+                    
+                    // Validate official sameAs profiles on Organization
+                    assert(Array.isArray(orgEntity.sameAs) && orgEntity.sameAs.length === 3, `Organization sameAs has exactly 3 approved social profiles on ${r.path}`);
+                    if (Array.isArray(orgEntity.sameAs)) {
+                        assert(orgEntity.sameAs.includes('https://www.tiktok.com/@mishal_lawfirm'), `Organization sameAs includes official TikTok on ${r.path}`);
+                        assert(orgEntity.sameAs.includes('https://www.linkedin.com/company/mishal-lawfirm/'), `Organization sameAs includes official LinkedIn on ${r.path}`);
+                        assert(orgEntity.sameAs.includes('https://www.facebook.com/mishal.lawfirm'), `Organization sameAs includes official Facebook on ${r.path}`);
+                    }
                 }
 
                 // Exactly 1 Organization entity (no competing/duplicate organizations)
@@ -178,6 +186,7 @@ allRoutes.forEach(r => {
                 if (personEntity) {
                     assert(personEntity.name === 'مشعل بادغيش', `Founder name is مشعل بادغيش in ${r.path}`);
                     assert(personEntity.worksFor && personEntity.worksFor['@id'] === 'https://mishal-lawfirm.com/#organization', `Person worksFor points to Organization in ${r.path}`);
+                    assert(!personEntity.sameAs || !personEntity.sameAs.includes('https://www.tiktok.com/@mishal_lawfirm'), `Person entity does not inherit company social profiles in ${r.path}`);
                 }
 
                 // 3. WebSite Entity
@@ -312,7 +321,16 @@ if (fs.existsSync(articlesHtmlPath)) {
     assert(articlesContent.includes('/articles/'), 'Articles hub links to individual articles');
 }
 
-// 7. Summary & Exit Code
+// 7. Social Links in Rendered HTML QA
+console.log('\n--- 5. Testing Social Media Integration in Footer ---');
+if (fs.existsSync(homeHtmlPath)) {
+    const homeContent = fs.readFileSync(homeHtmlPath, 'utf8');
+    assert(homeContent.includes('href="https://www.tiktok.com/@mishal_lawfirm"'), 'Rendered HTML contains official TikTok link');
+    assert(homeContent.includes('href="https://www.linkedin.com/company/mishal-lawfirm/"'), 'Rendered HTML contains official LinkedIn link');
+    assert(homeContent.includes('href="https://www.facebook.com/mishal.lawfirm"'), 'Rendered HTML contains official Facebook link');
+}
+
+// 8. Summary & Exit Code
 console.log('\n============================================================');
 console.log('🎯 SEO & BODY INTEGRITY VALIDATION SUMMARY');
 console.log('============================================================');

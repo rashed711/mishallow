@@ -63,7 +63,11 @@ export const BUSINESS_INFO = {
     "منصة قوى لوزارة الموارد البشرية والتنمية الاجتماعية"
   ],
   // Verified third-party profiles ONLY (No government portals)
-  sameAs: [] as string[]
+  sameAs: [
+    "https://www.tiktok.com/@mishal_lawfirm",
+    "https://www.linkedin.com/company/mishal-lawfirm/",
+    "https://www.facebook.com/mishal.lawfirm"
+  ]
 };
 
 export const ORG_ID = `${BUSINESS_INFO.url}/#organization`;
