@@ -61,3 +61,5 @@ export function render(url: string) {
   );
   return { appHtml, helmet: helmetContext.helmet };
 }
+
+export { buildSchemaGraph } from './data/siteSchema';

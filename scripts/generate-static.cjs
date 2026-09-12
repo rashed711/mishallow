@@ -178,10 +178,10 @@ async function run() {
     });
 
     // 2. Import SSR render function & schema builder
+    const { pathToFileURL } = require('url');
     const ssrEntryPath = path.join(SSR_DIR, 'entry-server.js');
-    const ssrModuleUrl = 'file:///' + ssrEntryPath.replace(/\\/g, '/');
-    const { render } = await import(ssrModuleUrl);
-    const { buildSchemaGraph } = await import('../data/siteSchema.ts');
+    const ssrModuleUrl = pathToFileURL(ssrEntryPath).href;
+    const { render, buildSchemaGraph } = await import(ssrModuleUrl);
 
     const template = fs.readFileSync(INDEX_HTML, 'utf8');
 
