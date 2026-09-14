@@ -74,7 +74,7 @@ const UrlNormalizer: React.FC = () => {
   if (cleanPath === '/blog') cleanPath = '/articles';
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
   if (cleanPath === '/military-lawyer-makkah') cleanPath = '/military-cases-makkah';
-  if (cleanPath === '/blog-corporate-lawyer') cleanPath = '/articles/حل-نزاعات-الشركاء-في-الشركات-وفق-نظام-الشركات-الجديد';
+  if (cleanPath === '/blog-corporate-lawyer') cleanPath = '/commercial-lawyer-makkah';
 
   if (cleanPath !== rawPath) {
     return <Navigate to={cleanPath + location.search + location.hash} replace />;
@@ -114,10 +114,14 @@ const App: React.FC = () => {
     }
 
     // ─── تحميل Microsoft Clarity بشكل متأخر ذكي لعدم التأثير على الأداء ────────────────
+    if (typeof document !== 'undefined' && document.querySelector('script[src*="clarity.ms"]')) {
+      return;
+    }
+
     let clarityInitialized = false;
 
     const initClarity = () => {
-      if (clarityInitialized) return;
+      if (clarityInitialized || document.querySelector('script[src*="clarity.ms"]')) return;
       clarityInitialized = true;
 
       // إزالة مستمعي الأحداث فور بدء التحميل
