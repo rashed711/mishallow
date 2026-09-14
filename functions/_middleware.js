@@ -1,10 +1,16 @@
 export async function onRequest(context) {
   const request = context.request;
+  const url = new URL(request.url);
+
+  // Canonical Host Enforcement: Redirect www to apex domain with 301
+  if (url.hostname === 'www.mishal-lawfirm.com') {
+    return Response.redirect(`https://mishal-lawfirm.com${url.pathname}${url.search}`, 301);
+  }
+
   const acceptHeader = request.headers.get('accept') || '';
 
   // Only intercept if the client explicitly requests text/markdown (AI/AEO agents)
   if (acceptHeader.includes('text/markdown')) {
-    const url = new URL(request.url);
     const pathname = url.pathname.replace(/\/+$/, '') || '/';
 
     // Strict whitelist routing to eliminate path traversal and arbitrary exposure
