@@ -96,6 +96,10 @@ allRoutes.forEach(r => {
     // A. Body Integrity Check (Must contain full prerendered HTML inside #root)
     const rootMatch = content.match(/<div id="root">([\s\S]*?)<\/div>/);
     assert(rootMatch && rootMatch[1].trim().length > 500, `Body Integrity: Non-empty rendered HTML inside #root for ${r.path} (length: ${rootMatch ? rootMatch[1].length : 0})`);
+    if (rootMatch) {
+        assert(!rootMatch[1].includes('[object Object]'), `No leaked [object Object] template artifact in ${r.path}`);
+        assert(!rootMatch[1].includes('>undefined<'), `No leaked undefined text node in ${r.path}`);
+    }
 
     // B. H1 Presence & Semantic Correspondence Check
     const h1Match = content.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
@@ -166,6 +170,9 @@ allRoutes.forEach(r => {
                     assert(orgEntity.name === 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية', `Authoritative legal name in Organization schema for ${r.path}`);
                     assert(orgEntity.founder && orgEntity.founder['@id'] === 'https://mishal-lawfirm.com/#mishal-badghish', `Organization founder references Person @id in ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah address in Organization schema for ${r.path}`);
+                    assert(orgEntity.currenciesAccepted === 'SAR', `Authoritative currency SAR in Organization schema for ${r.path}`);
+                    assert(Array.isArray(orgEntity.openingHoursSpecification) && orgEntity.openingHoursSpecification.length > 0, `OpeningHoursSpecification present in Organization schema for ${r.path}`);
+                    assert(Array.isArray(orgEntity.areaServed) && orgEntity.areaServed.length === 2, `AreaServed has exactly Makkah and Jeddah for ${r.path}`);
                     
                     // Validate official sameAs profiles on Organization
                     assert(Array.isArray(orgEntity.sameAs) && orgEntity.sameAs.length === 3, `Organization sameAs has exactly 3 approved social profiles on ${r.path}`);
