@@ -37,8 +37,8 @@ const About: React.FC = () => {
               viewport={{ once: false, amount: 0.2 }}
               className="absolute -bottom-8 -left-8 bg-[#0F172A] p-10 rounded-[2rem] shadow-2xl border border-white/5 hidden md:block"
             >
-              <span className="block text-4xl font-black text-[#B89544] mb-1">98%</span>
-              <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">نسبة رضا الموكلين</span>
+              <span className="block text-2xl font-black text-[#B89544] mb-1">اعتماد وامتثال</span>
+              <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">وفق الأنظمة السعودية</span>
             </motion.div>
           </motion.div>
           <motion.div
@@ -53,7 +53,7 @@ const About: React.FC = () => {
               صون الحقوق عبر <br /> الأنظمة السعودية الحديثة
             </h2>
             <p className="text-slate-600 text-lg mb-10 leading-relaxed font-medium">
-              في شركة مشعل بادغيش بجدة ومكة، نمارس القانون برؤية تتماشى مع التحول الرقمي العدلي (ناجز) في المملكة. ندمج بين التخصص في نظام الشركات الجديد ونظام المعاملات المدنية وبين الخبرة العميقة في الترافع أمام المحاكم التجارية والعمالية.
+              في شركة مشعل بادغيش للمحاماة والاستشارات القانونية، نمارس القانون انطلاقاً من مقرنا الرئيسي بمكة المكرمة لخدمة عملائنا في مكة وجدة برؤية تتماشى مع التحول الرقمي العدلي (ناجز) في المملكة. ندمج بين التخصص في نظام الشركات الجديد ونظام المعاملات المدنية وبين الخبرة العميقة في الترافع أمام المحاكم التجارية والعمالية.
             </p>
             <Link
               to="/about"
