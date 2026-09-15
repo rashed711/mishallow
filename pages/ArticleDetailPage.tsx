@@ -20,10 +20,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
   }
 
   const sameCategory = articles.filter(a => a.id !== article.id && a.category === article.category);
-  const otherCategory = articles.filter(a => a.id !== article.id && a.category !== article.category);
-  const relatedArticles = sameCategory.length >= 3
-    ? sameCategory.slice(0, 3)
-    : [...sameCategory, ...otherCategory].slice(0, 3);
+  const relatedArticles = sameCategory.slice(0, 3);
 
   const handleBack = () => navigate('/articles');
 

@@ -196,8 +196,8 @@ const Hero: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-xl font-black">مرخص ومعتمد</div>
-                    <div className="text-[#B89544] font-bold text-xs uppercase">نظام المحاماة السعودي</div>
+                    <div className="text-white text-xl font-black">شركة مهنية مسجلة</div>
+                    <div className="text-[#B89544] font-bold text-xs uppercase">وفق الأنظمة السعودية</div>
                   </div>
                 </div>
               </motion.div>

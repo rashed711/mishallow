@@ -37,7 +37,7 @@ const About: React.FC = () => {
               viewport={{ once: false, amount: 0.2 }}
               className="absolute -bottom-8 -left-8 bg-[#0F172A] p-10 rounded-[2rem] shadow-2xl border border-white/5 hidden md:block"
             >
-              <span className="block text-2xl font-black text-[#B89544] mb-1">اعتماد وامتثال</span>
+              <span className="block text-2xl font-black text-[#B89544] mb-1">شركة مهنية مسجلة</span>
               <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">وفق الأنظمة السعودية</span>
             </motion.div>
           </motion.div>
