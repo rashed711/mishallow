@@ -157,7 +157,7 @@ const Hero: React.FC = () => {
                       {/* Permanent Shimmer Sweep */}
                       <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-luxury-shimmer pointer-events-none"></span>
                       <span className="relative z-10 text-base md:text-lg">
-                        استشارة قانونية مجانية
+                        طلب استشارة قانونية
                       </span>
                     </button>
                   </Link>
@@ -196,8 +196,8 @@ const Hero: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-2xl font-black">10+</div>
-                    <div className="text-[#B89544] font-bold text-xs uppercase">أعوام من التميز</div>
+                    <div className="text-white text-xl font-black">شركة مهنية مسجلة</div>
+                    <div className="text-[#B89544] font-bold text-xs uppercase">وفق الأنظمة السعودية</div>
                   </div>
                 </div>
               </motion.div>
@@ -214,8 +214,8 @@ const Hero: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-white text-2xl font-black">98%</div>
-                    <div className="text-slate-300 font-bold text-xs uppercase">نسبة الإنجاز</div>
+                    <div className="text-white text-xl font-black">تمثيل وترافع</div>
+                    <div className="text-slate-300 font-bold text-xs uppercase">حلول قانونية متكاملة</div>
                   </div>
                 </div>
               </motion.div>
