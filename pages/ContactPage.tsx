@@ -94,7 +94,7 @@ const ContactPage: React.FC = () => {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center bg-white/10 backdrop-blur-xl p-8 rounded-3xl border border-white/20">
                 <p className="text-[#B89544] font-black text-xl mb-2">نسعد باستقبالكم في شركتنا</p>
-                <button className="text-white text-sm font-bold underline"><a href="https://maps.app.goo.gl/5CWETayPznbkXN9A9?g_st=iw" target="_blank">فتح الموقع في خرائط جوجل</a></button>
+                <button className="text-white text-sm font-bold underline"><a href="https://www.google.com/maps?q=21.3719559,39.7920768" target="_blank" rel="noopener noreferrer">فتح الموقع في خرائط جوجل</a></button>
               </div>
             </div>
           </div>

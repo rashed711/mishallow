@@ -35,7 +35,7 @@ export const BUSINESS_INFO = {
   // Physical Office Location (Makkah Only)
   address: {
     "@type": "PostalAddress",
-    streetAddress: "شارع عبدالله بن عباس، بجوار نادي ستار تراك",
+    streetAddress: "شارع عبدالله بن عباس - بجوار نادي ستار تراك",
     addressLocality: "Makkah",
     addressRegion: "Makkah Province",
     postalCode: "24353",
@@ -44,8 +44,8 @@ export const BUSINESS_INFO = {
   // Single Authoritative Coordinates
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 21.3508,
-    longitude: 39.8821
+    latitude: 21.3719559,
+    longitude: 39.7920768
   },
   // Service Areas (Distinguished from physical office)
   areaServed: [

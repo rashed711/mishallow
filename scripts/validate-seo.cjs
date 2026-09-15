@@ -170,6 +170,8 @@ allRoutes.forEach(r => {
                     assert(orgEntity.name === 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية', `Authoritative legal name in Organization schema for ${r.path}`);
                     assert(orgEntity.founder && orgEntity.founder['@id'] === 'https://mishal-lawfirm.com/#mishal-badghish', `Organization founder references Person @id in ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah address in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.streetAddress && orgEntity.address.streetAddress.includes('شارع عبدالله بن عباس'), `Authoritative streetAddress in Organization schema for ${r.path}`);
+                    assert(orgEntity.geo && orgEntity.geo.latitude === 21.3719559 && orgEntity.geo.longitude === 39.7920768, `Verified GPS coordinates in Organization schema for ${r.path}`);
                     assert(orgEntity.currenciesAccepted === 'SAR', `Authoritative currency SAR in Organization schema for ${r.path}`);
                     assert(Array.isArray(orgEntity.openingHoursSpecification) && orgEntity.openingHoursSpecification.length > 0, `OpeningHoursSpecification present in Organization schema for ${r.path}`);
                     assert(Array.isArray(orgEntity.areaServed) && orgEntity.areaServed.length === 2, `AreaServed has exactly Makkah and Jeddah for ${r.path}`);
