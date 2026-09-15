@@ -17,7 +17,17 @@ export const BUSINESS_INFO = {
   telephone: "+966568000085",
   email: "info@mishal-lawfirm.com",
   priceRange: "$$",
+  currenciesAccepted: "SAR",
+  paymentAccepted: "Cash, Credit Card, Bank Transfer",
   openingHours: "Su-Th 09:00-17:00",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ],
   founder: {
     name: "مشعل بادغيش",
     jobTitle: "المؤسس والمدير العام - محامٍ ومستشار قانوني مرخص"
@@ -146,12 +156,15 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "telephone": BUSINESS_INFO.telephone,
     "email": BUSINESS_INFO.email,
     "priceRange": BUSINESS_INFO.priceRange,
+    "currenciesAccepted": BUSINESS_INFO.currenciesAccepted,
+    "paymentAccepted": BUSINESS_INFO.paymentAccepted,
     "address": BUSINESS_INFO.address,
     "geo": BUSINESS_INFO.geo,
     "areaServed": BUSINESS_INFO.areaServed,
     "founder": { "@id": PERSON_ID },
     "knowsAbout": BUSINESS_INFO.knowsAbout,
     "openingHours": BUSINESS_INFO.openingHours,
+    "openingHoursSpecification": BUSINESS_INFO.openingHoursSpecification,
     ...(BUSINESS_INFO.sameAs.length > 0 ? { "sameAs": BUSINESS_INFO.sameAs } : {})
   };
 

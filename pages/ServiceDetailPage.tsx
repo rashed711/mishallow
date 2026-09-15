@@ -80,7 +80,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ onOpenModal }) =>
             {/* Hero Section */}
             <div className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-[#0F172A] overflow-hidden">
                 <div className="absolute inset-0">
-                    <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                    <img src={service.image} alt={service.title} loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
                     {/* Dynamic gradient overlay: darker at bottom for text, lighter at top to show image */}
                     <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/40 via-[#0F172A]/80 to-[#0F172A]"></div>
                 </div>

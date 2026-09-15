@@ -26,6 +26,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
             alt="خدماتنا القانونية - شركة مشعل بادغيش للمحاماة"
             className="w-full h-full object-cover opacity-20"
             loading="eager"
+            fetchPriority="high"
             decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/90"></div>
@@ -86,6 +87,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ onOpenModal }) => {
                       height={240}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-[#0F172A]/40 group-hover:bg-transparent transition-all duration-500"></div>
                     <div className="absolute bottom-6 right-6 bg-white p-4 rounded-2xl shadow-xl transform group-hover:rotate-12 transition-transform">

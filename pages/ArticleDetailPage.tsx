@@ -71,7 +71,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
       />
       <div className="relative pt-32 pb-20 md:pt-40 md:pb-32 bg-[#0F172A] overflow-hidden">
         <div className="absolute inset-0 opacity-10 grayscale">
-          <img src={article.image} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          <img src={article.image} alt="" aria-hidden="true" loading="eager" fetchPriority="high" decoding="async" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-[#0F172A]/80"></div>
         </div>
 
@@ -110,7 +110,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
           <div className="lg:col-span-8">
             <div className="prose prose-lg prose-slate max-w-none text-right">
               <div className="rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-2xl mb-12 md:mb-16 aspect-video">
-                <img src={article.image} alt={article.title} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                <img src={article.image} alt={article.title} width={800} height={450} loading="eager" decoding="async" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
               </div>
 
               <div className="space-y-10">
@@ -188,7 +188,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                     onClick={() => handleSelectArticle(rel.slug)}
                   >
                     <div className="w-24 h-20 rounded-2xl overflow-hidden flex-shrink-0 shadow-sm">
-                      <img src={rel.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                      <img src={rel.image} alt={rel.title} width={96} height={80} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                     </div>
                     <div>
                       <span className="text-[#B89544] text-[10px] font-black uppercase mb-1 block">{rel.category}</span>

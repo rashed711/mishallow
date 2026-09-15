@@ -20,6 +20,7 @@ const AboutPage: React.FC = () => {
                         alt="من نحن - شركة مشعل بادغيش للمحاماة"
                         className="w-full h-full object-cover opacity-20"
                         loading="eager"
+                        fetchPriority="high"
                         decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/90"></div>
@@ -71,7 +72,11 @@ const AboutPage: React.FC = () => {
                             <div className="absolute -inset-4 bg-[#B89544]/10 rounded-[2.5rem] md:rounded-[3rem] blur-2xl"></div>
                             <img
                                 src="/images/about/about-justice.webp"
-                                alt="Justice"
+                                alt="شركة مشعل بادغيش للمحاماة والاستشارات القانونية"
+                                width={600}
+                                height={400}
+                                loading="lazy"
+                                decoding="async"
                                 className="relative z-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl w-full"
                             />
                         </motion.div>
