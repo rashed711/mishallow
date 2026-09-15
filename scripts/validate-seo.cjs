@@ -202,6 +202,7 @@ allRoutes.forEach(r => {
                 const websiteEntity = graph.find(e => e['@id'] === 'https://mishal-lawfirm.com/#website');
                 assert(websiteEntity !== undefined, `WebSite entity (@id: https://mishal-lawfirm.com/#website) present in ${r.path}`);
                 if (websiteEntity) {
+                    assert(websiteEntity.name === 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية', `WebSite name is preferred company name in ${r.path}`);
                     assert(websiteEntity.publisher && websiteEntity.publisher['@id'] === 'https://mishal-lawfirm.com/#organization', `WebSite publisher points to Organization in ${r.path}`);
                 }
 
