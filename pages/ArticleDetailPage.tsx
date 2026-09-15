@@ -114,11 +114,17 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
               </div>
 
               <div className="space-y-10">
-                {article.content.map((paragraph, i) => (
-                  <p key={i} className="text-slate-600 text-xl leading-relaxed font-medium">
-                    {renderContent(paragraph)}
-                  </p>
-                ))}
+                {article.content.map((paragraph, i) =>
+                  paragraph.startsWith('## ') ? (
+                    <h2 key={i} className="text-2xl font-black text-[#0F172A] mt-6">
+                      {paragraph.slice(3)}
+                    </h2>
+                  ) : (
+                    <p key={i} className="text-slate-600 text-xl leading-relaxed font-medium">
+                      {renderContent(paragraph)}
+                    </p>
+                  )
+                )}
               </div>
 
               <div className="mt-20 pt-10 border-t border-slate-100 flex items-center justify-between">
@@ -170,10 +176,10 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
 
           <div className="lg:col-span-4 space-y-12">
             <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100">
-              <h3 className="text-xl font-black text-[#0F172A] mb-8 relative inline-block">
+              <h2 className="text-xl font-black text-[#0F172A] mb-8 relative inline-block">
                 مقالات ذات صلة
                 <span className="absolute -bottom-2 right-0 w-8 h-1 bg-[#B89544] rounded-full"></span>
-              </h3>
+              </h2>
               <div className="space-y-8">
                 {relatedArticles.map(rel => (
                   <div
@@ -186,9 +192,9 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                     </div>
                     <div>
                       <span className="text-[#B89544] text-[10px] font-black uppercase mb-1 block">{rel.category}</span>
-                      <h4 className="text-sm font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors leading-snug">
+                      <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#B89544] transition-colors leading-snug">
                         {rel.title}
-                      </h4>
+                      </h3>
                     </div>
                   </div>
                 ))}
@@ -198,7 +204,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
             <div className="bg-[#0F172A] p-10 rounded-[2.5rem] text-white relative overflow-hidden">
               <div className="relative z-10 text-center">
                 <div className="w-16 h-1 bg-[#B89544] mx-auto mb-6 rounded-full"></div>
-                <h3 className="text-2xl font-black mb-4">احمِ أعمالك اليوم</h3>
+                <h2 className="text-2xl font-black mb-4">احمِ أعمالك اليوم</h2>
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed">فريقنا القانوني جاهز لتقديم المشورة المخصصة لاحتياجاتك.</p>
                 <Link to="/contact" className="block text-center w-full bg-[#B89544] text-[#0F172A] font-black py-4 rounded-2xl shadow-xl shadow-[#B89544]/10">احجز استشارتك</Link>
               </div>

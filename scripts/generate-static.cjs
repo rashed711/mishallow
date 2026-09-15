@@ -137,6 +137,66 @@ function generatePageSchema(route, buildSchemaGraph) {
     return JSON.stringify(schemaGraph, null, 2);
 }
 
+// Map of static page source components to retrieve actual git/file modification dates
+const STATIC_PAGE_SOURCES = {
+    '/': 'pages/Home.tsx',
+    '/about': 'pages/AboutPage.tsx',
+    '/contact': 'pages/ContactPage.tsx',
+    '/services': 'pages/ServicesPage.tsx',
+    '/articles': 'pages/ArticlesPage.tsx',
+    '/quick-services': 'pages/QuickServicesPage.tsx',
+    '/privacy': 'pages/PrivacyPage.tsx',
+    '/terms': 'pages/TermsPage.tsx'
+};
+
+function getFileLastModifiedDate(relPath) {
+    try {
+        const fullPath = path.resolve(__dirname, '..', relPath);
+        if (!fs.existsSync(fullPath)) return null;
+        const gitDate = execSync(`git log -1 --format=%cs -- "${fullPath}"`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+        if (/^\d{4}-\d{2}-\d{2}$/.test(gitDate)) {
+            return gitDate;
+        }
+        const stat = fs.statSync(fullPath);
+        return stat.mtime.toISOString().split('T')[0];
+    } catch (e) {
+        try {
+            const fullPath = path.resolve(__dirname, '..', relPath);
+            const stat = fs.statSync(fullPath);
+            return stat.mtime.toISOString().split('T')[0];
+        } catch (err) {
+            return null;
+        }
+    }
+}
+
+function getRouteLastmod(route) {
+    // 1. Article route: use dateModified or rawDate or source data file date
+    if (route.type === 'article') {
+        if (route.dateModified && /^\d{4}-\d{2}-\d{2}$/.test(route.dateModified)) {
+            return route.dateModified;
+        }
+        if (route.rawDate && /^\d{4}-\d{2}-\d{2}$/.test(route.rawDate)) {
+            return route.rawDate;
+        }
+        return getFileLastModifiedDate('data/articles.ts') || '2024-06-10';
+    }
+    // 2. Service route: use data/services.ts modification date
+    if (route.type === 'service') {
+        return getFileLastModifiedDate('data/services.ts') || '2024-06-10';
+    }
+    // 3. Quick service route: use data/quickServices.ts modification date
+    if (route.type === 'quick') {
+        return getFileLastModifiedDate('data/quickServices.ts') || '2024-06-10';
+    }
+    // 4. Static page route: use source page component modification date
+    const sourceFile = STATIC_PAGE_SOURCES[route.path];
+    if (sourceFile) {
+        return getFileLastModifiedDate(sourceFile) || '2024-06-10';
+    }
+    return getFileLastModifiedDate('pages/Home.tsx') || '2024-06-10';
+}
+
 // ─── Helper: Generate sitemap.xml without priority/changefreq and with truthful lastmod ─────
 function generateSitemapXml(routes) {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
@@ -144,15 +204,12 @@ function generateSitemapXml(routes) {
 
     routes.forEach(r => {
         let loc = `https://mishal-lawfirm.com${r.path === '/' ? '/' : r.path}`;
-        
-        // Accurate, truthful lastmod logic (No fake fallback or fabricated dates)
-        // Rule: Only include <lastmod> if there is a verified substantive modification date
-        const verifiedLastmod = r.dateModified;
+        const lastmod = getRouteLastmod(r);
 
         xml += `  <url>\n`;
         xml += `    <loc>${loc}</loc>\n`;
-        if (verifiedLastmod) {
-            xml += `    <lastmod>${verifiedLastmod}</lastmod>\n`;
+        if (lastmod) {
+            xml += `    <lastmod>${lastmod}</lastmod>\n`;
         }
         xml += `  </url>\n`;
     });
