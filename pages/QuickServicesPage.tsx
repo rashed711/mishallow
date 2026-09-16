@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { quickServicesData, QuickServiceCategory } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
@@ -318,13 +318,13 @@ const QuickServicesPage: React.FC = () => {
                                                             <span>اطلب الخدمة</span>
                                                         </a>
 
-                                                        <button
-                                                            onClick={() => handleViewDetail(service.slug)}
+                                                        <Link
+                                                            to={`/quick-services/${service.slug}`}
                                                             className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
                                                         >
                                                             <span>استكشف تفاصيل الخدمة</span>
                                                             <span className="text-sm">←</span>
-                                                        </button>
+                                                        </Link>
                                                     </div>
 
                                                     <style>{`
