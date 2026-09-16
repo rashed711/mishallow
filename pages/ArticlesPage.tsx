@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 
 import { articles as staticArticles, ARTICLE_CATEGORIES, Article } from '../data/articles';
@@ -188,13 +188,13 @@ const ArticlesPage: React.FC = () => {
                     </p>
 
                     <div className="mt-auto pt-6 border-t border-slate-50">
-                      <button
-                        onClick={() => handleSelectArticle(article.slug)}
+                      <Link
+                        to={`/articles/${article.slug}`}
                         className="w-full py-3 rounded-2xl bg-slate-50 text-[#0F172A] font-black text-xs hover:bg-[#B89544] hover:text-white transition-all flex items-center justify-center gap-2 group/btn"
                       >
                         <span>اقرأ التفاصيل</span>
                         <span className="transition-transform group-hover/btn:translate-x-[-4px]">←</span>
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </motion.article>
