@@ -360,6 +360,16 @@ const QuickServicesPage: React.FC = () => {
 
                 </div>
             </div>
+            {/* Crawl nav: renders all service detail links unconditionally in SSR HTML.
+                Visually hidden via sr-only but accessible to screen readers and search engines.
+                Does not affect visible UI, tabs, animations, or card behavior. */}
+            <nav aria-label="فهرس الخدمات السريعة" className="sr-only">
+                {quickServicesData.flatMap(cat => cat.services).map(service => (
+                    <Link key={service.id} to={`/quick-services/${service.slug}`}>
+                        {service.title}
+                    </Link>
+                ))}
+            </nav>
         </div>
     );
 };
