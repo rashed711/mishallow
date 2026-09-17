@@ -281,4 +281,15 @@ graph TD
 4. **الخطوة 4:** مراقبة وتقييم مؤشرات الأداء وحركة الكلمات عبر GSC دورياً بعد كل مرحلة.
 
 ---
-**حالة الوثيقة:** معتمدة للاستراتيجية والتدقيق (Strategy & Roadmap Only — Frozen Baseline).
+**حالة الوثيقة:** مُنفَّذة المرحلة الأولى (Phase 1 — Branch v9).
+
+### تغييرات v9 المُنفَّذة (Phase 1 — Internal Authority & Technical Hardening):
+1. **`components/Footer.tsx`**: توسيع شبكة الروابط الداخلية لتشمل جميع صفحات الخدمات الـ 13 (مكة وجدة) — معالجة الصفحات اليتيمة: `/family-lawyer-jeddah`، `/judgment-execution-jeddah`، `/contract-drafting-makkah`، `/litigation-services-makkah`، `/debt-collection-makkah`.
+2. **`components/SEO.tsx`**: إضافة وسم `og:image:alt` (امتثال بروتوكول Open Graph وإمكانية الوصول).
+3. **`data/siteSchema.ts`**: إضافة `potentialAction` (SearchAction) لكيان WebSite لتفعيل إشارة Sitelinks Search Box.
+4. **`public/sitemap.xml`**: تم التحديث التلقائي عبر سكريبت التوليد الثابت — **54 رابطاً مُحققاً** (26 مقالة + 13 خدمة + 8 صفحات ثابتة + 7 خدمات سريعة).
+
+### الخطوات المقبلة (Phase 2):
+- OPT-03: إثراء صفحات `/commercial-lawyer-jeddah` و`/commercial-lawyer-makkah` بمحتوى إجرائي محلي.
+- OPT-05: تعزيز FAQs في صفحات الخدمات المستهدفة.
+- مراقبة أداء GSC بعد دمج v9 في main.
