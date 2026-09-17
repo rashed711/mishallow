@@ -30,15 +30,23 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
     { to: '/contact', text: 'تواصل معنا', title: 'قنوات الاتصال المباشر بالشركة' },
   ];
 
-  const serviceLinks = [
+  const makkahServiceLinks = [
     { to: '/commercial-lawyer-makkah', text: 'محامي تجاري في مكة' },
     { to: '/labor-lawyer-makkah', text: 'محامي عمالي في مكة' },
     { to: '/criminal-lawyer-makkah', text: 'محامي جنائي في مكة' },
     { to: '/family-lawyer-makkah', text: 'محامي أسري في مكة' },
     { to: '/military-cases-makkah', text: 'قضايا عسكرية بمكة' },
+    { to: '/contract-drafting-makkah', text: 'صياغة العقود بمكة' },
+    { to: '/litigation-services-makkah', text: 'تمثيل قضائي بمكة' },
+    { to: '/debt-collection-makkah', text: 'تحصيل ديون بمكة' },
+  ];
+
+  const jeddahServiceLinks = [
     { to: '/commercial-lawyer-jeddah', text: 'محامي تجاري في جدة' },
     { to: '/labor-lawyer-jeddah', text: 'محامي عمالي في جدة' },
     { to: '/criminal-lawyer-jeddah', text: 'محامي جنائي في جدة' },
+    { to: '/family-lawyer-jeddah', text: 'محامي أسري في جدة' },
+    { to: '/judgment-execution-jeddah', text: 'تنفيذ أحكام بجدة' },
   ];
 
 
@@ -121,18 +129,32 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
               تخصصاتنا القانونية
               <span className="absolute -bottom-2 right-0 md:right-0 w-8 h-1 bg-[#B89544] rounded-full left-0 md:left-auto mx-auto md:mx-0"></span>
             </h3>
-            <ul className="space-y-4">
-              {serviceLinks.map(link => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-slate-300 hover:text-[#B89544] hover:pr-2 transition-all duration-300 block text-sm"
-                  >
-                    {link.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className="grid grid-cols-2 gap-x-4">
+              <ul className="space-y-3">
+                {makkahServiceLinks.map(link => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      className="text-slate-300 hover:text-[#B89544] hover:pr-2 transition-all duration-300 block text-sm"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-3">
+                {jeddahServiceLinks.map(link => (
+                  <li key={link.to}>
+                    <Link
+                      to={link.to}
+                      className="text-slate-300 hover:text-[#B89544] hover:pr-2 transition-all duration-300 block text-sm"
+                    >
+                      {link.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="col-span-2 lg:col-span-1">

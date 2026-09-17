@@ -176,7 +176,15 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "name": BUSINESS_INFO.brandName,
     "alternateName": BUSINESS_INFO.alternateNames,
     "publisher": { "@id": ORG_ID },
-    "inLanguage": "ar"
+    "inLanguage": "ar",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${BUSINESS_INFO.url}/articles?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
   };
 
   // 4. WebPage Entity

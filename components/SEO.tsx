@@ -88,6 +88,7 @@ const SEO: React.FC<SEOProps> = ({
             <meta property="og:url" content={canonicalUrl} />
             <meta property="og:site_name" content={name} />
             <meta property="og:image" content={imageUrl} />
+            <meta property="og:image:alt" content={title} />
             <meta property="og:locale" content="ar_SA" />
 
             {/* Twitter tags */}
