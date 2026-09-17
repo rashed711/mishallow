@@ -72,6 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenModal }) => {
     { to: '/', text: 'الرئيسية', title: 'الانتقال إلى الصفحة الرئيسية' },
     { to: '/about', text: 'من نحن', title: 'تعرف على خبراتنا وفريقنا القانوني' },
     { to: '/services', text: 'خدماتنا', title: 'استكشف تخصصاتنا وخدماتنا القانونية' },
+    { to: '/quick-services', text: 'خدمات سريعة', title: 'استكشف الخدمات والاستشارات القانونية السريعة' },
     { to: '/articles', text: 'المقالات', title: 'اقرأ آخر الرؤى والدراسات القانونية' },
   ];
 

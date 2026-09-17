@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { quickServicesData, QuickServiceCategory } from '../data/quickServices';
 import { WhatsAppIcon } from '../components/icons/ServiceIcons';
@@ -19,13 +19,7 @@ const QuickServicesPage: React.FC = () => {
     });
     const [customFormState, setCustomFormState] = useState<CustomFormState>('idle');
     const [customResponseMsg, setCustomResponseMsg] = useState('');
-    const navigate = useNavigate();
-
     const selectedCategory = categories.find(cat => cat.id === selectedCategoryId) || categories[0] || quickServicesData[0];
-
-    const handleViewDetail = (slug: string) => {
-        navigate(`/quick-services/${slug}`);
-    };
 
     const handleCustomServiceSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -293,7 +287,9 @@ const QuickServicesPage: React.FC = () => {
                                                     </div>
 
                                                     <h3 className="text-xl font-black text-[#B89544] mb-3 leading-tight group-hover:text-[#0F172A] transition-colors">
-                                                        {service.title}
+                                                        <Link to={`/quick-services/${service.slug}`} className="hover:underline">
+                                                            {service.title}
+                                                        </Link>
                                                     </h3>
 
                                                     <p className="text-slate-500 text-xs leading-relaxed mb-4 font-medium line-clamp-2 group-hover:text-slate-700 transition-colors">
@@ -320,7 +316,7 @@ const QuickServicesPage: React.FC = () => {
 
                                                         <Link
                                                             to={`/quick-services/${service.slug}`}
-                                                            className="w-full flex items-center justify-center gap-2 text-[#0F172A] font-black text-[10px] opacity-40 hover:opacity-100 transition-all hover:gap-3"
+                                                            className="w-full flex items-center justify-center gap-2 bg-slate-50 hover:bg-[#B89544]/10 text-slate-700 hover:text-[#B89544] font-bold text-xs py-3 rounded-xl border border-slate-100 transition-all hover:gap-3"
                                                         >
                                                             <span>استكشف تفاصيل الخدمة</span>
                                                             <span className="text-sm">←</span>
@@ -360,16 +356,6 @@ const QuickServicesPage: React.FC = () => {
 
                 </div>
             </div>
-            {/* Crawl nav: renders all service detail links unconditionally in SSR HTML.
-                Visually hidden via sr-only but accessible to screen readers and search engines.
-                Does not affect visible UI, tabs, animations, or card behavior. */}
-            <nav aria-label="فهرس الخدمات السريعة" className="sr-only">
-                {quickServicesData.flatMap(cat => cat.services).map(service => (
-                    <Link key={service.id} to={`/quick-services/${service.slug}`}>
-                        {service.title}
-                    </Link>
-                ))}
-            </nav>
         </div>
     );
 };
