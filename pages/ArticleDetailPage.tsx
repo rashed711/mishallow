@@ -126,6 +126,14 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
                     </h2>
                   );
                 }
+                if (paragraph.startsWith('### ')) {
+                  return (
+                    <h3 key={idx} className="text-xl md:text-2xl font-bold text-[#0F172A] mt-8 mb-4 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-[#B89544] rounded-full inline-block"></span>
+                      {paragraph.replace('### ', '')}
+                    </h3>
+                  );
+                }
                 return (
                   <p key={idx} className="text-slate-600 text-lg">
                     {renderContent(paragraph)}
