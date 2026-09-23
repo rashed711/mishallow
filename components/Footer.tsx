@@ -178,7 +178,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 </div>
                 <div>
                   <p className="text-white font-medium mb-1">البريد الإلكتروني</p>
-                  <p className="text-slate-300 text-sm"> <a href="mailto:info@mishal-lawfirm.com">info@mishal-lawfirm.com</a></p>
+                  <p className="text-slate-300 text-sm" dangerouslySetInnerHTML={{ __html: '<!--email_off--><a href="mailto:info@mishal-lawfirm.com">info@mishal-lawfirm.com</a><!--/email_off-->' }} />
                 </div>
               </li>
 
