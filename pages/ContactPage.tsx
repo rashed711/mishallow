@@ -66,7 +66,7 @@ const ContactPage: React.FC = () => {
                   <span className="text-2xl">⏰</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-4">ساعات العمل</h3>
-                <p className="text-slate-400 font-medium">الأحد - الخميس: 9:00 ص - 5:00 م</p>
+                <p className="text-slate-400 font-medium">الأحد - الخميس: 10:00 ص - 8:00 م</p>
               </motion.div>
             </div>
 

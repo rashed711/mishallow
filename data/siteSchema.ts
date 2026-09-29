@@ -19,13 +19,13 @@ export const BUSINESS_INFO = {
   priceRange: "$$",
   currenciesAccepted: "SAR",
   paymentAccepted: "Cash, Credit Card, Bank Transfer",
-  openingHours: "Su-Th 09:00-17:00",
+  openingHours: "Su-Th 10:00-20:00",
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
-      "opens": "09:00",
-      "closes": "17:00"
+      "opens": "10:00",
+      "closes": "20:00"
     }
   ],
   founder: {
