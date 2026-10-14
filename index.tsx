@@ -20,13 +20,18 @@ if (rootElement) {
 }
 
 // ==========================================
-// تتبع نقرات أزرار التواصل لـ Microsoft Clarity
+// تتبع نقرات أزرار التواصل لـ Microsoft Clarity + GA4
 // ==========================================
 declare global {
   interface Window {
     clarity?: any;
+    gtag?: (...args: any[]) => void;
   }
 }
+
+// The firm's WhatsApp number — used to distinguish genuine contact links
+// from article-sharing links (which use wa.me without a phone number).
+const FIRM_WA_NUMBER = '966568000085';
 
 document.addEventListener('click', function (e: any) {
   try {
@@ -46,19 +51,48 @@ document.addEventListener('click', function (e: any) {
     }
 
     if (href.includes('wa.me') || href.includes('whatsapp.com')) {
-      if (window.clarity) {
-        window.clarity("set", "contact_channel", "whatsapp");
-        window.clarity("set", "btn_location", location);
-        window.clarity("set", "page_path", window.location.pathname);
-        window.clarity("event", "whatsapp_click");
+      // ─── Exclude article-share links from lead-intent tracking ────────────
+      // Article-share links use wa.me/?text=... with NO phone number.
+      // Firm-contact links all contain the firm's WhatsApp number in the href.
+      // We must not count an article share as a lead signal in either platform.
+      var isFirmContact = href.includes(FIRM_WA_NUMBER);
+
+      if (isFirmContact) {
+        // Clarity — unchanged behavior for genuine firm-contact links
+        if (window.clarity) {
+          window.clarity("set", "contact_channel", "whatsapp");
+          window.clarity("set", "btn_location", location);
+          window.clarity("set", "page_path", window.location.pathname);
+          window.clarity("event", "whatsapp_click");
+        }
+        // GA4 — contact intent (click ≠ conversation started)
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'contact', {
+            method: 'whatsapp',
+            location: location,
+            page_path: window.location.pathname,
+          });
+        }
       }
+      // Article-share links: no tracking fires — preserving share behavior only.
+
     } else if (href.startsWith('tel:')) {
+      // Clarity — unchanged
       if (window.clarity) {
         window.clarity("set", "contact_channel", "phone_call");
         window.clarity("set", "btn_location", location);
         window.clarity("set", "page_path", window.location.pathname);
         window.clarity("event", "phone_click");
       }
+      // GA4 — contact intent (click ≠ completed call)
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'contact', {
+          method: 'phone_call',
+          location: location,
+          page_path: window.location.pathname,
+        });
+      }
+
     } else if (text.includes('الخدمات السريعة') || href.includes('#services') || href.includes('services')) {
       if (window.clarity) {
         window.clarity("set", "btn_name", "quick_services");
@@ -69,4 +103,5 @@ document.addEventListener('click', function (e: any) {
   } catch (err) {
     // تجاهل أي خطأ بصمت لضمان عدم تعطل واجهة الموقع
   }
-});
+});
+

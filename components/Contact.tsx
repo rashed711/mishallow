@@ -47,6 +47,16 @@ const Contact: React.FC = () => {
         setFormState('success');
         setResponseMsg(data.message);
         setName(''); setPhone(''); setMessage('');
+        // ─── GA4: confirmed lead — fired only after backend returns success: true
+        // Guarded so an ad-blocker cannot prevent email delivery from completing.
+        try {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'generate_lead', {
+              method: 'contact_form',
+              page_path: window.location.pathname,
+            });
+          }
+        } catch (_) { /* analytics failure must never block the UI */ }
       } else {
         setFormState('error');
         setResponseMsg(data.message || 'حدث خطأ، يرجى المحاولة مجدداً');

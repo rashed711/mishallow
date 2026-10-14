@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import PageTransition from './components/PageTransition';
@@ -83,6 +83,13 @@ const UrlNormalizer: React.FC = () => {
   return null;
 };
 
+// ─── GA4 gtag type declaration (does not install any dependency) ───────────────
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -159,6 +166,32 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', initClarity);
     };
   }, []);
+
+  // ─── GA4 SPA page-view tracking ────────────────────────────────────────────
+  // The static gtag snippet in index.html already fires an automatic page_view
+  // for the very first HTML document load.  We must NOT fire a second one on
+  // mount — only on subsequent client-side navigations (including back/forward).
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      // Skip mount: the gtag config snippet already handled the initial page view.
+      isFirstRender.current = false;
+      return;
+    }
+    // Wait one microtask so react-helmet-async has committed the updated <title>
+    // before we read document.title.
+    const timer = setTimeout(() => {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'page_view', {
+          page_path: window.location.pathname + window.location.search,
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      }
+    }, 0);
+    return () => clearTimeout(timer);
+  }, [location.pathname, location.search]);
+  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <>
