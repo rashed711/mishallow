@@ -12,7 +12,7 @@
     {
       "id": "office-contact",
       "name": "Get Office Contact",
-      "description": "Retrieves the physical address and contact methods for the firm's branches.",
+      "description": "Retrieves the physical address of the firm's headquarters and official contact channels.",
       "url": "https://mishal-lawfirm.com/contact",
       "type": "informational",
       "digest": "sha256-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

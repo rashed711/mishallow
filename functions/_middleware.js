@@ -139,13 +139,11 @@ export async function onRequest(context) {
       });
     }
 
-    return new Response('404 Not Found - المسار المطلوب غير موجود', {
-      status: 404,
-      headers: {
-        'Content-Type': 'text/plain; charset=UTF-8',
-        'X-Robots-Tag': 'noindex, nofollow, noarchive'
-      }
-    });
+    // Fallback: If no dedicated Markdown document exists for this route,
+    // pass through to the standard prerendered HTML static asset pipeline.
+    // This allows existing pages (e.g., services, articles) to be served with HTTP 200 (HTML)
+    // while nonexistent routes continue to return genuine HTTP 404 from Cloudflare Pages.
+    return await context.next();
   }
 
   // Pass through normal requests to static assets / pages functions
