@@ -63,7 +63,7 @@ const QuickServiceDetailPage: React.FC = () => {
     return (
         <div className="bg-slate-50 min-h-screen">
             <SEO
-                title={`${service.title} | خدمات سريعة - شركة مشعل بادغيش`}
+                title={service.seoTitle || `${service.title} | شركة مشعل بادغيش`}
                 description={service.description}
                 type="service"
                 url={`https://mishal-lawfirm.com/quick-services/${service.slug}`}
