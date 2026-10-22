@@ -57,7 +57,7 @@ const ArticleDetailPage: React.FC<ArticleDetailPageProps> = ({ onOpenModal }) =>
   return (
     <div className="bg-white min-h-screen">
       <SEO
-        title={`${article.title} | شركة مشعل بادغيش للمحاماة`}
+        title={article.seoTitle || `${article.title} | شركة مشعل بادغيش للمحاماة`}
         description={article.excerpt}
         image={article.image}
         type="article"

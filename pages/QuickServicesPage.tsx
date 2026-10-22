@@ -352,6 +352,34 @@ const QuickServicesPage: React.FC = () => {
                                 </div>
                             </motion.div>
                         </AnimatePresence>
+
+                        {/* All Services Semantic Directory - Crawlable in Initial HTML */}
+                        <div className="bg-white rounded-2xl md:rounded-[2rem] p-6 md:p-8 shadow-sm border border-slate-100">
+                            <h3 className="text-lg md:text-xl font-black text-[#0F172A] mb-3 flex items-center gap-3">
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#B89544]"></span>
+                                دليل جميع الخدمات السريعة المتاحة
+                            </h3>
+                            <p className="text-slate-500 text-xs md:text-sm mb-6 leading-relaxed">
+                                تصفح كافة الخدمات القانونية والاستشارية السريعة المقدمة من شركة مشعل بادغيش للمحاماة، مع إمكانية الاطلاع على تفاصيل كل خدمة وطلبها مباشرة:
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {categories.flatMap(cat => cat.services).map(service => (
+                                    <Link
+                                        key={service.slug}
+                                        to={`/quick-services/${service.slug}`}
+                                        className="group flex items-center justify-between p-3.5 rounded-xl border border-slate-100 hover:border-[#B89544]/40 bg-slate-50/60 hover:bg-[#B89544]/5 transition-all duration-200"
+                                    >
+                                        <div className="flex items-center gap-2.5 min-w-0">
+                                            <span className="text-[#B89544] text-xs">◆</span>
+                                            <span className="font-bold text-xs md:text-sm text-[#0F172A] group-hover:text-[#B89544] truncate transition-colors">
+                                                {service.title}
+                                            </span>
+                                        </div>
+                                        <span className="text-slate-400 group-hover:text-[#B89544] text-xs transition-transform group-hover:-translate-x-1">←</span>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                 </div>

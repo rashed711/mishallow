@@ -61,7 +61,8 @@ function loadArticlesData() {
         const articles = (new Function('return ' + cleanJs))();
         return articles.map(a => ({
             slug: a.slug,
-            title: a.title ? `${a.title} | شركة مشعل بادغيش للمحاماة` : 'شركة مشعل بادغيش للمحاماة',
+            rawTitle: a.title,
+            title: a.seoTitle || (a.title ? `${a.title} | شركة مشعل بادغيش للمحاماة` : 'شركة مشعل بادغيش للمحاماة'),
             description: a.excerpt || 'نقدم حلولاً قانونية استراتيجية تتوافق مع تطلعات المملكة.',
             image: a.image || '/images/logo/logo.webp',
             rawDate: a.rawDate || a.date,
@@ -89,7 +90,8 @@ function loadQuickServicesData() {
                 cat.services.forEach(s => {
                     items.push({
                         slug: s.slug,
-                        title: `${s.title} | شركة مشعل بادغيش للمحاماة`,
+                        rawTitle: s.title,
+                        title: s.seoTitle || `${s.title} | شركة مشعل بادغيش للمحاماة`,
                         description: (s.description || '').replace(/\n/g, ' ').substring(0, 160),
                         image: '/images/logo/logo.webp'
                     });
@@ -125,12 +127,12 @@ function generatePageSchema(route, buildSchemaGraph) {
         datePublished: isArticle ? route.rawDate : undefined,
         dateModified: isArticle ? route.dateModified : undefined,
         authorName: isArticle ? (route.author || 'مشعل بادغيش') : undefined,
-        serviceType: route.type === 'service' ? route.title : undefined,
-        quickServiceName: isQuick ? route.title.split('|')[0].trim() : undefined,
+        serviceType: route.type === 'service' ? (route.rawTitle || route.title) : undefined,
+        quickServiceName: isQuick ? (route.rawTitle || route.title.split('|')[0].trim()) : undefined,
         faqs: (route.faq && route.faq.length > 0) ? route.faq : (route.faqs && route.faqs.length > 0 ? route.faqs : undefined),
         breadcrumbs: isQuick ? [
             { name: 'خدمات سريعة', url: 'https://mishal-lawfirm.com/quick-services' },
-            { name: route.title.split('|')[0].trim(), url: canonicalUrl }
+            { name: (route.rawTitle || route.title.split('|')[0].trim()), url: canonicalUrl }
         ] : undefined
     });
 
