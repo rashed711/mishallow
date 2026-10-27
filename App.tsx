@@ -194,18 +194,18 @@ const App: React.FC = () => {
 
   // ─── GA4 dedicated contact_page_view tracking ──────────────────────────────
   // Fires upon actual entry to /contact (direct landing, client-side navigation, back/forward).
-  // Strictly deduplicated against React.StrictMode double-mount and intra-page hash/query changes.
-  const prevContactPathRef = useRef<string | null>(null);
+  // Deduplicated across React.StrictMode double-mount and intra-page hash/query changes.
+  const hasFiredForContactRef = useRef(false);
   useEffect(() => {
     const currentPath = location.pathname.replace(/\/+$/, '') || '/';
     let timer: NodeJS.Timeout | null = null;
     if (currentPath === '/contact') {
-      if (prevContactPathRef.current !== '/contact') {
-        prevContactPathRef.current = '/contact';
+      if (!hasFiredForContactRef.current) {
         // Microtask delay allows react-helmet-async to commit the updated document.title
         timer = setTimeout(() => {
           const activePath = window.location.pathname.replace(/\/+$/, '') || '/';
           if (activePath === '/contact' && typeof window.gtag === 'function') {
+            hasFiredForContactRef.current = true;
             const contactTitle = document.title && document.title.includes('تواصل')
               ? document.title
               : 'تواصل مع مكتب المحامي مشعل | استشارات قانونية في مكة وجدة';
@@ -218,7 +218,7 @@ const App: React.FC = () => {
         }, 0);
       }
     } else {
-      prevContactPathRef.current = currentPath;
+      hasFiredForContactRef.current = false;
     }
     return () => {
       if (timer) clearTimeout(timer);
