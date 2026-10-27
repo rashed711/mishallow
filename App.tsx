@@ -193,6 +193,22 @@ const App: React.FC = () => {
   }, [location.pathname, location.search]);
   // ─────────────────────────────────────────────────────────────────────────
 
+  // ─── Dedicated contact-page event (deduped across StrictMode effect replay) ───
+  const lastContactPagePath = useRef<string | null>(null);
+  useEffect(() => {
+    if (lastContactPagePath.current === location.pathname) return;
+    lastContactPagePath.current = location.pathname;
+
+    if (location.pathname === '/contact' && typeof window.gtag === 'function') {
+      window.gtag('event', 'contact_page_view', {
+        page_path: window.location.pathname + window.location.search,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    }
+  }, [location.pathname, location.search]);
+  // ─────────────────────────────────────────────────────────────────────────
+
   return (
     <>
       <UrlNormalizer />
