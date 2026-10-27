@@ -67,7 +67,7 @@ document.addEventListener('click', function (e: any) {
         }
         // GA4 — contact intent (click ≠ conversation started)
         if (typeof window.gtag === 'function') {
-          window.gtag('event', 'contact', {
+          window.gtag('event', 'whatsapp_click', {
             method: 'whatsapp',
             location: location,
             page_path: window.location.pathname,
@@ -86,7 +86,7 @@ document.addEventListener('click', function (e: any) {
       }
       // GA4 — contact intent (click ≠ completed call)
       if (typeof window.gtag === 'function') {
-        window.gtag('event', 'contact', {
+        window.gtag('event', 'phone_click', {
           method: 'phone_call',
           location: location,
           page_path: window.location.pathname,
