@@ -191,6 +191,31 @@ const App: React.FC = () => {
     }, 0);
     return () => clearTimeout(timer);
   }, [location.pathname, location.search]);
+
+  // ─── GA4 dedicated contact_page_view tracking ──────────────────────────────
+  // Fires upon actual entry to /contact (direct landing, client-side navigation, back/forward).
+  // Strictly deduplicated against React.StrictMode double-mount and intra-page hash/query changes.
+  const prevContactPathRef = useRef<string | null>(null);
+  useEffect(() => {
+    const currentPath = location.pathname.replace(/\/+$/, '') || '/';
+    if (currentPath === '/contact') {
+      if (prevContactPathRef.current !== '/contact') {
+        prevContactPathRef.current = '/contact';
+        // Microtask delay allows react-helmet-async to commit the updated document.title
+        setTimeout(() => {
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'contact_page_view', {
+              page_path: '/contact',
+              page_location: window.location.href,
+              page_title: document.title,
+            });
+          }
+        }, 0);
+      }
+    } else {
+      prevContactPathRef.current = currentPath;
+    }
+  }, [location.pathname]);
   // ─────────────────────────────────────────────────────────────────────────
 
   return (

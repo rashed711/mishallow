@@ -65,9 +65,9 @@ document.addEventListener('click', function (e: any) {
           window.clarity("set", "page_path", window.location.pathname);
           window.clarity("event", "whatsapp_click");
         }
-        // GA4 — contact intent (click ≠ conversation started)
+        // GA4 — dedicated whatsapp_click event
         if (typeof window.gtag === 'function') {
-          window.gtag('event', 'contact', {
+          window.gtag('event', 'whatsapp_click', {
             method: 'whatsapp',
             location: location,
             page_path: window.location.pathname,
@@ -84,9 +84,9 @@ document.addEventListener('click', function (e: any) {
         window.clarity("set", "page_path", window.location.pathname);
         window.clarity("event", "phone_click");
       }
-      // GA4 — contact intent (click ≠ completed call)
+      // GA4 — dedicated phone_click event
       if (typeof window.gtag === 'function') {
-        window.gtag('event', 'contact', {
+        window.gtag('event', 'phone_click', {
           method: 'phone_call',
           location: location,
           page_path: window.location.pathname,
