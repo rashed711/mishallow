@@ -83,10 +83,11 @@ const UrlNormalizer: React.FC = () => {
   return null;
 };
 
-// ─── GA4 gtag type declaration (does not install any dependency) ───────────────
+// ─── GA4 gtag & TikTok Pixel type declarations ────────────────────────────────
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    ttq?: any;
   }
 }
 
@@ -187,6 +188,9 @@ const App: React.FC = () => {
           page_location: window.location.href,
           page_title: document.title,
         });
+      }
+      if (window.ttq && typeof window.ttq.page === 'function') {
+        window.ttq.page();
       }
     }, 0);
     return () => clearTimeout(timer);

@@ -20,12 +20,13 @@ if (rootElement) {
 }
 
 // ==========================================
-// تتبع نقرات أزرار التواصل لـ Microsoft Clarity + GA4
+// تتبع نقرات أزرار التواصل لـ Microsoft Clarity + GA4 + TikTok Pixel
 // ==========================================
 declare global {
   interface Window {
     clarity?: any;
     gtag?: (...args: any[]) => void;
+    ttq?: any;
   }
 }
 
@@ -73,6 +74,12 @@ document.addEventListener('click', function (e: any) {
             page_path: window.location.pathname,
           });
         }
+        // TikTok Pixel — Contact event
+        if (window.ttq && typeof window.ttq.track === 'function') {
+          window.ttq.track('Contact', {
+            contents: [{ content_name: 'WhatsApp Click', content_category: 'Contact' }]
+          });
+        }
       }
       // Article-share links: no tracking fires — preserving share behavior only.
 
@@ -90,6 +97,12 @@ document.addEventListener('click', function (e: any) {
           method: 'phone_call',
           location: location,
           page_path: window.location.pathname,
+        });
+      }
+      // TikTok Pixel — Contact event
+      if (window.ttq && typeof window.ttq.track === 'function') {
+        window.ttq.track('Contact', {
+          contents: [{ content_name: 'Phone Call', content_category: 'Contact' }]
         });
       }
 

@@ -47,7 +47,7 @@ const Contact: React.FC = () => {
         setFormState('success');
         setResponseMsg(data.message);
         setName(''); setPhone(''); setMessage('');
-        // ─── GA4: confirmed lead — fired only after backend returns success: true
+        // ─── GA4 & TikTok Pixel: confirmed lead — fired only after backend returns success: true
         // Guarded so an ad-blocker cannot prevent email delivery from completing.
         try {
           if (typeof window.gtag === 'function') {
@@ -55,6 +55,9 @@ const Contact: React.FC = () => {
               method: 'contact_form',
               page_path: window.location.pathname,
             });
+          }
+          if ((window as any).ttq && typeof (window as any).ttq.track === 'function') {
+            (window as any).ttq.track('SubmitForm');
           }
         } catch (_) { /* analytics failure must never block the UI */ }
       } else {
