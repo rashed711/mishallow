@@ -452,8 +452,9 @@ if (fs.existsSync(distRedirectsPath)) {
     const corporateRedirect = redirectRules.find(r => r.from === '/blog-corporate-lawyer.html');
     assert(corporateRedirect !== undefined && corporateRedirect.to === '/commercial-lawyer-makkah', 'Historical /blog-corporate-lawyer.html redirects 301 to canonical /commercial-lawyer-makkah');
 
+    // Verify obsolete GSC legacy blog URLs do not have improper/synthetic redirects in _redirects (preserved as legitimate HTTP 404)
     const legalConsultRedirect = redirectRules.find(r => r.from === '/blog-legal-consultations.html');
-    assert(legalConsultRedirect !== undefined && legalConsultRedirect.to === '/articles/دليلك-الشامل-لطلب-استشارة-قانونية-في-مكة-وجدة', 'Legacy /blog-legal-consultations.html redirects 301 to substantive consultation guide article');
+    assert(legalConsultRedirect === undefined, 'No synthetic redirect configured for legacy /blog-legal-consultations.html (preserved unredirected as legitimate HTTP 404)');
 
     const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
     assert(criminalRedirect === undefined, 'No improper service redirect configured for /blog-criminal-lawyer.html (preserved unredirected as legitimate HTTP 404)');
