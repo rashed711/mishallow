@@ -452,15 +452,22 @@ if (fs.existsSync(distRedirectsPath)) {
     const corporateRedirect = redirectRules.find(r => r.from === '/blog-corporate-lawyer.html');
     assert(corporateRedirect !== undefined && corporateRedirect.to === '/commercial-lawyer-makkah', 'Historical /blog-corporate-lawyer.html redirects 301 to canonical /commercial-lawyer-makkah');
 
-    // Verify obsolete GSC legacy blog URLs do not have improper/synthetic redirects in _redirects (preserved as legitimate HTTP 404)
     const legalConsultRedirect = redirectRules.find(r => r.from === '/blog-legal-consultations.html');
-    assert(legalConsultRedirect === undefined, 'No synthetic redirect configured for legacy /blog-legal-consultations.html (preserved unredirected as legitimate HTTP 404)');
+    assert(legalConsultRedirect !== undefined && legalConsultRedirect.to === '/articles/دليلك-الشامل-لطلب-استشارة-قانونية-في-مكة-وجدة', 'Legacy /blog-legal-consultations.html redirects 301 to substantive consultation guide article');
 
     const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
     assert(criminalRedirect === undefined, 'No improper service redirect configured for /blog-criminal-lawyer.html (preserved unredirected as legitimate HTTP 404)');
 
     const detailsPlaceholder = redirectRules.find(r => r.from === '/blog-details-2025-01-01.html');
     assert(detailsPlaceholder === undefined, 'No synthetic redirect configured for placeholder /blog-details-2025-01-01.html (preserved unredirected as legitimate HTTP 404)');
+
+    // Verify static 404.html template integrity for genuine HTTP 404 responses
+    const static404Path = path.join(DIST_DIR, '404.html');
+    assert(fs.existsSync(static404Path), 'Static dist/404.html exists for Cloudflare Pages HTTP 404 fallback');
+    if (fs.existsSync(static404Path)) {
+        const static404Content = fs.readFileSync(static404Path, 'utf8');
+        assert(static404Content.includes('name="robots" content="noindex'), 'Static dist/404.html carries robots noindex meta directive');
+    }
 
 }
 

@@ -75,6 +75,7 @@ const UrlNormalizer: React.FC = () => {
   if (cleanPath === '/book_consultation') cleanPath = '/contact';
   if (cleanPath === '/military-lawyer-makkah') cleanPath = '/military-cases-makkah';
   if (cleanPath === '/blog-corporate-lawyer') cleanPath = '/commercial-lawyer-makkah';
+  if (cleanPath === '/blog-legal-consultations') cleanPath = '/articles/دليلك-الشامل-لطلب-استشارة-قانونية-في-مكة-وجدة';
 
   if (cleanPath !== rawPath) {
     return <Navigate to={cleanPath + location.search + location.hash} replace />;
