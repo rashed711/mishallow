@@ -448,15 +448,19 @@ if (fs.existsSync(distRedirectsPath)) {
         assert(fs.existsSync(targetFilePath), `Target page exists for redirect rule: ${rule.from} -> ${rule.to} (${path.relative(DIST_DIR, targetFilePath)})`);
     });
 
-    // Verify specific GSC 404 resolution rules
-    const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
-    assert(criminalRedirect !== undefined && criminalRedirect.to === '/criminal-lawyer-makkah', 'Legacy /blog-criminal-lawyer.html redirects 301 to /criminal-lawyer-makkah');
+    // Verify GSC legacy redirect mappings:
+    const corporateRedirect = redirectRules.find(r => r.from === '/blog-corporate-lawyer.html');
+    assert(corporateRedirect !== undefined && corporateRedirect.to === '/commercial-lawyer-makkah', 'Historical /blog-corporate-lawyer.html redirects 301 to canonical /commercial-lawyer-makkah');
 
     const legalConsultRedirect = redirectRules.find(r => r.from === '/blog-legal-consultations.html');
-    assert(legalConsultRedirect !== undefined, 'Legacy /blog-legal-consultations.html has dedicated 301 redirect');
+    assert(legalConsultRedirect !== undefined && legalConsultRedirect.to === '/articles/دليلك-الشامل-لطلب-استشارة-قانونية-في-مكة-وجدة', 'Legacy /blog-legal-consultations.html redirects 301 to substantive consultation guide article');
 
-    const detailsPlaceholder = redirectRules.find(r => r.from.includes('blog-details-2025-01-01'));
-    assert(detailsPlaceholder === undefined, 'No synthetic redirect for /blog-details-2025-01-01.html (legitimate HTTP 404 preserved)');
+    // Verify unmapped URLs do not have improper/soft-404 redirects in _redirects
+    const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
+    assert(criminalRedirect === undefined, 'No improper service redirect configured for /blog-criminal-lawyer.html (preserved unredirected)');
+
+    const detailsPlaceholder = redirectRules.find(r => r.from === '/blog-details-2025-01-01.html');
+    assert(detailsPlaceholder === undefined, 'No synthetic redirect configured for placeholder /blog-details-2025-01-01.html (preserved unredirected)');
 
 }
 
