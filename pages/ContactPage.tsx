@@ -51,8 +51,8 @@ const ContactPage: React.FC = () => {
                   <span className="text-2xl">📍</span>
                 </div>
                 <h3 className="text-xl font-black text-white mb-4">المقر الرئيسي</h3>
-                <p className="text-slate-400 font-medium">شارع عبدالله بن عباس</p>
-                <p className="text-slate-400 font-medium mt-1">بجوار نادي ستار تراك - مكة المكرمة</p>
+                <p className="text-slate-400 font-medium">شارع عبدالله بن عباس، ولي العهد، مكة المكرمة، المملكة العربية السعودية</p>
+
               </motion.div>
 
               <motion.div

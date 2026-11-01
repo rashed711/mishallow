@@ -169,8 +169,14 @@ allRoutes.forEach(r => {
                     assert(orgEntity['@type'] === 'LegalService', `Organization @type is LegalService for ${r.path}`);
                     assert(orgEntity.name === 'شركة مشعل بادغيش للمحاماة والاستشارات القانونية', `Authoritative legal name in Organization schema for ${r.path}`);
                     assert(orgEntity.founder && orgEntity.founder['@id'] === 'https://mishal-lawfirm.com/#mishal-badghish', `Organization founder references Person @id in ${r.path}`);
-                    assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah address in Organization schema for ${r.path}`);
-                    assert(orgEntity.address && orgEntity.address.streetAddress && orgEntity.address.streetAddress.includes('شارع عبدالله بن عباس'), `Authoritative streetAddress in Organization schema for ${r.path}`);
+
+                    // Granular semantic PostalAddress validation
+                    assert(orgEntity.address && orgEntity.address['@type'] === 'PostalAddress', `PostalAddress @type is valid in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.streetAddress === 'شارع عبدالله بن عباس، ولي العهد', `PostalAddress streetAddress is semantically partitioned ('شارع عبدالله بن عباس، ولي العهد') for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah locality in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.addressRegion === 'Makkah Province', `Authoritative Makkah Province region in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.postalCode === '24353', `Authoritative postalCode 24353 in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.addressCountry === 'SA', `Authoritative addressCountry SA in Organization schema for ${r.path}`);
                     assert(orgEntity.geo && orgEntity.geo.latitude === 21.3719559 && orgEntity.geo.longitude === 39.7920768, `Verified GPS coordinates in Organization schema for ${r.path}`);
                     assert(orgEntity.currenciesAccepted === 'SAR', `Authoritative currency SAR in Organization schema for ${r.path}`);
                     assert(Array.isArray(orgEntity.openingHoursSpecification) && orgEntity.openingHoursSpecification.length > 0, `OpeningHoursSpecification present in Organization schema for ${r.path}`);
@@ -338,6 +344,132 @@ if (fs.existsSync(homeHtmlPath)) {
     assert(homeContent.includes('href="https://www.tiktok.com/@mishal_lawfirm"'), 'Rendered HTML contains official TikTok link');
     assert(homeContent.includes('href="https://www.linkedin.com/company/mishal-lawfirm/"'), 'Rendered HTML contains official LinkedIn link');
     assert(homeContent.includes('href="https://www.facebook.com/mishal.lawfirm"'), 'Rendered HTML contains official Facebook link');
+}
+
+// 8. Authoritative Address & Legacy String Elimination QA
+console.log('\n--- 6. Testing Authoritative Address Presence & Absence of Legacy Strings ---');
+const FULL_ADDRESS = 'شارع عبدالله بن عباس، ولي العهد، مكة المكرمة، المملكة العربية السعودية';
+const LEGACY_LANDMARK = 'ستار تراك';
+
+// A. Full address presence in key locations
+if (fs.existsSync(homeHtmlPath)) {
+    const homeContent = fs.readFileSync(homeHtmlPath, 'utf8');
+    assert(homeContent.includes(FULL_ADDRESS), 'Homepage rendered HTML contains the full authoritative address in footer');
+}
+
+const contactHtmlPath = path.join(DIST_DIR, 'contact.html');
+if (fs.existsSync(contactHtmlPath)) {
+    const contactContent = fs.readFileSync(contactHtmlPath, 'utf8');
+    assert(contactContent.includes(FULL_ADDRESS), 'Contact page rendered HTML contains the full authoritative address in main body');
+}
+
+const footerTsxPath = path.join(__dirname, '../components/Footer.tsx');
+if (fs.existsSync(footerTsxPath)) {
+    const footerContent = fs.readFileSync(footerTsxPath, 'utf8');
+    assert(footerContent.includes(FULL_ADDRESS), 'Footer.tsx source contains the full authoritative address');
+    assert(!footerContent.includes(LEGACY_LANDMARK), 'Footer.tsx does NOT contain legacy landmark "ستار تراك"');
+}
+
+const contactPageTsxPath = path.join(__dirname, '../pages/ContactPage.tsx');
+if (fs.existsSync(contactPageTsxPath)) {
+    const contactPageContent = fs.readFileSync(contactPageTsxPath, 'utf8');
+    assert(contactPageContent.includes(FULL_ADDRESS), 'ContactPage.tsx source contains the full authoritative address');
+    assert(!contactPageContent.includes(LEGACY_LANDMARK), 'ContactPage.tsx does NOT contain legacy landmark "ستار تراك"');
+}
+
+const middlewareJsPath = path.join(__dirname, '../functions/_middleware.js');
+if (fs.existsSync(middlewareJsPath)) {
+    const middlewareContent = fs.readFileSync(middlewareJsPath, 'utf8');
+    assert(middlewareContent.includes(FULL_ADDRESS), 'functions/_middleware.js contains full authoritative address in Markdown responses');
+    assert(!middlewareContent.includes(LEGACY_LANDMARK), 'functions/_middleware.js does NOT contain legacy landmark "ستار تراك"');
+}
+
+const siteSchemaPath = path.join(__dirname, '../data/siteSchema.ts');
+if (fs.existsSync(siteSchemaPath)) {
+    const siteSchemaContent = fs.readFileSync(siteSchemaPath, 'utf8');
+    assert(!siteSchemaContent.includes(LEGACY_LANDMARK), 'data/siteSchema.ts does NOT contain legacy landmark "ستار تراك"');
+}
+
+// B. Scan all generated HTML files in dist/ to ensure NO legacy landmark exists
+if (fs.existsSync(DIST_DIR)) {
+    function scanHtmlForLegacy(dir) {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                scanHtmlForLegacy(fullPath);
+            } else if (entry.name.endsWith('.html')) {
+                const htmlContent = fs.readFileSync(fullPath, 'utf8');
+                const cleanRel = path.relative(DIST_DIR, fullPath);
+                assert(!htmlContent.includes(LEGACY_LANDMARK), `Rendered HTML ${cleanRel} does NOT contain legacy landmark "ستار تراك"`);
+            }
+        }
+    }
+    scanHtmlForLegacy(DIST_DIR);
+}
+
+// 7. Testing Static Integrity of _redirects Rules (Single-Hop, Valid Destinations, No Chains or Loops)
+console.log('\n--- 7. Testing _redirects Static Mapping & Integrity ---');
+const distRedirectsPath = path.join(DIST_DIR, '_redirects');
+assert(fs.existsSync(distRedirectsPath), 'dist/_redirects exists and was deployed to build directory');
+
+if (fs.existsSync(distRedirectsPath)) {
+    const redirectsContent = fs.readFileSync(distRedirectsPath, 'utf8');
+    const lines = redirectsContent.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+    const redirectRules = [];
+    const fromSet = new Set();
+
+    lines.forEach(line => {
+        const parts = line.split(/\s+/);
+        if (parts.length >= 2) {
+            const from = parts[0];
+            const to = parts[1];
+            const status = parts[2] || '301';
+            redirectRules.push({ from, to, status });
+            fromSet.add(from);
+        }
+    });
+
+    assert(redirectRules.length >= 30, `_redirects contains expected comprehensive rule set (found: ${redirectRules.length})`);
+
+    // Verify each rule has no self-loop, no redirect chain, and target page exists
+    redirectRules.forEach(rule => {
+        assert(rule.from !== rule.to, `No self-loop in redirect rule: ${rule.from} -> ${rule.to}`);
+        assert(!fromSet.has(rule.to), `No redirect chain in rule: target ${rule.to} is not redirected further`);
+
+        // Check target HTML file exists in dist
+        let targetFilePath = '';
+        if (rule.to === '/') {
+            targetFilePath = path.join(DIST_DIR, 'index.html');
+        } else {
+            const cleanTarget = rule.to.replace(/^\//, '');
+            targetFilePath = path.join(DIST_DIR, `${cleanTarget}.html`);
+        }
+        assert(fs.existsSync(targetFilePath), `Target page exists for redirect rule: ${rule.from} -> ${rule.to} (${path.relative(DIST_DIR, targetFilePath)})`);
+    });
+
+    // Verify GSC legacy redirect mappings:
+    const corporateRedirect = redirectRules.find(r => r.from === '/blog-corporate-lawyer.html');
+    assert(corporateRedirect !== undefined && corporateRedirect.to === '/commercial-lawyer-makkah', 'Historical /blog-corporate-lawyer.html redirects 301 to canonical /commercial-lawyer-makkah');
+
+    // Verify obsolete GSC legacy blog URLs do not have improper/synthetic redirects in _redirects (preserved as legitimate HTTP 404)
+    const legalConsultRedirect = redirectRules.find(r => r.from === '/blog-legal-consultations.html');
+    assert(legalConsultRedirect === undefined, 'No synthetic redirect configured for legacy /blog-legal-consultations.html (preserved unredirected as legitimate HTTP 404)');
+
+    const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
+    assert(criminalRedirect === undefined, 'No improper service redirect configured for /blog-criminal-lawyer.html (preserved unredirected as legitimate HTTP 404)');
+
+    const detailsPlaceholder = redirectRules.find(r => r.from === '/blog-details-2025-01-01.html');
+    assert(detailsPlaceholder === undefined, 'No synthetic redirect configured for placeholder /blog-details-2025-01-01.html (preserved unredirected as legitimate HTTP 404)');
+
+    // Verify static 404.html template integrity for genuine HTTP 404 responses
+    const static404Path = path.join(DIST_DIR, '404.html');
+    assert(fs.existsSync(static404Path), 'Static dist/404.html exists for Cloudflare Pages HTTP 404 fallback');
+    if (fs.existsSync(static404Path)) {
+        const static404Content = fs.readFileSync(static404Path, 'utf8');
+        assert(static404Content.includes('name="robots" content="noindex'), 'Static dist/404.html carries robots noindex meta directive');
+    }
+
 }
 
 // 8. Summary & Exit Code
