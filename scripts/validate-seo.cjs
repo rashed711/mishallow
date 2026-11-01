@@ -408,6 +408,58 @@ if (fs.existsSync(DIST_DIR)) {
     scanHtmlForLegacy(DIST_DIR);
 }
 
+// 7. Testing Static Integrity of _redirects Rules (Single-Hop, Valid Destinations, No Chains or Loops)
+console.log('\n--- 7. Testing _redirects Static Mapping & Integrity ---');
+const distRedirectsPath = path.join(DIST_DIR, '_redirects');
+assert(fs.existsSync(distRedirectsPath), 'dist/_redirects exists and was deployed to build directory');
+
+if (fs.existsSync(distRedirectsPath)) {
+    const redirectsContent = fs.readFileSync(distRedirectsPath, 'utf8');
+    const lines = redirectsContent.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'));
+    const redirectRules = [];
+    const fromSet = new Set();
+
+    lines.forEach(line => {
+        const parts = line.split(/\s+/);
+        if (parts.length >= 2) {
+            const from = parts[0];
+            const to = parts[1];
+            const status = parts[2] || '301';
+            redirectRules.push({ from, to, status });
+            fromSet.add(from);
+        }
+    });
+
+    assert(redirectRules.length >= 30, `_redirects contains expected comprehensive rule set (found: ${redirectRules.length})`);
+
+    // Verify each rule has no self-loop, no redirect chain, and target page exists
+    redirectRules.forEach(rule => {
+        assert(rule.from !== rule.to, `No self-loop in redirect rule: ${rule.from} -> ${rule.to}`);
+        assert(!fromSet.has(rule.to), `No redirect chain in rule: target ${rule.to} is not redirected further`);
+
+        // Check target HTML file exists in dist
+        let targetFilePath = '';
+        if (rule.to === '/') {
+            targetFilePath = path.join(DIST_DIR, 'index.html');
+        } else {
+            const cleanTarget = rule.to.replace(/^\//, '');
+            targetFilePath = path.join(DIST_DIR, `${cleanTarget}.html`);
+        }
+        assert(fs.existsSync(targetFilePath), `Target page exists for redirect rule: ${rule.from} -> ${rule.to} (${path.relative(DIST_DIR, targetFilePath)})`);
+    });
+
+    // Verify specific GSC 404 resolution rules
+    const criminalRedirect = redirectRules.find(r => r.from === '/blog-criminal-lawyer.html');
+    assert(criminalRedirect !== undefined && criminalRedirect.to === '/criminal-lawyer-makkah', 'Legacy /blog-criminal-lawyer.html redirects 301 to /criminal-lawyer-makkah');
+
+    const legalConsultRedirect = redirectRules.find(r => r.from === '/blog-legal-consultations.html');
+    assert(legalConsultRedirect !== undefined, 'Legacy /blog-legal-consultations.html has dedicated 301 redirect');
+
+    const detailsPlaceholder = redirectRules.find(r => r.from.includes('blog-details-2025-01-01'));
+    assert(detailsPlaceholder === undefined, 'No synthetic redirect for /blog-details-2025-01-01.html (legitimate HTTP 404 preserved)');
+
+}
+
 // 8. Summary & Exit Code
 console.log('\n============================================================');
 console.log('🎯 SEO & BODY INTEGRITY VALIDATION SUMMARY');
