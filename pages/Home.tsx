@@ -1,15 +1,14 @@
-import React, { lazy } from 'react';
+import React from 'react';
 import Hero from '../components/Hero';
 import About from '../components/About';
 import LazySection from '../components/LazySection';
-const HowWeWork = lazy(() => import('../components/HowWeWork'));
-const WhyUs = lazy(() => import('../components/WhyUs'));
-const WhoWeServe = lazy(() => import('../components/WhoWeServe'));
-const LatestArticles = lazy(() => import('../components/LatestArticles'));
-const Services = lazy(() => import('../components/Services'));
-import FadeInSection from '../components/FadeInSection';
+import HowWeWork from '../components/HowWeWork';
+import WhyUs from '../components/WhyUs';
+import WhoWeServe from '../components/WhoWeServe';
+import LatestArticles from '../components/LatestArticles';
+import Services from '../components/Services';
 import SEO from '../components/SEO';
-const TeamSection = lazy(() => import('../components/TeamSection'));
+import TeamSection from '../components/TeamSection';
 
 const Home: React.FC = () => {
     return (
