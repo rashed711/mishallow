@@ -2,6 +2,8 @@
 
 المستودع الرسمي للموقع الإلكتروني والبنية الرقمية لشركة مشعل بادغيش للمحاماة والاستشارات القانونية (مكة المكرمة وجدة).
 
+> **مرجع المشروع المعتمد:** راجع [PROJECT_TRUTH.md](./PROJECT_TRUTH.md) للبيانات المؤكدة، وحدود العمل على الفروع، والقرارات الحالية، وسجل التعديلات. عند تعارض معلومة تاريخية مع هذا الملف، تُقدَّم المعلومة الأحدث المعتمدة فيه.
+
 ---
 
 ## Overview
@@ -39,7 +41,7 @@ The project is built as a high-performance, statically pre-rendered React applic
 ├── components/          # Reusable UI components, layout, header, footer, modals, and SVG icons
 │   └── icons/           # Specialized legal practice SVG icons
 ├── data/                # Authoritative data sources and single source of truth
-│   ├── articles.ts      # 28 comprehensive legal articles with semantic H2 headings
+│   ├── articles.ts      # 31 legal articles with semantic H2 headings
 │   ├── quickServices.ts # 7 quick advisory services
 │   ├── services.ts      # 13 core specialized legal services and 52 procedural FAQs
 │   ├── siteSchema.ts    # Single authoritative Schema.org entity graph and business metadata
