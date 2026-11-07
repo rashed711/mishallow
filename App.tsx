@@ -168,6 +168,34 @@ const App: React.FC = () => {
     };
   }, []);
 
+  // ─── GA4 contact-channel click tracking ────────────────────────────────────
+  // Delegated listener covers static and dynamically rendered contact links.
+  useEffect(() => {
+    const handleContactLinkClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const link = target.closest('a[href]') as HTMLAnchorElement | null;
+      if (!link) return;
+
+      const href = link.getAttribute('href') || '';
+      const isPhone = /^tel:/i.test(href);
+      const isWhatsApp = /^https?:\/\/(?:wa\.me|api\.whatsapp\.com)\//i.test(href);
+      if (!isPhone && !isWhatsApp) return;
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', isPhone ? 'phone_click' : 'whatsapp_click', {
+          method: isPhone ? 'phone' : 'whatsapp',
+          link_url: link.href,
+          page_path: window.location.pathname,
+        });
+      }
+    };
+
+    document.addEventListener('click', handleContactLinkClick, true);
+    return () => document.removeEventListener('click', handleContactLinkClick, true);
+  }, []);
+
   // ─── GA4 SPA page-view tracking ────────────────────────────────────────────
   // The static gtag snippet in index.html already fires an automatic page_view
   // for the very first HTML document load.  We must NOT fire a second one on
