@@ -172,12 +172,14 @@ allRoutes.forEach(r => {
 
                     // Granular semantic PostalAddress validation
                     assert(orgEntity.address && orgEntity.address['@type'] === 'PostalAddress', `PostalAddress @type is valid in Organization schema for ${r.path}`);
-                    assert(orgEntity.address && orgEntity.address.streetAddress === 'شارع عبدالله بن عباس، ولي العهد', `PostalAddress streetAddress is semantically partitioned ('شارع عبدالله بن عباس، ولي العهد') for ${r.path}`);
+                    assert(orgEntity.address && orgEntity.address.streetAddress === 'شارع عبد الله بن عباس، بجوار نادي ستار تراك', `User-confirmed street and landmark in Organization schema for ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressLocality === 'Makkah', `Authoritative Makkah locality in Organization schema for ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressRegion === 'Makkah Province', `Authoritative Makkah Province region in Organization schema for ${r.path}`);
-                    assert(orgEntity.address && orgEntity.address.postalCode === '24353', `Authoritative postalCode 24353 in Organization schema for ${r.path}`);
+                    assert(orgEntity.address && !orgEntity.address.postalCode, `Unconfirmed postal code is omitted from Organization schema for ${r.path}`);
                     assert(orgEntity.address && orgEntity.address.addressCountry === 'SA', `Authoritative addressCountry SA in Organization schema for ${r.path}`);
-                    assert(orgEntity.geo && orgEntity.geo.latitude === 21.3719559 && orgEntity.geo.longitude === 39.7920768, `Verified GPS coordinates in Organization schema for ${r.path}`);
+                    assert(!orgEntity.geo, `Unconfirmed GPS coordinates are omitted from Organization schema for ${r.path}`);
+                    assert(orgEntity.telephone === '+966568000085', `Confirmed business telephone is present in Organization schema for ${r.path}`);
+                    assert(orgEntity.email === 'info@mishal-lawfirm.com', `Confirmed business email is present in Organization schema for ${r.path}`);
                     assert(orgEntity.currenciesAccepted === 'SAR', `Authoritative currency SAR in Organization schema for ${r.path}`);
                     assert(Array.isArray(orgEntity.openingHoursSpecification) && orgEntity.openingHoursSpecification.length > 0, `OpeningHoursSpecification present in Organization schema for ${r.path}`);
                     assert(Array.isArray(orgEntity.areaServed) && orgEntity.areaServed.length === 2, `AreaServed has exactly Makkah and Jeddah for ${r.path}`);
@@ -323,6 +325,11 @@ if (fs.existsSync(homeHtmlPath)) {
     const homeContent = fs.readFileSync(homeHtmlPath, 'utf8');
     assert(homeContent.includes('href="/services"') || homeContent.includes('href="/about"'), 'Homepage links to main sections');
     assert(homeContent.includes('href="/contact"'), 'Homepage links to contact');
+    assert(homeContent.includes('منهجية عملنا'), 'Homepage SSR includes the How We Work section');
+    assert(homeContent.includes('لماذا تختار شركة'), 'Homepage SSR includes the Why Us section');
+    assert(homeContent.includes('فريق العمل'), 'Homepage SSR includes the team section');
+    assert(homeContent.includes('آخر الرؤى القانونية'), 'Homepage SSR includes latest legal articles');
+    assert(homeContent.includes('/articles/'), 'Homepage SSR includes direct links to individual articles');
 }
 
 const servicesHtmlPath = path.join(DIST_DIR, 'services.html');
@@ -337,6 +344,17 @@ if (fs.existsSync(articlesHtmlPath)) {
     assert(articlesContent.includes('/articles/'), 'Articles hub links to individual articles');
 }
 
+const quickServicesHtmlPath = path.join(DIST_DIR, 'quick-services.html');
+if (fs.existsSync(quickServicesHtmlPath)) {
+    const quickServicesContent = fs.readFileSync(quickServicesHtmlPath, 'utf8');
+    quickServices.forEach(service => {
+        assert(
+            quickServicesContent.includes(`/quick-services/${service.slug}`),
+            `Quick services directory exposes direct crawlable link for ${service.slug}`
+        );
+    });
+}
+
 // 7. Social Links in Rendered HTML QA
 console.log('\n--- 5. Testing Social Media Integration in Footer ---');
 if (fs.existsSync(homeHtmlPath)) {
@@ -348,8 +366,9 @@ if (fs.existsSync(homeHtmlPath)) {
 
 // 8. Authoritative Address & Legacy String Elimination QA
 console.log('\n--- 6. Testing Authoritative Address Presence & Absence of Legacy Strings ---');
-const FULL_ADDRESS = 'شارع عبدالله بن عباس، ولي العهد، مكة المكرمة، المملكة العربية السعودية';
-const LEGACY_LANDMARK = 'ستار تراك';
+const FULL_ADDRESS = 'شارع عبد الله بن عباس، بجوار نادي ستار تراك، مكة المكرمة، المملكة العربية السعودية';
+const SCHEMA_STREET_ADDRESS = 'شارع عبد الله بن عباس، بجوار نادي ستار تراك';
+const OLD_ADDRESS_FRAGMENT = 'شارع عبدالله بن عباس، ولي العهد';
 
 // A. Full address presence in key locations
 if (fs.existsSync(homeHtmlPath)) {
@@ -367,27 +386,28 @@ const footerTsxPath = path.join(__dirname, '../components/Footer.tsx');
 if (fs.existsSync(footerTsxPath)) {
     const footerContent = fs.readFileSync(footerTsxPath, 'utf8');
     assert(footerContent.includes(FULL_ADDRESS), 'Footer.tsx source contains the full authoritative address');
-    assert(!footerContent.includes(LEGACY_LANDMARK), 'Footer.tsx does NOT contain legacy landmark "ستار تراك"');
+    assert(!footerContent.includes(OLD_ADDRESS_FRAGMENT), 'Footer.tsx does NOT contain the superseded address fragment');
 }
 
 const contactPageTsxPath = path.join(__dirname, '../pages/ContactPage.tsx');
 if (fs.existsSync(contactPageTsxPath)) {
     const contactPageContent = fs.readFileSync(contactPageTsxPath, 'utf8');
     assert(contactPageContent.includes(FULL_ADDRESS), 'ContactPage.tsx source contains the full authoritative address');
-    assert(!contactPageContent.includes(LEGACY_LANDMARK), 'ContactPage.tsx does NOT contain legacy landmark "ستار تراك"');
+    assert(!contactPageContent.includes(OLD_ADDRESS_FRAGMENT), 'ContactPage.tsx does NOT contain the superseded address fragment');
 }
 
 const middlewareJsPath = path.join(__dirname, '../functions/_middleware.js');
 if (fs.existsSync(middlewareJsPath)) {
     const middlewareContent = fs.readFileSync(middlewareJsPath, 'utf8');
     assert(middlewareContent.includes(FULL_ADDRESS), 'functions/_middleware.js contains full authoritative address in Markdown responses');
-    assert(!middlewareContent.includes(LEGACY_LANDMARK), 'functions/_middleware.js does NOT contain legacy landmark "ستار تراك"');
+    assert(!middlewareContent.includes(OLD_ADDRESS_FRAGMENT), 'functions/_middleware.js does NOT contain the superseded address fragment');
 }
 
 const siteSchemaPath = path.join(__dirname, '../data/siteSchema.ts');
 if (fs.existsSync(siteSchemaPath)) {
     const siteSchemaContent = fs.readFileSync(siteSchemaPath, 'utf8');
-    assert(!siteSchemaContent.includes(LEGACY_LANDMARK), 'data/siteSchema.ts does NOT contain legacy landmark "ستار تراك"');
+    assert(siteSchemaContent.includes(SCHEMA_STREET_ADDRESS), 'data/siteSchema.ts contains the user-confirmed street and landmark');
+    assert(!siteSchemaContent.includes(OLD_ADDRESS_FRAGMENT), 'data/siteSchema.ts does NOT contain the superseded address fragment');
 }
 
 // B. Scan all generated HTML files in dist/ to ensure NO legacy landmark exists
@@ -401,7 +421,7 @@ if (fs.existsSync(DIST_DIR)) {
             } else if (entry.name.endsWith('.html')) {
                 const htmlContent = fs.readFileSync(fullPath, 'utf8');
                 const cleanRel = path.relative(DIST_DIR, fullPath);
-                assert(!htmlContent.includes(LEGACY_LANDMARK), `Rendered HTML ${cleanRel} does NOT contain legacy landmark "ستار تراك"`);
+                assert(!htmlContent.includes(OLD_ADDRESS_FRAGMENT), `Rendered HTML ${cleanRel} does NOT contain the superseded address fragment`);
             }
         }
     }
