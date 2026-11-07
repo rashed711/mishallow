@@ -234,9 +234,9 @@ async function runProductionValidation() {
 
     if (failedTests > 0) {
         console.log('\n📋 Diagnostic Notes:');
-        console.log('- Local codebase is fully hardened and passes 100% of all local tests.');
-        console.log('- The live remote server (https://mishal-lawfirm.com) currently runs the pre-SSR build.');
-        console.log('- Once branch `seo-authority-build` is pushed and deployed to the production host, re-running `npm run validate:production` will verify all live endpoints.');
+        console.log('- This script checks live production HTTP behavior; it does not build, deploy, or modify Git branches.');
+        console.log('- Diagnose failed checks against the currently approved deployment and its hosting configuration.');
+        console.log('- Re-run this validator only after a deployment explicitly reviewed and approved by the repository owner.');
         process.exit(1);
     } else {
         console.log('\n✨ ALL LIVE PRODUCTION HTTP & ENDPOINT TESTS PASSED SUCCESSFULLY! (STATE B: PRODUCTION VERIFIED)');
