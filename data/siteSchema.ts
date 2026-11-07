@@ -35,17 +35,10 @@ export const BUSINESS_INFO = {
   // Physical Office Location (Makkah Only)
   address: {
     "@type": "PostalAddress",
-    streetAddress: "شارع عبدالله بن عباس، ولي العهد",
+    streetAddress: "شارع عبد الله بن عباس، بجوار نادي ستار تراك",
     addressLocality: "Makkah",
     addressRegion: "Makkah Province",
-    postalCode: "24353",
     addressCountry: "SA"
-  },
-  // Single Authoritative Coordinates
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 21.3719559,
-    longitude: 39.7920768
   },
   // Service Areas (Distinguished from physical office)
   areaServed: [
@@ -159,7 +152,6 @@ export function buildSchemaGraph(params: GenerateGraphParams) {
     "currenciesAccepted": BUSINESS_INFO.currenciesAccepted,
     "paymentAccepted": BUSINESS_INFO.paymentAccepted,
     "address": BUSINESS_INFO.address,
-    "geo": BUSINESS_INFO.geo,
     "areaServed": BUSINESS_INFO.areaServed,
     "founder": { "@id": PERSON_ID },
     "knowsAbout": BUSINESS_INFO.knowsAbout,
